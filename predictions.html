@@ -6,43 +6,57 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
-    <h1>📊 Match Predictions</h1>
-    <p>Daily football & sports betting tips with confidence levels</p>
+    <h1>⚽ Match Predictions</h1>
+    <p>Daily analysis with confidence rating</p>
   </header>
 
   <nav>
     <a href="index.html">Home</a>
     <a href="reviews.html">Bookmaker Reviews</a>
-    <a href="predictions.html" class="active">Match Predictions</a>
-    <a href="strategy.html">Bet Strategy</a>
+    <a href="predictions.html">Match Predictions</a>
+    <a href="strategy.html">Bet Strategies</a>
   </nav>
 
-  <div class="prediction-card">
-    <div class="prediction-header">
-      <span>17 Sep 2025</span> | <span>Football</span> | <span>UEFA Champions League</span>
+  <main>
+    <div class="prediction-card">
+      <h3>Real Madrid vs Barcelona</h3>
+      <p><strong>Date:</strong> 21/09/2025 | <strong>Sport:</strong> Football | <strong>League:</strong> La Liga</p>
+      <p class="bet-type">Bet: Over 2.5 Goals</p>
+      <canvas id="chart1"></canvas>
+      <p class="confidence-label">Confidence</p>
+      <a href="https://your-affiliate-link.com" target="_blank" class="btn-bet">Bet with Bonus</a>
     </div>
-    <h3>Barcelona vs Bayern</h3>
-    <p class="bet-type">Bet: Over 2.5 Goals</p>
-    <canvas id="chart1" width="200" height="200"></canvas>
-    <a href="reviews.html" class="btn-bet">Bet with Bonus</a>
-  </div>
 
-  <div class="prediction-card">
-    <div class="prediction-header">
-      <span>18 Sep 2025</span> | <span>Tennis</span> | <span>ATP Finals</span>
+    <div class="prediction-card">
+      <h3>Juventus vs AC Milan</h3>
+      <p><strong>Date:</strong> 22/09/2025 | <strong>Sport:</strong> Football | <strong>League:</strong> Serie A</p>
+      <p class="bet-type">Bet: Both Teams to Score</p>
+      <canvas id="chart2"></canvas>
+      <p class="confidence-label">Confidence</p>
+      <a href="https://your-affiliate-link.com" target="_blank" class="btn-bet">Bet with Bonus</a>
     </div>
-    <h3>Djokovic vs Alcaraz</h3>
-    <p class="bet-type">Bet: Djokovic to Win</p>
-    <canvas id="chart2" width="200" height="200"></canvas>
-    <a href="reviews.html" class="btn-bet">Bet with Bonus</a>
+  </main>
+
+  <!-- affiliate slike nad footerjem -->
+  <div class="affiliate-banners">
+    <a href="https://refpa483247.pro/L?tag=d_4666247m_1599c_&site=4666247&ad=1599" target="_blank">
+      <img src="1xbet.gif" alt="1xBet Bonus">
+    </a>
+    <a href="https://your-affiliate-link.com/sportaza" target="_blank">
+      <img src="IMG_3372.webp" alt="Sportaza Bonus">
+    </a>
+    <a href="https://promo.20bet.partners/redirect.aspx?pid=389794&bid=2044" target="_blank">
+      <img src="https://promo.20bet.partners/renderimage.aspx?pid=389794&bid=2044" alt="20Bet Bonus">
+    </a>
   </div>
 
   <footer>
     <p>© 2025 Betting Tips & Reviews. All rights reserved.</p>
+    <p>Contact: <a href="mailto:info@ai77sports.com">info@ai77sports.com</a></p>
   </footer>
-  <script src="script.js"></script>
 </body>
 </html>
