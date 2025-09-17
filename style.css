@@ -286,7 +286,7 @@ footer a:hover {
     align-items: center;
   }
   .affiliate-banners a img {
-    max-height: 70px;
+    max-height: 200px;
   }
   .review-card {
     padding: 20px;
