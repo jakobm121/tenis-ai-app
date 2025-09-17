@@ -133,87 +133,106 @@ nav a:hover {
   margin-top: 20px;
 }
 
-/* Reviews - bookmakerji */
-.review-card {
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 900px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  display: flex;
-  align-items: center;
+/* Bookmakers Grid */
+.bookmakers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 20px;
 }
 
-.review-card img {
+/* Card */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-logo img {
   max-width: 200px;
-  margin: 0 auto 20px;
-  border-radius: 8px;
+  max-height: 100px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 15px;
 }
 
-.review-content {
-  flex: 1;
+.card h3 {
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
-.review-content h3 {
-  margin: 0 0 10px;
-  font-size: 1.5rem;
-}
-
-.rating {
-  color: gold;
-  font-size: 1.1rem;
-  margin-left: 10px;
-}
-
-.welcome-bonus {
-  background: #e6f9ec;
-  border-left: 5px solid #28a745;
-  padding: 8px 12px;
-  margin-bottom: 15px;
+.card .rating {
+  font-size: 0.9rem;
   font-weight: 600;
+  color: #0077b6;
+  margin-left: 8px;
+}
+
+/* Welcome Bonus */
+.welcome-bonus {
+  background: #d4edda;
   color: #155724;
-  border-radius: 4px;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* Pros & Cons */
+.pros-cons {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
 .pros, .cons {
-  list-style: none;
-  padding-left: 0;
-  margin-bottom: 10px;
-  font-size: 0.95rem;
-  text-align: left;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
+  flex: 1;
+  background: #f1f9ff;
+  padding: 10px;
+  border-radius: 6px;
 }
 
-.pros li::before {
-  content: "✔ ";
-  color: #28a745;
-  font-weight: bold;
+.pros h4, .cons h4 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #0077b6;
 }
 
-.cons li::before {
-  content: "✘ ";
-  color: #dc3545;
-  font-weight: bold;
+.pros ul, .cons ul {
+  padding-left: 20px;
+  margin: 0;
+  font-size: 0.9rem;
 }
 
-.review-content .btn-review {
+/* Button */
+.btn-wrapper {
+  text-align: center;
+  margin-top: auto;
+}
+
+.btn {
   display: inline-block;
-  padding: 12px 25px;
-  background: #007bff;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-  margin-top: 10px;
+  background: #0077b6;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background 0.2s ease-in-out;
 }
 
-.review-content .btn-review:hover {
-  background: #0056b3;
+.btn:hover {
+  background: #023e8a;
 }
 
 /* Strategy (collapsible) */
