@@ -1,0 +1,158 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f8f9fa;
+  color: #333;
+}
+
+.navbar {
+  background: #023e8a;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar a.active {
+  text-decoration: underline;
+}
+
+.hero {
+  text-align: center;
+  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  color: white;
+  padding: 60px 20px;
+}
+
+.banners {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.banners img {
+  max-width: 300px;
+  border-radius: 8px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #0077b6;
+}
+
+.bookmakers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card-logo img {
+  max-width: 150px;
+  max-height: 80px;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+}
+
+.card h3 {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.rating {
+  font-size: 0.9rem;
+  color: #0077b6;
+}
+
+.welcome-bonus {
+  background: #d4edda;
+  color: #155724;
+  padding: 8px;
+  text-align: center;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.pros-cons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.pros, .cons {
+  flex: 1;
+  padding: 10px;
+  background: #f1f9ff;
+  border-radius: 5px;
+}
+
+.btn-wrapper {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.btn {
+  display: inline-block;
+  background: #0077b6;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+}
+
+footer {
+  background: #023e8a;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.accordion-btn {
+  width: 100%;
+  background: #0077b6;
+  color: white;
+  padding: 15px;
+  text-align: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.accordion-content {
+  display: none;
+  background: #f1f9ff;
+  padding: 15px;
+  border-radius: 5px;
+}
