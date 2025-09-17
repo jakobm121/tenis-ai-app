@@ -1,158 +1,163 @@
+/* General Reset */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f8f9fa;
+  background: #f7f7f7;
   color: #333;
+  line-height: 1.6;
 }
 
-.navbar {
-  background: #023e8a;
-  color: white;
-  padding: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.navbar ul {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.navbar a.active {
-  text-decoration: underline;
-}
-
+/* Hero Banner */
 .hero {
   text-align: center;
-  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  background: linear-gradient(120deg, #1e3c72, #2a5298);
   color: white;
-  padding: 60px 20px;
+  padding: 3rem 1rem;
+}
+.hero.small {
+  padding: 2rem 1rem;
+}
+.hero h1 {
+  margin: 0 0 1rem;
+}
+.hero p {
+  margin-bottom: 1.5rem;
+}
+.cta-btn {
+  background: #28a745;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
 }
 
-.banners {
+/* Navigation */
+nav {
+  background: #222;
+}
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: center;
-  gap: 20px;
-  padding: 20px;
 }
-
-.banners img {
-  max-width: 300px;
-  border-radius: 8px;
+nav ul li {
+  margin: 0 15px;
 }
-
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 40px 20px;
-}
-
-.section-title {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 2rem;
-  color: #0077b6;
-}
-
-.bookmakers {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
-}
-
-.card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.card-logo img {
-  max-width: 150px;
-  max-height: 80px;
-  object-fit: contain;
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 1rem;
   display: block;
+}
+nav ul li a.active,
+nav ul li a:hover {
+  background: #444;
+  border-radius: 5px;
+}
+
+/* Sections */
+main {
+  padding: 2rem 1rem;
+  max-width: 1000px;
   margin: auto;
 }
-
-.card h3 {
+.welcome {
   text-align: center;
-  margin: 10px 0;
 }
 
+/* Bookmaker Cards */
+.reviews .bookmaker {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.bookmaker img {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 1rem;
+}
+.bookmaker h2 {
+  margin: 0.5rem 0;
+}
 .rating {
   font-size: 0.9rem;
-  color: #0077b6;
+  color: #666;
 }
-
 .welcome-bonus {
-  background: #d4edda;
-  color: #155724;
-  padding: 8px;
-  text-align: center;
+  background: #28a745;
+  color: white;
+  padding: 0.5rem;
   border-radius: 5px;
-  margin-bottom: 15px;
-  font-weight: bold;
+  margin: 0.5rem 0 1rem;
 }
-
 .pros-cons {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
-}
-
-.pros, .cons {
-  flex: 1;
-  padding: 10px;
-  background: #f1f9ff;
-  border-radius: 5px;
-}
-
-.btn-wrapper {
-  text-align: center;
-  margin-top: 15px;
-}
-
-.btn {
-  display: inline-block;
-  background: #0077b6;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 6px;
-}
-
-footer {
-  background: #023e8a;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  margin-top: 40px;
-}
-
-.accordion-btn {
-  width: 100%;
-  background: #0077b6;
-  color: white;
-  padding: 15px;
   text-align: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-weight: bold;
-  margin-top: 10px;
+}
+.pros { color: green; }
+.cons { color: red; }
+.visit-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.7rem 1.2rem;
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
 }
 
-.accordion-content {
-  display: none;
-  background: #f1f9ff;
-  padding: 15px;
+/* Predictions */
+.prediction {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.confidence-bar {
+  background: #ddd;
+  border-radius: 5px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+.confidence-bar span {
+  display: block;
+  background: #28a745;
+  color: white;
+  padding: 0.3rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Strategy */
+.strategy article {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  background: #222;
+  color: white;
+  padding: 1rem;
+}
+.affiliate-banners {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.affiliate-banners img {
+  max-width: 250px;
   border-radius: 5px;
 }
