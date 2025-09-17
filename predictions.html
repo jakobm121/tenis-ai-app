@@ -2,56 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Match Predictions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <header class="hero small">
-    <h1>Match Predictions</h1>
-    <p>Daily football tips with confidence ratings</p>
+  <header>
+    <h1>📊 Match Predictions</h1>
+    <p>Daily football & sports betting tips with confidence levels</p>
   </header>
 
   <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="reviews.html">Bookmaker Reviews</a></li>
-      <li><a href="predictions.html" class="active">Match Predictions</a></li>
-      <li><a href="strategy.html">Bet Strategy</a></li>
-    </ul>
+    <a href="index.html">Home</a>
+    <a href="reviews.html">Bookmaker Reviews</a>
+    <a href="predictions.html" class="active">Match Predictions</a>
+    <a href="strategy.html">Bet Strategy</a>
   </nav>
 
-  <main class="predictions">
-    <article class="prediction">
-      <h2>Real Madrid vs Barcelona</h2>
-      <p><strong>Date:</strong> 20 Sept 2025 | <strong>Sport:</strong> Football | <strong>League:</strong> La Liga</p>
-      <p class="analysis">El Clásico promises goals. Real Madrid’s attack is strong, but Barcelona’s defense looks shaky.</p>
-      <div class="confidence-bar"><span style="width:80%">80% Confidence</span></div>
-      <p><strong>Tip:</strong> Over 2.5 goals</p>
-      <a href="#" class="visit-btn">Bet with Bonus</a>
-    </article>
+  <div class="prediction-card">
+    <div class="prediction-header">
+      <span>17 Sep 2025</span> | <span>Football</span> | <span>UEFA Champions League</span>
+    </div>
+    <h3>Barcelona vs Bayern</h3>
+    <p class="bet-type">Bet: Over 2.5 Goals</p>
+    <canvas id="chart1" width="200" height="200"></canvas>
+    <a href="reviews.html" class="btn-bet">Bet with Bonus</a>
+  </div>
 
-    <article class="prediction">
-      <h2>Manchester City vs Liverpool</h2>
-      <p><strong>Date:</strong> 21 Sept 2025 | <strong>Sport:</strong> Football | <strong>League:</strong> Premier League</p>
-      <p class="analysis">Both teams are in top form, expect attacking football.</p>
-      <div class="confidence-bar"><span style="width:70%">70% Confidence</span></div>
-      <p><strong>Tip:</strong> Both Teams to Score</p>
-      <a href="#" class="visit-btn">Bet with Bonus</a>
-    </article>
-
-    <article class="prediction">
-      <h2>Bayern Munich vs Dortmund</h2>
-      <p><strong>Date:</strong> 22 Sept 2025 | <strong>Sport:</strong> Football | <strong>League:</strong> Bundesliga</p>
-      <p class="analysis">Bayern strong at home, Dortmund relies on counter-attacks.</p>
-      <div class="confidence-bar"><span style="width:75%">75% Confidence</span></div>
-      <p><strong>Tip:</strong> Bayern to Win</p>
-      <a href="#" class="visit-btn">Bet with Bonus</a>
-    </article>
-  </main>
+  <div class="prediction-card">
+    <div class="prediction-header">
+      <span>18 Sep 2025</span> | <span>Tennis</span> | <span>ATP Finals</span>
+    </div>
+    <h3>Djokovic vs Alcaraz</h3>
+    <p class="bet-type">Bet: Djokovic to Win</p>
+    <canvas id="chart2" width="200" height="200"></canvas>
+    <a href="reviews.html" class="btn-bet">Bet with Bonus</a>
+  </div>
 
   <footer>
     <p>© 2025 Betting Tips & Reviews. All rights reserved.</p>
   </footer>
+  <script src="script.js"></script>
 </body>
 </html>
