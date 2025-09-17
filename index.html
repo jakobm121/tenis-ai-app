@@ -7,39 +7,53 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Hero Banner -->
+  <!-- HEADER -->
   <header class="hero">
-    <h1>⚽ Betting Tips & Bookmaker Reviews</h1>
-    <p>Your trusted source for betting predictions & bookmaker insights</p>
-    <a href="predictions.html" class="cta-btn">See Today’s Predictions</a>
+    <div class="hero-content">
+      <h1>⚽ Betting Tips & Bookmaker Reviews</h1>
+      <p>Your trusted source for betting predictions & bookmaker insights</p>
+      <a href="#predictions" class="cta-btn">See Today’s Predictions</a>
+    </div>
   </header>
 
-  <!-- Navigation -->
-  <nav>
-    <ul>
+  <!-- NAVIGATION -->
+  <nav class="navbar">
+    <div class="logo">Betting Tips</div>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="reviews.html">Bookmaker Reviews</a></li>
       <li><a href="predictions.html">Match Predictions</a></li>
-      <li><a href="strategy.html">Bet Strategy</a></li>
+      <li><a href="strategy.html">Bet Strategies</a></li>
     </ul>
   </nav>
 
-  <!-- Welcome Section -->
+  <!-- MAIN -->
   <main>
-    <section class="welcome">
+    <section class="intro">
       <h2>Welcome to Betting Tips</h2>
       <p>Daily predictions, bookmaker reviews, and betting strategies to maximize your success.</p>
     </section>
   </main>
 
-  <!-- Affiliate Banners -->
+  <!-- FOOTER BANNERS -->
+  <section class="affiliates">
+    <a href="https://1xbet.com" target="_blank">
+      <img src="images/1xbet-banner.jpg" alt="1XBET Bonus">
+    </a>
+    <a href="https://20bet.com" target="_blank">
+      <img src="images/20bet-banner.jpg" alt="20Bet Bonus">
+    </a>
+    <a href="https://sportaza.com" target="_blank">
+      <img src="images/sportaza-banner.jpg" alt="Sportaza Bonus">
+    </a>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <div class="affiliate-banners">
-      <a href="#"><img src="https://via.placeholder.com/300x100?text=1XBET" alt="1XBET"></a>
-      <a href="#"><img src="https://via.placeholder.com/300x100?text=20BET" alt="20BET"></a>
-      <a href="#"><img src="https://via.placeholder.com/300x100?text=BETWINNER" alt="Betwinner"></a>
-    </div>
     <p>© 2025 Betting Tips & Reviews. All rights reserved.</p>
   </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
