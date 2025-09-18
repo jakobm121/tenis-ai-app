@@ -2,13 +2,14 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #121212;
-  color: #f8f9fa;
+  background: #ffffff; /* belo ozadje */
+  color: #333;
   line-height: 1.6;
 }
 
 h1, h2, h3, h4 {
-  margin: 0 0 10px;
+  margin: 0 0 15px;
+  text-align: center; /* centrirani naslovi */
 }
 
 a {
@@ -20,6 +21,7 @@ a {
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
+  background: #fff; /* vsebina na belem ozadju */
 }
 
 /* Header */
