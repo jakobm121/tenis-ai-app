@@ -26,7 +26,8 @@ a {
 
 /* Header */
 header {
-  background: linear-gradient(135deg, #000, #1c1c1c);
+  background: url('banner1.png') center/cover no-repeat;
+  color: white;
   text-align: center;
   padding: 50px 20px;
   color: #fff;
