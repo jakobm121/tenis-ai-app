@@ -2,64 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Match Predictions</title>
+  <title>AI77 Betting | Predictions</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="predictions.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js" defer></script>
 </head>
 <body>
-  <header class="hero">
-    <h1>📊 Match Predictions</h1>
-    <p>Daily tips powered by analysis & stats.</p>
+  <header>
+    <h1>🎯 Match Predictions</h1>
+    <p>AI-driven insights for today’s matches</p>
   </header>
 
   <nav>
     <a href="index.html">Home</a>
+    <a href="predictions.html">Match Predictions</a>
     <a href="reviews.html">Bookmaker Reviews</a>
-    <a href="predictions.html" class="active">Match Predictions</a>
     <a href="strategy.html">Betting Strategies</a>
   </nav>
 
   <main class="container">
-    <h2 class="section-title">Today’s Predictions</h2>
-
-    <!-- Prediction card -->
     <div class="prediction-card">
-      <div class="match-header">18/09/2025 | Football | Champions League</div>
-      <h3>Real Madrid vs Bayern Munich</h3>
-      <p class="bet-type">Tip: Real Madrid to Win</p>
+      <h3>19 Sep 2025 | Football | Premier League</h3>
+      <p class="league">Manchester City vs Arsenal</p>
+      <p class="bet-type">Bet: Over 2.5 Goals</p>
       <canvas id="chart1"></canvas>
-      <p class="confidence">Confidence: 72%</p>
-      <a href="https://refpa649012.pro/L?tag=d_4666247m_1599c_" class="btn-bet">Bet with Bonus</a>
+      <p class="confidence-label">Confidence</p>
+      <a href="reviews.html" class="btn">Bet with Bonus</a>
     </div>
 
     <div class="prediction-card">
-      <div class="match-header">18/09/2025 | Football | Premier League</div>
-      <h3>Arsenal vs Chelsea</h3>
-      <p class="bet-type">Tip: Over 2.5 Goals</p>
+      <h3>19 Sep 2025 | Basketball | EuroLeague</h3>
+      <p class="league">Real Madrid vs Fenerbahce</p>
+      <p class="bet-type">Bet: Real Madrid -5.5</p>
       <canvas id="chart2"></canvas>
-      <p class="confidence">Confidence: 68%</p>
-      <a href="https://promo.20bet.partners/redirect.aspx?pid=389482&bid=2044" class="btn-bet">Bet with Bonus</a>
+      <p class="confidence-label">Confidence</p>
+      <a href="reviews.html" class="btn">Bet with Bonus</a>
     </div>
 
     <div class="prediction-card">
-      <div class="match-header">18/09/2025 | Tennis | ATP Finals</div>
-      <h3>Novak Djokovic vs Carlos Alcaraz</h3>
-      <p class="bet-type">Tip: Djokovic to Win 2-1</p>
+      <h3>19 Sep 2025 | Tennis | ATP Tour</h3>
+      <p class="league">Djokovic vs Alcaraz</p>
+      <p class="bet-type">Bet: Djokovic to Win</p>
       <canvas id="chart3"></canvas>
-      <p class="confidence">Confidence: 64%</p>
-      <a href="https://stzns.naralvin.com/?mid=309891_1835232" class="btn-bet">Bet with Bonus</a>
+      <p class="confidence-label">Confidence</p>
+      <a href="reviews.html" class="btn">Bet with Bonus</a>
     </div>
   </main>
 
   <div class="affiliate-banners">
-    <a href="https://refpa649012.pro/L?tag=d_4666247m_1599c_" target="_blank"><img src="1xbet.gif"></a>
-    <a href="https://stzns.naralvin.com/?mid=309891_1835232" target="_blank"><img src="IMG_3372.webp"></a>
-    <a href="https://promo.20bet.partners/redirect.aspx?pid=389482&bid=2044" target="_blank"><img src="IMG_3380.jpeg"></a>
+    <a href="#"><img src="1xbet.gif" alt="1xBet Bonus"></a>
+    <a href="#"><img src="IMG_3372.webp" alt="Sportaza Bonus"></a>
+    <a href="#"><img src="IMG_3380.jpeg" alt="20Bet Bonus"></a>
   </div>
 
   <footer>
-    <p>© 2025 Betting Tips & Reviews</p>
+    <p>© 2025 AI-77 Betting. All rights reserved.</p>
   </footer>
+
+  <script>
+    function makeChart(id, val) {
+      new Chart(document.getElementById(id), {
+        type: 'doughnut',
+        data: {
+          labels: ['Confidence', 'Other'],
+          datasets: [{
+            data: [val, 100 - val],
+            backgroundColor: ['#28a745', '#e0e0e0']
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          cutout: '70%'
+        }
+      });
+    }
+    makeChart('chart1', 78);
+    makeChart('chart2', 65);
+    makeChart('chart3', 72);
+  </script>
 </body>
 </html>
