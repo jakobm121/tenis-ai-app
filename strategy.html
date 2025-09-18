@@ -2,79 +2,60 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AI-77 | Betting Strategies</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Betting Strategies</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Hero -->
   <header class="hero">
-    <h1>📘 Betting Strategies</h1>
-    <p>Smart approaches to maximize long-term profit.</p>
+    <h1>📖 Betting Strategies</h1>
+    <p>Proven betting approaches explained simply.</p>
   </header>
 
-  <!-- Navigation -->
   <nav>
     <a href="index.html">Home</a>
     <a href="reviews.html">Bookmaker Reviews</a>
     <a href="predictions.html">Match Predictions</a>
-    <a href="strategy.html">Bet Strategies</a>
+    <a href="strategy.html" class="active">Betting Strategies</a>
   </nav>
 
-  <!-- Content -->
   <main class="container">
-    <h2 class="section-title">Our Strategies</h2>
+    <h2 class="section-title">Popular Strategies</h2>
 
     <div class="strategy-card">
-      <h3>🎁 Bonus Exploitation</h3>
-      <div class="content">
-        Always use welcome and reload bonuses. They reduce your risk and help you build your bankroll faster. 
-        Focus on crypto bonuses for extra value.
-      </div>
+      <button class="accordion">🎁 Bonus Strategy</button>
+      <div class="panel"><p>Take advantage of bookmaker welcome offers, reloads, and cashback promos to reduce risk and increase bankroll growth.</p></div>
     </div>
 
     <div class="strategy-card">
-      <h3>📊 Value Betting</h3>
-      <div class="content">
-        Identify when bookmaker odds undervalue an outcome. Place bets only when you have an edge compared to true probabilities.
-      </div>
+      <button class="accordion">📈 Value Betting</button>
+      <div class="panel"><p>Look for odds that underestimate the true probability of an outcome. Over time, this approach beats the market.</p></div>
     </div>
 
     <div class="strategy-card">
-      <h3>⚡ Bankroll Management</h3>
-      <div class="content">
-        Never risk more than 2–5% of your bankroll on one bet. This ensures you survive variance and stay profitable long-term.
-      </div>
+      <button class="accordion">🔄 Arbitrage</button>
+      <div class="panel"><p>By betting on all outcomes across different bookmakers, you can lock in guaranteed profits.</p></div>
+    </div>
+
+    <div class="strategy-card">
+      <button class="accordion">💰 Bankroll Management</button>
+      <div class="panel"><p>Control risk with staking plans (flat, % of bankroll, or Kelly criterion). Never risk more than you can afford.</p></div>
+    </div>
+
+    <div class="strategy-card">
+      <button class="accordion">⚡ Live Betting Strategy</button>
+      <div class="panel"><p>Capitalize on shifting odds in-play, especially after goals, cards, or momentum changes.</p></div>
     </div>
   </main>
 
-  <!-- Affiliate banners -->
   <div class="affiliate-banners">
-    <a href="https://promo.20bet.partners/redirect.aspx?pid=389482&bid=2044" target="_blank">
-      <img src="IMG_3380.jpeg" alt="20Bet Bonus">
-    </a>
-    <a href="https://refpa649012.pro/L?tag=d_4666247m_1599c_&site=4666247&ad=1599" target="_blank">
-      <img src="1xbet.gif" alt="1xBet Bonus">
-    </a>
-    <a href="https://stzns.naralvin.com/?mid=309891_1835232" target="_blank">
-      <img src="IMG_3372.webp" alt="Sportaza Bonus">
-    </a>
+    <a href="https://refpa649012.pro/L?tag=d_4666247m_1599c_" target="_blank"><img src="1xbet.gif"></a>
+    <a href="https://stzns.naralvin.com/?mid=309891_1835232" target="_blank"><img src="IMG_3372.webp"></a>
+    <a href="https://promo.20bet.partners/redirect.aspx?pid=389482&bid=2044" target="_blank"><img src="IMG_3380.jpeg"></a>
   </div>
 
-  <!-- Footer -->
   <footer>
-    <p>© 2025 AI-77 Betting. All rights reserved.</p>
-    <p>Contact: <a href="mailto:info@ai77sports.com">info@ai77sports.com</a></p>
+    <p>© 2025 Betting Tips & Reviews</p>
   </footer>
-
-  <!-- Script for accordion -->
-  <script>
-    const strategies = document.querySelectorAll('.strategy-card');
-    strategies.forEach(card => {
-      card.addEventListener('click', () => {
-        card.classList.toggle('active');
-      });
-    });
-  </script>
 </body>
 </html>

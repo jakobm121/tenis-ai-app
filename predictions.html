@@ -2,74 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>AI-77 | Match Predictions</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Match Predictions</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Hero -->
   <header class="hero">
-    <h1>⚡ Match Predictions</h1>
-    <p>Daily football predictions powered by analysis & AI models.</p>
+    <h1>📊 Match Predictions</h1>
+    <p>Daily tips powered by analysis & stats.</p>
   </header>
 
-  <!-- Navigation -->
   <nav>
     <a href="index.html">Home</a>
     <a href="reviews.html">Bookmaker Reviews</a>
-    <a href="predictions.html">Match Predictions</a>
-    <a href="strategy.html">Bet Strategies</a>
+    <a href="predictions.html" class="active">Match Predictions</a>
+    <a href="strategy.html">Betting Strategies</a>
   </nav>
 
-  <!-- Content -->
   <main class="container">
     <h2 class="section-title">Today’s Predictions</h2>
 
+    <!-- Prediction card -->
     <div class="prediction-card">
-      <div class="prediction-header">18 Sep 2025 | Football | Champions League</div>
+      <div class="match-header">18/09/2025 | Football | Champions League</div>
       <h3>Real Madrid vs Bayern Munich</h3>
-      <p class="bet-type">Bet: Over 2.5 Goals</p>
+      <p class="bet-type">Tip: Real Madrid to Win</p>
       <canvas id="chart1"></canvas>
-      <div class="confidence-label">Confidence</div>
-      <a href="#" class="btn-bet">Bet with Bonus</a>
+      <p class="confidence">Confidence: 72%</p>
+      <a href="https://refpa649012.pro/L?tag=d_4666247m_1599c_" class="btn-bet">Bet with Bonus</a>
     </div>
 
-    <!-- Add more prediction cards -->
+    <div class="prediction-card">
+      <div class="match-header">18/09/2025 | Football | Premier League</div>
+      <h3>Arsenal vs Chelsea</h3>
+      <p class="bet-type">Tip: Over 2.5 Goals</p>
+      <canvas id="chart2"></canvas>
+      <p class="confidence">Confidence: 68%</p>
+      <a href="https://promo.20bet.partners/redirect.aspx?pid=389482&bid=2044" class="btn-bet">Bet with Bonus</a>
+    </div>
+
+    <div class="prediction-card">
+      <div class="match-header">18/09/2025 | Tennis | ATP Finals</div>
+      <h3>Novak Djokovic vs Carlos Alcaraz</h3>
+      <p class="bet-type">Tip: Djokovic to Win 2-1</p>
+      <canvas id="chart3"></canvas>
+      <p class="confidence">Confidence: 64%</p>
+      <a href="https://stzns.naralvin.com/?mid=309891_1835232" class="btn-bet">Bet with Bonus</a>
+    </div>
   </main>
 
-  <!-- Affiliate banners -->
   <div class="affiliate-banners">
-    <a href="https://promo.20bet.partners/redirect.aspx?pid=389482&bid=2044" target="_blank">
-      <img src="IMG_3380.jpeg" alt="20Bet Bonus">
-    </a>
-    <a href="https://refpa649012.pro/L?tag=d_4666247m_1599c_&site=4666247&ad=1599" target="_blank">
-      <img src="1xbet.gif" alt="1xBet Bonus">
-    </a>
-    <a href="https://stzns.naralvin.com/?mid=309891_1835232" target="_blank">
-      <img src="IMG_3372.webp" alt="Sportaza Bonus">
-    </a>
+    <a href="https://refpa649012.pro/L?tag=d_4666247m_1599c_" target="_blank"><img src="1xbet.gif"></a>
+    <a href="https://stzns.naralvin.com/?mid=309891_1835232" target="_blank"><img src="IMG_3372.webp"></a>
+    <a href="https://promo.20bet.partners/redirect.aspx?pid=389482&bid=2044" target="_blank"><img src="IMG_3380.jpeg"></a>
   </div>
 
-  <!-- Footer -->
   <footer>
-    <p>© 2025 AI-77 Betting. All rights reserved.</p>
-    <p>Contact: <a href="mailto:info@ai77sports.com">info@ai77sports.com</a></p>
+    <p>© 2025 Betting Tips & Reviews</p>
   </footer>
-
-  <!-- Chart.js Example -->
-  <script>
-    const ctx1 = document.getElementById('chart1');
-    new Chart(ctx1, {
-      type: 'doughnut',
-      data: {
-        labels: ['Win', 'Draw', 'Lose'],
-        datasets: [{
-          data: [65, 20, 15],
-          backgroundColor: ['#28a745', '#ffc107', '#dc3545']
-        }]
-      }
-    });
-  </script>
 </body>
 </html>
