@@ -2,18 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Match Predictions</title>
+  <title>AI-77 | Match Predictions</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="script.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>⚽ Match Predictions</h1>
-    <p>Daily analysis with confidence rating</p>
+  <!-- Hero -->
+  <header class="hero">
+    <h1>⚡ Match Predictions</h1>
+    <p>Daily football predictions powered by analysis & AI models.</p>
   </header>
 
+  <!-- Navigation -->
   <nav>
     <a href="index.html">Home</a>
     <a href="reviews.html">Bookmaker Reviews</a>
@@ -21,42 +22,54 @@
     <a href="strategy.html">Bet Strategies</a>
   </nav>
 
-  <main>
+  <!-- Content -->
+  <main class="container">
+    <h2 class="section-title">Today’s Predictions</h2>
+
     <div class="prediction-card">
-      <h3>Real Madrid vs Barcelona</h3>
-      <p><strong>Date:</strong> 21/09/2025 | <strong>Sport:</strong> Football | <strong>League:</strong> La Liga</p>
+      <div class="prediction-header">18 Sep 2025 | Football | Champions League</div>
+      <h3>Real Madrid vs Bayern Munich</h3>
       <p class="bet-type">Bet: Over 2.5 Goals</p>
       <canvas id="chart1"></canvas>
-      <p class="confidence-label">Confidence</p>
-      <a href="https://your-affiliate-link.com" target="_blank" class="btn-bet">Bet with Bonus</a>
+      <div class="confidence-label">Confidence</div>
+      <a href="#" class="btn-bet">Bet with Bonus</a>
     </div>
 
-    <div class="prediction-card">
-      <h3>Juventus vs AC Milan</h3>
-      <p><strong>Date:</strong> 22/09/2025 | <strong>Sport:</strong> Football | <strong>League:</strong> Serie A</p>
-      <p class="bet-type">Bet: Both Teams to Score</p>
-      <canvas id="chart2"></canvas>
-      <p class="confidence-label">Confidence</p>
-      <a href="https://your-affiliate-link.com" target="_blank" class="btn-bet">Bet with Bonus</a>
-    </div>
+    <!-- Add more prediction cards -->
   </main>
 
-  <!-- affiliate slike nad footerjem -->
+  <!-- Affiliate banners -->
   <div class="affiliate-banners">
-    <a href="https://refpa483247.pro/L?tag=d_4666247m_1599c_&site=4666247&ad=1599" target="_blank">
+    <a href="https://promo.20bet.partners/redirect.aspx?pid=389482&bid=2044" target="_blank">
+      <img src="IMG_3380.jpeg" alt="20Bet Bonus">
+    </a>
+    <a href="https://refpa649012.pro/L?tag=d_4666247m_1599c_&site=4666247&ad=1599" target="_blank">
       <img src="1xbet.gif" alt="1xBet Bonus">
     </a>
-    <a href="https://your-affiliate-link.com/sportaza" target="_blank">
+    <a href="https://stzns.naralvin.com/?mid=309891_1835232" target="_blank">
       <img src="IMG_3372.webp" alt="Sportaza Bonus">
-    </a>
-    <a href="https://promo.20bet.partners/redirect.aspx?pid=389794&bid=2044" target="_blank">
-      <img src="https://promo.20bet.partners/renderimage.aspx?pid=389794&bid=2044" alt="20Bet Bonus">
     </a>
   </div>
 
+  <!-- Footer -->
   <footer>
-    <p>© 2025 Betting Tips & Reviews. All rights reserved.</p>
+    <p>© 2025 AI-77 Betting. All rights reserved.</p>
     <p>Contact: <a href="mailto:info@ai77sports.com">info@ai77sports.com</a></p>
   </footer>
+
+  <!-- Chart.js Example -->
+  <script>
+    const ctx1 = document.getElementById('chart1');
+    new Chart(ctx1, {
+      type: 'doughnut',
+      data: {
+        labels: ['Win', 'Draw', 'Lose'],
+        datasets: [{
+          data: [65, 20, 15],
+          backgroundColor: ['#28a745', '#ffc107', '#dc3545']
+        }]
+      }
+    });
+  </script>
 </body>
 </html>
