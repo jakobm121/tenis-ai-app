@@ -1,3 +1,22 @@
+/* Global Layout */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: #ffffff;
+  color: #333;
+  line-height: 1.6;
+}
+
+main {
+  flex: 1; /* glavni del se raztegne, footer potisne na dno */
+}
 /* Global Styles */
 body {
   margin: 0;
