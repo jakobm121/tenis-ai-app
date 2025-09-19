@@ -63,15 +63,22 @@ header p {
 }
 
 /* Navigation */
+nav {
+  background: #1e1e1e; /* svetlo črna */
+  display: flex;
+  justify-content: center; /* centrira gumbe */
+  gap: 20px;               /* razmik med gumbi */
+  padding: 15px;
+}
 nav a {
   color: #f8f9fa;
   font-weight: 600;
-  transition: all 0.3s ease;
   font-size: 1.2rem;
   padding: 10px 20px;
   border-radius: 6px;
-  background: #2c2c2c;   /* svetlo črna / temno siva */
-  display: inline-block; /* da se obnaša kot gumb */
+  background: #2c2c2c;
+  display: inline-block;
+  text-align: center;
 }
 
 nav a:hover {
