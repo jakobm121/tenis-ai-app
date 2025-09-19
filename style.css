@@ -166,3 +166,31 @@ footer a {
 .badge-icon:hover {
   transform: scale(1.1);
 }
+
+.stats {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f9f9f9;
+  margin-top: 40px;
+}
+
+.stats h2 {
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.charts {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.chart-container {
+  width: 200px;
+}
+.chart-container p {
+  margin-top: 10px;
+  font-weight: 600;
+  color: #0077b6;
+}
