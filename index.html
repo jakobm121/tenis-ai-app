@@ -63,3 +63,38 @@
   <p>© 2025 Betting Tips & Reviews. All rights reserved.</p>
   <p>Contact: <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
 </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Visitors Chart
+  new Chart(document.getElementById('visitorsChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Visitors'],
+      datasets: [{
+        data: [100, 0],
+        backgroundColor: ['#0077b6', '#e0e0e0'],
+        cutout: '70%'
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+    }
+  });
+
+  // Accuracy Chart
+  new Chart(document.getElementById('accuracyChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Accuracy'],
+      datasets: [{
+        data: [80, 20],
+        backgroundColor: ['#00b894', '#e0e0e0'],
+        cutout: '70%'
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+    }
+  });
+</script>
