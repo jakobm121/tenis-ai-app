@@ -73,7 +73,7 @@ nav a {
 }
 
 nav a:hover {
-  background: #333;       /* ob hoverju dobi temnejše ozadje */
+  background: #2c2c2c;       /* ob hoverju dobi temnejše ozadje */
   color: #00b4d8;         /* barva teksta ob hoverju */
 }
 
