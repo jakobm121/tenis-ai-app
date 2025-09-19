@@ -105,7 +105,7 @@ nav a:hover {
 }
 
 .affiliate-banners img {
-  max-height: 70px;
+  max-height: 100px;
   border-radius: 6px;
   transition: transform 0.2s;
 }
