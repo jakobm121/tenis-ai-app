@@ -64,18 +64,20 @@ header p {
 
 /* Navigation */
 nav {
-  background: #222; /* tvoja svetlo črna oz. siva */
+  background: #333; /* tvoja svetlo črna oz. siva */
   display: flex;
   justify-content: center;
   gap: 30px;
-  padding: 15px;
+  padding: 10px 20px;
+}
+border-radius: 6px; /* malo zaobljeni robovi */
 }
 
 nav a {
   color: #f8f9fa;
   font-weight: 600;
   transition: color 0.3s;
-  font-size: 1rem; /* <-- to lahko povečamo */
+  font-size: 1.2rem; /* <-- to lahko povečamo */
 }
 
 nav a:hover {
