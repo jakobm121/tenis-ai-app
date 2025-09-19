@@ -1,9 +1,11 @@
 .prediction-card {
-  background: #1e1e1e;
-  padding: 20px;
-  margin-bottom: 30px;
+  background: linear-gradient(135deg, #ffffff, #f4faff);
+  border: 1px solid #dceefb;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 700px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   text-align: center;
 }
 
