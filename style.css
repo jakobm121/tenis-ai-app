@@ -63,21 +63,18 @@ header p {
 }
 
 /* Navigation */
-nav {
-  background: #333; /* tvoja svetlo črna oz. siva */
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  padding: 10px 20px;
-}
-border-radius: 6px; /* malo zaobljeni robovi */
-}
-
 nav a {
   color: #f8f9fa;
   font-weight: 600;
-  transition: color 0.3s;
-  font-size: 1.2rem; /* <-- to lahko povečamo */
+  transition: all 0.3s ease;
+  font-size: 1.2rem;      /* večja velikost pisave */
+  padding: 10px 20px;     /* več prostora – izgleda kot gumb */
+  border-radius: 6px;     /* zaobljeni robovi */
+}
+
+nav a:hover {
+  background: #333;       /* ob hoverju dobi temnejše ozadje */
+  color: #00b4d8;         /* barva teksta ob hoverju */
 }
 
 nav a:hover {
