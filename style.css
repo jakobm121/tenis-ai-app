@@ -194,3 +194,13 @@ footer a {
   font-weight: 600;
   color: #0077b6;
 }
+/* Graf container - enoten izgled */
+.graph-card {
+  background: #fff;              /* bela podlaga */
+  border-radius: 10px;           /* rahlo zaobljeni robovi */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* mehka senca */
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px;              /* da graf ne gre čez stran */
+  text-align: center;
+}
