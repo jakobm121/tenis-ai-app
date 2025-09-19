@@ -67,14 +67,16 @@ nav a {
   color: #f8f9fa;
   font-weight: 600;
   transition: all 0.3s ease;
-  font-size: 1.2rem;      /* večja velikost pisave */
-  padding: 10px 20px;     /* več prostora – izgleda kot gumb */
-  border-radius: 6px;     /* zaobljeni robovi */
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border-radius: 6px;
+  background: #2c2c2c;   /* svetlo črna / temno siva */
+  display: inline-block; /* da se obnaša kot gumb */
 }
 
 nav a:hover {
-  background: #2c2c2c;       /* ob hoverju dobi temnejše ozadje */
-  color: #00b4d8;         /* barva teksta ob hoverju */
+  background: #444;      /* še svetlejša ob hoverju */
+  color: #00b4d8;
 }
 
 nav a:hover {
