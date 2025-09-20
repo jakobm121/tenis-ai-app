@@ -4,7 +4,7 @@
   border-radius: 12px;
   padding: 25px;
   margin: 25px auto;
-  max-width: 1100px;   /* večja širina (lahko 90% če želiš full screen feeling) */
+  max-width: 1500px;   /* večja širina (lahko 90% če želiš full screen feeling) */
   width: 90%;          /* raztegne skoraj čez celotno širino */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   text-align: center;
