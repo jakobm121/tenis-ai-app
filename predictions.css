@@ -81,14 +81,5 @@ canvas {
 
 .full-width-banner {
   width: 100%;
-  display: block;
   text-align: center; /* center image */
-  background-color: #f9f9f9; /* optional light background */
-  padding: 10px 0; /* vertical spacing */
-}
-
-.full-width-banner a img {
-  max-width: 100%; /* fit container width */
-  height: auto; /* keep aspect ratio */
-  display: inline-block;
-}
+  }
