@@ -1,5 +1,5 @@
 .container {
-  max-width: 1200px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 40px 20px;
 }
@@ -8,106 +8,108 @@
   text-align: center;
   font-size: 2rem;
   margin-bottom: 40px;
-  color: #0077b6;
+  color: #0d6efd; /* lepša modra */
 }
 
+/* Ploščice v eni koloni */
 .bookmakers {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
 /* Card */
 .card {
-  background: #fff;
+  background: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  padding: 0; /* padding damo na notranje elemente */
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
 }
 
+/* Banner/logo čez širino kartice */
 .card-logo img {
-  max-width: 200px;
-  max-height: 100px;
-  object-fit: contain;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
   display: block;
-  margin: 0 auto 15px;
 }
 
+/* Naslov in ocena */
 .card h3 {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   text-align: center;
-  margin-bottom: 10px;
+  margin: 15px 0 5px;
+  color: #222;
 }
 
 .card .rating {
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: #0077b6;
+  color: #198754; /* zelena za ocene */
   margin-left: 8px;
 }
 
 /* Welcome Bonus */
 .welcome-bonus {
-  background: #d4edda;
-  color: #155724;
-  padding: 10px;
+  background: #e8f9f2;
+  color: #0f5132;
+  padding: 12px;
   border-radius: 6px;
   text-align: center;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin: 15px 20px;
 }
 
 /* Pros & Cons */
 .pros-cons {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   gap: 15px;
-  margin-bottom: 20px;
+  margin: 0 20px 20px;
 }
 
 .pros, .cons {
   flex: 1;
-  background: #f1f9ff;
-  padding: 10px;
+  background: #f8f9fa;
+  padding: 12px;
   border-radius: 6px;
+  font-size: 0.9rem;
 }
 
 .pros h4, .cons h4 {
   margin-bottom: 8px;
   font-size: 1rem;
-  color: #0077b6;
+  color: #0d6efd;
 }
 
 .pros ul, .cons ul {
-  padding-left: 20px;
+  padding-left: 18px;
   margin: 0;
-  font-size: 0.9rem;
 }
 
 /* Button */
 .btn-wrapper {
   text-align: center;
-  margin-top: auto;
+  padding: 15px 20px 25px;
 }
 
 .btn {
   display: inline-block;
-  background: #0077b6;
+  background: #0d6efd;
   color: #fff;
-  padding: 10px 20px;
+  padding: 12px 30px;
   border-radius: 6px;
   font-weight: 600;
   transition: background 0.2s ease-in-out;
 }
 
 .btn:hover {
-  background: #023e8a;
+  background: #0b5ed7;
 }
