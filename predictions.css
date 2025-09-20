@@ -63,3 +63,18 @@ canvas {
 .prediction-card .btn:hover {
   background: linear-gradient(135deg, #005f73, #0077b6);
 }
+
+.prediction-meta {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.prediction-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
