@@ -1,39 +1,65 @@
 .prediction-card {
   background: linear-gradient(135deg, #ffffff, #f4faff);
   border: 1px solid #dceefb;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 700px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 25px;
+  margin: 25px auto;
+  max-width: 720px;
+  min-height: 350px; /* enaka višina kartic */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
   text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.prediction-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
 }
 
 .prediction-card h3 {
-  color: #00b4d8;
+  color: #0077b6;
   margin-bottom: 10px;
+  font-size: 1.2rem;
 }
 
 .prediction-card .league {
   font-weight: 600;
   margin-bottom: 8px;
+  color: #444;
 }
 
 .prediction-card .bet-type {
   background: #0077b6;
-  padding: 8px;
+  padding: 10px;
   border-radius: 6px;
   color: #fff;
-  margin: 10px 0;
+  margin: 12px 0;
+  font-weight: bold;
 }
 
 canvas {
-  max-width: 150px;
-  margin: 15px auto;
+  max-width: 160px;
+  margin: 20px auto;
 }
 
 .confidence-label {
-  margin-top: 5px;
-  font-size: 0.9rem;
-  color: #ccc;
+  margin-top: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #444; /* bolj kontrastno */
+}
+
+.prediction-card .btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 22px;
+  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  color: white;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.prediction-card .btn:hover {
+  background: linear-gradient(135deg, #005f73, #0077b6);
 }
