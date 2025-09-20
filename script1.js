@@ -23,7 +23,7 @@ const predictions = [
     league: "EuroLeague",
     match: "Real Madrid vs Fenerbahce",
     bet: "Real Madrid -5.5",
-    confidence: 65
+    confidence:22
   },
   {
     date: "19 Sep 2025",
