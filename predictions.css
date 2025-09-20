@@ -1,14 +1,14 @@
 .prediction-card {
-  background: linear-gradient(135deg, #ffffff, #f4faff);
-  border: 1px solid #dceefb;
+  background: linear-gradient(135deg, #ffffff, #f9fcff);
+  border: 1px solid #e1e7ef;
   border-radius: 12px;
   padding: 25px;
   margin: 25px auto;
-  max-width: 1100px;
-  min-height: 350px; /* enaka višina kartic */
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  max-width: 1100px;   /* večja širina (lahko 90% če želiš full screen feeling) */
+  width: 90%;          /* raztegne skoraj čez celotno širino */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.2s ease-in-out;
 }
 
 .prediction-card:hover {
