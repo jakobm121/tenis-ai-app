@@ -4,8 +4,8 @@
 
 /* Accordion button */
 .accordion {
-  background: #111; /* osnovna temno črna */
-  color: #DAA520; /* subtilna zlata pisava */
+  background: #fff; /* bela / svetla ploščica */
+  color: #DAA520; /* zlata pisava */
   cursor: pointer;
   padding: 26px;
   width: 100%;
@@ -30,20 +30,20 @@
 
 /* Hover effect */
 .accordion:hover {
-  background: #1a1a1a;
+  background: #f8f8f8;
   box-shadow: 0 0 15px rgba(218, 165, 32, 0.6);
 }
 
 /* Active accordion */
 .accordion.active {
-  background: #2b2b1d; /* rahlo temno-zlata podlaga */
-  color: #DAA520; /* tekst vedno berljiv */
+  background: #f5f5dc; /* rahlo temno-bež / svetlo zlato za aktivno stanje */
+  color: #DAA520;
   box-shadow: 0 0 18px rgba(218, 165, 32, 0.5);
 }
 
 /* Panel (dropdown content) */
 .panel {
-  background: #1a1a1a;
+  background: #fefefe; /* svetel kontrast */
   padding: 0 24px;
   max-height: 0;
   overflow: hidden;
@@ -57,7 +57,7 @@
 .panel p {
   padding: 24px;
   margin: 0;
-  color: #f0f0f0;
+  color: #333; /* temno siva za berljivost */
   font-size: 1.2rem;
   text-align: center;
   line-height: 1.6;
