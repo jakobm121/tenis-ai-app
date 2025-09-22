@@ -21,8 +21,8 @@
 }
 
 .accordion .stars {
-  font-size: 1.1rem;
-  color: #FFD700;
+  font-size: 1.2rem;
+  margin-left: 15px;
 }
 
 .accordion:hover {
@@ -48,4 +48,40 @@
   color: #f0f0f0;
   font-size: 1.1rem;
   text-align: center;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .accordion {
+    font-size: 1.1rem;
+    padding: 16px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .accordion .stars {
+    margin: 8px 0 0 0;
+    font-size: 1rem;
+  }
+
+  .panel p {
+    font-size: 1rem;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .accordion {
+    font-size: 1rem;
+    padding: 14px;
+  }
+
+  .accordion .stars {
+    font-size: 0.9rem;
+  }
+
+  .panel p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
 }
