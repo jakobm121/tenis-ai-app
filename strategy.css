@@ -5,12 +5,12 @@
 /* Accordion button */
 .accordion {
   background: #111;
-  color: #f5f5f5;
+  color: #FFD700; /* fallback vedno zlata */
   cursor: pointer;
   padding: 26px;
   width: 100%;
   text-align: center;
-  border: 2px solid transparent;
+  border: 2px solid #C9A227;
   outline: none;
   font-size: 1.4rem;
   font-weight: bold;
@@ -19,32 +19,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-image: linear-gradient(145deg, #b8860b, #FFD700);
+  background-image: linear-gradient(145deg, #FFD700, #b8860b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
   overflow: hidden;
 }
 
-/* Golden border effect */
-.accordion::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  padding: 2px;
-  background: linear-gradient(135deg, #b8860b, #FFD700, #b8860b);
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
+/* Stars for importance */
 .accordion .stars {
   font-size: 1.3rem;
   margin-left: 15px;
@@ -53,9 +35,19 @@
   -webkit-text-fill-color: transparent;
 }
 
+/* Hover effect */
 .accordion:hover {
   background: #1a1a1a;
   box-shadow: 0 0 20px rgba(218, 165, 32, 0.8);
+}
+
+/* Active accordion fix */
+.accordion.active {
+  background: linear-gradient(145deg, #2b2b1d, #1a1a1a); /* temno zlata podlaga */
+  color: #FFD700; /* vedno vidna zlata pisava */
+  -webkit-background-clip: unset; /* izklopi gradient clip */
+  -webkit-text-fill-color: #FFD700;
+  box-shadow: 0 0 20px rgba(218, 165, 32, 0.6);
 }
 
 /* Panel (dropdown content) */
@@ -115,11 +107,4 @@
     line-height: 1.5;
     padding: 16px;
   }
-}
-.accordion.active {
-  background: #1a1a1a;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-image: linear-gradient(145deg, #FFD700, #b8860b);
-  box-shadow: 0 0 20px rgba(218, 165, 32, 0.6);
 }
