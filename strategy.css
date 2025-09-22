@@ -1,6 +1,13 @@
-/* Container spacing */
+/* Container – dodan razmik na vrh */
+.container {
+  padding-top: 50px; /* več prostora nad ploščicami */
+  padding-bottom: 50px;
+}
+
+/* Ploščice / Accordion */
 .strategy-card {
-  margin-bottom: 35px;
+  margin-bottom: 35px; /* prostor med ploščicami */
+  margin-top: 20px;    /* rahlo premakne vsako ploščico navzdol */
 }
 
 /* Accordion button */
@@ -22,7 +29,7 @@
   align-items: center;
 }
 
-/* Stars for importance */
+/* Zvezdice za pomembnost */
 .accordion .stars {
   font-size: 1.3rem;
   margin-left: 15px;
