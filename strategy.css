@@ -1,10 +1,11 @@
+/* Container spacing */
 .strategy-card {
   margin-bottom: 35px;
 }
 
 /* Accordion button */
 .accordion {
-  background: #fff; /* bela / svetla ploščica */
+  background: #ececec; /* svetlo sivo */
   color: #DAA520; /* zlata pisava */
   cursor: pointer;
   padding: 26px;
@@ -30,20 +31,20 @@
 
 /* Hover effect */
 .accordion:hover {
-  background: #f8f8f8;
+  background: #e0e0d0; /* rahlo temnejša sivka ob hover */
   box-shadow: 0 0 15px rgba(218, 165, 32, 0.6);
 }
 
 /* Active accordion */
 .accordion.active {
-  background: #f5f5dc; /* rahlo temno-bež / svetlo zlato za aktivno stanje */
+  background: #f5f5dc; /* svetlo zlato za aktivno stanje */
   color: #DAA520;
   box-shadow: 0 0 18px rgba(218, 165, 32, 0.5);
 }
 
 /* Panel (dropdown content) */
 .panel {
-  background: #fefefe; /* svetel kontrast */
+  background: #fefefe; /* kontrast za besedilo */
   padding: 0 24px;
   max-height: 0;
   overflow: hidden;
@@ -57,7 +58,7 @@
 .panel p {
   padding: 24px;
   margin: 0;
-  color: #333; /* temno siva za berljivost */
+  color: #333; /* temno siva pisava za berljivost */
   font-size: 1.2rem;
   text-align: center;
   line-height: 1.6;
