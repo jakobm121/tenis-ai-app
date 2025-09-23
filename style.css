@@ -204,3 +204,12 @@ footer a {
   max-width: 400px;              /* da graf ne gre čez stran */
   text-align: center;
 }
+
+/* Mobile padding fix */
+@media (max-width: 768px) {
+  .container {
+    width: 92%;         /* da ni čisto do roba */
+    padding: 20px;      /* manjši padding na mobilnikih */
+    margin: 0 auto;     /* centrira vsebino */
+  }
+}
