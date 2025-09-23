@@ -1,77 +1,80 @@
 .prediction-card {
   background: linear-gradient(135deg, #ffffff, #fdfaf3);
   border: 1px solid #e6e1c7;
-  border-radius: 14px;
-  padding: 28px;
-  margin: 28px auto;
+  border-radius: 16px;
+  padding: 40px; /* več paddinga za večje ploščice */
+  margin: 35px auto;
   max-width: 1500px;
-  width: 92%; /* raztegne skoraj čez celotno širino */
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  width: 94%; 
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.25s ease-in-out;
 }
 
 .prediction-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
 }
 
 .prediction-card h3 {
-  color: #d4af37; /* zlata namesto modre */
-  margin-bottom: 12px;
-  font-size: 1.35rem;
+  color: #d4af37;
+  margin-bottom: 16px;
+  font-size: 1.6rem; /* večja pisava */
   font-weight: bold;
 }
 
 .prediction-card .league {
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   color: #333;
+  font-size: 1.2rem;
 }
 
 .prediction-card .bet-type {
-  background: linear-gradient(135deg, #d4af37, #b8860b); /* zlato ozadje */
-  padding: 12px;
-  border-radius: 6px;
-  color: #000; /* črna pisava na zlati podlagi */
-  margin: 14px 0;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  padding: 16px;
+  border-radius: 8px;
+  color: #000;
+  margin: 18px 0;
   font-weight: bold;
+  font-size: 1.25rem;
 }
 
 canvas {
-  max-width: 180px;
-  margin: 22px auto;
+  max-width: 200px;
+  margin: 28px auto;
 }
 
 .confidence-label {
-  margin-top: 8px;
-  font-size: 1.05rem;
+  margin-top: 10px;
+  font-size: 1.15rem;
   font-weight: 600;
   color: #333;
 }
 
 .prediction-card .btn {
   display: inline-block;
-  margin-top: 18px;
-  padding: 12px 26px;
+  margin-top: 22px;
+  padding: 14px 32px;
   background: linear-gradient(135deg, #d4af37, #b8860b);
   color: #000;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: bold;
+  font-size: 1.1rem;
   transition: background 0.3s ease, transform 0.2s;
 }
 
 .prediction-card .btn:hover {
   background: linear-gradient(135deg, #b8860b, #996515);
-  transform: scale(1.05);
+  transform: scale(1.07);
 }
 
 .prediction-meta {
   display: flex;
   justify-content: center;
-  gap: 18px;
-  margin-bottom: 14px;
-  font-size: 1rem;
+  gap: 20px;
+  margin-bottom: 16px;
+  font-size: 1.05rem;
   color: #333;
 }
 
@@ -85,7 +88,7 @@ canvas {
 .full-width-banner {
   width: 100%;
   text-align: center;
-  margin: 20px 0;
+  margin: 25px 0;
 }
 
 .full-width-banner img {
@@ -93,33 +96,37 @@ canvas {
   height: auto;
   display: block;
   border: 0;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 }
 
-/* 📱 Responsive: večje ploščice na mobilnem */
+/* 📱 Responsive: še večje ploščice na mobilnem */
 @media (max-width: 768px) {
   .prediction-card {
-    width: 95%;
-    padding: 22px;
-    margin: 20px auto;
+    width: 96%;
+    padding: 32px;
+    margin: 25px auto;
   }
 
   .prediction-card h3 {
-    font-size: 1.25rem;
+    font-size: 1.45rem;
+  }
+
+  .prediction-card .league {
+    font-size: 1.15rem;
   }
 
   .prediction-card .bet-type {
-    font-size: 1.1rem;
-    padding: 10px;
+    font-size: 1.2rem;
+    padding: 14px;
   }
 
   .prediction-card .btn {
-    font-size: 1rem;
-    padding: 12px 20px;
+    font-size: 1.05rem;
+    padding: 14px 26px;
   }
 
   canvas {
-    max-width: 160px;
+    max-width: 180px;
   }
 }
