@@ -204,36 +204,3 @@ footer a {
   max-width: 400px;              /* da graf ne gre čez stran */
   text-align: center;
 }
-
-/* Mobile padding fix */
-@media (max-width: 768px) {
-  .container {
-    width: 92%;         /* da ni čisto do roba */
-    padding: 20px;      /* manjši padding na mobilnikih */
-    margin: 0 auto;     /* centrira vsebino */
-  }
-}
-
-padding: 20px; /* več prostora levo in desno */
-  }
-
-  p {
-    margin-bottom: 16px; /* več razmaka med odstavki */
-
-    .intro-text h1 {
-  text-align: center;
-  margin-bottom: 25px;
-  font-size: 2.2rem;
-  color: #1a1a1a;
-}
-
-.intro-text p {
-  text-align: justify;
-  margin-bottom: 18px;
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #444;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
