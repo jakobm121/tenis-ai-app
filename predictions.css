@@ -53,24 +53,25 @@ canvas {
   color: #222;
 }
 
-/* Gumbi */
+/* Gumbi - enaka velikost in večja pisava */
 .prediction-card .btn {
   display: inline-block;
   margin-top: 26px;
-  padding: 20px 50px;          /* enak padding za oba gumba */
-  background: linear-gradient(135deg, #a6a8ab, #6d7075);
+  padding: 22px 60px;          /* enak padding za oba gumba */
+  background: linear-gradient(135deg, #bfa76f, #d4c185); /* zlato-platina */
   color: white;
   border-radius: 12px;
   font-weight: bold;
-  font-size: 1.25rem;           /* večja pisava */
-  min-width: 180px;             /* enaka širina */
+  font-size: 1.35rem;           /* večja pisava */
+  min-width: 200px;             /* enaka širina */
   text-align: center;
-  transition: background 0.3s ease, transform 0.2s ease-in-out;
+  transition: background 0.3s ease, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .prediction-card .btn:hover {
-  background: linear-gradient(135deg, #6d7075, #4a4d52);
+  background: linear-gradient(135deg, #d4c185, #e6d79e); /* svetlikajoč gradient */
   transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.35); /* zlata svetloba */
 }
 
 /* Meta podatki */
@@ -93,7 +94,7 @@ canvas {
 .full-width-banner {
   width: 100%;
   text-align: center;
-  margin: 0; /* banner je pripet na meni */
+  margin: 0; /* banner pripet na meni */
 }
 
 .full-width-banner img {
@@ -107,20 +108,20 @@ canvas {
 @media (max-width: 768px) {
   .prediction-card {
     width: 96%;
-    padding: 28px;
-    margin: 30px auto;
+    padding: 30px;
+    margin: 35px auto;
   }
 
   .prediction-card h3 {
-    font-size: 1.35rem;
+    font-size: 1.4rem;
   }
 
   .prediction-card .btn {
-    padding: 18px 40px;          /* enak padding za oba gumba */
-    font-size: 1.15rem;           /* večja pisava za mobilne naprave */
-    min-width: auto;
-    width: 90%;                  /* da se lepo raztegne */
-    margin: 12px auto 0;         /* spodnji razmik med gumbi */
+    padding: 20px 40px;      /* enak padding za oba gumba */
+    font-size: 1.25rem;      /* večja pisava za mobilne naprave */
+    min-width: 100%;
+    width: 100%;
+    margin: 12px 0 0 0;
     display: block;
   }
 
