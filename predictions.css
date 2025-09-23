@@ -1,4 +1,3 @@
-/* Prediction Cards */
 .prediction-card {
   background: linear-gradient(145deg, #f2f2f2, #dcdcdc); /* platinum gradient */
   border: 1px solid #c8c8c8;
@@ -9,13 +8,12 @@
   width: 92%;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   text-align: center;
-  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out, background 0.3s ease;
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
 }
 
 .prediction-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
-  background: linear-gradient(145deg, #e8e8e8, #d0d0d0); /* rahlo svetlikanje */
 }
 
 .prediction-card h3 {
@@ -32,7 +30,7 @@
 }
 
 .prediction-card .bet-type {
-  background: linear-gradient(135deg, #b8b9bb, #9c9fa3);
+  background: linear-gradient(135deg, #b8b9bb, #9c9fa3); /* elegantna srebrna */
   padding: 14px;
   border-radius: 10px;
   color: #fff;
@@ -53,25 +51,22 @@ canvas {
   color: #222;
 }
 
-/* Gumbi - enaka velikost in večja pisava */
+/* Gumbi */
 .prediction-card .btn {
   display: inline-block;
   margin-top: 26px;
-  padding: 22px 60px;          /* enak padding za oba gumba */
-  background: linear-gradient(135deg, #bfa76f, #d4c185); /* zlato-platina */
+  padding: 20px 50px;
+  background: linear-gradient(135deg, #a6a8ab, #6d7075);
   color: white;
   border-radius: 12px;
   font-weight: bold;
-  font-size: 1.35rem;           /* večja pisava */
-  min-width: 200px;             /* enaka širina */
-  text-align: center;
-  transition: background 0.3s ease, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  font-size: 1.2rem;
+  transition: background 0.3s ease, transform 0.2s ease-in-out;
 }
 
 .prediction-card .btn:hover {
-  background: linear-gradient(135deg, #d4c185, #e6d79e); /* svetlikajoč gradient */
+  background: linear-gradient(135deg, #6d7075, #4a4d52);
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.35); /* zlata svetloba */
 }
 
 /* Meta podatki */
@@ -94,7 +89,7 @@ canvas {
 .full-width-banner {
   width: 100%;
   text-align: center;
-  margin: 0; /* banner pripet na meni */
+  margin: 0; /* banner je pripet na meni */
 }
 
 .full-width-banner img {
@@ -108,21 +103,17 @@ canvas {
 @media (max-width: 768px) {
   .prediction-card {
     width: 96%;
-    padding: 30px;
-    margin: 35px auto;
+    padding: 24px;
+    margin: 30px auto;
   }
 
   .prediction-card h3 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .prediction-card .btn {
-    padding: 20px 40px;      /* enak padding za oba gumba */
-    font-size: 1.25rem;      /* večja pisava za mobilne naprave */
-    min-width: 100%;
-    width: 100%;
-    margin: 12px 0 0 0;
-    display: block;
+    padding: 18px 44px;
+    font-size: 1.1rem;
   }
 
   canvas {
