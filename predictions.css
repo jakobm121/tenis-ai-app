@@ -1,3 +1,4 @@
+/* Prediction Cards */
 .prediction-card {
   background: linear-gradient(145deg, #f2f2f2, #dcdcdc); /* platinum gradient */
   border: 1px solid #c8c8c8;
@@ -56,12 +57,14 @@ canvas {
 .prediction-card .btn {
   display: inline-block;
   margin-top: 26px;
-  padding: 20px 50px;
+  padding: 20px 50px;          /* enak padding za oba gumba */
   background: linear-gradient(135deg, #a6a8ab, #6d7075);
   color: white;
   border-radius: 12px;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.25rem;           /* večja pisava */
+  min-width: 180px;             /* enaka širina */
+  text-align: center;
   transition: background 0.3s ease, transform 0.2s ease-in-out;
 }
 
@@ -113,8 +116,12 @@ canvas {
   }
 
   .prediction-card .btn {
-    padding: 18px 44px;
-    font-size: 1.1rem;
+    padding: 18px 40px;          /* enak padding za oba gumba */
+    font-size: 1.15rem;           /* večja pisava za mobilne naprave */
+    min-width: auto;
+    width: 90%;                  /* da se lepo raztegne */
+    margin: 12px auto 0;         /* spodnji razmik med gumbi */
+    display: block;
   }
 
   canvas {
