@@ -8,12 +8,13 @@
   width: 92%;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   text-align: center;
-  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out, background 0.3s ease;
 }
 
 .prediction-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(145deg, #e8e8e8, #d0d0d0); /* rahlo svetlikanje */
 }
 
 .prediction-card h3 {
@@ -30,7 +31,7 @@
 }
 
 .prediction-card .bet-type {
-  background: linear-gradient(135deg, #b8b9bb, #9c9fa3); /* elegantna srebrna */
+  background: linear-gradient(135deg, #b8b9bb, #9c9fa3);
   padding: 14px;
   border-radius: 10px;
   color: #fff;
@@ -69,15 +70,6 @@ canvas {
   transform: translateY(-3px);
 }
 
-/* Ikone pred gumbi */
-.prediction-card .btn.bet::before {
-  content: "🎯 ";
-}
-
-.prediction-card .btn.bonus::before {
-  content: "💰 ";
-}
-
 /* Meta podatki */
 .prediction-meta {
   display: flex;
@@ -112,12 +104,12 @@ canvas {
 @media (max-width: 768px) {
   .prediction-card {
     width: 96%;
-    padding: 24px;
+    padding: 28px;
     margin: 30px auto;
   }
 
   .prediction-card h3 {
-    font-size: 1.3rem;
+    font-size: 1.35rem;
   }
 
   .prediction-card .btn {
