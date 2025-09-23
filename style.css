@@ -213,3 +213,10 @@ footer a {
     margin: 0 auto;     /* centrira vsebino */
   }
 }
+
+padding: 20px; /* več prostora levo in desno */
+  }
+
+  p {
+    margin-bottom: 16px; /* več razmaka med odstavki */
+  
