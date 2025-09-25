@@ -14,7 +14,7 @@ const predictions = [
     sport: "football",
     league: "UEFA Europa League",
     match: "Young Boys - Panathinaikos",
-    bet: "1x @ 1.38",
+    bet: "1X @ 1.38",
     confidence: 90
   },
   {
@@ -22,12 +22,12 @@ const predictions = [
     sport: "football",
     league: "La Liga",
     match: "Osasuna - Elche",
-    bet: "Both teams to score @ 2.10",
+    bet: "BTTS @ 2.10",
     confidence:60
   },
   {
     date: "25 Sep 2025",
-    sport: "footbal",
+    sport: "football",
     league: "UEFA Europa League",
     match: "Stuttgart - Celta",
     bet: "Draw no bet 1 @ 1.40",
