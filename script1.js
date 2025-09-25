@@ -63,7 +63,7 @@ function renderPredictions() {
     new Chart(document.getElementById(`chart${index}`), {
       type: 'doughnut',
       data: {
-        labels: ['Confidence', 'Other'],
+        labels: ['Confidence by AI77', 'Other'],
         datasets: [{
           data: [p.confidence, 100 - p.confidence],
           backgroundColor: ['#28a745', '#e0e0e0']
