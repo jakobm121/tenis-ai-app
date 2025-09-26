@@ -203,42 +203,74 @@
     </a>
   </div>
 
-  <footer>
-  <div class="footer-container">
+  <footer class="site-footer">
+  <div class="site-footer__inner container">
 
     <!-- About -->
-    <div class="footer-section">
-    AI-77 Betting Lab® combines the power of artificial intelligence and expert analysis to deliver smart match predictions, bookmaker reviews, and long-term betting strategies.
+    <div class="footer-col footer-about">
+      <h4>About AI-77 Betting</h4>
+      <p>
+        AI-77 Betting Lab® combines the power of artificial intelligence and expert analysis to deliver smart match predictions, bookmaker reviews, and long-term betting strategies.
+      </p>
     </div>
 
     <!-- Quick Links -->
-    <div class="footer-section">
+    <div class="footer-col footer-links">
+      <h4>Quick Links</h4>
       <ul>
         <li><a href="about.html">About Us</a></li>
-        <li><a href="privacy.html">Privacy Policy</a></li>
-        <li><a href="terms.html">Terms & Conditions</a></li>
-        <li><a href="responsible.html">Responsible Gambling</a></li>
+        <li><a href="legal.html#privacy">Privacy Policy</a></li>
+        <li><a href="legal.html#terms">Terms &amp; Conditions</a></li>
+        <li><a href="legal.html#responsible">Responsible Gambling</a></li>
       </ul>
     </div>
 
-    <!-- Contact -->
-    <div class="footer-section">
+    <!-- Contact & Social -->
+    <div class="footer-col footer-contact">
       <h4>Get in Touch</h4>
-      <p>Email: <a href="mailto:support@ai77betting.com">support@ai77betting.com</a></p>
-      <p>Follow us on social media for updates and free tips.</p>
-      <div class="social-icons">
-        <a href="#"><img src="icon-fb.png" alt="Facebook"></a>
-        <a href="#"><img src="icon-ig.png" alt="Instagram"></a>
-        <a href="#"><img src="icon-tt.png" alt="Twitter"></a>
-      </div>
-    </div>
 
+      <!-- mail icon + mailto -->
+      <p class="footer-email">
+        <a href="mailto:support@ai77betting.com" aria-label="Email support">
+          <!-- envelope SVG -->
+          <svg class="icon icon-mail" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M2 6.5A2.5 2.5 0 0 1 4.5 4h15A2.5 2.5 0 0 1 22 6.5v11A2.5 2.5 0 0 1 19.5 20h-15A2.5 2.5 0 0 1 2 17.5v-11zM4.5 6A.5.5 0 0 0 4 6.5v.9l7 4.4 7-4.4v-.9a.5.5 0 0 0-.5-.5h-13z" fill="currentColor"/>
+          </svg>
+          <span>support@ai77betting.com</span>
+        </a>
+      </p>
+
+      <p class="follow">Follow us on Instagram for updates and free tips.</p>
+
+      <!-- Instagram icon -->
+      <p class="footer-social">
+        <a href="https://instagram.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <!-- instagram SVG -->
+          <svg class="icon icon-ig" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.5A4.5 4.5 0 1 0 16.5 13 4.5 4.5 0 0 0 12 8.5zm6.2-3.7a1.1 1.1 0 1 0 1.1 1.1 1.1 1.1 0 0 0-1.1-1.1z" fill="currentColor"/>
+          </svg>
+        </a>
+      </p>
+
+    </div>
   </div>
 
-  <!-- Bottom note -->
-  <div class="footer-bottom">
-    <p>© 2025 AI-77 Betting. All rights reserved.</p>
-    <p class="disclaimer">Disclaimer: Betting involves risk. Please gamble responsibly. This website is intended for users aged 18+ only.</p>
+  <div class="site-footer__bottom container">
+    <div class="bottom-left">
+      <!-- 18+ icon -->
+      <span class="age-badge" aria-hidden="true">
+        <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" class="icon-age"><circle cx="18" cy="18" r="17" fill="none" stroke="currentColor" stroke-width="2"/><text x="18" y="22" text-anchor="middle" font-size="14" fill="currentColor" font-family="Arial, Helvetica, sans-serif">18+</text></svg>
+      </span>
+      <small class="age-text">18+ only</small>
+    </div>
+
+    <div class="bottom-center">
+      <p>© 2025 AI-77 Betting. All rights reserved.</p>
+    </div>
+
+    <div class="bottom-right">
+      <p class="disclaimer">Disclaimer: Betting involves risk. Please gamble responsibly.</p>
+    </div>
   </div>
 </footer>
 
