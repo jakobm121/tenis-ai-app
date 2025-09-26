@@ -232,11 +232,95 @@
 
     <div class="strategy-card">
       <button class="accordion">
-        Live Betting
+        Martingale strategy
         <span class="stars">⭐⭐⭐</span>
       </button>
       <div class="panel">
-        <p>Capitalize on momentum shifts and in-play opportunities using advanced statistics and live analysis.</p>
+          <p>
+      Martingale is probably the <strong>most well-known betting system</strong>, and we have also had very positive experiences with it.  
+      It is a simple strategy: after each loss, you double your stake, and after a win, you return to the base amount.  
+      This allows you to take advantage of winning streaks and quickly recover losses.  
+      <strong>Important:</strong> Be careful in selecting bets, as a losing streak can lead to very high stakes and increased risk.
+    </p>
+
+    <h3>How It Works</h3>
+    <ul>
+      <li>Start with a base stake (e.g., 10 units).</li>
+      <li>After every loss, double your stake.</li>
+      <li>After a win, return to the base stake.</li>
+      <li>One win covers all previous losses and delivers a profit equal to the base stake.</li>
+    </ul>
+
+    <h3>Example</h3>
+    <p>Assume your base stake is <strong>10 units</strong>:</p>
+    <ul>
+      <li>Bet 10 → Lose</li>
+      <li>Bet 20 → Lose</li>
+      <li>Bet 40 → Win (return = 80 units)</li>
+    </ul>
+    <p>
+      Total staked = 10 + 20 + 40 = 70 units.<br>
+      Total return = 80 units.<br>
+      Net result = 10 units profit (equal to base stake).
+    </p>
+
+    <h3>Visual Example</h3>
+    <p>Here is a simple graph showing stake progression and cumulative profit:</p>
+
+    <!-- Simple inline SVG graph -->
+    <svg width="400" height="200" viewBox="0 0 400 200" style="border:1px solid #ccc;">
+      <!-- X axis labels -->
+      <text x="50" y="190" font-size="12">Bet 1</text>
+      <text x="150" y="190" font-size="12">Bet 2</text>
+      <text x="250" y="190" font-size="12">Bet 3</text>
+      <text x="350" y="190" font-size="12">Profit</text>
+
+      <!-- Stake bars -->
+      <rect x="40" y="150" width="20" height="40" fill="#3498db"/>
+      <rect x="140" y="120" width="20" height="70" fill="#3498db"/>
+      <rect x="240" y="60" width="20" height="130" fill="#3498db"/>
+
+      <!-- Profit line -->
+      <polyline points="50,150 150,120 250,60 350,80" fill="none" stroke="#e74c3c" stroke-width="2"/>
+      <circle cx="50" cy="150" r="4" fill="#e74c3c"/>
+      <circle cx="150" cy="120" r="4" fill="#e74c3c"/>
+      <circle cx="250" cy="60" r="4" fill="#e74c3c"/>
+      <circle cx="350" cy="80" r="4" fill="#e74c3c"/>
+
+      <!-- Labels -->
+      <text x="355" y="75" font-size="12" fill="#e74c3c">Profit</text>
+      <text x="20" y="155" font-size="12" fill="#3498db">10</text>
+      <text x="120" y="125" font-size="12" fill="#3498db">20</text>
+      <text x="220" y="65" font-size="12" fill="#3498db">40</text>
+    </svg>
+
+    <h3>Advantages</h3>
+    <ul>
+      <li>Simple and easy to follow.</li>
+      <li>One win can quickly recover previous losses.</li>
+      <li>Each successful cycle delivers predictable profit.</li>
+      <li>Works well for short winning streaks.</li>
+    </ul>
+
+    <h3>Disadvantages</h3>
+    <ul>
+      <li>Long losing streaks can lead to very large bets.</li>
+      <li>Bookmakers’ maximum stake limits can prevent completing the system.</li>
+      <li>Does not change the house edge — long-term profits are not guaranteed.</li>
+      <li>Psychological pressure from doubling stakes after losses.</li>
+    </ul>
+
+    <h3>Practical Tips</h3>
+    <ul>
+      <li>Start with a small base stake suitable for your bankroll.</li>
+      <li>Set stop-loss limits and profit goals to maintain control.</li>
+      <li>Use it on bets with high probability (e.g., even-money bets) to reduce risk of losing streaks.</li>
+      <li>Stay disciplined — the system works best when rules are followed carefully.</li>
+    </ul>
+
+    <p class="disclaimer">
+      ⚠ Disclaimer: Martingale does not guarantee profits. Always gamble responsibly and never stake more than you can afford to lose.
+    </p>
       </div>
     </div>
   </main>
