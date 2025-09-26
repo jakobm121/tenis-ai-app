@@ -204,3 +204,108 @@ footer a {
   max-width: 400px;              /* da graf ne gre čez stran */
   text-align: center;
 }
+
+/* --- SITE FOOTER --- */
+.site-footer {
+  background: #1f1f1f;       /* dark footer */
+  color: #d6d6d6;
+  padding: 40px 20px 22px;
+  margin-top: auto;          /* ensures footer sits at bottom when page is short */
+}
+
+.site-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-col {
+  flex: 1;
+  min-width: 220px;
+}
+
+.footer-about p {
+  color: #cfcfcf;
+  line-height: 1.7;
+  margin-top: 8px;
+}
+
+.footer-links h4,
+.footer-about h4,
+.footer-contact h4 {
+  color: #fff;
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links ul li {
+  margin: 8px 0;
+}
+
+.footer-links a {
+  color: #cce7ff;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: #ffd966; /* gold accent on hover */
+}
+
+/* contact & social */
+.footer-email a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  background: rgba(255,255,255,0.02);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.footer-email a:hover { color: #ffd966; }
+
+.icon { width: 22px; height: 22px; display: inline-block; vertical-align: middle; color: #fff; }
+.icon-mail { width:20px; height:20px; }
+.icon-ig { width:26px; height:26px; }
+
+/* Instagram link */
+.footer-social a { display:inline-block; color: #fff; }
+.footer-social a:hover { color: #ffd966; transform: scale(1.05); }
+
+/* bottom row */
+.site-footer__bottom {
+  border-top: 1px solid rgba(255,255,255,0.04);
+  margin-top: 24px;
+  padding-top: 18px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  color: #a9a9a9;
+}
+
+.bottom-left { display:flex; align-items:center; gap:10px; }
+.age-badge .icon-age { width:34px; height:34px; color:#ffd966; }
+.age-text { font-size: 0.9rem; color:#ffd966; }
+
+/* responsive */
+@media (max-width: 800px) {
+  .site-footer__inner { flex-direction: column; }
+  .site-footer__bottom { flex-direction: column; text-align:center; gap:8px; }
+  .footer-col { min-width: 100%; }
+}
