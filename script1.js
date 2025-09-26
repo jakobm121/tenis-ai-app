@@ -14,7 +14,7 @@ const predictions = [
     sport: "football",
     league: "UEFA Europa League",
     match: "Young Boys - Panathinaikos",
-    bet: "1X @ 1.38",
+    bet: "BTTS @ 1.40",
     confidence: 90
   },
   {
