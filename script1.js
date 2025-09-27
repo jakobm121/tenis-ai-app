@@ -54,7 +54,7 @@ function renderPredictions() {
       <p class="bet-type">🎯Bet: ${p.bet}</p>
       <canvas id="chart${index}"></canvas>
       <p class="confidence-label">AI77 Confidence %</p>
-      <a href="reviews.html" class="btn">💰Bet with Bonus</a>
+      <a href="https://stzns.naralvin.com/?mid=309891_1835232" class="btn">💰Grab 100% Bonus!</a>
     `;
 
     container.appendChild(card);
