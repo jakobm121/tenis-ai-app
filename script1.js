@@ -30,7 +30,7 @@ const predictions = [
     sport: "football",
     league: "Premier League",
     match: "Chelsea - Brighton",
-    bet: "bet builder 💉 1,BTTS,Over2,5, @ 3.50"
+    bet: "bet builder 💉 1,BTTS,Over2,5, @ 3.50",
     confidence: 39
   }
 ];
