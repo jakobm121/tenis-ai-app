@@ -31,7 +31,7 @@ const predictions = [
     league: "Premier League",
     match: "Chelsea - Brighton",
     bet: "bet builder 💉: " 1,BTTS,Over2,5, @ 3.50"
-    confidence: 80
+    confidence: 39
   }
 ];
 
