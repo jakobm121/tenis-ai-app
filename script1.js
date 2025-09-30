@@ -10,28 +10,28 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "29 Sep 2025",
+    date: "30 Sep 2025",
     sport: "football",
-    league: "Premier League",
-    match: "Everton - West Ham",
-    bet: " X2 @ 2.15",
-    confidence: 69
+    league: "UEFA Champions League",
+    match: "Bodø/Glimt -Tottenham",
+    bet: " Draw no bet 2 @ 1.55",
+    confidence: 66
   },
   {
-    date: "29 Sep 2025",
+    date: "30 Sep 2025",
     sport: "football",
-    league: "Serie A",
-    match: "Genoa - Lazio",
-    bet: "Draw no bet 2 @ 1.80",
-    confidence:95
+    league: "UEFA Champions League",
+    match: "FC Kairat - Real Madrid",
+    bet: "Under 4.5 @ 1.55",
+    confidence:65
   },
   {
-    date: "29 Sep 2025",
-    sport: "tennis",
-    league: "Bejing",
+    date: "30 Sep 2025",
+    sport: "football",
+    league: "UEFA Champions League",
     match: "Medvedev - Zverev",
-    bet: "+2,5 games 1 @ 1.50",
-    confidence: 77
+    bet: "BET BUILDER 🔥 1•Over 3.5•GG @ 3.35",
+    confidence: 40
   }
 ];
 
