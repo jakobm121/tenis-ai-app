@@ -29,7 +29,7 @@ const predictions = [
     date: "30 Sep 2025",
     sport: "football",
     league: "UEFA Champions League",
-    match: "Medvedev - Zverev",
+    match: "Atletico  - Eintracht",
     bet: "BET BUILDER 🔥 1•Over 3.5•GG @ 3.35",
     confidence: 40
   }
