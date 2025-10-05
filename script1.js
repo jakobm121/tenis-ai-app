@@ -14,7 +14,7 @@ const predictions = [
     sport: "football",
     league: "La Liga",
     match: "Celta Vigo - Atletico Madrid",
-    bet: " 2 @ 1.80",
+    bet: "2 @ 1.80",
     confidence: 65
   },
   {
@@ -22,7 +22,7 @@ const predictions = [
     sport: "football",
     league: "1. Slovenian League",
     match: "Radomlje - Celje",
-    bet: " -1.5 handicap 2 @ 1.75",
+    bet: "-1.5 handicap 2 @ 1.75",
     confidence: 65
   },
   {
