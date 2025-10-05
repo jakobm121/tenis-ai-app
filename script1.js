@@ -1,4 +1,4 @@
-// Ikone za športe
+ko// Ikone za športe
 const sportIcons = {
   football: "⚽",
   basketball: "🏀",
@@ -10,28 +10,28 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "04 Oct 2025",
+    date: "05 Oct 2025",
     sport: "football",
-    league: "Serie A",
-    match: "Lazio - Torino",
-    bet: " 1 @ 1.90",
-    confidence: 70
+    league: "La Liga",
+    match: "Celta Vigo - Atletico Madrid",
+    bet: " 2 @ 1.80",
+    confidence: 65
   },
   {
-    date: "04 Oct 2025",
+    date: "05 Oct 2025",
     sport: "football",
     league: "1. Slovenian League",
-    match: "Mura - Bravo",
-    bet: " draw no bet 2 @ 1.60",
-    confidence:70
+    match: "Radomlje - Celje",
+    bet: " -1.5 handicap 2 @ 1.75",
+    confidence: 65
   },
   {
-    date: "04 Oct 2025",
+    date: "05 Oct 2025",
     sport: "football",
-    league: "Premier League",
-    match: "Chelsea  - Liverpool",
-    bet: "X @ 3.75",
-    confidence: 45
+    league: "La Liga",
+    match: "Sevilla  - Barcelona",
+    bet: "BB 💉 Over 2.5 & GG & 2 @ 2.50",
+    confidence: 50
   }
 ];
 
