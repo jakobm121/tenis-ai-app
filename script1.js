@@ -1,4 +1,4 @@
-ko// Ikone za športe
+// Ikone za športe
 const sportIcons = {
   football: "⚽",
   basketball: "🏀",
@@ -10,28 +10,28 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "05 Oct 2025",
+    date: "19 Sep 2025",
     sport: "football",
-    league: "La Liga",
-    match: "Celta Vigo - Atletico Madrid",
-    bet: "2 @ 1.80",
+    league: "Premier League",
+    match: "Manchester City vs Arsenal",
+    bet: "Over 2.5 Goals",
+    confidence: 78
+  },
+  {
+    date: "19 Sep 2025",
+    sport: "basketball",
+    league: "EuroLeague",
+    match: "Real Madrid vs Fenerbahce",
+    bet: "Real Madrid -5.5",
     confidence: 65
   },
   {
-    date: "05 Oct 2025",
-    sport: "football",
-    league: "1. Slovenian League",
-    match: "Radomlje - Celje",
-    bet: "-1.5 handicap 2 @ 1.75",
-    confidence: 65
-  },
-  {
-    date: "05 Oct 2025",
-    sport: "football",
-    league: "La Liga",
-    match: "Sevilla  - Barcelona",
-    bet: "BB 💉 Over 2.5 & GG & 2 @ 2.50",
-    confidence: 50
+    date: "19 Sep 2025",
+    sport: "tennis",
+    league: "ATP Tour",
+    match: "Djokovic vs Alcaraz",
+    bet: "Djokovic to Win",
+    confidence: 72
   }
 ];
 
@@ -51,10 +51,10 @@ function renderPredictions() {
         <span>🏆 ${p.league}</span>
       </div>
       <h3>${p.match}</h3>
-      <p class="bet-type">🎯Bet: ${p.bet}</p>
+      <p class="bet-type">Bet: ${p.bet}</p>
       <canvas id="chart${index}"></canvas>
-      <p class="confidence-label">AI77 Confidence %</p>
-      <a href="https://stzns.naralvin.com/?mid=309891_1835232" class="btn">💰Grab 100% Bonus!</a>
+      <p class="confidence-label">Confidence</p>
+      <a href="reviews.html" class="btn">Bet with Bonus</a>
     `;
 
     container.appendChild(card);
@@ -63,7 +63,7 @@ function renderPredictions() {
     new Chart(document.getElementById(`chart${index}`), {
       type: 'doughnut',
       data: {
-        labels: ['Confidence by AI77', 'Other'],
+        labels: ['Confidence', 'Other'],
         datasets: [{
           data: [p.confidence, 100 - p.confidence],
           backgroundColor: ['#28a745', '#e0e0e0']
