@@ -30,7 +30,7 @@ const predictions = [
     sport: "football",
     league: "La Liga",
     match: "Sevilla",
-    bet: "Over 2.5-GG-2 @ 2.60",
+    bet builder: "Over 2.5-GG-2 @ 2.60",
     confidence: 52
   }
 ];
