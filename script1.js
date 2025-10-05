@@ -29,8 +29,8 @@ const predictions = [
     date: "05 Oct 2025",
     sport: "football",
     league: "La Liga",
-    match: "Sevilla",
-    bet builder: "Over 2.5-GG-2 @ 2.60",
+    match: "Sevilla vs Barcelona",
+    bet: "Over 2.5-GG-2 @ 2.60",
     confidence: 52
   }
 ];
