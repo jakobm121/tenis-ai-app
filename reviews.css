@@ -77,19 +77,21 @@
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
 }
 
-/* Editor’s Choice Badge */
+/* Editor’s Choice Badge - centered on top */
 .badge {
   position: absolute;
-  top: 15px;
-  left: 15px;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
   background: #d4af37;
   color: #000;
-  padding: 8px 16px;
+  padding: 10px 22px;
   font-weight: 800;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  border-radius: 30px;
+  font-size: 1.1rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4);
   z-index: 2;
+  border: 2px solid #fff;
 }
 
 /* Banner/logo */
