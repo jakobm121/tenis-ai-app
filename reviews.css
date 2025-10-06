@@ -11,29 +11,85 @@
   color: #d4af37;
 }
 
-/* Ploščice v eni koloni */
+/* Intro banner */
+.intro-banner {
+  background: linear-gradient(145deg, #1f1f1f, #2a2a2a);
+  border: 1px solid #3d3d3d;
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  margin: 40px auto;
+  max-width: 850px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+.intro-content h2 {
+  color: #d4af37;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.intro-content p {
+  color: #efefef;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+.intro-content .cta {
+  margin-top: 20px;
+  color: #000;
+  font-weight: 700;
+  font-size: 1.2rem;
+  background: #d4af37;
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.intro-content .cta:hover {
+  transform: scale(1.05);
+  background: #b8960d;
+}
+
+/* Bookmaker cards */
 .bookmakers {
   display: flex;
   flex-direction: column;
-  gap: 40px; /* še več prostora med ploščicami */
+  gap: 40px;
 }
 
-/* Card */
 .card {
   background: #2a2a2a;
   border-radius: 14px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-  padding: 0;
   overflow: hidden;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s;
-
-  max-width: 750px;  /* ploščice so zdaj ožje */
-  margin: 0 auto;    /* centrirano */
+  max-width: 750px;
+  margin: 0 auto;
+  position: relative;
 }
 
 .card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+}
+
+/* Editor’s Choice Badge */
+.badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: #d4af37;
+  color: #000;
+  padding: 8px 16px;
+  font-weight: 800;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  z-index: 2;
 }
 
 /* Banner/logo */
@@ -44,9 +100,9 @@
   display: block;
 }
 
-/* Naslov in ocena */
+/* Headings */
 .card h3 {
-  font-size: 2rem; /* večje ime stavnice */
+  font-size: 2rem;
   text-align: center;
   margin: 20px 0 10px;
   color: #fdfdfd;
@@ -63,14 +119,13 @@
   padding: 8px 16px;
   border-radius: 20px;
   margin-left: 12px;
-  vertical-align: middle;
 }
 
-/* Welcome Bonus */
+/* Welcome bonus */
 .welcome-bonus {
   background: #d4af37;
   color: #000;
-  font-size: 1.5rem; /* večje črke */
+  font-size: 1.5rem;
   font-weight: 800;
   padding: 18px;
   text-align: center;
@@ -78,14 +133,14 @@
   margin: 20px;
 }
 
-/* Opis stavnice */
+/* Text */
 .card > p {
   color: #fff;
-  font-size: 1.1rem; /* večja pisava */
+  font-size: 1.1rem;
   line-height: 1.6;
   padding: 0 30px;
   margin: 0 0 25px;
-  text-align: center; /* centrirano */
+  text-align: center;
 }
 
 /* Pros & Cons */
@@ -101,7 +156,7 @@
   background: #383838;
   padding: 16px;
   border-radius: 8px;
-  font-size: 1rem; /* povečana pisava */
+  font-size: 1rem;
   color: #efefef;
   border: 1px solid #4a4a4a;
 }
@@ -129,9 +184,9 @@
   display: inline-block;
   background: #d4af37;
   color: #000;
-  padding: 18px 55px; /* večji gumb */
+  padding: 18px 55px;
   border-radius: 10px;
-  font-size: 1.3rem; /* večja pisava */
+  font-size: 1.3rem;
   font-weight: 800;
   transition: background 0.2s ease-in-out, transform 0.1s;
 }
