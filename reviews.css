@@ -12,6 +12,49 @@
   gap: 45px;
 }
 
+/* Intro banner */
+.intro-banner {
+  background: linear-gradient(145deg, #1f1f1f, #2a2a2a);
+  border: 1px solid #3d3d3d;
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  margin: 40px auto;
+  max-width: 850px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+}
+
+.intro-content h2 {
+  color: #d4af37;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.intro-content p {
+  color: #efefef;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 10px 0;
+}
+
+.intro-content .cta {
+  margin-top: 20px;
+  color: #000;
+  font-weight: 700;
+  font-size: 1.2rem;
+  background: #d4af37;
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.intro-content .cta:hover {
+  transform: scale(1.05);
+  background: #b8960d;
+}
+
 /* Ploščica stavnice */
 .card {
   width: 92%;
