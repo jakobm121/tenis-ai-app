@@ -57,8 +57,8 @@
 
 /* Ploščica stavnice */
 .card {
-  width: 92%;
-  max-width: 780px;
+  width: 90%;
+  max-width: 760px;
   background: #2a2a2a;
   border-radius: 14px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
@@ -91,7 +91,9 @@
 .card-logo {
   width: 100%;
   height: 230px;
+  position: relative;
   overflow: hidden;
+  border-bottom: 1px solid #3a3a3a;
 }
 
 .card-logo img {
@@ -99,6 +101,19 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  object-position: center;
+}
+
+/* Fade efekt čez spodnji del slike */
+.card-logo::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.7));
+  pointer-events: none;
 }
 
 /* Naslov in ocena */
@@ -118,17 +133,17 @@
   margin-left: 10px;
 }
 
-/* Welcome Bonus – večji, enoten */
+/* Welcome Bonus – večji, bolj izstopa */
 .welcome-bonus {
   background: linear-gradient(90deg, #d4af37, #b8960d);
   color: #000;
   font-size: 1.5rem;
   font-weight: 900;
   text-align: center;
-  padding: 20px;
+  padding: 22px;
   border-radius: 10px;
   margin: 18px 25px;
-  box-shadow: 0 0 15px rgba(212,175,55,0.4);
+  box-shadow: 0 0 15px rgba(212,175,55,0.45);
 }
 
 /* Opis pod bonusom */
@@ -207,7 +222,7 @@
   }
 
   .card-logo {
-    height: 189px;
+    height: 190px;
   }
 
   .welcome-bonus {
