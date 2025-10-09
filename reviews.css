@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 45px;
+  gap: 65px; /* 🔥 večji razmak med ploščicami */
 }
 
 /* Intro banner */
@@ -57,8 +57,8 @@
 
 /* Ploščica stavnice */
 .card {
-  width: 90%;
-  max-width: 760px;
+  width: 92%;
+  max-width: 780px;
   background: #2a2a2a;
   border-radius: 14px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
@@ -90,7 +90,7 @@
 /* Logo / banner */
 .card-logo {
   width: 100%;
-  height: 230px;
+  aspect-ratio: 16 / 9; /* ✅ enake višine slik */
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid #3a3a3a;
@@ -100,20 +100,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
   object-position: center;
-}
-
-/* Fade efekt čez spodnji del slike */
-.card-logo::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.7));
-  pointer-events: none;
+  display: block;
 }
 
 /* Naslov in ocena */
@@ -133,7 +121,7 @@
   margin-left: 10px;
 }
 
-/* Welcome Bonus – večji, bolj izstopa */
+/* Welcome Bonus – večji, viden in lep */
 .welcome-bonus {
   background: linear-gradient(90deg, #d4af37, #b8960d);
   color: #000;
@@ -142,8 +130,8 @@
   text-align: center;
   padding: 22px;
   border-radius: 10px;
-  margin: 18px 25px;
-  box-shadow: 0 0 15px rgba(212,175,55,0.45);
+  margin: 22px 25px;
+  box-shadow: 0 0 20px rgba(212,175,55,0.45);
 }
 
 /* Opis pod bonusom */
@@ -159,11 +147,11 @@
   border: 1px solid #3d3d3d;
 }
 
-/* Pros + Bonuses */
+/* Pros + Bonuses sekcija */
 .pros-cons {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 22px;
   margin: 0 20px 25px;
 }
 
@@ -171,7 +159,7 @@
   flex: 1;
   min-width: 260px;
   background: #383838;
-  padding: 20px;
+  padding: 22px;
   border-radius: 10px;
   color: #efefef;
   border: 1px solid #4a4a4a;
@@ -222,7 +210,7 @@
   }
 
   .card-logo {
-    height: 190px;
+    aspect-ratio: 16 / 9; /* ohrani razmerje tudi na mobitelu */
   }
 
   .welcome-bonus {
