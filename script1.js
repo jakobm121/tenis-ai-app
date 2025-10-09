@@ -10,28 +10,28 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "08 Oct 2025",
+    date: "09 Oct 2025",
     sport: "football",
-    league: "World cup - Qualification",
-    match: "Libya vs Cape Verde",
-    bet: "Over 1.5 @ 1.55",
+    league: "World Cup U20",
+    match: "Japan U20 vs France U20",
+    bet: "Under 2.50 @ 1.85",
     confidence: 85
   },
   {
-    date: "08 Oct 2025",
+    date: "09 Oct 2025",
     sport: "football",
-    league: "Serie D",
-    match: "Chievo vs Rovato Vertovese",
-    bet: "Under 2.5 @ 1.65",
+    league: "World Cup U20",
+    match: "Paraguay U20 vs Norway U20",
+    bet: "BTTS NO @ 1.75",
     confidence: 88
   },
   {
-    date: "08 Oct 2025",
+    date: "09 Oct 2025",
     sport: "football",
-    league: "World cup U-20",
-    match: "Argentina u-20 vs Nigeria u-20",
-    bet: "BTTS @ 2.00",
-    confidence: 66
+    league: "World Cup U20",
+    match: "USA U20 vs Italy U20",
+    bet: "X @ 3.20",
+    confidence: 45
   }
 ];
 
