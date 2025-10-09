@@ -53,7 +53,7 @@ function renderPredictions() {
       <h3>${p.match}</h3>
       <p class="bet-type">Bet: ${p.bet}</p>
       <canvas id="chart${index}"></canvas>
-      <p class="confidence-label">Confidence</p>
+      <p class="confidence-label">Confidence by AI77</p>
       <a href="https://stzns.naralvin.com/?mid=309891_1835232" class="btn">Claim 100% Bonus ✅</a>
     `;
 
