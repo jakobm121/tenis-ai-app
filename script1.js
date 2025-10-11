@@ -18,12 +18,12 @@ const predictions = [
     confidence: 70
   },
   {
-    date: "09 Oct 2025",
-    sport: "football",
-    league: "World Cup U20",
-    match: "Paraguay U20 vs Norway U20",
-    bet: "BTTS NO @ 1.75",
-    confidence: 88
+    date: "12 Oct 2025",
+    sport: "basketball",
+    league: "Aussie NBL",
+    match: "Melbourne UTD vs Cairns Taipans",
+    bet: "Over 183,5  @ 1.87",
+    confidence: 60
   },
   {
     date: "09 Oct 2025",
