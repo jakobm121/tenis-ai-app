@@ -11,7 +11,7 @@ const sportIcons = {
 const predictions = [
   {
     date: "12 Oct 2025",
-    sport: "football",
+    sport: "tennis",
     league: "Chellenger Valencia",
     match: "Taberner C. vs Mikrut L.",
     bet: "1 @ 1.84",
