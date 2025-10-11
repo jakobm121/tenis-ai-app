@@ -10,12 +10,12 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "11 Oct 2025",
+    date: "12 Oct 2025",
     sport: "football",
-    league: "World Cup Quali",
-    match: "Serbia vs Albania",
-    bet: "Red Card Yes @ 3.15",
-    confidence: 80
+    league: "Chellenger Valencia",
+    match: "Taberner C. vs Mikrut L.",
+    bet: "1 @ 1.84",
+    confidence: 70
   },
   {
     date: "09 Oct 2025",
