@@ -10,12 +10,12 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "09 Oct 2025",
+    date: "11 Oct 2025",
     sport: "football",
-    league: "World Cup U20",
-    match: "Japan U20 vs France U20",
-    bet: "Under 2.50 @ 1.85",
-    confidence: 85
+    league: "World Cup Quali",
+    match: "Serbia vs Albania",
+    bet: "Red Card Yes @ 3.15",
+    confidence: 80
   },
   {
     date: "09 Oct 2025",
