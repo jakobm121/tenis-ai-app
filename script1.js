@@ -26,12 +26,12 @@ const predictions = [
     confidence: 60
   },
   {
-    date: "09 Oct 2025",
+    date: "12 Oct 2025",
     sport: "football",
-    league: "World Cup U20",
-    match: "USA U20 vs Italy U20",
-    bet: "X @ 3.20",
-    confidence: 45
+    league: "World Cup Quali",
+    match: "Lithuania vs Poland",
+    bet: "2 @ 1.40",
+    confidence: 90
   }
 ];
 
