@@ -22,7 +22,7 @@ const predictions = [
     sport: "basketball",
     league: "Aussie NBL",
     match: "Melbourne UTD vs Cairns Taipans",
-    bet: "Over 183,5  @ 1.87",
+    bet: "Under 183,5  @ 1.87",
     confidence: 60
   },
   {
