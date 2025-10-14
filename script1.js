@@ -21,7 +21,7 @@ const predictions = [
     date: "14 Oct 2025",
     sport: "football",
     league: "Euro U21 - Quali",
-    match: "Austria U21 UTD vs Wales U21",
+    match: "Austria U21 vs Wales U21",
     bet: "Handicap -1.5  odd@ 1.82",
     confidence: 82
   },
