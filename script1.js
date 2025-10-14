@@ -10,28 +10,28 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "12 Oct 2025",
-    sport: "tennis",
-    league: "Chellenger Valencia",
-    match: "Taberner C. vs Mikrut L.",
-    bet: "1 @ 1.84",
+    date: "14 Oct 2025",
+    sport: "football",
+    league: "World cup - Quali",
+    match: "Ireland vs Armenia",
+    bet: "Under 2.5 odd@ 2",
     confidence: 70
   },
   {
-    date: "12 Oct 2025",
-    sport: "basketball",
-    league: "Aussie NBL",
-    match: "Melbourne UTD vs Cairns Taipans",
-    bet: "Under 183,5  @ 1.87",
-    confidence: 60
+    date: "14 Oct 2025",
+    sport: "football",
+    league: "Euro U21 - Quali",
+    match: "Austria U21 UTD vs Wales U21",
+    bet: "Handicap -1.5  odd@ 1.82",
+    confidence: 82
   },
   {
-    date: "12 Oct 2025",
-    sport: "football",
-    league: "World Cup Quali",
-    match: "Lithuania vs Poland",
-    bet: "2 @ 1.40",
-    confidence: 90
+    date: "14 Oct 2025",
+    sport: "basketball",
+    league: "Eurocup",
+    match: "Cedevita Olimpija vs Aris",
+    bet: "2 handicap +4.5 odd@ 1.75",
+    confidence: 63
   }
 ];
 
