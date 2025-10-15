@@ -10,12 +10,12 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "14 Oct 2025",
-    sport: "football",
-    league: "World cup - Quali",
-    match: "Ireland vs Armenia",
-    bet: "Under 2.5 odd@ 2",
-    confidence: 70
+    date: "15 Oct 2025",
+    sport: "tennis",
+    league: "Ningbo - WTA",
+    match: "Tomljanovic A. vs Sonmez Z.",
+    bet: "2 odd@ 2.10",
+    confidence: 75
   },
   {
     date: "14 Oct 2025",
