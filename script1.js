@@ -12,26 +12,26 @@ const predictions = [
   {
     date: "15 Oct 2025",
     sport: "tennis",
-    league: "Ningbo - WTA",
+    league: "WTA - Ningbo",
     match: "Tomljanovic A. vs Sonmez Z.",
     bet: "2 odd@ 2.10",
     confidence: 75
   },
   {
-    date: "14 Oct 2025",
-    sport: "football",
-    league: "Euro U21 - Quali",
-    match: "Austria U21 vs Wales U21",
-    bet: "Handicap -1.5  odd@ 1.82",
+    date: "15 Oct 2025",
+    sport: "tennis",
+    league: "ATP - Stockholm",
+    match: "De Jong J. vs Fucsovics M.",
+    bet: "2 odd@ 1.55",
     confidence: 82
   },
   {
-    date: "14 Oct 2025",
+    date: "15 Oct 2025",
     sport: "basketball",
     league: "Eurocup",
-    match: "Cedevita Olimpija vs Aris",
-    bet: "2 handicap +4.5 odd@ 1.75",
-    confidence: 63
+    match: "Panionios vs JL Bourg",
+    bet: "2 Handicap -3.5 odd@ 1.90",
+    confidence: 80
   }
 ];
 
