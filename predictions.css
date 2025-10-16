@@ -217,3 +217,21 @@ canvas {
   margin-top: 25px;
   color: #666;
 }
+
+#howWePlayTitle {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+#howWePlayTitle:hover {
+  color: #d4af37; /* zlata barva pri hoverju */
+}
+
+#howWePlayContent.hidden {
+  display: none;
+}
+
+#howWePlayContent {
+  margin-top: 20px;
+  transition: all 0.3s ease-in-out;
+}
