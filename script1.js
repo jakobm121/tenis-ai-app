@@ -113,3 +113,33 @@ new Chart(ctx, {
     }
   }
 });
+
+function toggleSection(id) {
+  const section = document.getElementById(id);
+  section.style.display = section.style.display === "block" ? "none" : "block";
+}
+
+const ctx = document.getElementById('profitChart');
+if (ctx) {
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Sep 1', 'Sep 8', 'Sep 15', 'Sep 22', 'Sep 30'],
+      datasets: [{
+        label: 'Profit Growth (Units)',
+        data: [0, 1.5, 3.2, 5.6, 7.7],
+        borderColor: '#ffd700',
+        backgroundColor: 'rgba(255, 215, 0, 0.2)',
+        fill: true,
+        tension: 0.3
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, title: { display: true, text: 'Profit (units)' } },
+        x: { title: { display: true, text: 'September 2025' } }
+      }
+    }
+  });
+}
