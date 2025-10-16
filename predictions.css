@@ -129,3 +129,91 @@ canvas {
     max-width: 150px;
   }
 }
+
+/* === MONTHLY STATS SECTION === */
+.monthly-stats {
+  background: linear-gradient(145deg, #1a1a1a, #2b2b2b);
+  color: #fff;
+  padding: 60px 20px;
+  text-align: center;
+  border-bottom: 3px solid #c9a227;
+}
+
+.monthly-stats h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #ffd700;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.stat-box {
+  background: #2d2d2d;
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 20px 40px;
+  width: 180px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.stat-box:hover {
+  transform: scale(1.05);
+}
+
+.stat-box h3 {
+  font-size: 2rem;
+  color: #ffd700;
+  margin: 0;
+}
+
+.stat-box p {
+  margin-top: 6px;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+/* === HOW WE PLAY SECTION === */
+.how-we-play {
+  background: #f6f6f6;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.how-we-play h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #1a1a1a;
+}
+
+.how-we-play p {
+  max-width: 700px;
+  margin: 0 auto 20px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.how-we-play ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 600px;
+  text-align: left;
+}
+
+.how-we-play li {
+  margin: 10px 0;
+  font-size: 1.05rem;
+  color: #222;
+}
+
+.how-we-play .note {
+  font-style: italic;
+  margin-top: 25px;
+  color: #666;
+}
