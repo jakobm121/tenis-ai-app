@@ -79,3 +79,37 @@ function renderPredictions() {
 
 // Zaženi render
 renderPredictions();
+
+const ctx = document.getElementById('profitChart').getContext('2d');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['Sep 1', 'Sep 5', 'Sep 10', 'Sep 15', 'Sep 20', 'Sep 25', 'Sep 30'],
+    datasets: [{
+      label: 'Profit Growth (%)',
+      data: [0, 2.3, 3.5, 4.1, 5.8, 6.3, 7.2],
+      borderColor: '#ffd700',
+      backgroundColor: 'rgba(255, 215, 0, 0.15)',
+      borderWidth: 3,
+      tension: 0.3,
+      fill: true,
+      pointRadius: 5,
+      pointBackgroundColor: '#ffd700'
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false }
+    },
+    scales: {
+      x: {
+        ticks: { color: '#fff' },
+        grid: { color: 'rgba(255,255,255,0.1)' }
+      },
+      y: {
+        ticks: { color: '#fff', callback: value => value + '%' },
+        grid: { color: 'rgba(255,255,255,0.1)' }
+      }
+    }
+  }
+});
