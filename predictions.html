@@ -27,42 +27,30 @@
   </a>
 </div>
 
-  <section class="monthly-stats">
-  <h2>📊 September Overview</h2>
-  <div class="stats-grid">
-    <div class="stat-box">
-      <h3>82</h3>
-      <p>Total Predictions</p>
-    </div>
-    <div class="stat-box">
-      <h3>61</h3>
-      <p>Winning Picks</p>
-    </div>
-    <div class="stat-box">
-      <h3>1.87</h3>
-      <p>Average Odds</p>
-    </div>
-    <div class="stat-box">
-      <h3>+7.2%</h3>
-      <p>ROI (Yield)</p>
-    </div>
+<section class="toggle-section">
+  <!-- 📊 September Overview -->
+  <button class="toggle-btn" onclick="toggleSection('overview')">📊 September Overview</button>
+  <div id="overview" class="toggle-content">
+    <h3>📈 September Overview</h3>
+    <p>September was a strong month for our AI77 Betting Lab team. Consistent value detection and disciplined staking helped us maintain steady growth throughout the month.</p>
+    <ul>
+      <li><strong>Total Predictions:</strong> 82</li>
+      <li><strong>Wins:</strong> 54</li>
+      <li><strong>Win Rate:</strong> 65.8%</li>
+      <li><strong>Average Odds:</strong> 1.91</li>
+      <li><strong>ROI:</strong> +9.4%</li>
+      <li><strong>Total Profit:</strong> +7.7 units</li>
+    </ul>
+    <canvas id="profitChart"></canvas>
   </div>
 
-  <canvas id="profitChart"></canvas>
-</section>
-
-  <section class="how-we-play">
-  <h2>🎯 How We Play</h2>
-  <p>
-    At <strong>AI77 Betting Lab®</strong>, we don’t chase luck — we build long-term value.  
-    Each day we publish three carefully selected free predictions, powered by AI analytics and reviewed by our expert team.
-  </p>
-  <ul>
-    <li>💰 <strong>Unit system:</strong> 1–10 units (1 = fun bet, 10 = high confidence)</li>
-    <li>📈 <strong>Value-based approach:</strong> We target odds that hold real statistical edge over implied probability</li>
-    <li>🧠 <strong>AI + Human analysis:</strong> Our models combine form, stats, and situational factors for each match</li>
-  </ul>
-  <p class="note">🎓 Goal: sustainable ROI between 6–10% per month</p>
+  <!-- 🎯 How We Play -->
+  <button class="toggle-btn" onclick="toggleSection('howweplay')">🎯 How We Play</button>
+  <div id="howweplay" class="toggle-content">
+    <h3>🎯 How We Play</h3>
+    <p>Our approach is based on a <strong>unit system (1–10)</strong> that reflects confidence levels rather than emotions. We track every pick, analyze market movement, and calculate long-term value — not short-term luck.</p>
+    <p>The AI model evaluates stats, momentum, and situational trends before generating each prediction. Discipline and consistency are the key to sustainable profit.</p>
+  </div>
 </section>
 
   <main class="container" id="predictions-container">
