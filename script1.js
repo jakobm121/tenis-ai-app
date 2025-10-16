@@ -113,3 +113,12 @@ new Chart(ctx, {
     }
   }
 });
+
+const howWePlayTitle = document.getElementById('howWePlayTitle');
+const howWePlayContent = document.getElementById('howWePlayContent');
+
+if (howWePlayTitle && howWePlayContent) {
+  howWePlayTitle.addEventListener('click', () => {
+    howWePlayContent.classList.toggle('hidden');
+  });
+}
