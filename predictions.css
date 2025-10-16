@@ -235,3 +235,12 @@ canvas {
   margin-top: 20px;
   transition: all 0.3s ease-in-out;
 }
+
+.vip-note {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: #777; /* nežno siva */
+  text-align: center;
+  font-style: italic;
+  opacity: 0.9;
+}
