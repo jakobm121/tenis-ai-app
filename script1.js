@@ -10,28 +10,28 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "16 Oct 2025",
-    sport: "football",
-    league: "Ecuador Serie B",
-    match: "Leones D.N. vs San Antonio FC C.",
-    bet: "Over 2.5 odd@ 2.33",
-    confidence: 50
-  },
-  {
-    date: "16 Oct 2025",
-    sport: "tennis",
-    league: "Challenger - Tampico",
-    match: "Kalieva E. vs Brace C.",
-    bet: "2 odd@ 1.57",
-    confidence: 75
-  },
-  {
-    date: "16 Oct 2025",
-    sport: "tennis",
-    league: "ATP - Brussels",
-    match: "Musetti L. vs Hanfmann Y.",
-    bet: "2 Handicap +3.5 odd@ 1.84",
+    date: "17 Oct 2025",
+    sport: "basketball",
+    league: "Greece",
+    match: "Marousi vs Aris",
+    bet: "1 odd@ 1.87",
     confidence: 55
+  },
+  {
+    date: "17 Oct 2025",
+    sport: "tennis",
+    league: "ATP - Almaty",
+    match: "Struff J.L. vs Moutet C.",
+    bet: "1 odd@ 2.28",
+    confidence: 60
+  },
+  {
+    date: "17 Oct 2025",
+    sport: "football",
+    league: "Israel",
+    match: "Ironi Nesher vs Hapoel Migdal H.",
+    bet: "1 odd@ 2.07",
+    confidence: 77
   }
 ];
 
