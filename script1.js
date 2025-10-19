@@ -26,12 +26,12 @@ const predictions = [
     confidence: 60
   },
   {
-    date: "17 Oct 2025",
+    date: "19 Oct 2025",
     sport: "football",
-    league: "Israel",
-    match: "Ironi Nesher vs Hapoel Migdal H.",
-    bet: "1 odd@ 2.07",
-    confidence: 77
+    league: "Serie A",
+    match: "Atalanta vs Lazio",
+    bet: "X odd@ 3.70",
+    confidence: 29
   }
 ];
 
