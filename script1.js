@@ -10,28 +10,28 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "23 Oct 2025",
+    date: "24 Oct 2025",
     sport: "football",
-    league: "Conference League",
-    match: "Shamrock Rovers vs Celje",
-    bet: "2 odd@ 2.00",
-    confidence: 90
+    league: "1. Slovenian League",
+    match: "Aluminj vs Bravo",
+    bet: "1x & Both teams to score odd@ 2.71",
+    confidence: 45
   },
   {
-    date: "23 Oct 2025",
+    date: "24 Oct 2025",
     sport: "football",
-    league: "Conference League",
-    match: "SK Rapid - Fiorentina",
-    bet: "2 odd@ 2.10",
+    league: "Serie A",
+    match: "AC Milan - Pisa",
+    bet: "1 handicap -1,5 odd@ 1.95",
     confidence: 60
   },
   {
-    date: "23 Oct 2025",
+    date: "24 Oct 2025",
     sport: "football",
-    league: "Europa League",
-    match: "Malmo vs Dinamo Zagreb",
-    bet: "Draw no bet 2 odd@ 1.68",
-    confidence: 55
+    league: "2. Slovenian League",
+    match: "Tabor Sežana vs Brinje Grosuplje",
+    bet: "Over 2,5 odd@ 1.80",
+    confidence: 65
   }
 ];
 
