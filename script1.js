@@ -23,7 +23,7 @@ const predictions = [
     league: "Serie A",
     match: "AC Milan - Pisa",
     bet: "1 handicap -1,5 odd@ 1.95",
-    confidence: 76
+    confidence: 74
   },
   {
     date: "24 Oct 2025",
