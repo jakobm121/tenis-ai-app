@@ -31,7 +31,7 @@ const predictions = [
     league: "La Liga",
     match: "Real Madrid vs Barcelona",
     bet: "2 odd@ 3.45",
-    confidence: 65
+    confidence: 50
   }
 ];
 
