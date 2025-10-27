@@ -10,7 +10,7 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "27 Oct 2025",
+    date: "31 Oct 2025",
     sport: "football",
     league: "Challenge League Swiss",
     match: "Yverdon-Sport - FC Vaduz",
