@@ -12,7 +12,7 @@ const predictions = [
   {
     date: "27 Oct 2025",
     sport: "football",
-    league: "Super League Swiss",
+    league: "Challenge League Swiss",
     match: "Yverdon-Sport - FC Vaduz",
     bet: "1 odd@ 1.92",
     confidence: 75
