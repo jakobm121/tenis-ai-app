@@ -10,27 +10,27 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "31 Oct 2025",
+    date: "28 Oct 2025",
+    sport: "basketball",
+    league: "VTB League",
+    match: "Nizhny Novgorod - BC Enisey",
+    bet: "Under 152,5 odd@ 1.97",
+    confidence: 55
+  },
+  {
+    date: "28 Oct 2025",
     sport: "football",
-    league: "Challenge League Swiss",
-    match: "Yverdon-Sport - FC Vaduz",
-    bet: "1 odd@ 1.92",
+    league: "Slovenian cup",
+    match: "Žiri - Aluminij",
+    bet: "2 (handicap -2,5) odd@ 1.99",
     confidence: 75
   },
   {
-    date: "27 Oct 2025",
-    sport: "tennis",
-    league: "ATP",
-    match: "Alex Michelsen - Zizou Bergs",
-    bet: "2 odd@ 1.95",
-    confidence: 50
-  },
-  {
-    date: "27 Oct 2025",
-    sport: "hockey",
-    league: "NHL",
-    match: "Ottawa Senators - Boston Bruins",
-    bet: "Under 5,5 odd@ 2",
+    date: "28 Oct 2025",
+    sport: "football",
+    league: "Serie A",
+    match: "Atalanta - AC Milan",
+    bet: "X odd@ 3.30",
     confidence: 50
   }
 ];
