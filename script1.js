@@ -11,11 +11,11 @@ const sportIcons = {
 const predictions = [
   {
     date: "30 Oct 2025",
-    sport: "basketball",
-    league: "",
-    match: "",
-    bet: " odd@ ",
-    confidence: 55
+    sport: "tennis",
+    league: "ATP - Paris",
+    match: "Shelton B. - Rublev A.",
+    bet: "2 odd@ 2.33",
+    confidence: 45
   },
   {
     date: "30 Oct 2025",
@@ -29,9 +29,9 @@ const predictions = [
     date: "30 Oct 2025",
     sport: "football",
     league: "Serie A",
-    match: "",
-    bet: " odd@ ",
-    confidence: 50
+    match: "Pisa - Lazio",
+    bet: " Draw no bet 2 odd@ 1.50",
+    confidence: 80
   }
 ];
 
