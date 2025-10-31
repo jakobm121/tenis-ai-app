@@ -30,7 +30,7 @@ const predictions = [
     sport: "tennis",
     league: "ATP Paris",
     match: "Daniil Medvedev - Alexander Zverev",
-    bet: " 2 Handicap games +2,5  odd@ 1.50",
+    bet: " 2 Handicap games +2,5  odd@ 1.60",
     confidence: 66
   }
 ];
