@@ -10,28 +10,28 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "30 Oct 2025",
-    sport: "tennis",
-    league: "ATP - Paris",
-    match: "Shelton B. - Rublev A.",
-    bet: "2 odd@ 2.33",
-    confidence: 45
-  },
-  {
-    date: "30 Oct 2025",
+    date: "31 Oct 2025",
     sport: "football",
-    league: "Serie A",
-    match: "Cagliari - Sassuolo",
-    bet: "X odd@ 3",
-    confidence: 45
-  },
-  {
-    date: "30 Oct 2025",
-    sport: "football",
-    league: "Serie A",
-    match: "Pisa - Lazio",
-    bet: " Draw no bet 2 odd@ 1.50",
+    league: "Germany 1.Bundesliga",
+    match: "FC Augsburg - Borussia Dortmund",
+    bet: "Over 3 odd@ 1.80",
     confidence: 80
+  },
+  {
+    date: "31 Oct 2025",
+    sport: "basketball",
+    league: "Euroleague",
+    match: "AS Monaco - Panathinaikos",
+    bet: "TJ Shorts, Over 9.5 points odd@ 1.88",
+    confidence: 70
+  },
+  {
+    date: "31 Oct 2025",
+    sport: "tennis",
+    league: "ATP Paris",
+    match: "Daniil Medvedev - Alexander Zverev",
+    bet: " 2 Handicap games +2,5  odd@ 1.50",
+    confidence: 66
   }
 ];
 
