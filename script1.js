@@ -10,12 +10,12 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "4 Nov 2025",
+    date: "3 Nov 2025",
     sport: "tennis",
-    league: "ATP",
-    match: "Altmaier - Rinderknech",
-    bet: "1 odd@ 2.65",
-    confidence: 50
+    league: "WTA",
+    match: "Iga Swiatek - Elena Rybakina",
+    bet: "1 odd@ 1.60",
+    confidence: 75
   },
   {
     date: "3 Nov 2025",
