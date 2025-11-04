@@ -26,11 +26,11 @@ const predictions = [
     confidence: 65
   },
   {
-    date: "3 Nov 2025",
-    sport: "basketball",
-    league: "Saudi Arabia",
-    match: "Al Ula - Al Ahli",
-    bet: " 2 odd@ 1.90",
+    date: "4 Nov 2025",
+    sport: "football",
+    league: "Champions League",
+    match: "Napoli - Eintracht F",
+    bet: " Under 3.5 odd@ 1.65",
     confidence: 66
   }
 ];
