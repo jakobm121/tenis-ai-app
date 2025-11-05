@@ -10,12 +10,13 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "4 Nov 2025",
-    sport: "football",
-    league: "Champions League",
-    match: "Liverpool - Real Madrid",
-    bet: "2 draw no bet odd@ 1.90",
-    confidence: 75
+    date: "",
+    sport: "",
+    league: "",
+    match: "",
+    bet: "predictions will be available from November 10th due to an upgrade of our system! 🚀
+We’re improving accuracy and performance — stay tuned for even sharper insights and smarter picks! ⚡️",
+    confidence: 100
   },
   {
     date: "4 Nov 2025",
