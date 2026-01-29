@@ -107,3 +107,7 @@
 
 .special-offer {
   margin: 0; 
+
+  .special-offer + .special-offer {
+  margin-top: 0;     /* odstrani vrhnji margin druge sekcije, če obstaja */
+}
