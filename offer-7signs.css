@@ -37,7 +37,7 @@
   border-radius: 12px;
   padding: 40px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  margin-bottom: 50px;
+  margin-bottom: 0px;
   text-align: center;
 }
 
@@ -103,11 +103,4 @@
     font-size: 1rem;
     padding: 12px 25px;
   }
-}
-
-.special-offer {
-  margin: 0; 
-
-  .special-offer + .special-offer {
-  margin-top: 0;     /* odstrani vrhnji margin druge sekcije, če obstaja */
 }
