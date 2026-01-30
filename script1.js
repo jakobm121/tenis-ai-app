@@ -10,12 +10,12 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "",
-    sport: "",
-    league: "",
-    match: "",
-    bet: "",
-    confidence: 100
+    date: "4 Nov 2025",
+    sport: "football",
+    league: "Champions League",
+    match: "PSG - Bayern",
+    bet: "2 Draw no bet odd@ 1.83",
+    confidence: 65
   },
   {
     date: "4 Nov 2025",
