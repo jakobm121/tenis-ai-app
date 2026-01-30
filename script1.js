@@ -10,28 +10,28 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "4 Nov 2025",
-    sport: "football",
-    league: "Champions League",
-    match: "PSG - Bayern",
-    bet: "2 Draw no bet odd@ 1.83",
+    date: "30 Jan 2026",
+    sport: "basketball",
+    league: "NBA",
+    match: "MIA Heat - CHI Bulls",
+    bet: "1 odd@ 1.71",
+    confidence: 88
+  },
+  {
+    date: "30 Jan 2026",
+    sport: "basketball",
+    league: "NBA",
+    match: "WAS Wizards - MIL Bucks",
+    bet: "WAS Wizards +2 odd@ 1.90",
     confidence: 65
   },
   {
-    date: "4 Nov 2025",
-    sport: "football",
-    league: "Champions League",
-    match: "PSG - Bayern",
-    bet: "2 Draw no bet odd@ 1.83",
-    confidence: 65
-  },
-  {
-    date: "4 Nov 2025",
-    sport: "football",
-    league: "Champions League",
-    match: "Napoli - Eintracht F",
-    bet: " Under 3.5 odd@ 1.65",
-    confidence: 66
+    date: "30 Jan 2026",
+    sport: "basketball",
+    league: "NBA",
+    match: "DAL Mavericks - CHA Horrnets",
+    bet: " 2 odd@ 1.65",
+    confidence: 75
   }
 ];
 
