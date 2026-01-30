@@ -14,8 +14,7 @@ const predictions = [
     sport: "",
     league: "",
     match: "",
-    bet: "predictions will be available from November 10th due to an upgrade of our system! 🚀
-We’re improving accuracy and performance — stay tuned for even sharper insights and smarter picks! ⚡️",
+    bet: "",
     confidence: 100
   },
   {
