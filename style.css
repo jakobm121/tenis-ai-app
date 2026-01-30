@@ -325,3 +325,8 @@ footer {
 .btn-offer:hover {
   background: #009874;
 }
+
+.special-offer + .special-offer {
+  margin-top: 0;
+}
+
