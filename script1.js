@@ -30,7 +30,7 @@ const predictions = [
     sport: "tennis",
     league: "Australia Open",
     match: "Alcaraz - Đokovic",
-    bet: " over 38,5 odd@ 1.95",
+    bet: " over 38.5 odd@ 1.95",
     confidence: 75
   }
 ];
