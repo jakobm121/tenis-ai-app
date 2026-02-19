@@ -10,27 +10,27 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "2. Feb 2026",
+    date: "19 Feb 2026",
     sport: "football",
-    league: "La Liga",
-    match: "Mallorca - Sevilla",
-    bet: "Under 2.5 odd@ 1.70",
-    confidence: 55
+    league: "Conference League",
+    match: "Drita - Celje",
+    bet: "2 @ 1.83",
+    confidence: 63
   },
   {
-    date: "2. Feb 2026",
+    date: "19 Feb 2026",
     sport: "football",
-    league: "Serie A",
-    match: "Udinese - Roma",
-    bet: "2 odd@ 1.99",
-    confidence: 55
+    league: "Europa League",
+    match: "Dinamo ZG - Genk",
+    bet: "BTTS odd@ 1.75",
+    confidence: 85
   },
   {
-    date: "2 Feb 2026",
-    sport: "Basketball",
-    league: "ABA League",
-    match: "Krka - Split",
-    bet: " 2 +6.00 odd@ 1.80",
+    date: "19 Feb 2026",
+    sport: "football",
+    league: "Europa League",
+    match: "Fenerbahce - Nottingham Forest",
+    bet: " 1X odd@ 1.40",
     confidence: 75
   }
 ];
