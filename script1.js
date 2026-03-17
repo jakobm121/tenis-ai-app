@@ -21,17 +21,17 @@ const predictions = [
     date: "17 Mar 2026",
     sport: "football",
     league: "Champions League",
-    match: "Brentford - Wolverhampton",
-    bet: "Over 2.5 odd@ 1.76",
+    match: "Chelsea - PSG",
+    bet: "X2 odd@ 1.65",
     confidence: 65
   },
   {
     date: "17 Mar 2026",
     sport: "football",
     league: "Champions League",
-    match: "Cristian Garin - Liam Draxl",
-    bet: " 1 odd@ 1.72",
-    confidence: 75
+    match: " Sporting L.- Bodo/Glimt",
+    bet: " Under 4.5 @ 1.40",
+    confidence: 90
   }
 ];
 
