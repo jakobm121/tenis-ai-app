@@ -10,25 +10,25 @@ const sportIcons = {
 // Definicija analiz
 const predictions = [
   {
-    date: "16 Mar 2026",
-    sport: "basketball",
-    league: "Greece",
+    date: "17 Mar 2026",
+    sport: "football",
+    league: "Champions League",
     match: "AGE Chalkida - AEO Proteas",
     bet: "AGE Chalkida -1.5 @ 1.83",
     confidence: 70
   },
   {
-    date: "16 Mar 2026",
+    date: "17 Mar 2026",
     sport: "football",
-    league: "Premier League",
+    league: "Champions League",
     match: "Brentford - Wolverhampton",
     bet: "Over 2.5 odd@ 1.76",
     confidence: 65
   },
   {
-    date: "16 Mar 2026",
-    sport: "tennis",
-    league: "ATP",
+    date: "17 Mar 2026",
+    sport: "football",
+    league: "Champions League",
     match: "Cristian Garin - Liam Draxl",
     bet: " 1 odd@ 1.72",
     confidence: 75
