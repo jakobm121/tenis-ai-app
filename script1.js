@@ -13,8 +13,8 @@ const predictions = [
     date: "17 Mar 2026",
     sport: "football",
     league: "Champions League",
-    match: "AGE Chalkida - AEO Proteas",
-    bet: "AGE Chalkida -1.5 @ 1.83",
+    match: "Manchester City - Real Madrid",
+    bet: "BTTS @ 1.60",
     confidence: 70
   },
   {
