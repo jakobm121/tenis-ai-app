@@ -244,3 +244,28 @@ canvas {
   font-style: italic;
   opacity: 0.9;
 }
+
+/* AI Reasoning Box Style */
+.ai-reasoning {
+  background: rgba(40, 167, 69, 0.05);
+  border-left: 4px solid #28a745;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.ai-reasoning p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #444;
+}
+
+.ai-reasoning strong {
+  color: #28a745;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
