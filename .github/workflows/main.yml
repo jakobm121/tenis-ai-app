@@ -1,0 +1,32 @@
+name: Update AI77 Predictions
+
+on:
+  schedule:
+    - cron: '0 5 * * *' # Teče vsako jutro ob 5:00
+  workflow_dispatch: # Omogoča, da zaženeš ročno s klikom na gumb
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Scout Script
+        run: python ai77_scout.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add predictions.json
+          git commit -m "Update daily predictions" || exit 0
+          git push
