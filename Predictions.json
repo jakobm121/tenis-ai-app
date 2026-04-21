@@ -1,0 +1,20 @@
+[
+  {
+    "date": "22 Apr 2026",
+    "sport": "football",
+    "league": "Champions League",
+    "match": "PSG - Inter Milan",
+    "bet": "PSG to Qualify @ 1.75",
+    "confidence": 82,
+    "reasoning": "PSG has a 2.4 goal average at home in 2026. Inter's defensive line is missing Pavard, which creates a significant gap for Mbappe to exploit."
+  },
+  {
+    "date": "22 Apr 2026",
+    "sport": "football",
+    "league": "Premier League",
+    "match": "Newcastle - Man Utd",
+    "bet": "Newcastle Win @ 1.95",
+    "confidence": 74,
+    "reasoning": "Newcastle is unbeaten at St. James' Park this year. United struggles with fatigue after their Europa League clash last Thursday."
+  }
+]
