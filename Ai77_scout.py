@@ -1,68 +1,116 @@
 import requests
 import json
-from datetime import datetime, timedelta
+import os
+from datetime import datetime
 
-# --- KONFIGURACIJA ---
-API_KEY = "7b08a67045mshf14f43b059212bfp17e1eajsnb9a13dec679a"
-HOST = "football-prediction-api.p.rapidapi.com"
-# Lige, ki jih spremljamo (39=Premier League, 140=La Liga, 135=Serie A, 78=Bundesliga)
-LEAGUES = [39, 140, 135, 78]
+API_KEY = os.getenv("ODDS_API_KEY")
 
-def get_top_matches():
-    headers = {
-        'x-rapidapi-key': API_KEY,
-        'x-rapidapi-host': HOST
+SPORTS = [
+    "soccer_epl",
+    "soccer_spain_la_liga",
+    "soccer_italy_serie_a",
+    "soccer_germany_bundesliga"
+]
+
+def fetch_odds(sport):
+    url = f"https://api.the-odds-api.com/v4/sports/{sport}/odds"
+
+    params = {
+        "apiKey": API_KEY,
+        "regions": "eu",
+        "markets": "h2h",
+        "oddsFormat": "decimal"
     }
-    
-    # Pridobimo tekme za jutri
-    tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
-    all_predictions = []
 
-    for league in LEAGUES:
-        # 1. Poiščemo tekme v tej ligi za jutri
-        fixtures_url = f"https://{HOST}/fixtures?league={league}&date={tomorrow}"
-        response = requests.get(fixtures_url, headers=headers).json()
-        
-        if not response.get('response'):
-            continue
+    try:
+        res = requests.get(url, params=params)
+        return res.json()
+    except:
+        return []
 
-        # Vzamemo max 2 tekmi na ligo, da ni preveč
-        for item in response['response'][:2]:
-            fixture_id = item['fixture']['id']
-            
-            # 2. Za vsako tekmo vprašamo API za AI napoved
-            pred_url = f"https://{HOST}/predictions?fixture={fixture_id}"
-            pred_res = requests.get(pred_url, headers=headers).json()
-            
-            if pred_res.get('response'):
-                data = pred_res['response'][0]
-                
-                # Izvlečemo pametne podatke
-                match_name = f"{item['teams']['home']['name']} - {item['teams']['away']['name']}"
-                league_name = item['league']['name']
-                advice = data['predictions']['advice']
-                confidence = data['predictions']['percent']['home'] # poenostavljeno
-                
-                # Ustvarimo "Reasoning" na podlagi statistike iz API-ja
-                h2h = data['comparison']['h2h']['home']
-                goals = data['comparison']['goals']['home']
-                reason = f"AI Analysis: {match_name} shows a strong {advice}. Home team H2H strength is at {h2h}, with an expected goal conversion of {goals}."
 
-                all_predictions.append({
-                    "date": tomorrow,
-                    "sport": "football",
-                    "league": league_name,
-                    "match": match_name,
-                    "bet": advice,
-                    "confidence": int(float(confidence.replace('%',''))),
-                    "reasoning": reason
-                })
+def smart_pick(game):
+    try:
+        teams = game["teams"]
+        home = game["home_team"]
+        away = [t for t in teams if t != home][0]
 
-    # Shranimo v tvoj JSON
-    with open('predictions.json', 'w', encoding='utf-8') as f:
-        json.dump(all_predictions[:3], f, indent=4) # Vzamemo top 3 tekme skupaj
-    print("Predictions updated successfully!")
+        bookmakers = game.get("bookmakers", [])
+        if not bookmakers:
+            return None
+
+        market = bookmakers[0]["markets"][0]["outcomes"]
+
+        # SORT ODDS (ni več samo favorit)
+        sorted_odds = sorted(market, key=lambda x: x["price"])
+
+        best = sorted_odds[0]  # favorit
+        second = sorted_odds[1]  # underdog/value candidate
+
+        # 🔥 LOGIKA (to je upgrade)
+        if best["price"] < 1.5:
+            # premajhna kvota → skip (ni value)
+            return None
+
+        if 1.5 <= best["price"] <= 2.2:
+            pick = best
+            confidence = int(100 / best["price"])
+
+        else:
+            # če so kvote blizu → lahko value na drugi strani
+            pick = second
+            confidence = int(100 / second["price"])
+
+        return {
+            "date": datetime.now().strftime("%Y-%m-%d"),
+            "sport": "football",
+            "league": game["sport_key"],
+            "match": f"{home} - {away}",
+            "bet": pick["name"],
+            "confidence": min(confidence, 85),
+            "reasoning": f"Odds analysis suggests value on {pick['name']} (odds {pick['price']})."
+        }
+
+    except:
+        return None
+
+
+def main():
+    all_picks = []
+
+    for sport in SPORTS:
+        data = fetch_odds(sport)
+
+        for game in data:
+            pick = smart_pick(game)
+            if pick:
+                all_picks.append(pick)
+
+    # sort by confidence
+    all_picks = sorted(all_picks, key=lambda x: x["confidence"], reverse=True)
+
+    # fallback
+    if len(all_picks) < 3:
+        print("Using fallback")
+        all_picks += [
+            {
+                "date": datetime.now().strftime("%Y-%m-%d"),
+                "sport": "football",
+                "league": "fallback",
+                "match": "Arsenal - Chelsea",
+                "bet": "Arsenal",
+                "confidence": 65,
+                "reasoning": "Fallback pick"
+            }
+        ]
+
+    top3 = all_picks[:3]
+
+    with open("predictions.json", "w", encoding="utf-8") as f:
+        json.dump(top3, f, indent=4)
+
+    print("DONE:", len(top3))
+
 
 if __name__ == "__main__":
-    get_top_matches()
-
+    main()
