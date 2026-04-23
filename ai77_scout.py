@@ -12,6 +12,13 @@ SPORTS = [
     "soccer_germany_bundesliga"
 ]
 
+LEAGUE_NAMES = {
+    "soccer_epl": "Premier League",
+    "soccer_spain_la_liga": "La Liga",
+    "soccer_italy_serie_a": "Serie A",
+    "soccer_germany_bundesliga": "Bundesliga"
+}
+
 def fetch_matches():
     all_matches = []
 
@@ -35,7 +42,7 @@ def fetch_matches():
             try:
                 commence_time = datetime.fromisoformat(game['commence_time'].replace('Z', ''))
 
-                # samo naslednji 3 dni
+                # filter: naslednji 3 dni
                 if commence_time > datetime.utcnow() + timedelta(days=3):
                     continue
 
@@ -46,16 +53,16 @@ def fetch_matches():
                 market = bookmaker['markets'][0]
                 outcomes = market['outcomes']
 
-                # najdi favorite (nižja kvota)
+                # najdi favorita (najnižja kvota)
                 best = min(outcomes, key=lambda x: x['price'])
 
                 all_matches.append({
                     "date": commence_time.strftime("%Y-%m-%d"),
                     "sport": "football",
-                    "league": sport,
+                    "league": LEAGUE_NAMES.get(sport, sport),
                     "match": f"{home} - {away}",
                     "bet": best['name'],
-                    "confidence": int(100 / best['price']),  # simple approx
+                    "confidence": int(100 / best['price']),
                     "reasoning": f"Lower odds ({best['price']}) indicate stronger probability."
                 })
 
@@ -68,15 +75,11 @@ def fetch_matches():
 def main():
     matches = fetch_matches()
 
-    # če ni nič → NE DELAJ FAKE
     if not matches:
         print("No matches found.")
         return
 
-    # sortiraj po času
     matches = sorted(matches, key=lambda x: x['date'])
-
-    # vzemi top 3
     top3 = matches[:3]
 
     with open("predictions.json", "w", encoding="utf-8") as f:
