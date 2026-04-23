@@ -34,7 +34,7 @@ jobs:
         run: python ai77_scout.py
 
       - name: Show predictions
-        run: cat predictions.json || echo "No predictions file"
+        run: cat predictions.json
 
       - name: Commit predictions
         uses: stefanzweifel/git-auto-commit-action@v5
