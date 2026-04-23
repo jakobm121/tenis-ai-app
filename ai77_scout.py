@@ -1,91 +1,86 @@
 import requests
 import json
 import os
-from datetime import datetime, timedelta
+from datetime import datetime
 
 API_KEY = os.getenv("ODDS_API_KEY")
 
-SPORTS = [
-    "soccer_epl",
-    "soccer_spain_la_liga",
-    "soccer_italy_serie_a",
-    "soccer_germany_bundesliga"
-]
-
-LEAGUE_NAMES = {
-    "soccer_epl": "Premier League",
-    "soccer_spain_la_liga": "La Liga",
-    "soccer_italy_serie_a": "Serie A",
-    "soccer_germany_bundesliga": "Bundesliga"
-}
+URL = "https://api.odds-api.io/v1/odds"  # ✅ PRAVI endpoint
 
 def fetch_matches():
-    all_matches = []
+    headers = {
+        "X-API-Key": API_KEY
+    }
 
-    for sport in SPORTS:
-        url = f"https://api.the-odds-api.com/v4/sports/{sport}/odds"
+    params = {
+        "sport": "football",
+        "region": "eu",
+        "market": "match_winner"
+    }
 
-        params = {
-            "apiKey": API_KEY,
-            "regions": "eu",
-            "markets": "h2h",
-            "oddsFormat": "decimal"
-        }
+    try:
+        res = requests.get(URL, headers=headers, params=params)
+        print("STATUS:", res.status_code)
+        data = res.json()
+        print("DATA SAMPLE:", str(data)[:500])
+    except Exception as e:
+        print("API error:", e)
+        return []
 
-        try:
-            res = requests.get(url, params=params)
-            data = res.json()
-        except:
-            continue
+    matches = []
 
-        for game in data:
-            try:
-                commence_time = datetime.fromisoformat(game['commence_time'].replace('Z', ''))
+    try:
+        for game in data.get("data", []):
+            home = game.get("home_team")
+            away = game.get("away_team")
+            league = game.get("league", "Unknown")
 
-                # filter: naslednji 3 dni
-                if commence_time > datetime.utcnow() + timedelta(days=3):
-                    continue
+            odds = game.get("odds", {})
+            home_odds = odds.get("home")
+            away_odds = odds.get("away")
 
-                home = game['home_team']
-                away = [t for t in game['teams'] if t != home][0]
-
-                bookmaker = game['bookmakers'][0]
-                market = bookmaker['markets'][0]
-                outcomes = market['outcomes']
-
-                # najdi favorita (najnižja kvota)
-                best = min(outcomes, key=lambda x: x['price'])
-
-                all_matches.append({
-                    "date": commence_time.strftime("%Y-%m-%d"),
-                    "sport": "football",
-                    "league": LEAGUE_NAMES.get(sport, sport),
-                    "match": f"{home} - {away}",
-                    "bet": best['name'],
-                    "confidence": int(100 / best['price']),
-                    "reasoning": f"Lower odds ({best['price']}) indicate stronger probability."
-                })
-
-            except:
+            if not home_odds or not away_odds:
                 continue
 
-    return all_matches
+            # izberi favorita
+            if home_odds < away_odds:
+                bet = home
+                best_odds = home_odds
+            else:
+                bet = away
+                best_odds = away_odds
+
+            confidence = max(40, min(int(100 / best_odds), 85))
+
+            matches.append({
+                "date": datetime.now().strftime("%Y-%m-%d"),
+                "sport": "football",
+                "league": league,
+                "match": f"{home} - {away}",
+                "bet": bet,
+                "confidence": confidence,
+                "reasoning": f"Odds suggest {bet} is favorite (odds {best_odds})."
+            })
+
+    except Exception as e:
+        print("Parse error:", e)
+
+    return matches
 
 
 def main():
     matches = fetch_matches()
 
     if not matches:
-        print("No matches found.")
-        return
-
-    matches = sorted(matches, key=lambda x: x['date'])
-    top3 = matches[:3]
+        print("No matches found. Writing empty JSON.")
+        top3 = []
+    else:
+        top3 = matches[:3]
 
     with open("predictions.json", "w", encoding="utf-8") as f:
         json.dump(top3, f, indent=4)
 
-    print("Saved 3 predictions.")
+    print(f"Saved {len(top3)} predictions.")
 
 
 if __name__ == "__main__":
