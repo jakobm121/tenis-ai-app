@@ -38,9 +38,8 @@ jobs:
       # 💾 commit changes
       - name: Commit and Push changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git pull
-          git add predictions.json
-          git commit -m "Update daily predictions" || echo "No changes"
-          git push
+  git config --local user.email "action@github.com"
+  git config --local user.name "GitHub Action"
+  git add predictions.json
+  git commit -m "Update daily predictions" || echo "No changes"
+  git push
