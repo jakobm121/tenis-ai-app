@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: update-ai77-predictions
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,8 +19,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -34,18 +36,8 @@ jobs:
       - name: Show predictions
         run: cat predictions.json || echo "No predictions file"
 
-      - name: Commit and Push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-
-          git add predictions.json
-
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-            exit 0
-          fi
-
-          git commit -m "Update daily predictions"
-          git pull --rebase origin main
-          git push origin main
+      - name: Commit predictions
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update daily predictions
+          file_pattern: predictions.json
