@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      - name: List files
-        run: ls -R
-
       - name: Run Scout Script
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
@@ -36,6 +33,8 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git fetch origin
+          git reset --hard origin/main
           git add predictions.json
           git commit -m "Update daily predictions" || echo "No changes"
           git push
