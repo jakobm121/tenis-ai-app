@@ -8,10 +8,6 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: update-ai77-predictions
-  cancel-in-progress: true
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Ensure predictions file exists
+      - name: Ensure predictions.json exists
         run: |
           if [ ! -f predictions.json ]; then
             echo "[]" > predictions.json
@@ -42,8 +38,18 @@ jobs:
       - name: Show predictions
         run: cat predictions.json
 
-      - name: Commit predictions
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: Update daily predictions
-          file_pattern: predictions.json
+      - name: Commit predictions safely
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          git add predictions.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "Update daily predictions"
+
+          git push || echo "Push skipped (no changes or race condition)"
