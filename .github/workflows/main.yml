@@ -2,7 +2,7 @@ name: Update AI77 Predictions
 
 on:
   schedule:
-    - cron: '0 3 * * *' # 5:00 po slovenskem času
+    - cron: '0 3 * * *'
   workflow_dispatch:
 
 jobs:
@@ -21,26 +21,21 @@ jobs:
       - name: Install dependencies
         run: pip install requests
 
-      # 🔍 DEBUG - pokaže vse file-e
       - name: List files
         run: ls -R
 
-      # 🚀 RUN SCRIPT
       - name: Run Scout Script
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python ai77_scout.py
 
-      # 🔍 pokaže JSON
       - name: Show predictions
         run: cat predictions.json || echo "No predictions file"
 
-      # 💾 commit changes
       - name: Commit and Push changes
-        - name: Commit and Push changes
-  run: |
-    git config --local user.email "action@github.com"
-    git config --local user.name "GitHub Action"
-    git add predictions.json
-    git commit -m "Update daily predictions" || echo "No changes"
-    git push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add predictions.json
+          git commit -m "Update daily predictions" || echo "No changes"
+          git push
