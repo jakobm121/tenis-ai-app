@@ -11,31 +11,36 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
       - name: Install dependencies
         run: pip install requests
 
-      # 👉 TO JE KLJUČNI DEL (ENV!)
+      # 🔍 DEBUG - pokaže vse file-e
+      - name: List files
+        run: ls -R
+
+      # 🚀 RUN SCRIPT
       - name: Run Scout Script
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python ai77_scout.py
 
-      # (optional debug)
+      # 🔍 pokaže JSON
       - name: Show predictions
-        run: cat predictions.json
+        run: cat predictions.json || echo "No predictions file"
 
+      # 💾 commit changes
       - name: Commit and Push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git pull
           git add predictions.json
-          git commit -m "Update daily predictions" || exit 0
+          git commit -m "Update daily predictions" || echo "No changes"
           git push
