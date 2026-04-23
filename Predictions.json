@@ -1,9 +1,29 @@
-{
-  "date": "...",
-  "sport": "...",
-  "league": "...",
-  "match": "...",
-  "bet": "...",
-  "confidence": ...,
-  "reasoning": "..."
-}
+[
+  {
+    "date": "2026-04-23",
+    "sport": "football",
+    "league": "soccer_epl",
+    "match": "Arsenal - Chelsea",
+    "bet": "Arsenal",
+    "confidence": 72,
+    "reasoning": "Odds analysis suggests value on Arsenal (odds 1.85)."
+  },
+  {
+    "date": "2026-04-23",
+    "sport": "football",
+    "league": "soccer_la_liga",
+    "match": "Real Madrid - Sevilla",
+    "bet": "Real Madrid",
+    "confidence": 68,
+    "reasoning": "Strong home performance and favorable odds."
+  },
+  {
+    "date": "2026-04-23",
+    "sport": "football",
+    "league": "soccer_serie_a",
+    "match": "Inter - Milan",
+    "bet": "Inter",
+    "confidence": 65,
+    "reasoning": "Solid home edge."
+  }
+]
