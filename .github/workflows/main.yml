@@ -40,3 +40,5 @@ jobs:
         with:
           commit_message: Update daily predictions
           file_pattern: predictions.json
+
+          # trigger
