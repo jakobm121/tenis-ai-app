@@ -341,12 +341,9 @@ def main():
     existing = {(p.get("match"), p.get("date"), p.get("bet")) for p in history}
 
     for pick in predictions:
-        key = (pick.get("match"), pick.get("date"), pick.get("bet"))
-
-        if key not in existing:
-            new_pick = pick.copy()
-            new_pick["result"] = "pending"
-            history.append(new_pick)
+    new_pick = pick.copy()
+    new_pick["result"] = "pending"
+    history.append(new_pick)
 
     with open(history_file, "w", encoding="utf-8") as f:
         json.dump(history, f, indent=4, ensure_ascii=False)
