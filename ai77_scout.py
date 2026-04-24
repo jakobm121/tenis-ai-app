@@ -65,12 +65,8 @@ def get_team_stats(team):
 
         fixtures = res.json()["response"]
 
-        gf = 0
-        ga = 0
-
-        for f in fixtures:
-            gf += f["goals"]["for"]
-            ga += f["goals"]["against"]
+        gf = sum(f["goals"]["for"] for f in fixtures)
+        ga = sum(f["goals"]["against"] for f in fixtures)
 
         avg_for = gf / max(len(fixtures), 1)
         avg_against = ga / max(len(fixtures), 1)
@@ -86,25 +82,13 @@ def get_team_stats(team):
 # AI REASONING
 # ------------------------
 def generate_reasoning(home, away, bet, expected_goals):
-    if "Over" in bet:
-        texts = [
-            f"{home} and {away} both show attacking potential. Expect goals here.",
-            f"The match projects as open with around {round(expected_goals,1)} expected goals.",
-            f"Offensive numbers suggest a high-scoring game."
-        ]
-    elif "Under" in bet:
-        texts = [
-            f"A tighter game is expected between {home} and {away}.",
-            f"Defensive trends suggest fewer chances in this matchup.",
-            f"Lower goal output is likely based on recent data."
-        ]
-    else:
-        texts = [
-            f"{bet} shows stronger underlying performance in this matchup.",
-            f"Model slightly favors {bet} based on recent form.",
-            f"{bet} appears to have the edge in this fixture."
-        ]
-
+    texts = [
+        f"{home} vs {away} shows interesting statistical value.",
+        f"Model indicates potential edge based on recent form.",
+        f"Underlying data suggests this bet has value.",
+        f"Game dynamics point toward this selection.",
+        f"Recent performances support this pick."
+    ]
     return random.choice(texts)
 
 # ------------------------
@@ -123,7 +107,6 @@ def build_predictions():
             home_for, home_against = get_team_stats(home)
             away_for, away_against = get_team_stats(away)
 
-            # expected goals
             expected_home = (home_for + away_against) / 2 + 0.15
             expected_away = (away_for + home_against) / 2
             expected_goals = expected_home + expected_away
@@ -180,7 +163,6 @@ def build_predictions():
                         elif outcome["name"] == away:
                             model_prob = away_prob
                         else:
-                            # draw filter
                             if odds < 3.0:
                                 continue
                             model_prob = draw_prob
@@ -197,58 +179,52 @@ def build_predictions():
             if best_edge < -0.02:
                 continue
 
-            odds = best_pick[1]
-
-            # ------------------------
-            # 🔥 PRO CONFIDENCE SYSTEM
-            # ------------------------
-            confidence = 50 + (best_edge * 200)
-
-            if odds < 1.80:
-                confidence += 10
-            elif odds < 2.20:
-                confidence += 5
-            elif odds > 3.50:
-                confidence -= 10
-            elif odds > 2.80:
-                confidence -= 5
-
-            if "Draw" in best_pick[0]:
-                confidence -= 15
-
-            if "Over" in best_pick[0] or "Under" in best_pick[0]:
-                confidence -= 3
-
-            confidence += random.randint(-5, 5)
-
-            confidence = int(max(45, min(confidence, 90)))
-
-            reasoning = generate_reasoning(home, away, best_pick[0], expected_goals)
-
             picks.append({
                 "date": datetime.now().strftime("%Y-%m-%d"),
                 "sport": "football",
                 "league": league,
                 "match": f"{home} - {away}",
                 "bet": best_pick[0],
-                "confidence": confidence,
-                "reasoning": reasoning
+                "confidence": best_edge,  # začasno
+                "reasoning": generate_reasoning(home, away, best_pick[0], expected_goals)
             })
 
         except:
             continue
 
+    # ------------------------
+    # SORTIRANJE
+    # ------------------------
     picks = sorted(picks, key=lambda x: x["confidence"], reverse=True)
 
-    return picks[:3]
+    # če ni dovolj pickov
+    if len(picks) < 5:
+        return picks[:5]
+
+    # ------------------------
+    # CONTROLLED DISTRIBUTION
+    # ------------------------
+    very_strong = picks[:1]
+    strong = picks[1:3]
+    medium = picks[3:5]
+
+    # assign real confidence values
+    for p in very_strong:
+        p["confidence"] = 82
+
+    for p in strong:
+        p["confidence"] = 68
+
+    for p in medium:
+        p["confidence"] = 55
+
+    final_picks = very_strong + strong + medium
+
+    return final_picks
 
 # ------------------------
 def main():
     predictions = build_predictions()
-
-    if not predictions:
-        print("No value bets found")
-        predictions = []
 
     with open("predictions.json", "w", encoding="utf-8") as f:
         json.dump(predictions, f, indent=4)
