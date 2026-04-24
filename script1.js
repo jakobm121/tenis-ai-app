@@ -18,6 +18,9 @@ async function loadPredictions() {
     console.error("Error loading predictions!", error);
   }
 }
+const now = new Date();
+document.getElementById("last-updated").innerText =
+  "Last updated: " + now.toLocaleTimeString();
 
 // ------------------------
 // CONFIDENCE SYSTEM
