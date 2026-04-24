@@ -2,7 +2,8 @@ import requests
 import json
 import os
 import random
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 ODDS_API_KEY = os.getenv("ODDS_API_KEY_V2")
 FOOTBALL_API_KEY = os.getenv("FOOTBALL_API_KEY")
@@ -85,27 +86,19 @@ def generate_reasoning(home, away, bet, expected_goals, edge):
     if "Over" in bet:
         texts = [
             f"{home} and {away} both operate with aggressive attacking profiles, projecting around {round(expected_goals,1)} expected goals. This typically results in an open, high-tempo match with multiple scoring opportunities. Edge vs market: {round(edge,3)}.",
-
             f"Both teams are consistently creating chances and playing at a higher tempo. With expected goals above average at {round(expected_goals,1)}, the probability of goals is higher than market pricing suggests. Clear value position.",
-
             f"This is a high-event matchup. Both sides contribute offensively and struggle to limit chances, pushing expected goals into a strong range. Market is slightly behind true probability here."
         ]
-
     elif "Under" in bet:
         texts = [
             f"This matchup profiles as controlled and slower-paced. Both teams show reduced attacking efficiency, keeping expected goals around {round(expected_goals,1)}. Market is slightly overpricing goals.",
-
             f"Recent performances indicate fewer high-quality chances and a more defensive structure. The projected goal output remains suppressed, supporting a lower scoring game.",
-
             f"The game dynamic favors discipline over aggression. With limited space and tempo, expected goals remain contained, creating value on the under."
         ]
-
     else:
         texts = [
             f"{home} shows stronger underlying metrics and recent form compared to {away}. The model identifies a clear edge of {round(edge,3)} over market expectations.",
-
             f"This side holds a structural advantage in key areas of play, with better consistency and efficiency. Market odds slightly underrate this edge.",
-
             f"Based on recent performances and matchup dynamics, this selection offers a measurable advantage that is not fully reflected in current pricing."
         ]
 
@@ -127,6 +120,29 @@ def build_predictions():
 
     for game in data:
         try:
+            # ------------------------
+            # TIME FILTER
+            # ------------------------
+            commence_time = game.get("commence_time")
+            if not commence_time:
+                continue
+
+            match_time_utc = datetime.fromisoformat(commence_time.replace("Z", "+00:00"))
+
+            local_tz = ZoneInfo("Europe/Ljubljana")
+            match_time_local = match_time_utc.astimezone(local_tz)
+
+            now_local = datetime.now(local_tz)
+
+            if match_time_local < now_local + timedelta(minutes=30):
+                continue
+
+            end_of_day = now_local.replace(hour=23, minute=59, second=59)
+
+            if match_time_local > end_of_day:
+                continue
+
+            # ------------------------
             home = game["home_team"]
             away = game["away_team"]
             league = game.get("sport_title", "Football")
@@ -206,6 +222,7 @@ def build_predictions():
 
             picks.append({
                 "date": datetime.now().strftime("%Y-%m-%d"),
+                "time": match_time_local.strftime("%H:%M"),
                 "sport": "football",
                 "league": league,
                 "match": f"{home} - {away}",
@@ -243,13 +260,10 @@ def build_predictions():
 def main():
     predictions = build_predictions()
 
-    # SAVE DAILY PICKS
     with open("predictions.json", "w", encoding="utf-8") as f:
         json.dump(predictions, f, indent=4)
 
-    # ------------------------
-    # SAVE TO RESULTS HISTORY
-    # ------------------------
+    # SAVE TO HISTORY
     history_file = "results.json"
 
     try:
