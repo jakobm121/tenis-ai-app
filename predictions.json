@@ -5,9 +5,28 @@
         "sport": "football",
         "league": "Primera Divisi\u00f3n - Chile",
         "match": "Union La Calera - Coquimbo Unido",
-        "bet": "Draw",
-        "confidence": 80,
-        "reasoning": "Union La Calera vs Coquimbo Unido shows value based on model projections.",
-        "sort_time": 1777068000.0
+        "bet": "Union La Calera",
+        "confidence": 78,
+        "reasoning": "Union La Calera shows stronger consistency and structure compared to Coquimbo Unido. Model indicates a slight but clear edge over market pricing."
+    },
+    {
+        "date": "2026-04-24",
+        "time": "01:00",
+        "sport": "football",
+        "league": "Brazil S\u00e9rie B",
+        "match": "Ponte Preta - Am\u00e9rica Mineiro",
+        "bet": "Ponte Preta",
+        "confidence": 66,
+        "reasoning": "Ponte Preta shows stronger consistency and structure compared to Am\u00e9rica Mineiro. Model indicates a slight but clear edge over market pricing."
+    },
+    {
+        "date": "2026-04-24",
+        "time": "02:30",
+        "sport": "football",
+        "league": "Primera Divisi\u00f3n - Chile",
+        "match": "Audax Italiano - Deportes Limache",
+        "bet": "Audax Italiano",
+        "confidence": 66,
+        "reasoning": "Audax Italiano shows stronger consistency and structure compared to Deportes Limache. Model indicates a slight but clear edge over market pricing."
     }
 ]
