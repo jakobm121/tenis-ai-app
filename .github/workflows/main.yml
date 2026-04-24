@@ -5,12 +5,12 @@ on:
   schedule:
     - cron: '0 5 * * *'
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
 
     steps:
       - name: Checkout
@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Install dependencies
+      - name: Install deps
         run: pip install requests
 
       - name: Run script
@@ -35,16 +35,9 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python ai77_scout.py
 
-      - name: Commit (force safe)
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-
-          git fetch origin
-          git reset --hard origin/main
-
-          git add predictions.json
-
-          git commit -m "update predictions" || echo "no changes"
-
-          git push origin main
+      # 🔥 TO JE KLJUČ (brez git push problemov)
+      - name: Commit predictions
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update predictions
+          file_pattern: predictions.json
