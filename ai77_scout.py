@@ -15,7 +15,7 @@ def fetch_odds():
     params = {
         "apiKey": ODDS_API_KEY,
         "regions": "eu",
-        "markets": "h2h,totals",
+        "markets": "h2h,totals,btts",
         "oddsFormat": "decimal"
     }
 
@@ -28,17 +28,20 @@ def fetch_odds():
     return res.json()
 
 # ------------------------
-# AI ANALYSIS (premium)
+# AI ANALYSIS
 # ------------------------
 def generate_reasoning(home, away, bet, expected_goals):
     if "Over" in bet:
-        return f"{home} and {away} project a high-tempo game with strong attacking output. Expected goals around {round(expected_goals,1)} suggest above-average scoring potential."
+        return f"{home} and {away} project an open game with strong attacking output. Expected goals suggest above-average scoring potential."
 
     elif "Under" in bet:
-        return f"This matchup profiles as slower and more controlled. Limited chance creation keeps expected goals low, favoring a tighter game."
+        return f"This matchup trends toward a controlled tempo with fewer clear chances, favoring a lower scoring outcome."
+
+    elif "BTTS" in bet:
+        return f"Both teams show consistent attacking involvement while allowing chances. The profile supports goals on both sides."
 
     else:
-        return f"{home} shows stronger consistency and structure compared to {away}. Model indicates a slight but clear edge over market pricing."
+        return f"{home} shows more stability and control compared to {away}, creating a slight edge in this matchup."
 
 # ------------------------
 # MAIN MODEL
@@ -53,9 +56,12 @@ def build_predictions():
     start_time = now + timedelta(minutes=30)
     end_time = now + timedelta(hours=24)
 
+    # BALANCE COUNTERS
     over_count = 0
     under_count = 0
-    h2h_count = 0
+    h2h_home_count = 0
+    h2h_away_count = 0
+    btts_count = 0
 
     for game in data:
         try:
@@ -72,7 +78,7 @@ def build_predictions():
             away = game["away_team"]
             league = game.get("sport_title", "Football")
 
-            # simple model
+            # SIMPLE MODEL
             expected_home = 1.3
             expected_away = 1.1
             expected_goals = expected_home + expected_away
@@ -80,8 +86,7 @@ def build_predictions():
             home_prob = expected_home / expected_goals
             away_prob = expected_away / expected_goals
 
-            # balanced totals
-            over_prob = min(0.58, expected_goals / 3.5)
+            over_prob = min(0.60, expected_goals / 3.3)
             under_prob = 1 - over_prob
 
             if not game.get("bookmakers"):
@@ -95,7 +100,9 @@ def build_predictions():
 
             for market in bookmaker["markets"]:
 
+                # ------------------------
                 # TOTALS
+                # ------------------------
                 if market["key"] == "totals":
                     for outcome in market["outcomes"]:
                         odds = outcome["price"]
@@ -118,53 +125,94 @@ def build_predictions():
                             best_pick = (label, odds)
                             best_type = pick_type
 
+                # ------------------------
                 # H2H (NO DRAW)
+                # ------------------------
                 if market["key"] == "h2h":
                     for outcome in market["outcomes"]:
                         if outcome["name"] == "Draw":
-                            continue  # ❌ remove draw completely
+                            continue
 
                         odds = outcome["price"]
                         implied = 1 / odds
 
                         if outcome["name"] == home:
                             model_prob = home_prob
+                            pick_type = "home"
                         else:
                             model_prob = away_prob
+                            pick_type = "away"
 
                         edge = model_prob - implied
 
                         if edge > best_edge:
                             best_edge = edge
                             best_pick = (outcome["name"], odds)
-                            best_type = "h2h"
+                            best_type = pick_type
+
+                # ------------------------
+                # BTTS
+                # ------------------------
+                if market["key"] == "btts":
+                    for outcome in market["outcomes"]:
+                        odds = outcome["price"]
+                        implied = 1 / odds
+
+                        if outcome["name"] == "Yes":
+                            model_prob = 0.56
+                            label = "BTTS Yes"
+                        else:
+                            model_prob = 0.44
+                            label = "BTTS No"
+
+                        edge = model_prob - implied
+
+                        if edge > best_edge:
+                            best_edge = edge
+                            best_pick = (label, odds)
+                            best_type = "btts"
 
             if not best_pick:
                 continue
 
             odds = best_pick[1]
 
-            # LIGHT FILTER (da ne ubije pickov)
+            # LIGHT FILTER
             if best_edge < -0.04:
                 continue
 
             if odds < 1.4 or odds > 3.2:
                 continue
 
-            # BALANCE PICKS
+            # SMALL BOOSTS
+            if best_type in ["over", "under"]:
+                best_edge *= 1.05
+            if best_type == "btts":
+                best_edge *= 1.05
+
+            # BALANCE CONTROL
             if best_type == "over" and over_count >= 2:
                 continue
             if best_type == "under" and under_count >= 2:
                 continue
-            if best_type == "h2h" and h2h_count >= 3:
+            if best_type == "btts" and btts_count >= 2:
+                continue
+            if best_type == "home" and h2h_home_count >= 2:
+                continue
+            if best_type == "away" and h2h_away_count >= 2:
                 continue
 
+            # INCREMENT COUNTS
             if best_type == "over":
                 over_count += 1
             elif best_type == "under":
                 under_count += 1
-            else:
-                h2h_count += 1
+            elif best_type == "btts":
+                btts_count += 1
+            elif best_type == "home":
+                h2h_home_count += 1
+            elif best_type == "away":
+                h2h_away_count += 1
 
             picks.append({
                 "date": now.strftime("%Y-%m-%d"),
@@ -181,22 +229,19 @@ def build_predictions():
         except:
             continue
 
-    # sort by edge
+    # SORT & SELECT
     picks = sorted(picks, key=lambda x: x["confidence"], reverse=True)
-
-    # always take top 5
     picks = picks[:5]
 
     # CONFIDENCE → YOUR UNIT SYSTEM
     for i, p in enumerate(picks):
         if i == 0:
-            p["confidence"] = 78  # 2u
+            p["confidence"] = 78   # 2u
         elif i < 3:
-            p["confidence"] = 66  # 1.5u
+            p["confidence"] = 66   # 1.5u
         else:
-            p["confidence"] = 55  # 1u
+            p["confidence"] = 55   # 1u
 
-    # sort for UI
     picks = sorted(picks, key=lambda x: x["sort_time"])
 
     for p in picks:
