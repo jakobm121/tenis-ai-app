@@ -16,27 +16,21 @@ async function loadPredictions() {
 
     renderPredictions(predictions);
 
-    // 🔥 LAST UPDATED (REAL FILE TIME)
-    const lastModified = response.headers.get("last-modified");
-
+    // 🔥 LAST UPDATED (STABILNO – IZ DATA)
     let text = "";
 
-    if (lastModified) {
-      const date = new Date(lastModified);
+    if (predictions.length > 0) {
+      const p = predictions[0];
+
+      const formattedDate = p.date.split("-").reverse().join(".");
 
       text =
-        "Last updated: " +
-        date.toLocaleDateString('en-GB') +
+        "Updated • " +
+        formattedDate +
         " • " +
-        date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        (p.time || "--:--");
     } else {
-      // fallback
-      const now = new Date();
-      text =
-        "Last updated: " +
-        now.toLocaleDateString('en-GB') +
-        " • " +
-        now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      text = "No matches available";
     }
 
     const el = document.getElementById("last-updated");
@@ -69,8 +63,8 @@ function getConfidenceData(conf) {
 
   return {
     label: "🔥 Very Strong",
-    units: "💸 2u",
-    color: "#d4af37"
+      units: "💸 2u",
+      color: "#d4af37"
   };
 }
 
