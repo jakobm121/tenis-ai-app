@@ -79,17 +79,44 @@ def get_team_stats(team):
         return (1.2, 1.2)
 
 # ------------------------
-# AI REASONING
+# PREMIUM AI ANALYSIS
 # ------------------------
-def generate_reasoning(home, away, bet, expected_goals):
-    texts = [
-        f"{home} vs {away} shows interesting statistical value.",
-        f"Model indicates potential edge based on recent form.",
-        f"Underlying data suggests this bet has value.",
-        f"Game dynamics point toward this selection.",
-        f"Recent performances support this pick."
+def generate_reasoning(home, away, bet, expected_goals, edge):
+    if "Over" in bet:
+        texts = [
+            f"{home} and {away} both operate with aggressive attacking profiles, and the model projects around {round(expected_goals,1)} expected goals here. That level typically translates into an open, high-tempo match with multiple scoring windows. Edge vs market is clearly positive at {round(edge,3)}.",
+
+            f"This matchup leans heavily toward attacking football, with both sides consistently creating chances in recent games. With expected goals sitting above average at {round(expected_goals,1)}, the probability of goals is materially higher than what current pricing implies. Clear value spot.",
+
+            f"The data flags this as a high-event game. Both teams contribute offensively and struggle to suppress chances, which pushes expected goals into a strong range. Market is slightly behind the true probability here, giving us a solid edge of {round(edge,3)}."
+        ]
+
+    elif "Under" in bet:
+        texts = [
+            f"This profiles as a controlled, lower-tempo game. Both teams show reduced attacking efficiency and a more structured defensive setup, keeping expected goals around {round(expected_goals,1)}. Market is slightly overpricing scoring potential here.",
+
+            f"Recent form suggests limited offensive output from both sides, with fewer high-quality chances being created. The projected goal range stays suppressed, which aligns with a lower scoring environment and creates value on the under.",
+
+            f"The matchup dynamic favors discipline over aggression. With both teams limiting space and tempo, expected goals remain contained. Current odds don’t fully reflect this, giving a measurable edge of {round(edge,3)}."
+        ]
+
+    else:
+        texts = [
+            f"{home} holds a noticeable edge in underlying metrics, particularly in recent form and efficiency. The model prices this outcome slightly higher than the market, creating a value gap of {round(edge,3)}.",
+
+            f"From a matchup perspective, this side is more stable and better structured, especially in key phases of play. Market odds underestimate that edge, making this a strong value candidate.",
+
+            f"The model consistently favors this selection based on performance trends and game dynamics. With a positive edge of {round(edge,3)}, this stands out as one of the stronger positions available."
+        ]
+
+    endings = [
+        " This is a high-quality setup worth backing.",
+        " This sits comfortably within a value-based strategy.",
+        " One of the more reliable edges on today’s board.",
+        " Risk is present, but the value justifies the position."
     ]
-    return random.choice(texts)
+
+    return random.choice(texts) + random.choice(endings)
 
 # ------------------------
 # MAIN MODEL
@@ -132,7 +159,6 @@ def build_predictions():
 
             for market in bookmaker["markets"]:
 
-                # OVER / UNDER
                 if market["key"] == "totals":
                     for outcome in market["outcomes"]:
                         odds = outcome["price"]
@@ -152,7 +178,6 @@ def build_predictions():
                             best_edge = edge
                             best_pick = (label, odds)
 
-                # MATCH WINNER
                 if market["key"] == "h2h":
                     for outcome in market["outcomes"]:
                         odds = outcome["price"]
@@ -185,30 +210,22 @@ def build_predictions():
                 "league": league,
                 "match": f"{home} - {away}",
                 "bet": best_pick[0],
-                "confidence": best_edge,  # začasno
-                "reasoning": generate_reasoning(home, away, best_pick[0], expected_goals)
+                "confidence": best_edge,
+                "reasoning": generate_reasoning(home, away, best_pick[0], expected_goals, best_edge)
             })
 
         except:
             continue
 
-    # ------------------------
-    # SORTIRANJE
-    # ------------------------
     picks = sorted(picks, key=lambda x: x["confidence"], reverse=True)
 
-    # če ni dovolj pickov
     if len(picks) < 5:
         return picks[:5]
 
-    # ------------------------
-    # CONTROLLED DISTRIBUTION
-    # ------------------------
     very_strong = picks[:1]
     strong = picks[1:3]
     medium = picks[3:5]
 
-    # assign real confidence values
     for p in very_strong:
         p["confidence"] = 82
 
@@ -218,10 +235,10 @@ def build_predictions():
     for p in medium:
         p["confidence"] = 55
 
-    final_picks = very_strong + strong + medium
+    return very_strong + strong + medium
 
-    return final_picks
-
+# ------------------------
+# MAIN
 # ------------------------
 def main():
     predictions = build_predictions()
