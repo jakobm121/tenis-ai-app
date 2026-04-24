@@ -1,7 +1,6 @@
 import requests
 import json
 import os
-import random
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
@@ -15,7 +14,7 @@ def fetch_odds():
     params = {
         "apiKey": ODDS_API_KEY,
         "regions": "eu",
-        "markets": "h2h,totals,btts",
+        "markets": "h2h,totals",
         "oddsFormat": "decimal"
     }
 
@@ -32,16 +31,16 @@ def fetch_odds():
 # ------------------------
 def generate_reasoning(home, away, bet, expected_goals):
     if "Over" in bet:
-        return f"{home} and {away} project an open game with strong attacking output. Expected goals suggest above-average scoring potential."
+        return f"{home} and {away} project an open game with strong attacking output. Expected goals suggest above-average scoring."
 
     elif "Under" in bet:
-        return f"This matchup trends toward a controlled tempo with fewer clear chances, favoring a lower scoring outcome."
+        return f"This game trends toward control and structure. Limited chances point to a lower scoring outcome."
 
-    elif "BTTS" in bet:
-        return f"Both teams show consistent attacking involvement while allowing chances. The profile supports goals on both sides."
+    elif "Draw" in bet:
+        return f"Balanced matchup with similar team strength. Game dynamics suggest a tight contest with potential stalemate."
 
     else:
-        return f"{home} shows more stability and control compared to {away}, creating a slight edge in this matchup."
+        return f"{home} shows stronger consistency and structure compared to {away}, giving them a slight edge."
 
 # ------------------------
 # MAIN MODEL
@@ -56,12 +55,12 @@ def build_predictions():
     start_time = now + timedelta(minutes=30)
     end_time = now + timedelta(hours=24)
 
-    # BALANCE COUNTERS
+    # BALANCE
     over_count = 0
     under_count = 0
-    h2h_home_count = 0
-    h2h_away_count = 0
-    btts_count = 0
+    home_count = 0
+    away_count = 0
+    draw_count = 0
 
     for game in data:
         try:
@@ -78,15 +77,27 @@ def build_predictions():
             away = game["away_team"]
             league = game.get("sport_title", "Football")
 
-            # SIMPLE MODEL
-            expected_home = 1.3
-            expected_away = 1.1
+            # ------------------------
+            # MODEL (bolj realen)
+            # ------------------------
+            expected_home = 1.25
+            expected_away = 1.15
             expected_goals = expected_home + expected_away
 
-            home_prob = expected_home / expected_goals
-            away_prob = expected_away / expected_goals
+            total = expected_goals
+            home_prob = expected_home / total
+            away_prob = expected_away / total
 
-            over_prob = min(0.60, expected_goals / 3.3)
+            # ------------------------
+            # SMART TOTALS
+            # ------------------------
+            if expected_goals > 2.8:
+                over_prob = 0.62
+            elif expected_goals > 2.4:
+                over_prob = 0.57
+            else:
+                over_prob = 0.50
+
             under_prob = 1 - over_prob
 
             if not game.get("bookmakers"):
@@ -126,93 +137,95 @@ def build_predictions():
                             best_type = pick_type
 
                 # ------------------------
-                # H2H (NO DRAW)
+                # H2H + SMART DRAW
                 # ------------------------
                 if market["key"] == "h2h":
                     for outcome in market["outcomes"]:
-                        if outcome["name"] == "Draw":
-                            continue
 
                         odds = outcome["price"]
                         implied = 1 / odds
 
+                        # HOME
                         if outcome["name"] == home:
                             model_prob = home_prob
-                            pick_type = "home"
-                        else:
+                            edge = model_prob - implied
+                            edge *= 0.95  # manj home bias
+
+                            if edge > best_edge:
+                                best_edge = edge
+                                best_pick = (home, odds)
+                                best_type = "home"
+
+                        # AWAY
+                        elif outcome["name"] == away:
                             model_prob = away_prob
-                            pick_type = "away"
+                            edge = model_prob - implied
 
-                        edge = model_prob - implied
+                            if edge > best_edge:
+                                best_edge = edge
+                                best_pick = (away, odds)
+                                best_type = "away"
 
-                        if edge > best_edge:
-                            best_edge = edge
-                            best_pick = (outcome["name"], odds)
-                            best_type = pick_type
-
-                # ------------------------
-                # BTTS
-                # ------------------------
-                if market["key"] == "btts":
-                    for outcome in market["outcomes"]:
-                        odds = outcome["price"]
-                        implied = 1 / odds
-
-                        if outcome["name"] == "Yes":
-                            model_prob = 0.56
-                            label = "BTTS Yes"
+                        # DRAW (SMART)
                         else:
-                            model_prob = 0.44
-                            label = "BTTS No"
+                            # expected goals logic
+                            if expected_goals < 2.2:
+                                model_prob = 0.28
+                            elif expected_goals < 2.6:
+                                model_prob = 0.25
+                            else:
+                                model_prob = 0.20
 
-                        edge = model_prob - implied
+                            # samo izenačene tekme
+                            if abs(home_prob - away_prob) > 0.15:
+                                continue
 
-                        if edge > best_edge:
-                            best_edge = edge
-                            best_pick = (label, odds)
-                            best_type = "btts"
+                            edge = model_prob - implied
+                            edge *= 0.9
+
+                            if edge > 0.06 and draw_count == 0:
+                                if edge > best_edge:
+                                    best_edge = edge
+                                    best_pick = ("Draw", odds)
+                                    best_type = "draw"
 
             if not best_pick:
                 continue
 
             odds = best_pick[1]
 
-            # LIGHT FILTER
+            # FILTER
             if best_edge < -0.04:
                 continue
 
             if odds < 1.4 or odds > 3.2:
                 continue
 
-            # SMALL BOOSTS
-            if best_type in ["over", "under"]:
-                best_edge *= 1.05
-            if best_type == "btts":
-                best_edge *= 1.05
-
-            # BALANCE CONTROL
+            # ------------------------
+            # BALANCE PICKS
+            # ------------------------
             if best_type == "over" and over_count >= 2:
                 continue
             if best_type == "under" and under_count >= 2:
                 continue
-            if best_type == "btts" and btts_count >= 2:
+            if best_type == "home" and home_count >= 2:
                 continue
-            if best_type == "home" and h2h_home_count >= 2:
+            if best_type == "away" and away_count >= 2:
                 continue
-            if best_type == "away" and h2h_away_count >= 2:
+            if best_type == "draw" and draw_count >= 1:
                 continue
 
-            # INCREMENT COUNTS
+            # increment
             if best_type == "over":
                 over_count += 1
             elif best_type == "under":
                 under_count += 1
-            elif best_type == "btts":
-                btts_count += 1
             elif best_type == "home":
-                h2h_home_count += 1
+                home_count += 1
             elif best_type == "away":
-                h2h_away_count += 1
+                away_count += 1
+            elif best_type == "draw":
+                draw_count += 1
 
             picks.append({
                 "date": now.strftime("%Y-%m-%d"),
@@ -229,18 +242,25 @@ def build_predictions():
         except:
             continue
 
-    # SORT & SELECT
+    # SORT
     picks = sorted(picks, key=lambda x: x["confidence"], reverse=True)
     picks = picks[:5]
 
-    # CONFIDENCE → YOUR UNIT SYSTEM
+    # ------------------------
+    # UNIT SYSTEM (TVOJ)
+    # ------------------------
     for i, p in enumerate(picks):
+
+        if p["bet"] == "Draw":
+            p["confidence"] = 55
+            continue
+
         if i == 0:
-            p["confidence"] = 78   # 2u
+            p["confidence"] = 78
         elif i < 3:
-            p["confidence"] = 66   # 1.5u
+            p["confidence"] = 66
         else:
-            p["confidence"] = 55   # 1u
+            p["confidence"] = 55
 
     picks = sorted(picks, key=lambda x: x["sort_time"])
 
