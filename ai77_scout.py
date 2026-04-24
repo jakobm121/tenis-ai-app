@@ -40,7 +40,7 @@ def fetch_matches():
                 "sport": "football",
                 "league": league,
                 "match": f"{home} - {away}",
-                "bet": home,  # simple fallback (favorite logic dodamo kasneje)
+                "bet": home,
                 "confidence": 55,
                 "reasoning": "Basic pick based on available fixtures."
             })
