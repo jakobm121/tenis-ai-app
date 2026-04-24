@@ -3,77 +3,62 @@ import json
 import os
 from datetime import datetime
 
-ODDS_API_KEY = os.getenv("ODDS_API_KEY")
+ODDS_API_KEY = os.getenv("ODDS_API_KEY_V2")
 FOOTBALL_API_KEY = os.getenv("FOOTBALL_API_KEY")
 
-ODDS_BASE = "https://api.odds-api.io/v3"
-FOOTBALL_BASE = "https://v3.football.api-sports.io"
+ODDS_URL = "https://api.the-odds-api.com/v4/sports/soccer/odds"
+FOOTBALL_URL = "https://v3.football.api-sports.io"
 
 team_cache = {}
 
 # ------------------------
-# EVENTS
-# ------------------------
-def fetch_events():
-    try:
-        res = requests.get(
-            f"{ODDS_BASE}/events",
-            params={"apiKey": ODDS_API_KEY, "sport": "football"},
-            timeout=10
-        )
-        if res.status_code != 200:
-            print("EVENT ERROR:", res.text)
-            return []
-        return res.json()
-    except Exception as e:
-        print("EVENT EXCEPTION:", e)
-        return []
-
-# ------------------------
 # ODDS
 # ------------------------
-def fetch_odds(event_id):
-    try:
-        res = requests.get(
-            f"{ODDS_BASE}/odds",
-            params={"apiKey": ODDS_API_KEY, "eventId": event_id},
-            timeout=5
-        )
-        if res.status_code != 200:
-            return None
-        return res.json()
-    except:
-        return None
+def fetch_odds():
+    params = {
+        "apiKey": ODDS_API_KEY,
+        "regions": "eu",
+        "markets": "h2h,totals",
+        "oddsFormat": "decimal"
+    }
+
+    res = requests.get(ODDS_URL, params=params, timeout=10)
+
+    if res.status_code != 200:
+        print(res.text)
+        return []
+
+    return res.json()
 
 # ------------------------
-# TEAM FORM (API-Football)
+# TEAM GOALS MODEL
 # ------------------------
-def get_team_form(team_name):
-    if team_name in team_cache:
-        return team_cache[team_name]
+def get_team_goals(team):
+    if team in team_cache:
+        return team_cache[team]
 
     try:
-        headers = {
-            "x-apisports-key": FOOTBALL_API_KEY
-        }
+        headers = {"x-apisports-key": FOOTBALL_API_KEY}
 
+        # find team
         res = requests.get(
-            f"{FOOTBALL_BASE}/teams",
+            f"{FOOTBALL_URL}/teams",
             headers=headers,
-            params={"search": team_name},
+            params={"search": team},
             timeout=5
         )
 
         data = res.json()
 
         if not data["response"]:
-            team_cache[team_name] = 0
-            return 0
+            team_cache[team] = 1.2
+            return 1.2
 
         team_id = data["response"][0]["team"]["id"]
 
+        # last matches
         res = requests.get(
-            f"{FOOTBALL_BASE}/fixtures",
+            f"{FOOTBALL_URL}/fixtures",
             headers=headers,
             params={"team": team_id, "last": 5},
             timeout=5
@@ -81,119 +66,97 @@ def get_team_form(team_name):
 
         fixtures = res.json()["response"]
 
-        score = 0
+        goals = 0
 
         for f in fixtures:
-            gf = f["goals"]["for"]
-            ga = f["goals"]["against"]
+            goals += f["goals"]["for"]
 
-            if gf > ga:
-                score += 3
-            elif gf == ga:
-                score += 1
+        avg_goals = goals / max(len(fixtures), 1)
 
-        team_cache[team_name] = score
-        return score
+        team_cache[team] = avg_goals
+        return avg_goals
 
     except:
-        team_cache[team_name] = 0
-        return 0
+        team_cache[team] = 1.2
+        return 1.2
 
 # ------------------------
 # MODEL
 # ------------------------
 def build_predictions():
-    events = fetch_events()[:8]  # limit za hitrost
+    data = fetch_odds()
     picks = []
 
-    for event in events:
+    for game in data:
         try:
-            event_id = event["id"]
-            home = event["home"]
-            away = event["away"]
-            league = event["league"]
+            home = game["home_team"]
+            away = game["away_team"]
 
-            odds_data = fetch_odds(event_id)
-            if not odds_data:
-                continue
+            home_goals = get_team_goals(home)
+            away_goals = get_team_goals(away)
 
-            home_odds = float(odds_data.get("home", 0))
-            away_odds = float(odds_data.get("away", 0))
+            expected_goals = home_goals + away_goals
 
-            if not home_odds or not away_odds:
-                continue
+            bookmaker = game["bookmakers"][0]
 
-            # 🔥 TEAM FORM
-            home_form = get_team_form(home)
-            away_form = get_team_form(away)
+            best_edge = -999
+            best_pick = None
 
-            total = home_form + away_form
-            if total == 0:
-                continue
+            for market in bookmaker["markets"]:
 
-            home_prob = home_form / total
-            away_prob = 1 - home_prob
+                # 🎯 OVER/UNDER MODEL
+                if market["key"] == "totals":
+                    for outcome in market["outcomes"]:
+                        odds = outcome["price"]
+                        implied = 1 / odds
 
-            # 📊 IMPLIED
-            home_implied = 1 / home_odds
-            away_implied = 1 / away_odds
+                        if outcome["name"] == "Over":
+                            model_prob = min(0.85, expected_goals / 3)
+                            edge = model_prob - implied
+                            label = f"Over {outcome['point']}"
+                        else:
+                            model_prob = 1 - min(0.85, expected_goals / 3)
+                            edge = model_prob - implied
+                            label = f"Under {outcome['point']}"
 
-            # 💰 EDGE
-            home_edge = home_prob - home_implied
-            away_edge = away_prob - away_implied
+                        if edge > best_edge:
+                            best_edge = edge
+                            best_pick = (label, odds)
 
-            if home_edge > away_edge:
-                edge = home_edge
-                bet = home
-                odds = home_odds
-            else:
-                edge = away_edge
-                bet = away
-                odds = away_odds
+                # 🎯 MATCH WINNER fallback
+                if market["key"] == "h2h":
+                    for outcome in market["outcomes"]:
+                        odds = outcome["price"]
+                        implied = 1 / odds
 
-            # 🔥 POPRAVEK (manj strog filter)
-            if edge < -0.05:
-                continue
+                        model_prob = 0.5
+                        edge = model_prob - implied
 
-            # 🔥 CONFIDENCE
-            confidence = int(50 + (edge * 300))
-            confidence = max(55, min(confidence, 92))
+                        if edge > best_edge:
+                            best_edge = edge
+                            best_pick = (outcome["name"], odds)
 
-            picks.append({
-                "date": datetime.now().strftime("%Y-%m-%d"),
-                "sport": "football",
-                "league": league,
-                "match": f"{home} - {away}",
-                "bet": bet,
-                "confidence": confidence,
-                "reasoning": f"Form vs market edge. Edge: {round(edge,3)} | Odds: {odds}"
-            })
+            if best_pick and best_edge > -0.03:
+                confidence = int(50 + best_edge * 300)
+                confidence = max(55, min(confidence, 92))
+
+                picks.append({
+                    "date": datetime.now().strftime("%Y-%m-%d"),
+                    "sport": "football",
+                    "league": game["sport_title"],
+                    "match": f"{home} - {away}",
+                    "bet": best_pick[0],
+                    "confidence": confidence,
+                    "reasoning": f"Model vs market edge. Edge: {round(best_edge,3)} | Odds: {best_pick[1]}"
+                })
 
         except:
             continue
 
-    # 🔥 SORT
     picks = sorted(picks, key=lambda x: x["confidence"], reverse=True)
-
-    # 🔥 FALLBACK (da ni prazno)
-    if len(picks) == 0:
-        print("No strong value → fallback")
-
-        for event in events[:3]:
-            picks.append({
-                "date": datetime.now().strftime("%Y-%m-%d"),
-                "sport": "football",
-                "league": event["league"],
-                "match": f"{event['home']} - {event['away']}",
-                "bet": event["home"],
-                "confidence": 60,
-                "reasoning": "Fallback pick (no strong value found)"
-            })
 
     return picks[:3]
 
-# ------------------------
-# MAIN
 # ------------------------
 def main():
     predictions = build_predictions()
@@ -202,7 +165,6 @@ def main():
         json.dump(predictions, f, indent=4)
 
     print(f"Saved {len(predictions)} predictions.")
-
 
 if __name__ == "__main__":
     main()
