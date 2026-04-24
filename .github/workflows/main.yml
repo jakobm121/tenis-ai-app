@@ -39,3 +39,4 @@ jobs:
           git add predictions.json
           git commit -m "update predictions" || echo "no changes"
           git push
+          #triger
