@@ -4,18 +4,27 @@
         "sport": "football",
         "league": "A-League",
         "match": "Macarthur FC - Wellington Phoenix FC",
-        "bet": "Over 3.75",
-        "confidence": 90,
-        "reasoning": "Offensive numbers suggest a high-scoring game."
+        "bet": "Wellington Phoenix FC",
+        "confidence": 82,
+        "reasoning": "Model indicates potential edge based on recent form."
     },
     {
         "date": "2026-04-24",
         "sport": "football",
         "league": "J League",
         "match": "FC Tokyo - Mito HollyHock",
-        "bet": "FC Tokyo",
-        "confidence": 90,
-        "reasoning": "FC Tokyo appears to have the edge in this fixture."
+        "bet": "Under 2.0",
+        "confidence": 68,
+        "reasoning": "Recent performances support this pick."
+    },
+    {
+        "date": "2026-04-24",
+        "sport": "football",
+        "league": "Saudi Pro League",
+        "match": "Al-Fateh - Al-Khaleej",
+        "bet": "Over 3.5",
+        "confidence": 68,
+        "reasoning": "Underlying data suggests this bet has value."
     },
     {
         "date": "2026-04-24",
@@ -23,7 +32,16 @@
         "league": "Veikkausliiga - Finland",
         "match": "VPS Vaasa - Ilves Tampere",
         "bet": "Over 2.75",
-        "confidence": 90,
-        "reasoning": "Offensive numbers suggest a high-scoring game."
+        "confidence": 55,
+        "reasoning": "Game dynamics point toward this selection."
+    },
+    {
+        "date": "2026-04-24",
+        "sport": "football",
+        "league": "Veikkausliiga - Finland",
+        "match": "SJK Sein\u00e4joki - Jaro",
+        "bet": "Over 2.75",
+        "confidence": 55,
+        "reasoning": "Underlying data suggests this bet has value."
     }
 ]
