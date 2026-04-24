@@ -320,3 +320,11 @@ canvas {
 .cta-btn:hover {
   transform: scale(1.05);
 }
+
+#last-updated {
+  text-align: center;
+  width: 100%;
+  margin: 10px 0;
+  font-size: 14px;
+  color: #aaa;
+}
