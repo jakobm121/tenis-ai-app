@@ -110,9 +110,6 @@ def build_predictions():
 
             for market in bookmaker["markets"]:
 
-                # ------------------------
-                # OVER / UNDER
-                # ------------------------
                 if market["key"] == "totals":
                     for outcome in market["outcomes"]:
                         odds = outcome["price"]
@@ -129,8 +126,6 @@ def build_predictions():
                             pick_type = "under"
 
                         edge = model_prob - implied
-
-                        # strong boost so totals actually enter the portfolio
                         edge *= 1.55
 
                         if odds < 1.35 or odds > 3.40:
@@ -155,9 +150,6 @@ def build_predictions():
                             "sort_time": match_time.timestamp()
                         })
 
-                # ------------------------
-                # H2H + SMART DRAW
-                # ------------------------
                 if market["key"] == "h2h":
                     for outcome in market["outcomes"]:
                         odds = outcome["price"]
@@ -167,15 +159,13 @@ def build_predictions():
                             model_prob = home_prob
                             bet = home
                             pick_type = "home"
-                            edge = model_prob - implied
-                            edge *= 0.72  # hard nerf home bias
+                            edge = (model_prob - implied) * 0.72
 
                         elif outcome["name"] == away:
                             model_prob = away_prob
                             bet = away
                             pick_type = "away"
-                            edge = model_prob - implied
-                            edge *= 0.88
+                            edge = (model_prob - implied) * 0.88
 
                         else:
                             bet = "Draw"
@@ -191,10 +181,8 @@ def build_predictions():
                             if abs(home_prob - away_prob) > 0.15:
                                 continue
 
-                            edge = model_prob - implied
-                            edge *= 0.80
+                            edge = (model_prob - implied) * 0.80
 
-                            # draw only if real value
                             if edge < 0.05:
                                 continue
 
@@ -229,75 +217,41 @@ def build_predictions():
     final = []
     used_matches = set()
 
-    counts = {
-        "home": 0,
-        "away": 0,
-        "over": 0,
-        "under": 0,
-        "draw": 0
-    }
+    counts = {"home": 0, "away": 0, "over": 0, "under": 0, "draw": 0}
+    limits = {"home": 2, "away": 1, "over": 2, "under": 2, "draw": 1}
 
-    limits = {
-        "home": 2,
-        "away": 1,
-        "over": 2,
-        "under": 2,
-        "draw": 1
-    }
-
-    # ------------------------
-    # FIRST PASS: balanced limits
-    # ------------------------
     for pick in candidates:
         if len(final) >= 5:
             break
-
         if pick["match"] in used_matches:
             continue
-
-        pick_type = pick["pick_type"]
-
-        if counts[pick_type] >= limits[pick_type]:
+        if counts[pick["pick_type"]] >= limits[pick["pick_type"]]:
             continue
 
         final.append(pick)
         used_matches.add(pick["match"])
-        counts[pick_type] += 1
+        counts[pick["pick_type"]] += 1
 
-    # ------------------------
-    # SECOND PASS: fill missing picks, still no duplicate match
-    # ------------------------
     if len(final) < 5:
         for pick in candidates:
             if len(final) >= 5:
                 break
-
             if pick["match"] in used_matches:
                 continue
 
-            pick_type = pick["pick_type"]
-
-            # still never allow more than these hard caps
-            if pick_type == "home" and counts["home"] >= 2:
+            if pick["pick_type"] == "home" and counts["home"] >= 2:
                 continue
-            if pick_type == "away" and counts["away"] >= 1:
+            if pick["pick_type"] == "away" and counts["away"] >= 1:
                 continue
-            if pick_type == "draw" and counts["draw"] >= 1:
+            if pick["pick_type"] == "draw" and counts["draw"] >= 1:
                 continue
 
             final.append(pick)
             used_matches.add(pick["match"])
-            counts[pick_type] += 1
+            counts[pick["pick_type"]] += 1
 
     final = sorted(final, key=lambda x: x["confidence"], reverse=True)
 
-    # ------------------------
-    # CONFIDENCE / UNIT SYSTEM
-    # 78 = Very Strong = 2u
-    # 66 = Strong = 1.5u
-    # 55 = Medium = 1u
-    # Draw always Medium
-    # ------------------------
     for i, pick in enumerate(final):
         if pick["pick_type"] == "draw":
             pick["confidence"] = 55
@@ -338,12 +292,10 @@ def main():
     except:
         history = []
 
-    existing = {(p.get("match"), p.get("date"), p.get("bet")) for p in history}
-
-for pick in predictions:
-    new_pick = pick.copy()
-    new_pick["result"] = "pending"
-    history.append(new_pick)
+    for pick in predictions:
+        new_pick = pick.copy()
+        new_pick["result"] = "pending"
+        history.append(new_pick)
 
     with open(history_file, "w", encoding="utf-8") as f:
         json.dump(history, f, indent=4, ensure_ascii=False)
