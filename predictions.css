@@ -269,3 +269,54 @@ canvas {
   letter-spacing: 1px;
 }
 
+/* === NEW PRO UI === */
+
+.badge {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  margin: 6px;
+  font-size: 0.95rem;
+}
+
+.medium {
+  background: #d4af37;
+  color: #000;
+}
+
+.strong {
+  background: #2ecc71;
+  color: #fff;
+}
+
+.very-strong {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.units-badge {
+  background: #111;
+  color: #fff;
+}
+
+.bet-type {
+  font-size: 1.2rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 16px 40px;
+  background: linear-gradient(135deg, #ffb300, #ff7b00);
+  color: #000;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.cta-btn:hover {
+  transform: scale(1.05);
+}
