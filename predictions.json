@@ -1,1 +1,29 @@
-[]
+[
+    {
+        "date": "2026-04-24",
+        "sport": "football",
+        "league": "J League",
+        "match": "FC Tokyo - Mito HollyHock",
+        "bet": "FC Tokyo",
+        "confidence": 92,
+        "reasoning": "FC Tokyo appears to have the edge in this fixture."
+    },
+    {
+        "date": "2026-04-24",
+        "sport": "football",
+        "league": "J League",
+        "match": "Kashiwa Reysol - Kashima Antlers",
+        "bet": "Kashiwa Reysol",
+        "confidence": 92,
+        "reasoning": "Kashiwa Reysol shows stronger underlying performance in this matchup."
+    },
+    {
+        "date": "2026-04-24",
+        "sport": "football",
+        "league": "Veikkausliiga - Finland",
+        "match": "VPS Vaasa - Ilves Tampere",
+        "bet": "Over 2.75",
+        "confidence": 92,
+        "reasoning": "VPS Vaasa and Ilves Tampere both show attacking potential. Expect goals here."
+    }
+]
