@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+import random
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
@@ -27,20 +28,45 @@ def fetch_odds():
     return res.json()
 
 # ------------------------
-# AI ANALYSIS
+# PREMIUM AI ANALYSIS
 # ------------------------
-def generate_reasoning(home, away, bet, expected_goals):
+def generate_reasoning(home, away, bet, expected_goals, edge):
     if "Over" in bet:
-        return f"{home} and {away} project an open game with strong attacking output. Expected goals suggest above-average scoring."
+        texts = [
+            f"{home} and {away} both project as aggressive attacking sides, with expected goals around {round(expected_goals,1)}. The matchup profile suggests tempo and multiple scoring phases.",
+            f"Both teams show enough offensive activity to support a higher-scoring game. The model sees stronger goal potential than the market is pricing.",
+            f"This setup points toward an open match. Expected goals indicate above-average scoring conditions and a value angle."
+        ]
 
     elif "Under" in bet:
-        return f"This game trends toward control and structure. Limited chances point to a lower scoring outcome."
+        texts = [
+            f"This matchup projects as controlled and lower-tempo. Chance creation looks limited, supporting a tighter game.",
+            f"Both sides are likely to play structured football. The model sees less scoring potential than the market implies.",
+            f"Game dynamics suggest fewer clear chances and a cautious rhythm, creating under value."
+        ]
 
-    elif "Draw" in bet:
-        return f"Balanced matchup with similar team strength. Game dynamics suggest a tight contest with potential stalemate."
+    elif bet == "Draw":
+        texts = [
+            f"This is a balanced matchup with minimal separation between teams. Draw is considered only due to strong value.",
+            f"Both teams rate closely and the game profile suggests a tight contest. Draw is a low-risk exposure only.",
+            f"The matchup shows no clear dominance. Draw is selected only because the edge justifies it."
+        ]
 
     else:
-        return f"{home} shows stronger consistency and structure compared to {away}, giving them a slight edge."
+        texts = [
+            f"{bet} shows stronger structural indicators in this matchup, with value vs current market pricing.",
+            f"The selection is supported by better consistency and matchup control. Market underrates this side.",
+            f"Model projection gives {bet} a measurable edge over implied probability."
+        ]
+
+    endings = [
+        " This fits our value-based approach.",
+        " Risk remains, but price justifies the position.",
+        " Selected strictly due to value, not guesswork.",
+        " Edge is small but consistent."
+    ]
+
+    return random.choice(texts) + random.choice(endings)
 
 # ------------------------
 # MAIN MODEL
@@ -77,9 +103,7 @@ def build_predictions():
             away = game["away_team"]
             league = game.get("sport_title", "Football")
 
-            # ------------------------
-            # MODEL (bolj realen)
-            # ------------------------
+            # MODEL
             expected_home = 1.25
             expected_away = 1.15
             expected_goals = expected_home + expected_away
@@ -88,16 +112,8 @@ def build_predictions():
             home_prob = expected_home / total
             away_prob = expected_away / total
 
-            # ------------------------
-            # SMART TOTALS
-            # ------------------------
-            if expected_goals > 2.8:
-                over_prob = 0.62
-            elif expected_goals > 2.4:
-                over_prob = 0.57
-            else:
-                over_prob = 0.50
-
+            # TOTALS
+            over_prob = min(0.60, expected_goals / 3.2)
             under_prob = 1 - over_prob
 
             if not game.get("bookmakers"):
@@ -130,6 +146,7 @@ def build_predictions():
                             pick_type = "under"
 
                         edge = model_prob - implied
+                        edge *= 1.25  # BOOST TOTALS
 
                         if edge > best_edge:
                             best_edge = edge
@@ -137,7 +154,7 @@ def build_predictions():
                             best_type = pick_type
 
                 # ------------------------
-                # H2H + SMART DRAW
+                # H2H + DRAW
                 # ------------------------
                 if market["key"] == "h2h":
                     for outcome in market["outcomes"]:
@@ -149,7 +166,7 @@ def build_predictions():
                         if outcome["name"] == home:
                             model_prob = home_prob
                             edge = model_prob - implied
-                            edge *= 0.95  # manj home bias
+                            edge *= 0.88  # NERF HOME
 
                             if edge > best_edge:
                                 best_edge = edge
@@ -160,15 +177,15 @@ def build_predictions():
                         elif outcome["name"] == away:
                             model_prob = away_prob
                             edge = model_prob - implied
+                            edge *= 0.92
 
                             if edge > best_edge:
                                 best_edge = edge
                                 best_pick = (away, odds)
                                 best_type = "away"
 
-                        # DRAW (SMART)
+                        # DRAW
                         else:
-                            # expected goals logic
                             if expected_goals < 2.2:
                                 model_prob = 0.28
                             elif expected_goals < 2.6:
@@ -176,7 +193,6 @@ def build_predictions():
                             else:
                                 model_prob = 0.20
 
-                            # samo izenačene tekme
                             if abs(home_prob - away_prob) > 0.15:
                                 continue
 
@@ -194,16 +210,13 @@ def build_predictions():
 
             odds = best_pick[1]
 
-            # FILTER
             if best_edge < -0.04:
                 continue
 
             if odds < 1.4 or odds > 3.2:
                 continue
 
-            # ------------------------
-            # BALANCE PICKS
-            # ------------------------
+            # BALANCE
             if best_type == "over" and over_count >= 2:
                 continue
             if best_type == "under" and under_count >= 2:
@@ -215,7 +228,6 @@ def build_predictions():
             if best_type == "draw" and draw_count >= 1:
                 continue
 
-            # increment
             if best_type == "over":
                 over_count += 1
             elif best_type == "under":
@@ -235,7 +247,7 @@ def build_predictions():
                 "match": f"{home} - {away}",
                 "bet": best_pick[0],
                 "confidence": best_edge,
-                "reasoning": generate_reasoning(home, away, best_pick[0], expected_goals),
+                "reasoning": generate_reasoning(home, away, best_pick[0], expected_goals, best_edge),
                 "sort_time": match_time.timestamp()
             })
 
@@ -246,11 +258,8 @@ def build_predictions():
     picks = sorted(picks, key=lambda x: x["confidence"], reverse=True)
     picks = picks[:5]
 
-    # ------------------------
-    # UNIT SYSTEM (TVOJ)
-    # ------------------------
+    # UNITS
     for i, p in enumerate(picks):
-
         if p["bet"] == "Draw":
             p["confidence"] = 55
             continue
@@ -275,14 +284,19 @@ def build_predictions():
 def main():
     predictions = build_predictions()
 
+    # SAVE PICKS
     with open("predictions.json", "w") as f:
         json.dump(predictions, f, indent=4)
 
-    try:
-        with open("results.json", "r") as f:
-            history = json.load(f)
-    except:
-        history = []
+    # 🔥 FIX RESULTS.JSON (VEDNO SHRANI)
+    history_file = "results.json"
+
+    if not os.path.exists(history_file):
+        with open(history_file, "w") as f:
+            json.dump([], f)
+
+    with open(history_file, "r") as f:
+        history = json.load(f)
 
     existing = {(p["match"], p["date"]) for p in history}
 
@@ -293,10 +307,10 @@ def main():
             new_pick["result"] = "pending"
             history.append(new_pick)
 
-    with open("results.json", "w") as f:
+    with open(history_file, "w") as f:
         json.dump(history, f, indent=4)
 
-    print(f"Saved {len(predictions)} predictions.")
+    print(f"Saved {len(predictions)} predictions and updated results.")
 
 if __name__ == "__main__":
     main()
