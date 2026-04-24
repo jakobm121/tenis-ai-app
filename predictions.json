@@ -1,1 +1,38 @@
-[]
+[
+    {
+        "date": "2026-04-24",
+        "sport": "football",
+        "league": {
+            "name": "China - China League 2",
+            "slug": "china-china-league-2"
+        },
+        "match": "Dalian Yingbo B - Changchun Xidu",
+        "bet": "Dalian Yingbo B",
+        "confidence": 60,
+        "reasoning": "Fallback pick (no strong value found)"
+    },
+    {
+        "date": "2026-04-24",
+        "sport": "football",
+        "league": {
+            "name": "New Zealand - National League",
+            "slug": "new-zealand-national-league"
+        },
+        "match": "Auckland FC Reserves - Bay Olympic",
+        "bet": "Auckland FC Reserves",
+        "confidence": 60,
+        "reasoning": "Fallback pick (no strong value found)"
+    },
+    {
+        "date": "2026-04-24",
+        "sport": "football",
+        "league": {
+            "name": "China - China League 2",
+            "slug": "china-china-league-2"
+        },
+        "match": "Shanghai Second - Dalian Kewei",
+        "bet": "Shanghai Second",
+        "confidence": 60,
+        "reasoning": "Fallback pick (no strong value found)"
+    }
+]
