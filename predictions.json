@@ -1,1 +1,13 @@
-[]
+[
+    {
+        "date": "2026-04-24",
+        "time": "00:00",
+        "sport": "football",
+        "league": "Primera Divisi\u00f3n - Chile",
+        "match": "Union La Calera - Coquimbo Unido",
+        "bet": "Draw",
+        "confidence": 80,
+        "reasoning": "Union La Calera vs Coquimbo Unido shows value based on model projections.",
+        "sort_time": 1777068000.0
+    }
+]
