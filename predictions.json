@@ -3,36 +3,36 @@
         "date": "2026-04-24",
         "sport": "football",
         "league": {
-            "name": "Indonesia - Liga 1",
-            "slug": "indonesia-liga-1"
-        },
-        "match": "Persis Solo - Bhayangkara Presisi Indonesia FC",
-        "bet": "Persis Solo",
-        "confidence": 55,
-        "reasoning": "Basic pick based on available fixtures."
-    },
-    {
-        "date": "2026-04-24",
-        "sport": "football",
-        "league": {
-            "name": "Indonesia - Liga 1",
-            "slug": "indonesia-liga-1"
-        },
-        "match": "Psim Yogyakarta - Persija Jakarta",
-        "bet": "Psim Yogyakarta",
-        "confidence": 55,
-        "reasoning": "Basic pick based on available fixtures."
-    },
-    {
-        "date": "2026-04-24",
-        "sport": "football",
-        "league": {
             "name": "Turkiye - Super Lig, Women",
             "slug": "turkiye-super-lig-women"
         },
-        "match": "Hakkarigucu Spor - Fatih Vatan Spor",
-        "bet": "Hakkarigucu Spor",
-        "confidence": 55,
-        "reasoning": "Basic pick based on available fixtures."
+        "match": "Fenerbahce Istanbul - Cekmekoy Bilgidoga Sportif",
+        "bet": "Fenerbahce Istanbul",
+        "confidence": 69,
+        "reasoning": "Fenerbahce Istanbul shows stronger baseline metrics vs Cekmekoy Bilgidoga Sportif."
+    },
+    {
+        "date": "2026-04-24",
+        "sport": "football",
+        "league": {
+            "name": "China - Chinese Super League",
+            "slug": "china-chinese-super-league"
+        },
+        "match": "Shanghai Shenhua FC - Qingdao Hainiu FC",
+        "bet": "Shanghai Shenhua FC",
+        "confidence": 69,
+        "reasoning": "Shanghai Shenhua FC shows stronger baseline metrics vs Qingdao Hainiu FC."
+    },
+    {
+        "date": "2026-04-24",
+        "sport": "football",
+        "league": {
+            "name": "Armenia - First League",
+            "slug": "armenia-first-league"
+        },
+        "match": "Lernayin Artsakh FC - FC Ararat-Armenia 2",
+        "bet": "Lernayin Artsakh FC",
+        "confidence": 69,
+        "reasoning": "Lernayin Artsakh FC shows stronger baseline metrics vs FC Ararat-Armenia 2."
     }
 ]
