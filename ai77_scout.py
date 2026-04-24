@@ -9,7 +9,6 @@ FOOTBALL_API_KEY = os.getenv("FOOTBALL_API_KEY")
 ODDS_BASE = "https://api.odds-api.io/v3"
 FOOTBALL_BASE = "https://v3.football.api-sports.io"
 
-# 🔥 CACHE (da ne kličemo API 10x za isto ekipo)
 team_cache = {}
 
 # ------------------------
@@ -58,7 +57,6 @@ def get_team_form(team_name):
             "x-apisports-key": FOOTBALL_API_KEY
         }
 
-        # 🔍 najdi team ID
         res = requests.get(
             f"{FOOTBALL_BASE}/teams",
             headers=headers,
@@ -74,7 +72,6 @@ def get_team_form(team_name):
 
         team_id = data["response"][0]["team"]["id"]
 
-        # 📊 zadnjih 5 tekem
         res = requests.get(
             f"{FOOTBALL_BASE}/fixtures",
             headers=headers,
@@ -98,15 +95,15 @@ def get_team_form(team_name):
         team_cache[team_name] = score
         return score
 
-    except Exception as e:
+    except:
         team_cache[team_name] = 0
         return 0
 
 # ------------------------
-# MAIN MODEL
+# MODEL
 # ------------------------
 def build_predictions():
-    events = fetch_events()[:8]  # LIMIT = hitrost
+    events = fetch_events()[:8]  # limit za hitrost
     picks = []
 
     for event in events:
@@ -137,7 +134,7 @@ def build_predictions():
             home_prob = home_form / total
             away_prob = 1 - home_prob
 
-            # 📊 IMPLIED PROBABILITY
+            # 📊 IMPLIED
             home_implied = 1 / home_odds
             away_implied = 1 / away_odds
 
@@ -154,11 +151,11 @@ def build_predictions():
                 bet = away
                 odds = away_odds
 
-            # ❌ brez value
-            if edge < 0:
+            # 🔥 POPRAVEK (manj strog filter)
+            if edge < -0.05:
                 continue
 
-            # 🔥 CONFIDENCE (PRO)
+            # 🔥 CONFIDENCE
             confidence = int(50 + (edge * 300))
             confidence = max(55, min(confidence, 92))
 
@@ -169,13 +166,29 @@ def build_predictions():
                 "match": f"{home} - {away}",
                 "bet": bet,
                 "confidence": confidence,
-                "reasoning": f"AI model vs market mismatch. Edge: {round(edge,3)} | Odds: {odds}"
+                "reasoning": f"Form vs market edge. Edge: {round(edge,3)} | Odds: {odds}"
             })
 
-        except Exception as e:
+        except:
             continue
 
+    # 🔥 SORT
     picks = sorted(picks, key=lambda x: x["confidence"], reverse=True)
+
+    # 🔥 FALLBACK (da ni prazno)
+    if len(picks) == 0:
+        print("No strong value → fallback")
+
+        for event in events[:3]:
+            picks.append({
+                "date": datetime.now().strftime("%Y-%m-%d"),
+                "sport": "football",
+                "league": event["league"],
+                "match": f"{event['home']} - {event['away']}",
+                "bet": event["home"],
+                "confidence": 60,
+                "reasoning": "Fallback pick (no strong value found)"
+            })
 
     return picks[:3]
 
@@ -185,14 +198,11 @@ def build_predictions():
 def main():
     predictions = build_predictions()
 
-    if not predictions:
-        print("No value bets found")
-        predictions = []
-
     with open("predictions.json", "w", encoding="utf-8") as f:
         json.dump(predictions, f, indent=4)
 
     print(f"Saved {len(predictions)} predictions.")
+
 
 if __name__ == "__main__":
     main()
