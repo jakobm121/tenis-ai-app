@@ -1,47 +1,52 @@
 [
     {
         "date": "2026-04-24",
-        "sport": "football",
-        "league": "J League",
-        "match": "Kashiwa Reysol - Kashima Antlers",
-        "bet": "Kashiwa Reysol",
-        "confidence": 82,
-        "reasoning": "Kashiwa Reysol shows stronger underlying metrics and recent form compared to Kashima Antlers. The model identifies a clear edge of 0.437 over market expectations. Risk is present, but the value justifies the play."
-    },
-    {
-        "date": "2026-04-24",
-        "sport": "football",
-        "league": "J League",
-        "match": "FC Tokyo - Mito HollyHock",
-        "bet": "Under 5.5",
-        "confidence": 68,
-        "reasoning": "Recent performances indicate fewer high-quality chances and a more defensive structure. The projected goal output remains suppressed, supporting a lower scoring game. One of the better edges available on the board."
-    },
-    {
-        "date": "2026-04-24",
-        "sport": "football",
-        "league": "Saudi Pro League",
-        "match": "Al-Fateh - Al-Khaleej",
-        "bet": "Over 3.5",
-        "confidence": 68,
-        "reasoning": "Both teams are consistently creating chances and playing at a higher tempo. With expected goals above average at 2.5, the probability of goals is higher than market pricing suggests. Clear value position. One of the better edges available on the board."
-    },
-    {
-        "date": "2026-04-24",
-        "sport": "football",
-        "league": "A-League",
-        "match": "Macarthur FC - Wellington Phoenix FC",
-        "bet": "Over 4.0",
-        "confidence": 55,
-        "reasoning": "Macarthur FC and Wellington Phoenix FC both operate with aggressive attacking profiles, projecting around 2.5 expected goals. This typically results in an open, high-tempo match with multiple scoring opportunities. Edge vs market: 0.383. This fits well within a value-based betting strategy."
-    },
-    {
-        "date": "2026-04-24",
+        "time": "17:00",
         "sport": "football",
         "league": "Veikkausliiga - Finland",
         "match": "VPS Vaasa - Ilves Tampere",
         "bet": "Over 2.75",
+        "confidence": 68,
+        "reasoning": "Both teams consistently create chances and maintain offensive pressure. With expected goals at 2.4, the probability of goals is higher than odds suggest. Fits well into a value betting strategy."
+    },
+    {
+        "date": "2026-04-24",
+        "time": "17:45",
+        "sport": "football",
+        "league": "Saudi Pro League",
+        "match": "Al-Fateh - Al-Khaleej",
+        "bet": "Over 3.5",
+        "confidence": 82,
+        "reasoning": "This is a high-event game profile. Defensive weaknesses and attacking output push expected goals into a strong range. Fits well into a value betting strategy."
+    },
+    {
+        "date": "2026-04-24",
+        "time": "18:00",
+        "sport": "football",
+        "league": "Veikkausliiga - Finland",
+        "match": "SJK Sein\u00e4joki - Jaro",
+        "bet": "Over 2.75",
+        "confidence": 68,
+        "reasoning": "This is a high-event game profile. Defensive weaknesses and attacking output push expected goals into a strong range. Strong value spot."
+    },
+    {
+        "date": "2026-04-24",
+        "time": "18:00",
+        "sport": "football",
+        "league": "Ekstraklasa - Poland",
+        "match": "Zag\u0142\u0119bie Lubin - Nieciecza",
+        "bet": "Over 2.5",
         "confidence": 55,
-        "reasoning": "Both teams are consistently creating chances and playing at a higher tempo. With expected goals above average at 2.5, the probability of goals is higher than market pricing suggests. Clear value position. Risk is present, but the value justifies the play."
+        "reasoning": "This is a high-event game profile. Defensive weaknesses and attacking output push expected goals into a strong range. Fits well into a value betting strategy."
+    },
+    {
+        "date": "2026-04-24",
+        "time": "18:10",
+        "sport": "football",
+        "league": "Saudi Pro League",
+        "match": "Al-Hazem - Al-Riyadh",
+        "bet": "Over 2.5",
+        "confidence": 55,
+        "reasoning": "Al-Hazem and Al-Riyadh both play attacking football, projecting around 2.4 expected goals. High tempo matchup with strong scoring potential. Edge vs market: 0.212. One of the better edges today."
     }
 ]
