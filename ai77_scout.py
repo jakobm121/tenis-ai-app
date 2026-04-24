@@ -8,9 +8,7 @@ from zoneinfo import ZoneInfo
 ODDS_API_KEY = os.getenv("ODDS_API_KEY_V2")
 ODDS_URL = "https://api.the-odds-api.com/v4/sports/soccer/odds"
 
-# ------------------------
-# FETCH ODDS
-# ------------------------
+
 def fetch_odds():
     params = {
         "apiKey": ODDS_API_KEY,
@@ -19,7 +17,7 @@ def fetch_odds():
         "oddsFormat": "decimal"
     }
 
-    res = requests.get(ODDS_URL, params=params, timeout=10)
+    res = requests.get(ODDS_URL, params=params, timeout=15)
 
     if res.status_code != 200:
         print("API ERROR:", res.text)
@@ -27,53 +25,48 @@ def fetch_odds():
 
     return res.json()
 
-# ------------------------
-# PREMIUM AI ANALYSIS
-# ------------------------
-def generate_reasoning(home, away, bet, expected_goals, edge):
-    if "Over" in bet:
+
+def generate_reasoning(home, away, bet, expected_goals, edge, pick_type):
+    if pick_type == "over":
         texts = [
-            f"{home} and {away} both project as aggressive attacking sides, with expected goals around {round(expected_goals,1)}. The matchup profile suggests tempo and multiple scoring phases.",
-            f"Both teams show enough offensive activity to support a higher-scoring game. The model sees stronger goal potential than the market is pricing.",
-            f"This setup points toward an open match. Expected goals indicate above-average scoring conditions and a value angle."
+            f"{home} and {away} profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in.",
+            f"The tempo projection points toward an open game. Both teams should have enough attacking sequences to create multiple scoring windows, making this a strong value angle.",
+            f"This is not a blind Over pick. The model identifies a scoring environment where attacking output, tempo and market pricing all point in the same direction."
         ]
 
-    elif "Under" in bet:
+    elif pick_type == "under":
         texts = [
-            f"This matchup projects as controlled and lower-tempo. Chance creation looks limited, supporting a tighter game.",
-            f"Both sides are likely to play structured football. The model sees less scoring potential than the market implies.",
-            f"Game dynamics suggest fewer clear chances and a cautious rhythm, creating under value."
+            f"This matchup projects as more controlled than the market suggests. Limited chance creation and a slower game script make the Under a strong value position.",
+            f"The model expects fewer high-quality chances than the market is pricing. Defensive structure and tempo control make this a disciplined Under spot.",
+            f"This game has a lower-event profile. The value comes from the market slightly overestimating goal volume."
         ]
 
-    elif bet == "Draw":
+    elif pick_type == "draw":
         texts = [
-            f"This is a balanced matchup with minimal separation between teams. Draw is considered only due to strong value.",
-            f"Both teams rate closely and the game profile suggests a tight contest. Draw is a low-risk exposure only.",
-            f"The matchup shows no clear dominance. Draw is selected only because the edge justifies it."
+            f"This is a balanced matchup with very little separation between the sides. Draw is selected only because the value edge is unusually strong and risk is kept low.",
+            f"The model sees a tight game profile with no clear side advantage. This is a controlled draw exposure, not a high-stake position.",
+            f"Both teams rate closely enough that the draw price becomes playable. It remains a low-unit value angle due to natural variance."
         ]
 
     else:
         texts = [
-            f"{bet} shows stronger structural indicators in this matchup, with value vs current market pricing.",
-            f"The selection is supported by better consistency and matchup control. Market underrates this side.",
-            f"Model projection gives {bet} a measurable edge over implied probability."
+            f"{bet} holds a measurable edge in this matchup. The model finds stronger structure, stability and pricing value compared to the opponent.",
+            f"The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess.",
+            f"{bet} grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify."
         ]
 
     endings = [
-        " This fits our value-based approach.",
-        " Risk remains, but price justifies the position.",
-        " Selected strictly due to value, not guesswork.",
-        " Edge is small but consistent."
+        " This fits the AI77 value-based approach.",
+        " Risk is always present, but the price creates a playable edge.",
+        " The pick is selected because the model detects market mispricing.",
+        " This is a calculated position, not a random prediction."
     ]
 
     return random.choice(texts) + random.choice(endings)
 
-# ------------------------
-# MAIN MODEL
-# ------------------------
+
 def build_predictions():
     data = fetch_odds()
-    picks = []
 
     tz = ZoneInfo("Europe/Ljubljana")
     now = datetime.now(tz)
@@ -81,12 +74,7 @@ def build_predictions():
     start_time = now + timedelta(minutes=30)
     end_time = now + timedelta(hours=24)
 
-    # BALANCE
-    over_count = 0
-    under_count = 0
-    home_count = 0
-    away_count = 0
-    draw_count = 0
+    candidates = []
 
     for game in data:
         try:
@@ -94,7 +82,9 @@ def build_predictions():
             if not commence_time:
                 continue
 
-            match_time = datetime.fromisoformat(commence_time.replace("Z", "+00:00")).astimezone(tz)
+            match_time = datetime.fromisoformat(
+                commence_time.replace("Z", "+00:00")
+            ).astimezone(tz)
 
             if match_time < start_time or match_time > end_time:
                 continue
@@ -103,32 +93,25 @@ def build_predictions():
             away = game["away_team"]
             league = game.get("sport_title", "Football")
 
-            # MODEL
-            expected_home = 1.25
-            expected_away = 1.15
-            expected_goals = expected_home + expected_away
-
-            total = expected_goals
-            home_prob = expected_home / total
-            away_prob = expected_away / total
-
-            # TOTALS
-            over_prob = min(0.60, expected_goals / 3.2)
-            under_prob = 1 - over_prob
-
             if not game.get("bookmakers"):
                 continue
 
             bookmaker = game["bookmakers"][0]
 
-            best_edge = -999
-            best_pick = None
-            best_type = None
+            expected_home = 1.25
+            expected_away = 1.15
+            expected_goals = expected_home + expected_away
+
+            home_prob = expected_home / expected_goals
+            away_prob = expected_away / expected_goals
+
+            over_prob = min(0.62, expected_goals / 3.15)
+            under_prob = 1 - over_prob
 
             for market in bookmaker["markets"]:
 
                 # ------------------------
-                # TOTALS
+                # OVER / UNDER
                 # ------------------------
                 if market["key"] == "totals":
                     for outcome in market["outcomes"]:
@@ -138,54 +121,66 @@ def build_predictions():
 
                         if outcome["name"] == "Over":
                             model_prob = over_prob
-                            label = f"Over {point}"
+                            bet = f"Over {point}"
                             pick_type = "over"
                         else:
                             model_prob = under_prob
-                            label = f"Under {point}"
+                            bet = f"Under {point}"
                             pick_type = "under"
 
                         edge = model_prob - implied
-                        edge *= 1.25  # BOOST TOTALS
 
-                        if edge > best_edge:
-                            best_edge = edge
-                            best_pick = (label, odds)
-                            best_type = pick_type
+                        # strong boost so totals actually enter the portfolio
+                        edge *= 1.55
+
+                        if odds < 1.35 or odds > 3.40:
+                            continue
+
+                        if edge < -0.10:
+                            continue
+
+                        candidates.append({
+                            "date": now.strftime("%Y-%m-%d"),
+                            "time": match_time.strftime("%H:%M"),
+                            "sport": "football",
+                            "league": league,
+                            "match": f"{home} - {away}",
+                            "home": home,
+                            "away": away,
+                            "bet": bet,
+                            "pick_type": pick_type,
+                            "odds": odds,
+                            "confidence": edge,
+                            "reasoning": generate_reasoning(home, away, bet, expected_goals, edge, pick_type),
+                            "sort_time": match_time.timestamp()
+                        })
 
                 # ------------------------
-                # H2H + DRAW
+                # H2H + SMART DRAW
                 # ------------------------
                 if market["key"] == "h2h":
                     for outcome in market["outcomes"]:
-
                         odds = outcome["price"]
                         implied = 1 / odds
 
-                        # HOME
                         if outcome["name"] == home:
                             model_prob = home_prob
+                            bet = home
+                            pick_type = "home"
                             edge = model_prob - implied
-                            edge *= 0.88  # NERF HOME
+                            edge *= 0.72  # hard nerf home bias
 
-                            if edge > best_edge:
-                                best_edge = edge
-                                best_pick = (home, odds)
-                                best_type = "home"
-
-                        # AWAY
                         elif outcome["name"] == away:
                             model_prob = away_prob
+                            bet = away
+                            pick_type = "away"
                             edge = model_prob - implied
-                            edge *= 0.92
+                            edge *= 0.88
 
-                            if edge > best_edge:
-                                best_edge = edge
-                                best_pick = (away, odds)
-                                best_type = "away"
-
-                        # DRAW
                         else:
+                            bet = "Draw"
+                            pick_type = "draw"
+
                             if expected_goals < 2.2:
                                 model_prob = 0.28
                             elif expected_goals < 2.6:
@@ -197,120 +192,167 @@ def build_predictions():
                                 continue
 
                             edge = model_prob - implied
-                            edge *= 0.9
+                            edge *= 0.80
 
-                            if edge > 0.06 and draw_count == 0:
-                                if edge > best_edge:
-                                    best_edge = edge
-                                    best_pick = ("Draw", odds)
-                                    best_type = "draw"
+                            # draw only if real value
+                            if edge < 0.05:
+                                continue
 
-            if not best_pick:
-                continue
+                        if odds < 1.35 or odds > 3.80:
+                            continue
 
-            odds = best_pick[1]
+                        if edge < -0.10:
+                            continue
 
-            if best_edge < -0.04:
-                continue
+                        candidates.append({
+                            "date": now.strftime("%Y-%m-%d"),
+                            "time": match_time.strftime("%H:%M"),
+                            "sport": "football",
+                            "league": league,
+                            "match": f"{home} - {away}",
+                            "home": home,
+                            "away": away,
+                            "bet": bet,
+                            "pick_type": pick_type,
+                            "odds": odds,
+                            "confidence": edge,
+                            "reasoning": generate_reasoning(home, away, bet, expected_goals, edge, pick_type),
+                            "sort_time": match_time.timestamp()
+                        })
 
-            if odds < 1.4 or odds > 3.2:
-                continue
-
-            # BALANCE
-            if best_type == "over" and over_count >= 2:
-                continue
-            if best_type == "under" and under_count >= 2:
-                continue
-            if best_type == "home" and home_count >= 2:
-                continue
-            if best_type == "away" and away_count >= 2:
-                continue
-            if best_type == "draw" and draw_count >= 1:
-                continue
-
-            if best_type == "over":
-                over_count += 1
-            elif best_type == "under":
-                under_count += 1
-            elif best_type == "home":
-                home_count += 1
-            elif best_type == "away":
-                away_count += 1
-            elif best_type == "draw":
-                draw_count += 1
-
-            picks.append({
-                "date": now.strftime("%Y-%m-%d"),
-                "time": match_time.strftime("%H:%M"),
-                "sport": "football",
-                "league": league,
-                "match": f"{home} - {away}",
-                "bet": best_pick[0],
-                "confidence": best_edge,
-                "reasoning": generate_reasoning(home, away, best_pick[0], expected_goals, best_edge),
-                "sort_time": match_time.timestamp()
-            })
-
-        except:
+        except Exception as e:
+            print("GAME ERROR:", e)
             continue
 
-    # SORT
-    picks = sorted(picks, key=lambda x: x["confidence"], reverse=True)
-    picks = picks[:5]
+    candidates = sorted(candidates, key=lambda x: x["confidence"], reverse=True)
 
-    # UNITS
-    for i, p in enumerate(picks):
-        if p["bet"] == "Draw":
-            p["confidence"] = 55
+    final = []
+    used_matches = set()
+
+    counts = {
+        "home": 0,
+        "away": 0,
+        "over": 0,
+        "under": 0,
+        "draw": 0
+    }
+
+    limits = {
+        "home": 2,
+        "away": 1,
+        "over": 2,
+        "under": 2,
+        "draw": 1
+    }
+
+    # ------------------------
+    # FIRST PASS: balanced limits
+    # ------------------------
+    for pick in candidates:
+        if len(final) >= 5:
+            break
+
+        if pick["match"] in used_matches:
             continue
 
-        if i == 0:
-            p["confidence"] = 78
+        pick_type = pick["pick_type"]
+
+        if counts[pick_type] >= limits[pick_type]:
+            continue
+
+        final.append(pick)
+        used_matches.add(pick["match"])
+        counts[pick_type] += 1
+
+    # ------------------------
+    # SECOND PASS: fill missing picks, still no duplicate match
+    # ------------------------
+    if len(final) < 5:
+        for pick in candidates:
+            if len(final) >= 5:
+                break
+
+            if pick["match"] in used_matches:
+                continue
+
+            pick_type = pick["pick_type"]
+
+            # still never allow more than these hard caps
+            if pick_type == "home" and counts["home"] >= 2:
+                continue
+            if pick_type == "away" and counts["away"] >= 1:
+                continue
+            if pick_type == "draw" and counts["draw"] >= 1:
+                continue
+
+            final.append(pick)
+            used_matches.add(pick["match"])
+            counts[pick_type] += 1
+
+    final = sorted(final, key=lambda x: x["confidence"], reverse=True)
+
+    # ------------------------
+    # CONFIDENCE / UNIT SYSTEM
+    # 78 = Very Strong = 2u
+    # 66 = Strong = 1.5u
+    # 55 = Medium = 1u
+    # Draw always Medium
+    # ------------------------
+    for i, pick in enumerate(final):
+        if pick["pick_type"] == "draw":
+            pick["confidence"] = 55
+        elif i == 0:
+            pick["confidence"] = 78
         elif i < 3:
-            p["confidence"] = 66
+            pick["confidence"] = 66
         else:
-            p["confidence"] = 55
+            pick["confidence"] = 55
 
-    picks = sorted(picks, key=lambda x: x["sort_time"])
+    final = sorted(final, key=lambda x: x["sort_time"])
 
-    for p in picks:
-        del p["sort_time"]
+    for pick in final:
+        del pick["sort_time"]
+        del pick["pick_type"]
+        del pick["odds"]
+        del pick["home"]
+        del pick["away"]
 
-    return picks
+    return final
 
-# ------------------------
-# MAIN
-# ------------------------
+
 def main():
     predictions = build_predictions()
 
-    # SAVE PICKS
-    with open("predictions.json", "w") as f:
-        json.dump(predictions, f, indent=4)
+    with open("predictions.json", "w", encoding="utf-8") as f:
+        json.dump(predictions, f, indent=4, ensure_ascii=False)
 
-    # 🔥 FIX RESULTS.JSON (VEDNO SHRANI)
     history_file = "results.json"
 
     if not os.path.exists(history_file):
-        with open(history_file, "w") as f:
+        with open(history_file, "w", encoding="utf-8") as f:
             json.dump([], f)
 
-    with open(history_file, "r") as f:
-        history = json.load(f)
+    try:
+        with open(history_file, "r", encoding="utf-8") as f:
+            history = json.load(f)
+    except:
+        history = []
 
-    existing = {(p["match"], p["date"]) for p in history}
+    existing = {(p.get("match"), p.get("date"), p.get("bet")) for p in history}
 
-    for p in predictions:
-        key = (p["match"], p["date"])
+    for pick in predictions:
+        key = (pick.get("match"), pick.get("date"), pick.get("bet"))
+
         if key not in existing:
-            new_pick = p.copy()
+            new_pick = pick.copy()
             new_pick["result"] = "pending"
             history.append(new_pick)
 
-    with open(history_file, "w") as f:
-        json.dump(history, f, indent=4)
+    with open(history_file, "w", encoding="utf-8") as f:
+        json.dump(history, f, indent=4, ensure_ascii=False)
 
-    print(f"Saved {len(predictions)} predictions and updated results.")
+    print(f"Saved {len(predictions)} predictions and updated results.json.")
+
 
 if __name__ == "__main__":
     main()
