@@ -130,7 +130,6 @@ def build_predictions():
 
                         if odds < 1.35 or odds > 3.40:
                             continue
-
                         if edge < -0.10:
                             continue
 
@@ -188,7 +187,6 @@ def build_predictions():
 
                         if odds < 1.35 or odds > 3.80:
                             continue
-
                         if edge < -0.10:
                             continue
 
@@ -231,24 +229,6 @@ def build_predictions():
         final.append(pick)
         used_matches.add(pick["match"])
         counts[pick["pick_type"]] += 1
-
-    if len(final) < 5:
-        for pick in candidates:
-            if len(final) >= 5:
-                break
-            if pick["match"] in used_matches:
-                continue
-
-            if pick["pick_type"] == "home" and counts["home"] >= 2:
-                continue
-            if pick["pick_type"] == "away" and counts["away"] >= 1:
-                continue
-            if pick["pick_type"] == "draw" and counts["draw"] >= 1:
-                continue
-
-            final.append(pick)
-            used_matches.add(pick["match"])
-            counts[pick["pick_type"]] += 1
 
     final = sorted(final, key=lambda x: x["confidence"], reverse=True)
 
@@ -299,6 +279,10 @@ def main():
 
     with open(history_file, "w", encoding="utf-8") as f:
         json.dump(history, f, indent=4, ensure_ascii=False)
+
+    # 🔥 FORCE CHANGE za GitHub
+    with open(history_file, "a") as f:
+        f.write("\n")
 
     print(f"Saved {len(predictions)} predictions and updated results.json.")
 
