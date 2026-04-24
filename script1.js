@@ -20,27 +20,51 @@ async function loadPredictions() {
 }
 
 // ------------------------
-// CONFIDENCE + UNITS SYSTEM (FINAL)
+// CONFIDENCE SYSTEM (BARVE + UNITS)
 // ------------------------
 function getConfidenceData(conf) {
   if (conf < 60) {
     return {
       label: "🟡 Medium",
-      units: "1u"
+      units: "1u",
+      color: "#ffc107"
     };
   }
 
   if (conf < 75) {
     return {
       label: "🟢 Strong",
-      units: "1.5u"
+      units: "1.5u",
+      color: "#28a745"
     };
   }
 
   return {
     label: "🔥 Very Strong",
-    units: "2u"
+    units: "2u",
+    color: "#d4af37"
   };
+}
+
+// ------------------------
+// TIME UNTIL MATCH (BONUS UX)
+// ------------------------
+function getKickoffStatus(time) {
+  if (!time) return "";
+
+  const now = new Date();
+  const [h, m] = time.split(":");
+
+  const matchTime = new Date();
+  matchTime.setHours(h, m, 0);
+
+  const diff = (matchTime - now) / 60000;
+
+  if (diff < 0) return "";
+  if (diff < 60) return `⏰ Starts in ${Math.floor(diff)} min`;
+  if (diff < 180) return `🕒 Starts in ${Math.floor(diff / 60)}h`;
+
+  return "";
 }
 
 // ------------------------
@@ -54,11 +78,17 @@ function renderPredictions(data) {
 
   data.forEach((p, index) => {
     const conf = getConfidenceData(p.confidence);
+    const kickoff = getKickoffStatus(p.time);
 
     const card = document.createElement("div");
     card.classList.add("prediction-card");
 
+    // TOP PICK badge
+    const topPick = index === 0 ? `<div class="top-pick">🔥 TOP PICK</div>` : "";
+
     card.innerHTML = `
+      ${topPick}
+
       <div class="prediction-meta">
         <span>📅 ${p.date}</span>
         <span>🕒 ${p.time || "?"}</span>
@@ -70,21 +100,48 @@ function renderPredictions(data) {
 
       <p class="bet-type">Bet: ${p.bet}</p>
 
+      ${kickoff ? `<p class="kickoff">${kickoff}</p>` : ""}
+
       <div class="ai-reasoning">
         <p><strong>AI Analysis:</strong> ${p.reasoning}</p>
       </div>
 
-      <p class="confidence-label">${conf.label} • ${conf.units}</p>
+      <canvas id="chart${index}"></canvas>
 
-      <a href="https://stzns.lynmonkel.com/?mid=309891_1838278" class="btn">Claim Bonus ✅</a>
+      <p class="confidence-label" style="color:${conf.color}">
+        ${conf.label} • ${conf.units}
+      </p>
+
+      <a href="https://stzns.lynmonkel.com/?mid=309891_1838278" class="btn">
+        Bet Now 🔥
+      </a>
     `;
 
     container.appendChild(card);
+
+    // CHART (vrnjen nazaj)
+    new Chart(document.getElementById(`chart${index}`), {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [p.confidence, 100 - p.confidence],
+          backgroundColor: [conf.color, '#e0e0e0'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        cutout: '75%',
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false }
+        }
+      }
+    });
   });
 }
 
 // ------------------------
-// LOAD STATS
+// STATS (pusti fake dokler ni data)
 // ------------------------
 async function loadStats() {
   try {
@@ -114,9 +171,12 @@ async function loadStats() {
 
     const roi = total ? ((profit / total) * 100).toFixed(1) : 0;
 
-    document.querySelector(".stat-box:nth-child(1) h3").innerText = total;
-    document.querySelector(".stat-box:nth-child(2) h3").innerText = wins;
-    document.querySelector(".stat-box:nth-child(4) h3").innerText = roi + "%";
+    // samo če imaš real data
+    if (total > 10) {
+      document.querySelector(".stat-box:nth-child(1) h3").innerText = total;
+      document.querySelector(".stat-box:nth-child(2) h3").innerText = wins;
+      document.querySelector(".stat-box:nth-child(4) h3").innerText = roi + "%";
+    }
 
   } catch (e) {
     console.log("Stats error", e);
