@@ -26,7 +26,7 @@ function getConfidenceData(conf) {
   if (conf < 60) {
     return {
       label: "🟡 Medium",
-      units: "💸1u",
+      units: "💸 1u",
       color: "#ffc107"
     };
   }
@@ -34,14 +34,14 @@ function getConfidenceData(conf) {
   if (conf < 75) {
     return {
       label: "🟢 Strong",
-      units: "💸1.5u",
+      units: "💸 1.5u",
       color: "#28a745"
     };
   }
 
   return {
     label: "🔥 Very Strong",
-    units: "💸2u",
+    units: "💸 2u",
     color: "#d4af37"
   };
 }
@@ -82,12 +82,6 @@ function renderPredictions(data) {
 
     const card = document.createElement("div");
     card.classList.add("prediction-card");
-
-    // TOP PICK badge
-    const topPick = index === 0 ? `<div class="top-pick">🔥 TOP PICK</div>` : "";
-
-    card.innerHTML = `
-      ${topPick}
 
       <div class="prediction-meta">
         <span>📅 ${p.date}</span>
