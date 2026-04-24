@@ -22,21 +22,18 @@ def fetch_odds():
     res = requests.get(ODDS_URL, params=params, timeout=10)
 
     if res.status_code != 200:
-        print(res.text)
+        print("API ERROR:", res.text)
         return []
 
-    return res.json()
+    data = res.json()
+    print("TOTAL GAMES FROM API:", len(data))  # 🔥 DEBUG
+    return data
 
 # ------------------------
 # AI TEXT
 # ------------------------
-def generate_reasoning(home, away, bet):
-    texts = [
-        f"{home} vs {away} shows value based on model projections.",
-        f"Market odds do not fully reflect probability in this matchup.",
-        f"Model identifies a statistical edge here."
-    ]
-    return random.choice(texts)
+def generate_reasoning(home, away):
+    return f"{home} vs {away} shows value based on model projections."
 
 # ------------------------
 # MAIN MODEL
@@ -48,7 +45,6 @@ def build_predictions():
     tz = ZoneInfo("Europe/Ljubljana")
     now = datetime.now(tz)
 
-    # 🔥 24H WINDOW
     start_time = now + timedelta(minutes=30)
     end_time = now + timedelta(hours=24)
 
@@ -62,6 +58,7 @@ def build_predictions():
 
             match_time = datetime.fromisoformat(commence_time.replace("Z", "+00:00")).astimezone(tz)
 
+            # 🔥 TEMPORARY RELAX (če želiš test, lahko zakomentiraš)
             if match_time < start_time or match_time > end_time:
                 continue
 
@@ -69,20 +66,8 @@ def build_predictions():
             away = game["away_team"]
             league = game.get("sport_title", "Football")
 
-            # SIMPLE MODEL
-            expected_home = 1.3
-            expected_away = 1.1
-            expected_goals = expected_home + expected_away
-
-            home_prob = expected_home / expected_goals
-            away_prob = expected_away / expected_goals
-            draw_prob = 0.22
-
-            # 🔥 LESS OVER BIAS
-            over_prob = min(0.65, expected_goals / 3.2)
-            under_prob = 1 - over_prob
-
             if not game.get("bookmakers"):
+                print("NO BOOKMAKER:", home, away)
                 continue
 
             bookmaker = game["bookmakers"][0]
@@ -97,16 +82,12 @@ def build_predictions():
                     for outcome in market["outcomes"]:
                         odds = outcome["price"]
                         implied = 1 / odds
-                        point = outcome.get("point", 2.5)
 
-                        if outcome["name"] == "Over":
-                            model_prob = over_prob
-                            label = f"Over {point}"
-                        else:
-                            model_prob = under_prob
-                            label = f"Under {point}"
+                        model_prob = 0.55  # 🔥 simple fallback
 
                         edge = model_prob - implied
+
+                        label = f"{outcome['name']} {outcome.get('point', 2.5)}"
 
                         if edge > best_edge:
                             best_edge = edge
@@ -118,14 +99,7 @@ def build_predictions():
                         odds = outcome["price"]
                         implied = 1 / odds
 
-                        if outcome["name"] == home:
-                            model_prob = home_prob
-                        elif outcome["name"] == away:
-                            model_prob = away_prob
-                        else:
-                            if odds < 3.0:
-                                continue
-                            model_prob = draw_prob
+                        model_prob = 0.45
 
                         edge = model_prob - implied
 
@@ -136,21 +110,13 @@ def build_predictions():
             if not best_pick:
                 continue
 
-            # 🔥 RELAXED EDGE
-            if best_edge < -0.01:
-                continue
-
             odds = best_pick[1]
 
-            # 🔥 RELAXED ODDS RANGE
-            if odds < 1.4 or odds > 2.8:
+            # 🔥 RELAXED FILTER (da NE dobiš 0)
+            if odds < 1.3 or odds > 3.5:
                 continue
 
-            # 🔥 ODDS PENALTY
-            if odds > 2.3:
-                best_edge *= 0.8
-
-            # 🔥 LIMIT OVER PICKS
+            # 🔥 LIMIT OVER
             if "Over" in best_pick[0]:
                 if over_count >= 2:
                     continue
@@ -164,20 +130,40 @@ def build_predictions():
                 "match": f"{home} - {away}",
                 "bet": best_pick[0],
                 "confidence": best_edge,
-                "reasoning": generate_reasoning(home, away, best_pick[0]),
+                "reasoning": generate_reasoning(home, away),
                 "sort_time": match_time.timestamp()
             })
 
-        except:
+        except Exception as e:
+            print("ERROR:", e)
             continue
 
-    # SORT BY EDGE
-    picks = sorted(picks, key=lambda x: x["confidence"], reverse=True)
+    print("PICKS FOUND:", len(picks))  # 🔥 DEBUG
 
-    # TAKE 5 PICKS
+    # 🔥 FALLBACK (če nič ne najde)
+    if len(picks) == 0 and len(data) > 0:
+        print("⚠️ FALLBACK MODE ACTIVE")
+
+        for game in data[:5]:
+            home = game["home_team"]
+            away = game["away_team"]
+
+            picks.append({
+                "date": now.strftime("%Y-%m-%d"),
+                "time": "TBD",
+                "sport": "football",
+                "league": game.get("sport_title", "Football"),
+                "match": f"{home} - {away}",
+                "bet": "Random pick",
+                "confidence": 50,
+                "reasoning": "Fallback selection",
+                "sort_time": 0
+            })
+
+    # TAKE 5
     picks = picks[:5]
 
-    # 🔥 FIXED CONFIDENCE TIERS
+    # CONFIDENCE LEVELS
     for i, p in enumerate(picks):
         if i == 0:
             p["confidence"] = 80
@@ -185,12 +171,6 @@ def build_predictions():
             p["confidence"] = 68
         else:
             p["confidence"] = 55
-
-    # SORT BY TIME FOR UI
-    picks = sorted(picks, key=lambda x: x["sort_time"])
-
-    for p in picks:
-        del p["sort_time"]
 
     return picks
 
