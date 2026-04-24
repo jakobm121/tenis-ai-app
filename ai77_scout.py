@@ -188,7 +188,7 @@ def build_predictions():
                             continue
 
                         candidates.append({
-                            "date": now.strftime("%Y-%m-%d"),
+                            "date": match_time.strftime("%Y-%m-%d"),
                             "time": match_time.strftime("%H:%M"),
                             "sport": "football",
                             "league": league,
