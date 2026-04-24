@@ -33,21 +33,18 @@ def generate_reasoning(home, away, bet, expected_goals, edge, pick_type):
             f"The tempo projection points toward an open game. Both teams should have enough attacking sequences to create multiple scoring windows, making this a strong value angle.",
             f"This is not a blind Over pick. The model identifies a scoring environment where attacking output, tempo and market pricing all point in the same direction."
         ]
-
     elif pick_type == "under":
         texts = [
             f"This matchup projects as more controlled than the market suggests. Limited chance creation and a slower game script make the Under a strong value position.",
             f"The model expects fewer high-quality chances than the market is pricing. Defensive structure and tempo control make this a disciplined Under spot.",
             f"This game has a lower-event profile. The value comes from the market slightly overestimating goal volume."
         ]
-
     elif pick_type == "draw":
         texts = [
             f"This is a balanced matchup with very little separation between the sides. Draw is selected only because the value edge is unusually strong and risk is kept low.",
             f"The model sees a tight game profile with no clear side advantage. This is a controlled draw exposure, not a high-stake position.",
             f"Both teams rate closely enough that the draw price becomes playable. It remains a low-unit value angle due to natural variance."
         ]
-
     else:
         texts = [
             f"{bet} holds a measurable edge in this matchup. The model finds stronger structure, stability and pricing value compared to the opponent.",
@@ -269,19 +266,25 @@ def main():
     try:
         with open(history_file, "r", encoding="utf-8") as f:
             history = json.load(f)
-    except:
+            if not isinstance(history, list):
+                history = []
+    except Exception:
         history = []
+
+    print("DEBUG predictions:", len(predictions))
+    print("DEBUG history before:", len(history))
 
     for pick in predictions:
         new_pick = pick.copy()
         new_pick["result"] = "pending"
         history.append(new_pick)
 
+    print("DEBUG history after:", len(history))
+
     with open(history_file, "w", encoding="utf-8") as f:
         json.dump(history, f, indent=4, ensure_ascii=False)
 
-    # 🔥 FORCE CHANGE za GitHub
-    with open(history_file, "a") as f:
+    with open(history_file, "a", encoding="utf-8") as f:
         f.write("\n")
 
     print(f"Saved {len(predictions)} predictions and updated results.json.")
