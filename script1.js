@@ -20,7 +20,7 @@ async function loadPredictions() {
 }
 
 // ------------------------
-// CONFIDENCE LOGIC
+// CONFIDENCE SYSTEM
 // ------------------------
 function getConfidenceLabel(conf) {
   if (conf < 60) return { text: "Medium", class: "medium" };
@@ -35,6 +35,13 @@ function getUnits(conf) {
   return "3u";
 }
 
+function getStrengthBar(conf) {
+  let bars = Math.round(conf / 10);
+  let filled = "█".repeat(bars);
+  let empty = "░".repeat(10 - bars);
+  return filled + empty;
+}
+
 // ------------------------
 // RENDER
 // ------------------------
@@ -44,9 +51,10 @@ function renderPredictions(data) {
 
   container.innerHTML = "";
 
-  data.forEach((p, index) => {
+  data.forEach((p) => {
     const label = getConfidenceLabel(p.confidence);
     const units = getUnits(p.confidence);
+    const bar = getStrengthBar(p.confidence);
 
     const card = document.createElement("div");
     card.classList.add("prediction-card");
@@ -54,7 +62,7 @@ function renderPredictions(data) {
     card.innerHTML = `
       <div class="prediction-meta">
         <span>📅 ${p.date}</span>
-        <span>${sportIcons[p.sport] || "⚽"} ${p.sport.charAt(0).toUpperCase() + p.sport.slice(1)}</span>
+        <span>${sportIcons[p.sport] || "⚽"} ${p.sport}</span>
         <span>🏆 ${p.league}</span>
       </div>
 
@@ -62,16 +70,19 @@ function renderPredictions(data) {
 
       <p class="bet-type">🎯 ${p.bet}</p>
 
-      <div style="margin-top:10px;">
+      <div class="badges">
         <span class="badge ${label.class}">🔥 ${label.text}</span>
         <span class="badge units-badge">💰 ${units}</span>
+      </div>
+
+      <div class="strength-box">
+        <div class="strength-label">AI Strength</div>
+        <div class="strength-bar">${bar}</div>
       </div>
 
       <div class="ai-reasoning">
         <p><strong>AI Analysis:</strong> ${p.reasoning}</p>
       </div>
-
-      <canvas id="chart${index}"></canvas>
 
       <a href="https://stzns.lynmonkel.com/?mid=309891_1838278"
          class="cta-btn" target="_blank">
@@ -80,62 +91,11 @@ function renderPredictions(data) {
     `;
 
     container.appendChild(card);
-
-    // CHART
-    new Chart(document.getElementById(`chart${index}`), {
-      type: 'doughnut',
-      data: {
-        labels: ['Confidence', 'Risk'],
-        datasets: [{
-          data: [p.confidence, 100 - p.confidence],
-          backgroundColor: ['#28a745', '#e0e0e0'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        plugins: {
-          legend: { display: false },
-          tooltip: { enabled: false }
-        },
-        cutout: '75%'
-      }
-    });
   });
 }
 
-// ------------------------
-// INIT
 // ------------------------
 loadPredictions();
-
-// ------------------------
-// PROFIT CHART (unchanged)
-// ------------------------
-const profitCtx = document.getElementById('profitChart');
-if (profitCtx) {
-  new Chart(profitCtx.getContext('2d'), {
-    type: 'line',
-    data: {
-      labels: ['Sep 1', 'Sep 5', 'Sep 10', 'Sep 15', 'Sep 20', 'Sep 25', 'Sep 30'],
-      datasets: [{
-        label: 'Profit Growth (%)',
-        data: [0, 2.3, 3.5, 4.1, 5.8, 6.3, 7.2],
-        borderColor: '#ffd700',
-        backgroundColor: 'rgba(255, 215, 0, 0.15)',
-        borderWidth: 3,
-        tension: 0.3,
-        fill: true
-      }]
-    },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } },
-        y: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } }
-      }
-    }
-  });
-}
 
 // ------------------------
 // TOGGLE HOW WE PLAY
