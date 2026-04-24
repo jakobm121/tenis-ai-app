@@ -32,7 +32,7 @@ def fetch_odds():
     return res.json()
 
 # ------------------------
-# TEAM STATS (GOALS FOR / AGAINST)
+# TEAM STATS
 # ------------------------
 def get_team_stats(team):
     if team in team_cache:
@@ -108,7 +108,7 @@ def generate_reasoning(home, away, bet, expected_goals):
     return random.choice(texts)
 
 # ------------------------
-# MODEL
+# MAIN MODEL
 # ------------------------
 def build_predictions():
     data = fetch_odds()
@@ -123,7 +123,7 @@ def build_predictions():
             home_for, home_against = get_team_stats(home)
             away_for, away_against = get_team_stats(away)
 
-            # expected goals model
+            # expected goals
             expected_home = (home_for + away_against) / 2 + 0.15
             expected_away = (away_for + home_against) / 2
             expected_goals = expected_home + expected_away
@@ -169,7 +169,7 @@ def build_predictions():
                             best_edge = edge
                             best_pick = (label, odds)
 
-                # MATCH WINNER (z draw filtrom)
+                # MATCH WINNER
                 if market["key"] == "h2h":
                     for outcome in market["outcomes"]:
                         odds = outcome["price"]
@@ -199,21 +199,31 @@ def build_predictions():
 
             odds = best_pick[1]
 
-            # confidence
-            confidence = int(50 + best_edge * 400)
+            # ------------------------
+            # 🔥 PRO CONFIDENCE SYSTEM
+            # ------------------------
+            confidence = 50 + (best_edge * 200)
 
-            if odds < 2.0:
+            if odds < 1.80:
+                confidence += 10
+            elif odds < 2.20:
                 confidence += 5
-            if odds > 3.5:
-                confidence -= 7
+            elif odds > 3.50:
+                confidence -= 10
+            elif odds > 2.80:
+                confidence -= 5
+
             if "Draw" in best_pick[0]:
-                confidence -= 8
+                confidence -= 15
 
-            confidence = max(55, min(confidence, 92))
+            if "Over" in best_pick[0] or "Under" in best_pick[0]:
+                confidence -= 3
 
-            reasoning = generate_reasoning(
-                home, away, best_pick[0], expected_goals
-            )
+            confidence += random.randint(-5, 5)
+
+            confidence = int(max(45, min(confidence, 90)))
+
+            reasoning = generate_reasoning(home, away, best_pick[0], expected_goals)
 
             picks.append({
                 "date": datetime.now().strftime("%Y-%m-%d"),
@@ -225,7 +235,7 @@ def build_predictions():
                 "reasoning": reasoning
             })
 
-        except Exception as e:
+        except:
             continue
 
     picks = sorted(picks, key=lambda x: x["confidence"], reverse=True)
@@ -244,6 +254,7 @@ def main():
         json.dump(predictions, f, indent=4)
 
     print(f"Saved {len(predictions)} predictions.")
+
 
 if __name__ == "__main__":
     main()
