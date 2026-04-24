@@ -16,25 +16,16 @@ async function loadPredictions() {
 
     renderPredictions(predictions);
 
-    // 🔥 LAST UPDATED (STABILNO – IZ DATA)
-    let text = "";
+    // 🔥 LAST UPDATED (PRAVILNO - CURRENT TIME)
+    const now = new Date();
 
-    if (predictions.length > 0) {
-      const p = predictions[0];
-
-      const formattedDate = p.date.split("-").reverse().join(".");
-
-      text =
-        "Updated • " +
-        formattedDate +
-        " • " +
-        (p.time || "--:--");
-    } else {
-      text = "No matches available";
-    }
+    const formatted =
+      now.toLocaleDateString('en-GB') +
+      " • " +
+      now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     const el = document.getElementById("last-updated");
-    if (el) el.innerText = text;
+    if (el) el.innerText = "Updated • " + formatted;
 
   } catch (error) {
     console.error("Error loading predictions!", error);
@@ -63,8 +54,8 @@ function getConfidenceData(conf) {
 
   return {
     label: "🔥 Very Strong",
-      units: "💸 2u",
-      color: "#d4af37"
+    units: "💸 2u",
+    color: "#d4af37"
   };
 }
 
