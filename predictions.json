@@ -7,7 +7,7 @@
         "match": "Union La Calera - Coquimbo Unido",
         "bet": "Over 2.5",
         "confidence": 66,
-        "reasoning": "The tempo projection points toward an open game. Both teams should have enough attacking sequences to create multiple scoring windows, making this a strong value angle. This fits the AI77 value-based approach."
+        "reasoning": "The tempo projection points toward an open game. Both teams should have enough attacking sequences to create multiple scoring windows, making this a strong value angle. Risk is always present, but the price creates a playable edge."
     },
     {
         "date": "2026-04-24",
@@ -17,7 +17,7 @@
         "match": "Lanus - Central Córdoba",
         "bet": "Over 2.5",
         "confidence": 78,
-        "reasoning": "The tempo projection points toward an open game. Both teams should have enough attacking sequences to create multiple scoring windows, making this a strong value angle. This fits the AI77 value-based approach."
+        "reasoning": "Lanus and Central Córdoba profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in. The pick is selected because the model detects market mispricing."
     },
     {
         "date": "2026-04-24",
@@ -27,7 +27,7 @@
         "match": "Ponte Preta - América Mineiro",
         "bet": "Ponte Preta",
         "confidence": 55,
-        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. This is a calculated position, not a random prediction."
+        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. The pick is selected because the model detects market mispricing."
     },
     {
         "date": "2026-04-24",
@@ -37,7 +37,7 @@
         "match": "Platense - San Lorenzo",
         "bet": "San Lorenzo",
         "confidence": 66,
-        "reasoning": "San Lorenzo grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. Risk is always present, but the price creates a playable edge."
+        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. Risk is always present, but the price creates a playable edge."
     },
     {
         "date": "2026-04-24",
@@ -47,6 +47,6 @@
         "match": "Audax Italiano - Deportes Limache",
         "bet": "Audax Italiano",
         "confidence": 55,
-        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. Risk is always present, but the price creates a playable edge."
+        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. This fits the AI77 value-based approach."
     }
 ]
