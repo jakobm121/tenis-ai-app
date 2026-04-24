@@ -244,7 +244,6 @@ def build_predictions():
     for pick in final:
         del pick["sort_time"]
         del pick["pick_type"]
-        del pick["odds"]
         del pick["home"]
         del pick["away"]
 
