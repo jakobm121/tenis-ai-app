@@ -7,20 +7,45 @@ const sportIcons = {
 };
 
 // ------------------------
-// LOAD PREDICTIONS
+// LOAD PREDICTIONS + LAST UPDATED
 // ------------------------
 async function loadPredictions() {
   try {
     const response = await fetch('./predictions.json');
     const predictions = await response.json();
+
     renderPredictions(predictions);
+
+    // 🔥 LAST UPDATED (REAL FILE TIME)
+    const lastModified = response.headers.get("last-modified");
+
+    let text = "";
+
+    if (lastModified) {
+      const date = new Date(lastModified);
+
+      text =
+        "Last updated: " +
+        date.toLocaleDateString('en-GB') +
+        " • " +
+        date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    } else {
+      // fallback
+      const now = new Date();
+      text =
+        "Last updated: " +
+        now.toLocaleDateString('en-GB') +
+        " • " +
+        now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    const el = document.getElementById("last-updated");
+    if (el) el.innerText = text;
+
   } catch (error) {
     console.error("Error loading predictions!", error);
   }
 }
-const now = new Date();
-document.getElementById("last-updated").innerText =
-  "Last updated: " + now.toLocaleTimeString();
 
 // ------------------------
 // CONFIDENCE SYSTEM
@@ -117,7 +142,6 @@ function renderPredictions(data) {
 
     container.appendChild(card);
 
-    // CHART
     new Chart(document.getElementById(`chart${index}`), {
       type: 'doughnut',
       data: {
@@ -139,7 +163,7 @@ function renderPredictions(data) {
 }
 
 // ------------------------
-// STATS (fake until real)
+// STATS
 // ------------------------
 async function loadStats() {
   try {
@@ -193,7 +217,7 @@ if (title && content) {
 }
 
 // ------------------------
-// PROFIT CHART (tvoj graf ostane)
+// PROFIT CHART
 // ------------------------
 const profitCtx = document.getElementById('profitChart');
 
