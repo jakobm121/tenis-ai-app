@@ -84,36 +84,36 @@ def get_team_stats(team):
 def generate_reasoning(home, away, bet, expected_goals, edge):
     if "Over" in bet:
         texts = [
-            f"{home} and {away} both operate with aggressive attacking profiles, and the model projects around {round(expected_goals,1)} expected goals here. That level typically translates into an open, high-tempo match with multiple scoring windows. Edge vs market is clearly positive at {round(edge,3)}.",
+            f"{home} and {away} both operate with aggressive attacking profiles, projecting around {round(expected_goals,1)} expected goals. This typically results in an open, high-tempo match with multiple scoring opportunities. Edge vs market: {round(edge,3)}.",
 
-            f"This matchup leans heavily toward attacking football, with both sides consistently creating chances in recent games. With expected goals sitting above average at {round(expected_goals,1)}, the probability of goals is materially higher than what current pricing implies. Clear value spot.",
+            f"Both teams are consistently creating chances and playing at a higher tempo. With expected goals above average at {round(expected_goals,1)}, the probability of goals is higher than market pricing suggests. Clear value position.",
 
-            f"The data flags this as a high-event game. Both teams contribute offensively and struggle to suppress chances, which pushes expected goals into a strong range. Market is slightly behind the true probability here, giving us a solid edge of {round(edge,3)}."
+            f"This is a high-event matchup. Both sides contribute offensively and struggle to limit chances, pushing expected goals into a strong range. Market is slightly behind true probability here."
         ]
 
     elif "Under" in bet:
         texts = [
-            f"This profiles as a controlled, lower-tempo game. Both teams show reduced attacking efficiency and a more structured defensive setup, keeping expected goals around {round(expected_goals,1)}. Market is slightly overpricing scoring potential here.",
+            f"This matchup profiles as controlled and slower-paced. Both teams show reduced attacking efficiency, keeping expected goals around {round(expected_goals,1)}. Market is slightly overpricing goals.",
 
-            f"Recent form suggests limited offensive output from both sides, with fewer high-quality chances being created. The projected goal range stays suppressed, which aligns with a lower scoring environment and creates value on the under.",
+            f"Recent performances indicate fewer high-quality chances and a more defensive structure. The projected goal output remains suppressed, supporting a lower scoring game.",
 
-            f"The matchup dynamic favors discipline over aggression. With both teams limiting space and tempo, expected goals remain contained. Current odds don’t fully reflect this, giving a measurable edge of {round(edge,3)}."
+            f"The game dynamic favors discipline over aggression. With limited space and tempo, expected goals remain contained, creating value on the under."
         ]
 
     else:
         texts = [
-            f"{home} holds a noticeable edge in underlying metrics, particularly in recent form and efficiency. The model prices this outcome slightly higher than the market, creating a value gap of {round(edge,3)}.",
+            f"{home} shows stronger underlying metrics and recent form compared to {away}. The model identifies a clear edge of {round(edge,3)} over market expectations.",
 
-            f"From a matchup perspective, this side is more stable and better structured, especially in key phases of play. Market odds underestimate that edge, making this a strong value candidate.",
+            f"This side holds a structural advantage in key areas of play, with better consistency and efficiency. Market odds slightly underrate this edge.",
 
-            f"The model consistently favors this selection based on performance trends and game dynamics. With a positive edge of {round(edge,3)}, this stands out as one of the stronger positions available."
+            f"Based on recent performances and matchup dynamics, this selection offers a measurable advantage that is not fully reflected in current pricing."
         ]
 
     endings = [
-        " This is a high-quality setup worth backing.",
-        " This sits comfortably within a value-based strategy.",
-        " One of the more reliable edges on today’s board.",
-        " Risk is present, but the value justifies the position."
+        " This is a strong value opportunity.",
+        " This fits well within a value-based betting strategy.",
+        " One of the better edges available on the board.",
+        " Risk is present, but the value justifies the play."
     ]
 
     return random.choice(texts) + random.choice(endings)
@@ -243,10 +243,35 @@ def build_predictions():
 def main():
     predictions = build_predictions()
 
+    # SAVE DAILY PICKS
     with open("predictions.json", "w", encoding="utf-8") as f:
         json.dump(predictions, f, indent=4)
 
-    print(f"Saved {len(predictions)} predictions.")
+    # ------------------------
+    # SAVE TO RESULTS HISTORY
+    # ------------------------
+    history_file = "results.json"
+
+    try:
+        with open(history_file, "r") as f:
+            history = json.load(f)
+    except:
+        history = []
+
+    existing = {(p["match"], p["date"]) for p in history}
+
+    for p in predictions:
+        key = (p["match"], p["date"])
+
+        if key not in existing:
+            new_pick = p.copy()
+            new_pick["result"] = "pending"
+            history.append(new_pick)
+
+    with open(history_file, "w") as f:
+        json.dump(history, f, indent=4)
+
+    print(f"Saved {len(predictions)} predictions and updated history.")
 
 
 if __name__ == "__main__":
