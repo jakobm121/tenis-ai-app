@@ -5,18 +5,16 @@ from datetime import datetime
 
 API_KEY = os.getenv("ODDS_API_KEY")
 
-URL = "https://api.the-odds-api.com/v4/sports/soccer_epl/odds"
+URL = "https://api.odds-api.io/v3/events"
 
 def fetch_matches():
     params = {
         "apiKey": API_KEY,
-        "regions": "eu",
-        "markets": "h2h",
-        "oddsFormat": "decimal"
+        "sport": "football"
     }
 
     try:
-        res = requests.get(URL, params=params, timeout=15)
+        res = requests.get(URL, params=params)
         print("STATUS:", res.status_code)
 
         if res.status_code != 200:
@@ -33,25 +31,18 @@ def fetch_matches():
 
     for game in data:
         try:
-            home = game["home_team"]
-            away = game["away_team"]
-
-            bookmakers = game.get("bookmakers", [])
-            if not bookmakers:
-                continue
-
-            outcomes = bookmakers[0]["markets"][0]["outcomes"]
-
-            best = min(outcomes, key=lambda x: x["price"])
+            home = game["home"]
+            away = game["away"]
+            league = game["league"]
 
             matches.append({
                 "date": datetime.now().strftime("%Y-%m-%d"),
                 "sport": "football",
-                "league": "Premier League",
+                "league": league,
                 "match": f"{home} - {away}",
-                "bet": best["name"],
-                "confidence": int(100 / best["price"]),
-                "reasoning": f"Odds suggest {best['name']} is favorite ({best['price']})."
+                "bet": home,  # simple fallback (favorite logic dodamo kasneje)
+                "confidence": 55,
+                "reasoning": "Basic pick based on available fixtures."
             })
 
         except:
@@ -62,6 +53,10 @@ def fetch_matches():
 
 def main():
     matches = fetch_matches()
+
+    if not matches:
+        print("No matches found")
+        matches = []
 
     with open("predictions.json", "w", encoding="utf-8") as f:
         json.dump(matches, f, indent=4)
