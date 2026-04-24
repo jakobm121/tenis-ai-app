@@ -4,73 +4,96 @@ import os
 from datetime import datetime
 
 API_KEY = os.getenv("ODDS_API_KEY")
-URL = "https://api.odds-api.io/v3/events"
+BASE_URL = "https://api.odds-api.io/v3"
 
-def fetch_matches():
+def fetch_events():
     params = {
         "apiKey": API_KEY,
         "sport": "football"
     }
 
     try:
-        res = requests.get(URL, params=params)
+        res = requests.get(f"{BASE_URL}/events", params=params, timeout=20)
         print("STATUS:", res.status_code)
 
         if res.status_code != 200:
             print(res.text)
             return []
 
-        data = res.json()
+        return res.json()
 
     except Exception as e:
         print("ERROR:", e)
         return []
 
-    matches = []
 
-    for game in data:
+def score_event(event):
+    league = event.get("league", "")
+    home = event.get("home", "")
+    away = event.get("away", "")
+
+    score = 50
+
+    if "premier-league" in league:
+        score += 15
+    elif "la-liga" in league:
+        score += 12
+    elif "serie-a" in league:
+        score += 12
+    elif "bundesliga" in league:
+        score += 12
+    elif "championship" in league:
+        score += 8
+
+    if len(home) >= 5 and len(away) >= 5:
+        score += 5
+
+    return min(score, 85)
+
+
+def build_predictions():
+    events = fetch_events()
+    predictions = []
+
+    for event in events:
         try:
-            home = game["home"]
-            away = game["away"]
-            league = game["league"]
+            home = event["home"]
+            away = event["away"]
+            league = event["league"]
+            date_raw = event.get("date", "")
+            date = date_raw[:10] if date_raw else datetime.now().strftime("%Y-%m-%d")
 
-            # ❌ filter slabih / čudnih tekem
-            if len(home) < 3 or len(away) < 3:
-                continue
+            confidence = score_event(event)
 
-            # 🧠 basic “confidence” logika (placeholder)
-            confidence = 50 + (len(home) % 20)
-
-            matches.append({
-                "date": datetime.now().strftime("%Y-%m-%d"),
+            predictions.append({
+                "date": date,
                 "sport": "football",
                 "league": league,
                 "match": f"{home} - {away}",
                 "bet": home,
                 "confidence": confidence,
-                "reasoning": f"{home} shows stronger baseline metrics vs {away}."
+                "reasoning": (
+                    f"Selected from available football fixtures. "
+                    f"League strength and matchup quality give this pick an AI77 confidence of {confidence}%."
+                )
             })
 
-        except:
+        except Exception as e:
+            print("Parse error:", e)
             continue
 
-    # 🔥 SORTIRANJE (najbolj pomembno)
-    matches = sorted(matches, key=lambda x: x["confidence"], reverse=True)
+    predictions = sorted(predictions, key=lambda x: x["confidence"], reverse=True)
 
-    return matches[:3]
+    return predictions[:3]
 
 
 def main():
-    matches = fetch_matches()
-
-    if not matches:
-        print("No matches found")
-        matches = []
+    predictions = build_predictions()
 
     with open("predictions.json", "w", encoding="utf-8") as f:
-        json.dump(matches, f, indent=4)
+        json.dump(predictions, f, indent=4, ensure_ascii=False)
 
-    print(f"Saved {len(matches)} predictions.")
+    print(f"Saved {len(predictions)} predictions.")
 
 
 if __name__ == "__main__":
