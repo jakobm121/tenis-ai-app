@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: '3.9'
 
-      - name: Install deps
+      - name: Install dependencies
         run: pip install requests
 
       - name: Run script
@@ -35,15 +35,16 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python ai77_scout.py
 
-      - name: Commit
+      - name: Commit (force safe)
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          git pull --rebase
+          git fetch origin
+          git reset --hard origin/main
 
           git add predictions.json
 
           git commit -m "update predictions" || echo "no changes"
 
-          git push
+          git push origin main
