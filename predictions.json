@@ -7,7 +7,7 @@
         "match": "Union La Calera - Coquimbo Unido",
         "bet": "Union La Calera",
         "confidence": 78,
-        "reasoning": "Union La Calera shows stronger consistency and structure compared to Coquimbo Unido, giving them a slight edge."
+        "reasoning": "Model projection gives Union La Calera a measurable edge over implied probability. Risk remains, but price justifies the position."
     },
     {
         "date": "2026-04-24",
@@ -17,7 +17,7 @@
         "match": "Ponte Preta - Am\u00e9rica Mineiro",
         "bet": "Ponte Preta",
         "confidence": 66,
-        "reasoning": "Ponte Preta shows stronger consistency and structure compared to Am\u00e9rica Mineiro, giving them a slight edge."
+        "reasoning": "Model projection gives Ponte Preta a measurable edge over implied probability. Risk remains, but price justifies the position."
     },
     {
         "date": "2026-04-24",
@@ -27,7 +27,7 @@
         "match": "Platense - San Lorenzo",
         "bet": "San Lorenzo",
         "confidence": 66,
-        "reasoning": "Platense shows stronger consistency and structure compared to San Lorenzo, giving them a slight edge."
+        "reasoning": "Model projection gives San Lorenzo a measurable edge over implied probability. Selected strictly due to value, not guesswork."
     },
     {
         "date": "2026-04-24",
@@ -37,6 +37,6 @@
         "match": "Audax Italiano - Deportes Limache",
         "bet": "Deportes Limache",
         "confidence": 55,
-        "reasoning": "Audax Italiano shows stronger consistency and structure compared to Deportes Limache, giving them a slight edge."
+        "reasoning": "Model projection gives Deportes Limache a measurable edge over implied probability. This fits our value-based approach."
     }
 ]
