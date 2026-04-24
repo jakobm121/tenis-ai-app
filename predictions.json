@@ -6,7 +6,7 @@
         "match": "Kashiwa Reysol - Kashima Antlers",
         "bet": "Kashiwa Reysol",
         "confidence": 82,
-        "reasoning": "Kashiwa Reysol holds a noticeable edge in underlying metrics, particularly in recent form and efficiency. The model prices this outcome slightly higher than the market, creating a value gap of 0.437. Risk is present, but the value justifies the position."
+        "reasoning": "Kashiwa Reysol shows stronger underlying metrics and recent form compared to Kashima Antlers. The model identifies a clear edge of 0.437 over market expectations. Risk is present, but the value justifies the play."
     },
     {
         "date": "2026-04-24",
@@ -15,7 +15,7 @@
         "match": "FC Tokyo - Mito HollyHock",
         "bet": "Under 5.5",
         "confidence": 68,
-        "reasoning": "The matchup dynamic favors discipline over aggression. With both teams limiting space and tempo, expected goals remain contained. Current odds don\u2019t fully reflect this, giving a measurable edge of 0.404. One of the more reliable edges on today\u2019s board."
+        "reasoning": "Recent performances indicate fewer high-quality chances and a more defensive structure. The projected goal output remains suppressed, supporting a lower scoring game. One of the better edges available on the board."
     },
     {
         "date": "2026-04-24",
@@ -24,16 +24,16 @@
         "match": "Al-Fateh - Al-Khaleej",
         "bet": "Over 3.5",
         "confidence": 68,
-        "reasoning": "Al-Fateh and Al-Khaleej both operate with aggressive attacking profiles, and the model projects around 2.5 expected goals here. That level typically translates into an open, high-tempo match with multiple scoring windows. Edge vs market is clearly positive at 0.391. This sits comfortably within a value-based strategy."
+        "reasoning": "Both teams are consistently creating chances and playing at a higher tempo. With expected goals above average at 2.5, the probability of goals is higher than market pricing suggests. Clear value position. One of the better edges available on the board."
     },
     {
         "date": "2026-04-24",
         "sport": "football",
         "league": "A-League",
         "match": "Macarthur FC - Wellington Phoenix FC",
-        "bet": "Over 4.5",
+        "bet": "Over 4.0",
         "confidence": 55,
-        "reasoning": "The data flags this as a high-event game. Both teams contribute offensively and struggle to suppress chances, which pushes expected goals into a strong range. Market is slightly behind the true probability here, giving us a solid edge of 0.362. This is a high-quality setup worth backing."
+        "reasoning": "Macarthur FC and Wellington Phoenix FC both operate with aggressive attacking profiles, projecting around 2.5 expected goals. This typically results in an open, high-tempo match with multiple scoring opportunities. Edge vs market: 0.383. This fits well within a value-based betting strategy."
     },
     {
         "date": "2026-04-24",
@@ -42,6 +42,6 @@
         "match": "VPS Vaasa - Ilves Tampere",
         "bet": "Over 2.75",
         "confidence": 55,
-        "reasoning": "VPS Vaasa and Ilves Tampere both operate with aggressive attacking profiles, and the model projects around 2.5 expected goals here. That level typically translates into an open, high-tempo match with multiple scoring windows. Edge vs market is clearly positive at 0.36. This is a high-quality setup worth backing."
+        "reasoning": "Both teams are consistently creating chances and playing at a higher tempo. With expected goals above average at 2.5, the probability of goals is higher than market pricing suggests. Clear value position. Risk is present, but the value justifies the play."
     }
 ]
