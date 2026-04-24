@@ -20,7 +20,7 @@ async function loadPredictions() {
 }
 
 // ------------------------
-// CONFIDENCE SYSTEM (BARVE + UNITS)
+// CONFIDENCE SYSTEM
 // ------------------------
 function getConfidenceData(conf) {
   if (conf < 60) {
@@ -47,7 +47,7 @@ function getConfidenceData(conf) {
 }
 
 // ------------------------
-// TIME UNTIL MATCH (BONUS UX)
+// TIME UNTIL MATCH
 // ------------------------
 function getKickoffStatus(time) {
   if (!time) return "";
@@ -83,6 +83,7 @@ function renderPredictions(data) {
     const card = document.createElement("div");
     card.classList.add("prediction-card");
 
+    card.innerHTML = `
       <div class="prediction-meta">
         <span>📅 ${p.date}</span>
         <span>🕒 ${p.time || "?"}</span>
@@ -107,13 +108,13 @@ function renderPredictions(data) {
       </p>
 
       <a href="https://stzns.lynmonkel.com/?mid=309891_1838278" class="btn">
-        Bet Now 🔥
+        BEST ODDS 💥
       </a>
     `;
 
     container.appendChild(card);
 
-    // CHART (vrnjen nazaj)
+    // CHART
     new Chart(document.getElementById(`chart${index}`), {
       type: 'doughnut',
       data: {
@@ -135,7 +136,7 @@ function renderPredictions(data) {
 }
 
 // ------------------------
-// STATS (pusti fake dokler ni data)
+// STATS (fake until real)
 // ------------------------
 async function loadStats() {
   try {
@@ -165,7 +166,6 @@ async function loadStats() {
 
     const roi = total ? ((profit / total) * 100).toFixed(1) : 0;
 
-    // samo če imaš real data
     if (total > 10) {
       document.querySelector(".stat-box:nth-child(1) h3").innerText = total;
       document.querySelector(".stat-box:nth-child(2) h3").innerText = wins;
@@ -186,6 +186,36 @@ const content = document.getElementById('howWePlayContent');
 if (title && content) {
   title.addEventListener('click', () => {
     content.classList.toggle('hidden');
+  });
+}
+
+// ------------------------
+// PROFIT CHART (tvoj graf ostane)
+// ------------------------
+const profitCtx = document.getElementById('profitChart');
+
+if (profitCtx) {
+  new Chart(profitCtx.getContext('2d'), {
+    type: 'line',
+    data: {
+      labels: ['Sep 1', 'Sep 5', 'Sep 10', 'Sep 15', 'Sep 20', 'Sep 25', 'Sep 30'],
+      datasets: [{
+        label: 'Profit Growth (%)',
+        data: [0, 2.3, 3.5, 4.1, 5.8, 6.3, 7.2],
+        borderColor: '#ffd700',
+        backgroundColor: 'rgba(255, 215, 0, 0.15)',
+        borderWidth: 3,
+        tension: 0.3,
+        fill: true
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } },
+        y: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } }
+      }
+    }
   });
 }
 
