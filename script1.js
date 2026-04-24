@@ -93,7 +93,7 @@ function renderPredictions(data) {
 
       <h3>${p.match}</h3>
 
-      <p class="bet-type">Bet: ${p.bet}</p>
+      <p class="bet-type">Tip: ${p.bet}</p>
 
       ${kickoff ? `<p class="kickoff">${kickoff}</p>` : ""}
 
@@ -108,7 +108,7 @@ function renderPredictions(data) {
       </p>
 
       <a href="https://stzns.lynmonkel.com/?mid=309891_1838278" class="btn">
-        BEST ODDS 💥
+        Check Best Odds 💥
       </a>
     `;
 
