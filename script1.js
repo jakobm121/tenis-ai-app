@@ -26,7 +26,7 @@ function getConfidenceData(conf) {
   if (conf < 60) {
     return {
       label: "🟡 Medium",
-      units: "1u",
+      units: "💸1u",
       color: "#ffc107"
     };
   }
@@ -34,14 +34,14 @@ function getConfidenceData(conf) {
   if (conf < 75) {
     return {
       label: "🟢 Strong",
-      units: "1.5u",
+      units: "💸1.5u",
       color: "#28a745"
     };
   }
 
   return {
     label: "🔥 Very Strong",
-    units: "2u",
+    units: "💸2u",
     color: "#d4af37"
   };
 }
