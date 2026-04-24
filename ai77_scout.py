@@ -340,7 +340,7 @@ def main():
 
     existing = {(p.get("match"), p.get("date"), p.get("bet")) for p in history}
 
-    for pick in predictions:
+for pick in predictions:
     new_pick = pick.copy()
     new_pick["result"] = "pending"
     history.append(new_pick)
