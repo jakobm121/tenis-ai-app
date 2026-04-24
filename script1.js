@@ -7,7 +7,7 @@ const sportIcons = {
 };
 
 // ------------------------
-// LOAD DATA
+// LOAD PREDICTIONS
 // ------------------------
 async function loadPredictions() {
   try {
@@ -20,30 +20,31 @@ async function loadPredictions() {
 }
 
 // ------------------------
-// CONFIDENCE SYSTEM
+// CONFIDENCE + UNITS SYSTEM (FINAL)
 // ------------------------
-function getConfidenceLabel(conf) {
-  if (conf < 60) return { text: "Medium", class: "medium" };
-  if (conf < 75) return { text: "Strong", class: "strong" };
-  return { text: "Very Strong", class: "very-strong" };
-}
+function getConfidenceData(conf) {
+  if (conf < 60) {
+    return {
+      label: "🟡 Medium",
+      units: "1u"
+    };
+  }
 
-function getUnits(conf) {
-  if (conf < 50) return "0.5u";
-  if (conf < 75) return "1u";
-  if (conf < 90) return "2u";
-  return "3u";
-}
+  if (conf < 75) {
+    return {
+      label: "🟢 Strong",
+      units: "1.5u"
+    };
+  }
 
-function getStrengthBar(conf) {
-  let bars = Math.round(conf / 10);
-  let filled = "█".repeat(bars);
-  let empty = "░".repeat(10 - bars);
-  return filled + empty;
+  return {
+    label: "🔥 Very Strong",
+    units: "2u"
+  };
 }
 
 // ------------------------
-// RENDER
+// RENDER CARDS
 // ------------------------
 function renderPredictions(data) {
   const container = document.getElementById("predictions-container");
@@ -51,10 +52,8 @@ function renderPredictions(data) {
 
   container.innerHTML = "";
 
-  data.forEach((p) => {
-    const label = getConfidenceLabel(p.confidence);
-    const units = getUnits(p.confidence);
-    const bar = getStrengthBar(p.confidence);
+  data.forEach((p, index) => {
+    const conf = getConfidenceData(p.confidence);
 
     const card = document.createElement("div");
     card.classList.add("prediction-card");
@@ -62,32 +61,22 @@ function renderPredictions(data) {
     card.innerHTML = `
       <div class="prediction-meta">
         <span>📅 ${p.date}</span>
-        <span>${sportIcons[p.sport] || "⚽"} ${p.sport}</span>
+        <span>🕒 ${p.time || "?"}</span>
+        <span>${sportIcons[p.sport] || "❓"} ${p.sport.charAt(0).toUpperCase() + p.sport.slice(1)}</span>
         <span>🏆 ${p.league}</span>
       </div>
 
       <h3>${p.match}</h3>
 
-      <p class="bet-type">🎯 ${p.bet}</p>
-
-      <div class="badges">
-        <span class="badge ${label.class}">🔥 ${label.text}</span>
-        <span class="badge units-badge">💰 ${units}</span>
-      </div>
-
-      <div class="strength-box">
-        <div class="strength-label">AI Strength</div>
-        <div class="strength-bar">${bar}</div>
-      </div>
+      <p class="bet-type">Bet: ${p.bet}</p>
 
       <div class="ai-reasoning">
         <p><strong>AI Analysis:</strong> ${p.reasoning}</p>
       </div>
 
-      <a href="https://stzns.lynmonkel.com/?mid=309891_1838278"
-         class="cta-btn" target="_blank">
-         Check Best Odds 🔥
-      </a>
+      <p class="confidence-label">${conf.label} • ${conf.units}</p>
+
+      <a href="https://stzns.lynmonkel.com/?mid=309891_1838278" class="btn">Claim Bonus ✅</a>
     `;
 
     container.appendChild(card);
@@ -95,7 +84,44 @@ function renderPredictions(data) {
 }
 
 // ------------------------
-loadPredictions();
+// LOAD STATS
+// ------------------------
+async function loadStats() {
+  try {
+    const res = await fetch('./results.json');
+    const data = await res.json();
+
+    let total = 0;
+    let wins = 0;
+    let profit = 0;
+
+    data.forEach(p => {
+      if (p.result === "pending") return;
+
+      total++;
+
+      let units = 1;
+      if (p.confidence >= 75) units = 2;
+      else if (p.confidence >= 60) units = 1.5;
+
+      if (p.result === "win") {
+        wins++;
+        profit += units;
+      } else {
+        profit -= units;
+      }
+    });
+
+    const roi = total ? ((profit / total) * 100).toFixed(1) : 0;
+
+    document.querySelector(".stat-box:nth-child(1) h3").innerText = total;
+    document.querySelector(".stat-box:nth-child(2) h3").innerText = wins;
+    document.querySelector(".stat-box:nth-child(4) h3").innerText = roi + "%";
+
+  } catch (e) {
+    console.log("Stats error", e);
+  }
+}
 
 // ------------------------
 // TOGGLE HOW WE PLAY
@@ -108,3 +134,9 @@ if (title && content) {
     content.classList.toggle('hidden');
   });
 }
+
+// ------------------------
+// RUN
+// ------------------------
+loadPredictions();
+loadStats();
