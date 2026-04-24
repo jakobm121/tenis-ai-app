@@ -1,1 +1,29 @@
-[]
+[
+    {
+        "date": "2026-04-24",
+        "sport": "football",
+        "league": "A-League",
+        "match": "Macarthur FC - Wellington Phoenix FC",
+        "bet": "Draw",
+        "confidence": 92,
+        "reasoning": "Model vs market edge. Edge: 0.214 | Odds: 3.5"
+    },
+    {
+        "date": "2026-04-24",
+        "sport": "football",
+        "league": "J League",
+        "match": "FC Tokyo - Mito HollyHock",
+        "bet": "Under 2.25",
+        "confidence": 92,
+        "reasoning": "Model vs market edge. Edge: 0.448 | Odds: 1.81"
+    },
+    {
+        "date": "2026-04-24",
+        "sport": "football",
+        "league": "J League",
+        "match": "Kashiwa Reysol - Kashima Antlers",
+        "bet": "Draw",
+        "confidence": 92,
+        "reasoning": "Model vs market edge. Edge: 0.206 | Odds: 3.4"
+    }
+]
