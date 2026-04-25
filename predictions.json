@@ -1,46 +1,57 @@
 [
     {
         "date": "2026-04-25",
-        "time": "01:00",
+        "time": "13:00",
         "sport": "football",
-        "league": "Brazil Série B",
-        "match": "Ponte Preta - América Mineiro",
-        "bet": "Ponte Preta",
-        "odds": 2.88,
-        "confidence": 66,
-        "reasoning": "Ponte Preta grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. This fits the AI77 value-based approach."
-    },
-    {
-        "date": "2026-04-25",
-        "time": "02:30",
-        "sport": "football",
-        "league": "Primera División - Argentina",
-        "match": "Platense - San Lorenzo",
-        "bet": "San Lorenzo",
-        "odds": 3.2,
-        "confidence": 66,
-        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. Risk is always present, but the price creates a playable edge."
-    },
-    {
-        "date": "2026-04-25",
-        "time": "02:30",
-        "sport": "football",
-        "league": "Primera División - Chile",
-        "match": "Audax Italiano - Deportes Limache",
-        "bet": "Audax Italiano",
-        "odds": 2.48,
-        "confidence": 55,
-        "reasoning": "Audax Italiano grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. Risk is always present, but the price creates a playable edge."
-    },
-    {
-        "date": "2026-04-25",
-        "time": "07:00",
-        "sport": "football",
-        "league": "J League",
-        "match": "Fagiano Okayama - Avispa Fukuoka",
-        "bet": "Over 2.0",
-        "odds": 2.07,
+        "league": "Bundesliga 2 - Germany",
+        "match": "Hertha Berlin - Holstein Kiel",
+        "bet": "Over 3.5",
+        "odds": 2.3,
         "confidence": 78,
-        "reasoning": "This is not a blind Over pick. The model identifies a scoring environment where attacking output, tempo and market pricing all point in the same direction. The pick is selected because the model detects market mispricing."
+        "reasoning": "The tempo projection points toward an open game. Both teams should have enough attacking sequences to create multiple scoring windows, making this a strong value angle. This fits the AI77 value-based approach."
+    },
+    {
+        "date": "2026-04-25",
+        "time": "13:00",
+        "sport": "football",
+        "league": "Superettan - Sweden",
+        "match": "Östers IF - Östersunds FK",
+        "bet": "Over 2.5",
+        "odds": 1.88,
+        "confidence": 66,
+        "reasoning": "Östers IF and Östersunds FK profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in. The pick is selected because the model detects market mispricing."
+    },
+    {
+        "date": "2026-04-25",
+        "time": "13:00",
+        "sport": "football",
+        "league": "Bundesliga 2 - Germany",
+        "match": "SC Preußen Münster - Arminia Bielefeld",
+        "bet": "SC Preußen Münster",
+        "odds": 2.9,
+        "confidence": 55,
+        "reasoning": "SC Preußen Münster holds a measurable edge in this matchup. The model finds stronger structure, stability and pricing value compared to the opponent. This fits the AI77 value-based approach."
+    },
+    {
+        "date": "2026-04-25",
+        "time": "13:30",
+        "sport": "football",
+        "league": "Championship",
+        "match": "Charlton Athletic - Hull City",
+        "bet": "Charlton Athletic",
+        "odds": 3.05,
+        "confidence": 66,
+        "reasoning": "Charlton Athletic holds a measurable edge in this matchup. The model finds stronger structure, stability and pricing value compared to the opponent. This is a calculated position, not a random prediction."
+    },
+    {
+        "date": "2026-04-25",
+        "time": "13:30",
+        "sport": "football",
+        "league": "EPL",
+        "match": "Fulham - Aston Villa",
+        "bet": "Aston Villa",
+        "odds": 2.6,
+        "confidence": 55,
+        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. This fits the AI77 value-based approach."
     }
 ]
