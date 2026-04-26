@@ -187,7 +187,7 @@
         "odds": 2.15,
         "confidence": 78,
         "reasoning": "The tempo projection points toward an open game. Both teams should have enough attacking sequences to create multiple scoring windows, making this a strong value angle. Risk is always present, but the price creates a playable edge.",
-        "result": "pending"
+        "result": "loss"
     },
     {
         "date": "2026-04-26",
@@ -199,6 +199,6 @@
         "odds": 1.88,
         "confidence": 66,
         "reasoning": "Juventude holds a measurable edge in this matchup. The model finds stronger structure, stability and pricing value compared to the opponent. The pick is selected because the model detects market mispricing.",
-        "result": "pending"
+        "result": "win"
     }
 ]
