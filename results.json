@@ -885,5 +885,41 @@
         "confidence": 66,
         "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. The projected goal output sits around 2.40. The edge is moderate, but still strong enough to stay in range. Risk is always present, but the price creates a playable edge.",
         "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "16:00",
+        "sport": "football",
+        "league": "Turkey Super League",
+        "match": "Alanyaspor - Samsunspor",
+        "bet": "Samsunspor",
+        "odds": 3.38,
+        "confidence": 78,
+        "reasoning": "Samsunspor holds a measurable edge in this matchup. The model finds stronger structure, stability and pricing value compared to the opponent. This fits the AI77 value-based approach.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "19:00",
+        "sport": "football",
+        "league": "Allsvenskan - Sweden",
+        "match": "AIK - Malmo FF",
+        "bet": "AIK",
+        "odds": 2.5,
+        "confidence": 66,
+        "reasoning": "AIK grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. This is a calculated position, not a random prediction.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "19:00",
+        "sport": "football",
+        "league": "Allsvenskan - Sweden",
+        "match": "BK Hacken - IK Sirius",
+        "bet": "BK Hacken",
+        "odds": 2.5,
+        "confidence": 66,
+        "reasoning": "BK Hacken grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. This fits the AI77 value-based approach.",
+        "result": "pending"
     }
 ]
