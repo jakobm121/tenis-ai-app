@@ -11,6 +11,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout
@@ -20,7 +21,6 @@ jobs:
         run: |
           if [ ! -f predictions.json ]; then echo "[]" > predictions.json; fi
           if [ ! -f results.json ]; then echo "[]" > results.json; fi
-          if [ ! -f team_mapping.json ]; then echo "{}" > team_mapping.json; fi
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -43,19 +43,15 @@ jobs:
           echo ""
           echo "=== results.json ==="
           cat results.json
-          echo ""
-          echo "=== team_mapping.json ==="
-          cat team_mapping.json
 
       - name: Force add files
         run: |
           git add predictions.json
           git add results.json
-          git add team_mapping.json
 
       - name: Commit & Push
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git commit -m "Update predictions, results & team mapping" || echo "No changes to commit"
+          git commit -m "Update predictions & results" || echo "No changes to commit"
           git push
