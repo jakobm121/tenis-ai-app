@@ -62,16 +62,12 @@ def build_stats_sentence(stats_summary, pick_type):
     btts_rate = stats_summary.get("combined_btts_rate")
     home_scored = stats_summary.get("home_scored_avg")
     away_scored = stats_summary.get("away_scored_avg")
-    home_conceded = stats_summary.get("home_conceded_avg")
-    away_conceded = stats_summary.get("away_conceded_avg")
 
     if pick_type in ["over", "under"]:
         if exp_goals is not None:
             snippets.append(f"The projected goal output sits around {exp_goals:.2f}.")
-            snippets.append(f"The match model lands near {exp_goals:.2f} expected goals overall.")
         if over_rate is not None:
             snippets.append(f"The combined recent Over 2.5 profile is roughly {over_rate * 100:.0f}%.")
-            snippets.append(f"Recent goal trends put the shared Over 2.5 rate near {over_rate * 100:.0f}%.")
         if home_scored is not None and away_scored is not None:
             snippets.append(
                 f"Relevant attacking splits point to around {home_scored:.2f} home goals and {away_scored:.2f} away goals."
@@ -80,22 +76,12 @@ def build_stats_sentence(stats_summary, pick_type):
     elif pick_type in ["btts_yes", "btts_no"]:
         if btts_rate is not None:
             snippets.append(f"The recent BTTS profile comes in around {btts_rate * 100:.0f}%.")
-            snippets.append(f"Recent scoring patterns put the BTTS hit rate near {btts_rate * 100:.0f}%.")
         if home_scored is not None and away_scored is not None:
             snippets.append(
                 f"Both attacks project into a game state with about {home_scored:.2f} home goals and {away_scored:.2f} away goals on current splits."
             )
 
-    elif pick_type in ["home", "away", "draw"]:
-        if home_scored is not None and away_scored is not None and home_conceded is not None and away_conceded is not None:
-            snippets.append(
-                f"Recent split data shows about {home_scored:.2f} goals for the home side and {away_scored:.2f} for the away side, with defensive levels close enough to create pricing tension."
-            )
-
-    if not snippets:
-        return ""
-
-    return " " + random.choice(snippets)
+    return (" " + random.choice(snippets)) if snippets else ""
 
 
 def generate_reasoning(home, away, bet, expected_goals, edge, pick_type, stats_summary=None):
@@ -120,56 +106,48 @@ def generate_reasoning(home, away, bet, expected_goals, edge, pick_type, stats_s
             f"This looks like a fairly balanced matchup with little separation between the sides.",
             f"The model sees a tight game profile with no strong side advantage, which brings the draw into range.",
             f"Both teams grade closely enough for the draw price to become interesting.",
-            f"There is not much between these teams on the model, so the draw line deserves attention.",
-            f"The match projects more evenly than the market suggests, which makes the draw playable on price."
+            f"There is not much between these teams on the model, so the draw line deserves attention."
         ]
     elif pick_type == "btts_yes":
         texts = [
             f"This matchup profiles well for both teams to get on the scoresheet.",
             f"There is enough two-way attacking threat here to keep BTTS Yes live.",
             f"The model sees a balanced scoring environment where both sides should create enough danger.",
-            f"The game does not need to become wild to land BTTS; it just needs normal two-sided pressure.",
-            f"Both attacks look capable of producing at least one meaningful scoring moment."
+            f"The game does not need to become wild to land BTTS; it just needs normal two-sided pressure."
         ]
     elif pick_type == "btts_no":
         texts = [
             f"This game projects with limited two-sided scoring, which supports BTTS No.",
             f"One side looks less likely to contribute enough attacking output, making BTTS No more attractive.",
             f"The model leans toward an uneven or lower-quality scoring script rather than a clean two-team exchange.",
-            f"The underlying profile points more toward one team blanking than both teams trading goals.",
-            f"This is a spot where structure or weak finishing on one side can kill the BTTS line."
+            f"The underlying profile points more toward one team blanking than both teams trading goals."
         ]
     elif pick_type == "home":
         texts = [
             f"{home} rates slightly stronger than the market is implying in this matchup.",
             f"The model gives {home} a better price-adjusted chance than the line suggests.",
             f"{home} comes out ahead on matchup balance, structure and value.",
-            f"The number looks a bit too generous against {home} here.",
-            f"{home} shows enough model support to justify a value position at this price."
+            f"The number looks a bit too generous against {home} here."
         ]
     elif pick_type == "away":
         texts = [
             f"{away} looks underrated by the market in this spot.",
             f"The away side holds a better value profile than the current odds suggest.",
             f"{away} grades well enough on the model to become a live side pick.",
-            f"The market appears to give {away} slightly less respect than the numbers do.",
-            f"{away} has enough price value here to justify inclusion."
+            f"The market appears to give {away} slightly less respect than the numbers do."
         ]
     else:
         texts = [
             f"The selection is supported by matchup balance and market inefficiency.",
             f"This is a value-based position rather than a momentum-based one.",
-            f"The line looks a little off relative to the model’s view of the game.",
-            f"The price is the real trigger here, not just the narrative around the match.",
-            f"This is a calculated spot where the number creates interest."
+            f"The line looks a little off relative to the model’s view of the game."
         ]
 
     endings = [
         " This fits the AI77 value-based approach.",
         " Risk is always present, but the price creates a playable edge.",
         " The pick is selected because the model detects market mispricing.",
-        " This is a calculated position, not a random prediction.",
-        " It is not a lock, but it is strong enough to stay on the card."
+        " This is a calculated position, not a random prediction."
     ]
 
     edge_sentence = ""
@@ -192,8 +170,8 @@ def fetch_api_football_fixtures(start_time, end_time, tz_name):
         return []
 
     fixtures = []
-
     current_date = start_time.date()
+
     while current_date <= end_time.date():
         try:
             res = requests.get(
@@ -602,10 +580,6 @@ def build_total_and_btts_candidates(start_time, end_time, tz_name):
                 dprint(f"SKIP TOTALS/BTTS for {home} vs {away} -> no odds markets")
                 continue
 
-            if home_stats["used_fallback"] and away_stats["used_fallback"]:
-                dprint(f"SKIP TOTALS/BTTS for {home} vs {away} -> both teams fallback")
-                continue
-
             expected_home = (
                 home_stats["home_scored_avg"] + away_stats["away_conceded_avg"]
             ) / 2
@@ -638,9 +612,7 @@ def build_total_and_btts_candidates(start_time, end_time, tz_name):
                 "combined_over25_rate": (home_stats["over25_rate"] + away_stats["over25_rate"]) / 2,
                 "combined_btts_rate": (home_stats["btts_rate"] + away_stats["btts_rate"]) / 2,
                 "home_scored_avg": home_stats["home_scored_avg"],
-                "away_scored_avg": away_stats["away_scored_avg"],
-                "home_conceded_avg": home_stats["home_conceded_avg"],
-                "away_conceded_avg": away_stats["away_conceded_avg"]
+                "away_scored_avg": away_stats["away_scored_avg"]
             }
 
             dprint(
@@ -802,14 +774,6 @@ def build_predictions():
             home_prob = expected_home / expected_goals
             away_prob = expected_away / expected_goals
 
-            stats_summary = {
-                "expected_goals": expected_goals,
-                "home_scored_avg": expected_home,
-                "away_scored_avg": expected_away,
-                "home_conceded_avg": expected_away,
-                "away_conceded_avg": expected_home
-            }
-
             for market in bookmaker["markets"]:
                 if market["key"] == "h2h":
                     for outcome in market["outcomes"]:
@@ -864,7 +828,7 @@ def build_predictions():
                             "pick_type": pick_type,
                             "odds": odds,
                             "confidence": edge,
-                            "reasoning": generate_reasoning(home, away, bet, expected_goals, edge, pick_type, stats_summary),
+                            "reasoning": generate_reasoning(home, away, bet, expected_goals, edge, pick_type),
                             "sort_time": match_time.timestamp()
                         })
 
@@ -900,6 +864,7 @@ def build_predictions():
     btts_total_count = 0
     goals_total_count = 0
 
+    # target 3 H2H
     for pick in h2h_candidates:
         if len(final) >= 3:
             break
@@ -912,6 +877,7 @@ def build_predictions():
         used_matches.add(pick["match"])
         counts[pick["pick_type"]] += 1
 
+    # target 2 goals
     for pick in goal_candidates:
         if len(final) >= 5:
             break
@@ -932,6 +898,7 @@ def build_predictions():
         if pick["pick_type"] in ["btts_yes", "btts_no"]:
             btts_total_count += 1
 
+    # fallback fill with anything best remaining
     if len(final) < 5:
         combined_fallback = sorted(h2h_candidates + goal_candidates, key=lambda x: x["confidence"], reverse=True)
 
@@ -943,15 +910,12 @@ def build_predictions():
 
             pt = pick["pick_type"]
 
-            if pt in h2h_limits:
-                if counts[pt] >= h2h_limits[pt]:
-                    continue
-            elif pt in goal_limits:
+            if pt in h2h_limits and counts[pt] >= h2h_limits[pt]:
+                continue
+            if pt in goal_limits:
                 if counts[pt] >= goal_limits[pt]:
                     continue
                 if pt in ["btts_yes", "btts_no"] and btts_total_count >= 1:
-                    continue
-                if goals_total_count >= 2:
                     continue
 
             final.append(pick)
