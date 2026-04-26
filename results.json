@@ -261,5 +261,29 @@
         "confidence": 78,
         "reasoning": "Chongqing Tonglianglong FC and Qingdao West Coast FC profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in. This is a calculated position, not a random prediction.",
         "result": "pending"
+    },
+    {
+        "date": "2026-04-26",
+        "time": "15:30",
+        "sport": "football",
+        "league": "Bundesliga - Germany",
+        "match": "VfB Stuttgart - Werder Bremen",
+        "bet": "Under 2.5",
+        "odds": 2.82,
+        "confidence": 66,
+        "reasoning": "This game has a lower-event profile. The value comes from the market slightly overestimating goal volume. This is a calculated position, not a random prediction.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-26",
+        "time": "16:00",
+        "sport": "football",
+        "league": "Frauen-Bundesliga",
+        "match": "Bayer Leverkusen - SC Freiburg",
+        "bet": "Over 3.5",
+        "odds": 2.25,
+        "confidence": 78,
+        "reasoning": "This is not a blind Over pick. The model identifies a scoring environment where attacking output, tempo and market pricing all point in the same direction. This is a calculated position, not a random prediction.",
+        "result": "pending"
     }
 ]
