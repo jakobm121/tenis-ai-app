@@ -849,5 +849,41 @@
         "confidence": 66,
         "reasoning": "The number looks a bit too generous against BK Hacken here. The edge is moderate, but still strong enough to stay in range. This fits the AI77 value-based approach.",
         "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "16:00",
+        "sport": "football",
+        "league": "Turkey Super League",
+        "match": "Alanyaspor - Samsunspor",
+        "bet": "Samsunspor",
+        "odds": 3.38,
+        "confidence": 78,
+        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. The projected goal output sits around 2.40. The edge is meaningful enough to justify selection. The pick is selected because the model detects market mispricing.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "19:00",
+        "sport": "football",
+        "league": "Allsvenskan - Sweden",
+        "match": "AIK - Malmo FF",
+        "bet": "AIK",
+        "odds": 2.5,
+        "confidence": 66,
+        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. The match model lands near 2.40 expected goals overall. The edge is moderate, but still strong enough to stay in range. Risk is always present, but the price creates a playable edge.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "19:00",
+        "sport": "football",
+        "league": "Allsvenskan - Sweden",
+        "match": "BK Hacken - IK Sirius",
+        "bet": "BK Hacken",
+        "odds": 2.5,
+        "confidence": 66,
+        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. The projected goal output sits around 2.40. The edge is moderate, but still strong enough to stay in range. Risk is always present, but the price creates a playable edge.",
+        "result": "pending"
     }
 ]
