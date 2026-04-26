@@ -297,5 +297,65 @@
         "confidence": 78,
         "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. Risk is always present, but the price creates a playable edge.",
         "result": "pending"
+    },
+    {
+        "date": "2026-04-26",
+        "time": "20:45",
+        "sport": "football",
+        "league": "Serie A - Italy",
+        "match": "AC Milan - Juventus",
+        "bet": "AC Milan",
+        "odds": 2.8,
+        "confidence": 55,
+        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. Risk is always present, but the price creates a playable edge.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-26",
+        "time": "21:00",
+        "sport": "football",
+        "league": "Brazil Série A",
+        "match": "Corinthians - Vasco da Gama",
+        "bet": "Over 2.5",
+        "odds": 2.3,
+        "confidence": 78,
+        "reasoning": "Corinthians and Vasco da Gama profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in. This is a calculated position, not a random prediction.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-26",
+        "time": "21:00",
+        "sport": "football",
+        "league": "Brazil Série B",
+        "match": "São Bernardo - Goiás",
+        "bet": "Over 2.5",
+        "odds": 2.25,
+        "confidence": 66,
+        "reasoning": "The tempo projection points toward an open game. Both teams should have enough attacking sequences to create multiple scoring windows, making this a strong value angle. This is a calculated position, not a random prediction.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-26",
+        "time": "21:00",
+        "sport": "football",
+        "league": "La Liga 2 - Spain",
+        "match": "AD Ceuta FC - Real Racing Club de Santander",
+        "bet": "AD Ceuta FC",
+        "odds": 3.55,
+        "confidence": 66,
+        "reasoning": "AD Ceuta FC grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. This is a calculated position, not a random prediction.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-26",
+        "time": "21:00",
+        "sport": "football",
+        "league": "Primera División - Chile",
+        "match": "Universidad de Concepción - Colo Colo",
+        "bet": "Colo Colo",
+        "odds": 1.83,
+        "confidence": 55,
+        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. This fits the AI77 value-based approach.",
+        "result": "pending"
     }
 ]
