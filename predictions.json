@@ -1,25 +1,25 @@
 [
     {
-        "date": "2026-04-26",
+        "date": "2026-04-27",
         "time": "01:00",
         "sport": "football",
         "league": "Primera División - Argentina",
         "match": "Atlético Tucuman - Banfield",
-        "bet": "Over 2.5",
-        "odds": 2.32,
+        "bet": "Banfield",
+        "odds": 3.8,
         "confidence": 78,
-        "reasoning": "Atlético Tucuman and Banfield profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in. This is a calculated position, not a random prediction."
+        "reasoning": "Banfield grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. This fits the AI77 value-based approach."
     },
     {
-        "date": "2026-04-26",
+        "date": "2026-04-27",
         "time": "01:00",
         "sport": "football",
         "league": "Liga MX",
         "match": "Santos Laguna - Monterrey",
-        "bet": "Over 3.5",
-        "odds": 2.28,
+        "bet": "Santos Laguna",
+        "odds": 2.88,
         "confidence": 66,
-        "reasoning": "The tempo projection points toward an open game. Both teams should have enough attacking sequences to create multiple scoring windows, making this a strong value angle. The pick is selected because the model detects market mispricing."
+        "reasoning": "Santos Laguna grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. This is a calculated position, not a random prediction."
     },
     {
         "date": "2026-04-27",
@@ -29,29 +29,29 @@
         "match": "LA Galaxy - Real Salt Lake",
         "bet": "LA Galaxy",
         "odds": 2.6,
-        "confidence": 66,
-        "reasoning": "LA Galaxy grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. Risk is always present, but the price creates a playable edge."
-    },
-    {
-        "date": "2026-04-27",
-        "time": "01:30",
-        "sport": "football",
-        "league": "Brazil Série B",
-        "match": "Atletico Goianiense - Avai",
-        "bet": "Atletico Goianiense",
-        "odds": 1.93,
         "confidence": 55,
-        "reasoning": "Atletico Goianiense holds a measurable edge in this matchup. The model finds stronger structure, stability and pricing value compared to the opponent. This is a calculated position, not a random prediction."
+        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. Risk is always present, but the price creates a playable edge."
     },
     {
         "date": "2026-04-27",
         "time": "01:30",
         "sport": "football",
         "league": "Brazil Série A",
-        "match": "Atletico Mineiro - Flamengo",
-        "bet": "Flamengo",
-        "odds": 2.03,
+        "match": "Fluminense - Chapecoense",
+        "bet": "Under 2.5",
+        "odds": 2.14,
         "confidence": 55,
-        "reasoning": "Flamengo grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. This fits the AI77 value-based approach."
+        "reasoning": "This matchup projects as more controlled than the market suggests. Limited chance creation and a slower game script make the Under a strong value position. The pick is selected because the model detects market mispricing."
+    },
+    {
+        "date": "2026-04-27",
+        "time": "03:00",
+        "sport": "football",
+        "league": "Liga MX",
+        "match": "Cruz Azul - Necaxa",
+        "bet": "Under 2.5",
+        "odds": 2.43,
+        "confidence": 66,
+        "reasoning": "This game has a lower-event profile. The value comes from the market slightly overestimating goal volume. The pick is selected because the model detects market mispricing."
     }
 ]
