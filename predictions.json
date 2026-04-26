@@ -1,14 +1,25 @@
 [
     {
         "date": "2026-04-27",
+        "time": "02:00",
+        "sport": "football",
+        "league": "NWSL Women",
+        "match": "Seattle Reign FC - Utah Royals W",
+        "bet": "Under 3.0",
+        "odds": 3.38,
+        "confidence": 78,
+        "reasoning": "This matchup projects as more controlled than the market suggests. Limited chance creation and a slower script make the Under attractive. The combined recent Over 2.5 profile is roughly 50%. The value edge stands out clearly compared to most of the slate. The pick is selected because the model detects market mispricing."
+    },
+    {
+        "date": "2026-04-27",
         "time": "16:00",
         "sport": "football",
         "league": "Turkey Super League",
         "match": "Alanyaspor - Samsunspor",
         "bet": "Samsunspor",
         "odds": 3.38,
-        "confidence": 78,
-        "reasoning": "The line gives this side a bit less respect than the model does, and that opens the door for a playable number. Recent attacking output points to roughly 1.25 home goals and 1.15 away goals per relevant split. The edge is meaningful enough to justify selection. It is not a lock, but it is a sharp enough price to enter the portfolio."
+        "confidence": 66,
+        "reasoning": "The price gives this side a little less respect than the model does, and that opens the door for a playable number. The match model lands near 2.40 expected goals overall. The edge is meaningful enough to justify selection. It is not a lock, but it is strong enough to stay on the card."
     },
     {
         "date": "2026-04-27",
@@ -18,7 +29,18 @@
         "match": "TSG Hoffenheim - 1. FC Köln",
         "bet": "TSG Hoffenheim",
         "odds": 1.66,
+        "confidence": 55,
+        "reasoning": "The price gives this side a little less respect than the model does, and that opens the door for a playable number. The match model lands near 2.40 expected goals overall. This is a calculated position, not a random prediction."
+    },
+    {
+        "date": "2026-04-27",
+        "time": "19:00",
+        "sport": "football",
+        "league": "Premier League",
+        "match": "Pyramids FC - Al Ahly",
+        "bet": "Under 3.0",
+        "odds": 3.34,
         "confidence": 66,
-        "reasoning": "The line gives this side a bit less respect than the model does, and that opens the door for a playable number. The projected goal output sits around 2.40. This is a calculated position, not a random prediction."
+        "reasoning": "The projection leans toward a more disciplined match rather than a wide-open exchange. Recent goal trends put the shared Over 2.5 rate near 50%. The value edge stands out clearly compared to most of the slate. The pick is selected because the model detects market mispricing."
     }
 ]
