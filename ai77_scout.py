@@ -68,8 +68,10 @@ def build_stats_sentence(stats_summary, pick_type):
     if pick_type in ["over", "under"]:
         if exp_goals is not None:
             snippets.append(f"The projected goal output sits around {exp_goals:.2f}.")
+            snippets.append(f"The match model lands near {exp_goals:.2f} expected goals overall.")
         if over_rate is not None:
             snippets.append(f"The combined recent Over 2.5 profile is roughly {over_rate * 100:.0f}%.")
+            snippets.append(f"Recent goal trends put the shared Over 2.5 rate near {over_rate * 100:.0f}%.")
         if home_scored is not None and away_scored is not None:
             snippets.append(
                 f"Relevant attacking splits point to around {home_scored:.2f} home goals and {away_scored:.2f} away goals."
@@ -78,6 +80,7 @@ def build_stats_sentence(stats_summary, pick_type):
     elif pick_type in ["btts_yes", "btts_no"]:
         if btts_rate is not None:
             snippets.append(f"The recent BTTS profile comes in around {btts_rate * 100:.0f}%.")
+            snippets.append(f"Recent scoring patterns put the BTTS hit rate near {btts_rate * 100:.0f}%.")
         if home_scored is not None and away_scored is not None:
             snippets.append(
                 f"Both attacks project into a game state with about {home_scored:.2f} home goals and {away_scored:.2f} away goals on current splits."
@@ -595,6 +598,14 @@ def build_total_and_btts_candidates(start_time, end_time, tz_name):
             prediction = get_fixture_prediction_data(fixture_id)
             odds_markets = get_fixture_odds_markets(fixture_id)
 
+            if not odds_markets["totals"] and not odds_markets["btts"]:
+                dprint(f"SKIP TOTALS/BTTS for {home} vs {away} -> no odds markets")
+                continue
+
+            if home_stats["used_fallback"] and away_stats["used_fallback"]:
+                dprint(f"SKIP TOTALS/BTTS for {home} vs {away} -> both teams fallback")
+                continue
+
             expected_home = (
                 home_stats["home_scored_avg"] + away_stats["away_conceded_avg"]
             ) / 2
@@ -889,7 +900,6 @@ def build_predictions():
     btts_total_count = 0
     goals_total_count = 0
 
-    # 3 H2H
     for pick in h2h_candidates:
         if len(final) >= 3:
             break
@@ -902,7 +912,6 @@ def build_predictions():
         used_matches.add(pick["match"])
         counts[pick["pick_type"]] += 1
 
-    # 2 goals
     for pick in goal_candidates:
         if len(final) >= 5:
             break
@@ -923,7 +932,6 @@ def build_predictions():
         if pick["pick_type"] in ["btts_yes", "btts_no"]:
             btts_total_count += 1
 
-    # fallback fill
     if len(final) < 5:
         combined_fallback = sorted(h2h_candidates + goal_candidates, key=lambda x: x["confidence"], reverse=True)
 
