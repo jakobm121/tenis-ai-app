@@ -6,7 +6,13 @@ from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 ODDS_API_KEY = os.getenv("ODDS_API_KEY_V2")
+FOOTBALL_API_KEY = os.getenv("FOOTBALL_API_KEY")
+
 ODDS_URL = "https://api.the-odds-api.com/v4/sports/soccer/odds"
+FOOTBALL_URL = "https://v3.football.api-sports.io"
+
+team_stats_cache = {}
+team_id_cache = {}
 
 
 def fetch_odds():
@@ -18,7 +24,7 @@ def fetch_odds():
     }
 
     res = requests.get(ODDS_URL, params=params, timeout=15)
-
+o
     if res.status_code != 200:
         print("API ERROR:", res.text)
         return []
@@ -62,6 +68,179 @@ def generate_reasoning(home, away, bet, expected_goals, edge, pick_type):
     return random.choice(texts) + random.choice(endings)
 
 
+def get_team_id(team_name):
+    if team_name in team_id_cache:
+        return team_id_cache[team_name]
+
+    if not FOOTBALL_API_KEY:
+        team_id_cache[team_name] = None
+        return None
+
+    try:
+        headers = {"x-apisports-key": FOOTBALL_API_KEY}
+        res = requests.get(
+            f"{FOOTBALL_URL}/teams",
+            headers=headers,
+            params={"search": team_name},
+            timeout=10
+        )
+        data = res.json()
+
+        if not data.get("response"):
+            team_id_cache[team_name] = None
+            return None
+
+        team_id = data["response"][0]["team"]["id"]
+        team_id_cache[team_name] = team_id
+        return team_id
+
+    except Exception:
+        team_id_cache[team_name] = None
+        return None
+
+
+def get_team_goal_stats(team_name):
+    if team_name in team_stats_cache:
+        print(f"CACHE USED for {team_name}: {team_stats_cache[team_name]}")
+        return team_stats_cache[team_name]
+
+    fallback = {
+        "home_scored_avg": 1.25,
+        "home_conceded_avg": 1.15,
+        "away_scored_avg": 1.15,
+        "away_conceded_avg": 1.25,
+        "over25_rate": 0.50,
+        "btts_rate": 0.50
+    }
+
+    team_id = get_team_id(team_name)
+    if not team_id or not FOOTBALL_API_KEY:
+        print(f"FALLBACK USED for {team_name}: {fallback}")
+        team_stats_cache[team_name] = fallback
+        return fallback
+
+    try:
+        headers = {"x-apisports-key": FOOTBALL_API_KEY}
+        res = requests.get(
+            f"{FOOTBALL_URL}/fixtures",
+            headers=headers,
+            params={"team": team_id, "last": 10},
+            timeout=10
+        )
+        data = res.json()
+        fixtures = data.get("response", [])
+
+        if not fixtures:
+            print(f"FALLBACK USED for {team_name} (no fixtures): {fallback}")
+            team_stats_cache[team_name] = fallback
+            return fallback
+
+        home_scored = []
+        home_conceded = []
+        away_scored = []
+        away_conceded = []
+        over25_count = 0
+        btts_count = 0
+        valid_games = 0
+
+        for f in fixtures:
+            teams = f.get("teams", {})
+            goals = f.get("goals", {})
+
+            home_team = teams.get("home", {})
+            away_team = teams.get("away", {})
+
+            gh = goals.get("home")
+            ga = goals.get("away")
+
+            if gh is None or ga is None:
+                continue
+
+            valid_games += 1
+
+            total_goals = gh + ga
+            if total_goals > 2.5:
+                over25_count += 1
+            if gh > 0 and ga > 0:
+                btts_count += 1
+
+            if home_team.get("id") == team_id:
+                home_scored.append(gh)
+                home_conceded.append(ga)
+            elif away_team.get("id") == team_id:
+                away_scored.append(ga)
+                away_conceded.append(gh)
+
+        if valid_games == 0:
+            print(f"FALLBACK USED for {team_name} (no valid games): {fallback}")
+            team_stats_cache[team_name] = fallback
+            return fallback
+
+        stats = {
+            "home_scored_avg": sum(home_scored) / len(home_scored) if home_scored else fallback["home_scored_avg"],
+            "home_conceded_avg": sum(home_conceded) / len(home_conceded) if home_conceded else fallback["home_conceded_avg"],
+            "away_scored_avg": sum(away_scored) / len(away_scored) if away_scored else fallback["away_scored_avg"],
+            "away_conceded_avg": sum(away_conceded) / len(away_conceded) if away_conceded else fallback["away_conceded_avg"],
+            "over25_rate": over25_count / valid_games,
+            "btts_rate": btts_count / valid_games
+        }
+
+        print(f"STATS API USED for {team_name}: {stats}")
+        team_stats_cache[team_name] = stats
+        return stats
+
+    except Exception as e:
+        print(f"FALLBACK USED for {team_name} (error: {e}): {fallback}")
+        team_stats_cache[team_name] = fallback
+        return fallback
+
+
+def get_total_probs(expected_goals, point):
+    if point <= 2.0:
+        if expected_goals >= 3.0:
+            over_prob = 0.72
+        elif expected_goals >= 2.7:
+            over_prob = 0.66
+        elif expected_goals >= 2.4:
+            over_prob = 0.58
+        else:
+            over_prob = 0.48
+
+    elif point <= 2.5:
+        if expected_goals >= 3.1:
+            over_prob = 0.64
+        elif expected_goals >= 2.8:
+            over_prob = 0.58
+        elif expected_goals >= 2.5:
+            over_prob = 0.52
+        else:
+            over_prob = 0.43
+
+    elif point <= 3.0:
+        if expected_goals >= 3.4:
+            over_prob = 0.57
+        elif expected_goals >= 3.1:
+            over_prob = 0.50
+        elif expected_goals >= 2.8:
+            over_prob = 0.44
+        else:
+            over_prob = 0.35
+
+    else:
+        if expected_goals >= 3.8:
+            over_prob = 0.50
+        elif expected_goals >= 3.5:
+            over_prob = 0.44
+        elif expected_goals >= 3.2:
+            over_prob = 0.38
+        else:
+            over_prob = 0.28
+
+    over_prob = max(0.20, min(0.80, over_prob))
+    under_prob = 1 - over_prob
+    return over_prob, under_prob
+
+
 def build_predictions():
     data = fetch_odds()
 
@@ -102,8 +281,34 @@ def build_predictions():
             home_prob = expected_home / expected_goals
             away_prob = expected_away / expected_goals
 
-            over_prob = min(0.62, expected_goals / 3.15)
-            under_prob = 1 - over_prob
+            home_stats = get_team_goal_stats(home)
+            away_stats = get_team_goal_stats(away)
+
+            totals_expected_home = (
+                home_stats["home_scored_avg"] + away_stats["away_conceded_avg"]
+            ) / 2
+
+            totals_expected_away = (
+                away_stats["away_scored_avg"] + home_stats["home_conceded_avg"]
+            ) / 2
+
+            totals_expected_goals = totals_expected_home + totals_expected_away
+
+            if home_stats["over25_rate"] >= 0.60 and away_stats["over25_rate"] >= 0.60:
+                totals_expected_goals += 0.20
+
+            if home_stats["btts_rate"] >= 0.60 and away_stats["btts_rate"] >= 0.60:
+                totals_expected_goals += 0.10
+
+            if home_stats["over25_rate"] <= 0.40 and away_stats["over25_rate"] <= 0.40:
+                totals_expected_goals -= 0.20
+
+            totals_expected_goals = max(1.6, min(4.5, totals_expected_goals))
+
+            print(
+                f"TOTALS MODEL -> {home} vs {away} | "
+                f"home_exp={totals_expected_home:.2f} away_exp={totals_expected_away:.2f} total={totals_expected_goals:.2f}"
+            )
 
             for market in bookmaker["markets"]:
 
@@ -112,6 +317,11 @@ def build_predictions():
                         odds = outcome["price"]
                         implied = 1 / odds
                         point = outcome.get("point", 2.5)
+
+                        over_prob, under_prob = get_total_probs(totals_expected_goals, point)
+
+                        if point >= 3.5 and totals_expected_goals < 3.4:
+                            continue
 
                         if outcome["name"] == "Over":
                             model_prob = over_prob
@@ -123,15 +333,20 @@ def build_predictions():
                             pick_type = "under"
 
                         edge = model_prob - implied
-                        edge *= 1.55
+                        edge *= 1.08
 
                         if odds < 1.35 or odds > 3.40:
                             continue
                         if edge < -0.10:
                             continue
 
+                        print(
+                            f"TOTAL PICK CHECK -> {home} vs {away} | bet={bet} | point={point} | "
+                            f"model_prob={model_prob:.3f} implied={implied:.3f} edge={edge:.3f}"
+                        )
+
                         candidates.append({
-                            "date": now.strftime("%Y-%m-%d"),
+                            "date": match_time.strftime("%Y-%m-%d"),
                             "time": match_time.strftime("%H:%M"),
                             "sport": "football",
                             "league": league,
@@ -142,7 +357,7 @@ def build_predictions():
                             "pick_type": pick_type,
                             "odds": odds,
                             "confidence": edge,
-                            "reasoning": generate_reasoning(home, away, bet, expected_goals, edge, pick_type),
+                            "reasoning": generate_reasoning(home, away, bet, totals_expected_goals, edge, pick_type),
                             "sort_time": match_time.timestamp()
                         })
 
