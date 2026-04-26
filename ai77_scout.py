@@ -11,9 +11,32 @@ FOOTBALL_API_KEY = os.getenv("FOOTBALL_API_KEY")
 
 ODDS_URL = "https://api.the-odds-api.com/v4/sports/soccer/odds"
 FOOTBALL_URL = "https://v3.football.api-sports.io"
+TEAM_MAPPING_FILE = "team_mapping.json"
 
 team_stats_cache = {}
 team_id_cache = {}
+
+
+def load_team_mapping():
+    if not os.path.exists(TEAM_MAPPING_FILE):
+        return {}
+
+    try:
+        with open(TEAM_MAPPING_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            if isinstance(data, dict):
+                return data
+            return {}
+    except Exception:
+        return {}
+
+
+def save_team_mapping(mapping):
+    with open(TEAM_MAPPING_FILE, "w", encoding="utf-8") as f:
+        json.dump(mapping, f, indent=4, ensure_ascii=False)
+
+
+team_mapping = load_team_mapping()
 
 
 def fetch_odds():
@@ -69,9 +92,6 @@ def generate_reasoning(home, away, bet, expected_goals, edge, pick_type):
     return random.choice(texts) + random.choice(endings)
 
 
-# ------------------------
-# NORMALIZE TEAM NAMES
-# ------------------------
 def normalize_name(name):
     if not name:
         return ""
@@ -126,9 +146,6 @@ def score_name_match(search_name, candidate_name):
     return score
 
 
-# ------------------------
-# TEAM ID LOOKUP
-# ------------------------
 def get_team_id(team_name):
     if team_name in team_id_cache:
         print(f"TEAM ID CACHE USED for {team_name}: {team_id_cache[team_name]}")
@@ -141,15 +158,18 @@ def get_team_id(team_name):
 
     headers = {"x-apisports-key": FOOTBALL_API_KEY}
 
+    mapped_name = team_mapping.get(team_name, team_name)
+
     search_variants = [
-        team_name,
-        normalize_name(team_name),
-        team_name.replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u"),
+        mapped_name,
+        normalize_name(mapped_name),
+        mapped_name.replace("á", "a").replace("é", "e").replace("í", "i").replace("ó", "o").replace("ú", "u")
     ]
 
     try:
         best_team_id = None
         best_score = -1
+        best_api_name = None
 
         for query in search_variants:
             if not query:
@@ -168,15 +188,22 @@ def get_team_id(team_name):
                 api_name = item.get("team", {}).get("name", "")
                 team_id = item.get("team", {}).get("id")
 
-                score = score_name_match(team_name, api_name)
+                score = score_name_match(mapped_name, api_name)
 
                 if score > best_score and team_id:
                     best_score = score
                     best_team_id = team_id
+                    best_api_name = api_name
 
         if best_team_id and best_score >= 40:
-            print(f"TEAM ID FOUND for {team_name}: {best_team_id} (score={best_score})")
+            print(f"TEAM ID FOUND for {team_name}: {best_team_id} (score={best_score}) -> {best_api_name}")
             team_id_cache[team_name] = best_team_id
+
+            if team_name not in team_mapping and best_api_name:
+                team_mapping[team_name] = best_api_name
+                save_team_mapping(team_mapping)
+                print(f"MAPPING SAVED: {team_name} -> {best_api_name}")
+
             return best_team_id
 
         print(f"TEAM ID NOT FOUND for {team_name}")
@@ -189,9 +216,6 @@ def get_team_id(team_name):
         return None
 
 
-# ------------------------
-# TOTALS STATS ENGINE
-# ------------------------
 def get_team_goal_stats(team_name):
     if team_name in team_stats_cache:
         print(f"CACHE USED for {team_name}: {team_stats_cache[team_name]}")
@@ -215,7 +239,6 @@ def get_team_goal_stats(team_name):
     try:
         headers = {"x-apisports-key": FOOTBALL_API_KEY}
 
-        # vzamemo več tekem, da je več šans za pravi sample
         res = requests.get(
             f"{FOOTBALL_URL}/fixtures",
             headers=headers,
@@ -243,7 +266,6 @@ def get_team_goal_stats(team_name):
             status_info = fixture_info.get("status", {})
             short_status = status_info.get("short")
 
-            # samo zaključene tekme
             if short_status not in ["FT", "AET", "PEN"]:
                 continue
 
@@ -377,7 +399,7 @@ def build_predictions():
 
             bookmaker = game["bookmakers"][0]
 
-            # H2H ostane isto kot prej
+            # H2H ostane isto
             expected_home = 1.25
             expected_away = 1.15
             expected_goals = expected_home + expected_away
@@ -385,7 +407,7 @@ def build_predictions():
             home_prob = expected_home / expected_goals
             away_prob = expected_away / expected_goals
 
-            # NOV TOTALS MODEL
+            # totals stats engine
             home_stats = get_team_goal_stats(home)
             away_stats = get_team_goal_stats(away)
 
