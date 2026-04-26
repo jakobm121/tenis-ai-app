@@ -24,7 +24,7 @@ def fetch_odds():
     }
 
     res = requests.get(ODDS_URL, params=params, timeout=15)
-o
+
     if res.status_code != 200:
         print("API ERROR:", res.text)
         return []
@@ -311,7 +311,6 @@ def build_predictions():
             )
 
             for market in bookmaker["markets"]:
-
                 if market["key"] == "totals":
                     for outcome in market["outcomes"]:
                         odds = outcome["price"]
