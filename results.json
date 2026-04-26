@@ -657,5 +657,29 @@
         "confidence": 78,
         "reasoning": "The model expects fewer high-quality chances than the market is pricing. Defensive structure and tempo control make this a disciplined Under spot. This fits the AI77 value-based approach.",
         "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "16:00",
+        "sport": "football",
+        "league": "Turkey Super League",
+        "match": "Alanyaspor - Samsunspor",
+        "bet": "Samsunspor",
+        "odds": 3.38,
+        "confidence": 78,
+        "reasoning": "The line gives this side a bit less respect than the model does, and that opens the door for a playable number. Recent attacking output points to roughly 1.25 home goals and 1.15 away goals per relevant split. The edge is meaningful enough to justify selection. It is not a lock, but it is a sharp enough price to enter the portfolio.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "18:00",
+        "sport": "football",
+        "league": "Frauen-Bundesliga",
+        "match": "TSG Hoffenheim - 1. FC Köln",
+        "bet": "TSG Hoffenheim",
+        "odds": 1.66,
+        "confidence": 66,
+        "reasoning": "The line gives this side a bit less respect than the model does, and that opens the door for a playable number. The projected goal output sits around 2.40. This is a calculated position, not a random prediction.",
+        "result": "pending"
     }
 ]

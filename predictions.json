@@ -1,57 +1,24 @@
 [
     {
         "date": "2026-04-27",
-        "time": "01:00",
+        "time": "16:00",
         "sport": "football",
-        "league": "Liga MX",
-        "match": "Santos Laguna - Monterrey",
-        "bet": "Under 3.0",
-        "odds": 3.36,
-        "confidence": 66,
-        "reasoning": "This game has a lower-event profile. The value comes from the market slightly overestimating goal volume. This fits the AI77 value-based approach."
-    },
-    {
-        "date": "2026-04-27",
-        "time": "01:00",
-        "sport": "football",
-        "league": "Major League Soccer",
-        "match": "Los Angeles Galaxy - Real Salt Lake",
-        "bet": "BTTS No",
-        "odds": 2.8,
-        "confidence": 66,
-        "reasoning": "The game projects with limited two-sided scoring. One or both attacks look weaker than the market implies, making BTTS No a playable angle. The pick is selected because the model detects market mispricing."
-    },
-    {
-        "date": "2026-04-27",
-        "time": "01:00",
-        "sport": "football",
-        "league": "Liga Profesional Argentina",
-        "match": "Atletico Tucuman - Banfield",
-        "bet": "Over 1.5",
-        "odds": 3.35,
-        "confidence": 55,
-        "reasoning": "Atletico Tucuman and Banfield profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in. Risk is always present, but the price creates a playable edge."
-    },
-    {
-        "date": "2026-04-27",
-        "time": "01:00",
-        "sport": "football",
-        "league": "USL Super League",
-        "match": "Spokane Zephyr W - Fort Lauderdale United W",
-        "bet": "Over 2.0",
-        "odds": 3.34,
-        "confidence": 55,
-        "reasoning": "This is not a blind Over pick. The model identifies a scoring environment where attacking output, tempo and market pricing all point in the same direction. This fits the AI77 value-based approach."
-    },
-    {
-        "date": "2026-04-27",
-        "time": "16:30",
-        "sport": "football",
-        "league": "First League",
-        "match": "Torpedo Moskva - Fakel",
-        "bet": "Under 3.0",
-        "odds": 3.4,
+        "league": "Turkey Super League",
+        "match": "Alanyaspor - Samsunspor",
+        "bet": "Samsunspor",
+        "odds": 3.38,
         "confidence": 78,
-        "reasoning": "The model expects fewer high-quality chances than the market is pricing. Defensive structure and tempo control make this a disciplined Under spot. This fits the AI77 value-based approach."
+        "reasoning": "The line gives this side a bit less respect than the model does, and that opens the door for a playable number. Recent attacking output points to roughly 1.25 home goals and 1.15 away goals per relevant split. The edge is meaningful enough to justify selection. It is not a lock, but it is a sharp enough price to enter the portfolio."
+    },
+    {
+        "date": "2026-04-27",
+        "time": "18:00",
+        "sport": "football",
+        "league": "Frauen-Bundesliga",
+        "match": "TSG Hoffenheim - 1. FC Köln",
+        "bet": "TSG Hoffenheim",
+        "odds": 1.66,
+        "confidence": 66,
+        "reasoning": "The line gives this side a bit less respect than the model does, and that opens the door for a playable number. The projected goal output sits around 2.40. This is a calculated position, not a random prediction."
     }
 ]
