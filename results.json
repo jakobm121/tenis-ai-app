@@ -285,5 +285,17 @@
         "confidence": 78,
         "reasoning": "This is not a blind Over pick. The model identifies a scoring environment where attacking output, tempo and market pricing all point in the same direction. This is a calculated position, not a random prediction.",
         "result": "pending"
+    },
+    {
+        "date": "2026-04-26",
+        "time": "17:00",
+        "sport": "football",
+        "league": "Eliteserien - Norway",
+        "match": "Aalesund - Kristiansund BK",
+        "bet": "Kristiansund BK",
+        "odds": 3.4,
+        "confidence": 78,
+        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. Risk is always present, but the price creates a playable edge.",
+        "result": "pending"
     }
 ]
