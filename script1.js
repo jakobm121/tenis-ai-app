@@ -148,7 +148,7 @@ function renderPredictions(data) {
 }
 
 // ------------------------
-// STATS
+// STATS + REAL PROFIT CHART
 // ------------------------
 async function loadStats() {
   try {
@@ -158,30 +158,113 @@ async function loadStats() {
     let total = 0;
     let wins = 0;
     let profit = 0;
+    let totalStaked = 0;
+    let avgOddsSum = 0;
+    let avgOddsCount = 0;
+
+    const dailyProfit = {};
 
     data.forEach(p => {
       if (p.result === "pending") return;
-
-      total++;
 
       let units = 1;
       if (p.confidence >= 75) units = 2;
       else if (p.confidence >= 60) units = 1.5;
 
+      total++;
+
+      if (typeof p.odds === "number") {
+        avgOddsSum += p.odds;
+        avgOddsCount++;
+      }
+
+      let pickProfit = 0;
+
       if (p.result === "win") {
         wins++;
-        profit += units;
-      } else {
-        profit -= units;
+        totalStaked += units;
+
+        if (typeof p.odds === "number") {
+          pickProfit = (p.odds - 1) * units;
+        } else {
+          pickProfit = units;
+        }
+
+      } else if (p.result === "loss") {
+        totalStaked += units;
+        pickProfit = -units;
+
+      } else if (p.result === "storno") {
+        pickProfit = 0;
       }
+
+      profit += pickProfit;
+
+      const dateKey = p.date || "Unknown";
+      if (!dailyProfit[dateKey]) dailyProfit[dateKey] = 0;
+      dailyProfit[dateKey] += pickProfit;
     });
 
-    const roi = total ? ((profit / total) * 100).toFixed(1) : 0;
+    const roi = totalStaked > 0 ? ((profit / totalStaked) * 100).toFixed(1) : 0;
+    const avgOdds = avgOddsCount > 0 ? (avgOddsSum / avgOddsCount).toFixed(2) : "0.00";
 
-    if (total > 10) {
+    if (total > 0) {
       document.querySelector(".stat-box:nth-child(1) h3").innerText = total;
       document.querySelector(".stat-box:nth-child(2) h3").innerText = wins;
+      document.querySelector(".stat-box:nth-child(3) h3").innerText = avgOdds;
       document.querySelector(".stat-box:nth-child(4) h3").innerText = roi + "%";
+    }
+
+    // ------------------------
+    // REAL PROFIT CHART
+    // ------------------------
+    const profitCtx = document.getElementById('profitChart');
+
+    if (profitCtx) {
+      const sortedDates = Object.keys(dailyProfit).sort();
+
+      let runningProfit = 0;
+      const labels = [];
+      const values = [];
+
+      sortedDates.forEach(date => {
+        runningProfit += dailyProfit[date];
+        labels.push(date);
+        values.push(Number(runningProfit.toFixed(2)));
+      });
+
+      if (window.profitChartInstance) {
+        window.profitChartInstance.destroy();
+      }
+
+      window.profitChartInstance = new Chart(profitCtx.getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Profit Growth (Units)',
+            data: values,
+            borderColor: '#ffd700',
+            backgroundColor: 'rgba(255, 215, 0, 0.15)',
+            borderWidth: 3,
+            tension: 0.3,
+            fill: true
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: {
+            x: {
+              ticks: { color: '#fff' },
+              grid: { color: 'rgba(255,255,255,0.1)' }
+            },
+            y: {
+              ticks: { color: '#fff' },
+              grid: { color: 'rgba(255,255,255,0.1)' }
+            }
+          }
+        }
+      });
     }
 
   } catch (e) {
@@ -198,36 +281,6 @@ const content = document.getElementById('howWePlayContent');
 if (title && content) {
   title.addEventListener('click', () => {
     content.classList.toggle('hidden');
-  });
-}
-
-// ------------------------
-// PROFIT CHART
-// ------------------------
-const profitCtx = document.getElementById('profitChart');
-
-if (profitCtx) {
-  new Chart(profitCtx.getContext('2d'), {
-    type: 'line',
-    data: {
-      labels: ['Sep 1', 'Sep 5', 'Sep 10', 'Sep 15', 'Sep 20', 'Sep 25', 'Sep 30'],
-      datasets: [{
-        label: 'Profit Growth (%)',
-        data: [0, 2.3, 3.5, 4.1, 5.8, 6.3, 7.2],
-        borderColor: '#ffd700',
-        backgroundColor: 'rgba(255, 215, 0, 0.15)',
-        borderWidth: 3,
-        tension: 0.3,
-        fill: true
-      }]
-    },
-    options: {
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } },
-        y: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } }
-      }
-    }
   });
 }
 
