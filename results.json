@@ -260,7 +260,7 @@
         "odds": 2.13,
         "confidence": 78,
         "reasoning": "Chongqing Tonglianglong FC and Qingdao West Coast FC profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in. This is a calculated position, not a random prediction.",
-        "result": "pending"
+        "result": "loss"
     },
     {
         "date": "2026-04-26",
@@ -320,7 +320,7 @@
         "odds": 2.3,
         "confidence": 78,
         "reasoning": "Corinthians and Vasco da Gama profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in. This is a calculated position, not a random prediction.",
-        "result": "pending"
+        "result": "loss"
     },
     {
         "date": "2026-04-26",
@@ -332,7 +332,7 @@
         "odds": 2.25,
         "confidence": 66,
         "reasoning": "The tempo projection points toward an open game. Both teams should have enough attacking sequences to create multiple scoring windows, making this a strong value angle. This is a calculated position, not a random prediction.",
-        "result": "pending"
+        "result": "loss"
     },
     {
         "date": "2026-04-26",
