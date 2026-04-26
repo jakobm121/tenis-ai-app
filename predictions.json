@@ -8,7 +8,7 @@
         "bet": "Samsunspor",
         "odds": 3.38,
         "confidence": 78,
-        "reasoning": "Samsunspor has enough price value here to justify inclusion. Recent split data shows about 1.25 goals for the home side and 1.15 for the away side, with defensive levels close enough to create pricing tension. The edge is meaningful enough to justify selection. It is not a lock, but it is strong enough to stay on the card."
+        "reasoning": "Samsunspor grades well enough on the model to become a live side pick. The edge is meaningful enough to justify selection. Risk is always present, but the price creates a playable edge."
     },
     {
         "date": "2026-04-27",
@@ -19,7 +19,7 @@
         "bet": "AIK",
         "odds": 2.5,
         "confidence": 66,
-        "reasoning": "The model gives AIK a better price-adjusted chance than the line suggests. Recent split data shows about 1.25 goals for the home side and 1.15 for the away side, with defensive levels close enough to create pricing tension. The edge is moderate, but still strong enough to stay in range. This fits the AI77 value-based approach."
+        "reasoning": "The number looks a bit too generous against AIK here. The edge is moderate, but still strong enough to stay in range. This fits the AI77 value-based approach."
     },
     {
         "date": "2026-04-27",
@@ -30,6 +30,6 @@
         "bet": "BK Hacken",
         "odds": 2.5,
         "confidence": 66,
-        "reasoning": "The number looks a bit too generous against BK Hacken here. Recent split data shows about 1.25 goals for the home side and 1.15 for the away side, with defensive levels close enough to create pricing tension. The edge is moderate, but still strong enough to stay in range. This is a calculated position, not a random prediction."
+        "reasoning": "The number looks a bit too generous against BK Hacken here. The edge is moderate, but still strong enough to stay in range. This fits the AI77 value-based approach."
     }
 ]
