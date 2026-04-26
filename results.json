@@ -212,7 +212,7 @@
         "odds": 3.35,
         "confidence": 66,
         "reasoning": "Gwangju FC grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. Risk is always present, but the price creates a playable edge.",
-        "result": "pending"
+        "result": "loss"
     },
     {
         "date": "2026-04-26",
@@ -224,7 +224,7 @@
         "odds": 1.92,
         "confidence": 55,
         "reasoning": "This is not a blind Over pick. The model identifies a scoring environment where attacking output, tempo and market pricing all point in the same direction. The pick is selected because the model detects market mispricing.",
-        "result": "pending"
+        "result": "storno"
     },
     {
         "date": "2026-04-26",
@@ -236,7 +236,7 @@
         "odds": 3.05,
         "confidence": 55,
         "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. This fits the AI77 value-based approach.",
-        "result": "pending"
+        "result": "win"
     },
     {
         "date": "2026-04-26",
@@ -245,10 +245,10 @@
         "league": "Super League - China",
         "match": "Qingdao Hainiu FC - Shandong Luneng Taishan FC",
         "bet": "Qingdao Hainiu FC",
-        "odds": 3.7,
+        "odds": 4.1,
         "confidence": 66,
         "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. Risk is always present, but the price creates a playable edge.",
-        "result": "pending"
+        "result": "win"
     },
     {
         "date": "2026-04-26",
