@@ -981,5 +981,29 @@
         "confidence": 66,
         "reasoning": "This matchup projects as more controlled than the market suggests. Limited chance creation and a slower game script make the Under a strong value position. This is a calculated position, not a random prediction.",
         "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "12:00",
+        "sport": "football",
+        "league": "Premier League",
+        "match": "Epitsentr Dunayivtsi - Oleksandria",
+        "bet": "Under 2.5",
+        "odds": 1.79,
+        "confidence": 66,
+        "reasoning": "The model expects fewer clean chances than the current total line is pricing in. This is a calculated position, not a random prediction.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "16:00",
+        "sport": "football",
+        "league": "Turkey Super League",
+        "match": "Alanyaspor - Samsunspor",
+        "bet": "Samsunspor",
+        "odds": 3.23,
+        "confidence": 78,
+        "reasoning": "The away side holds a better value profile than the current odds suggest. The edge is meaningful enough to justify selection. This fits the AI77 value-based approach.",
+        "result": "pending"
     }
 ]
