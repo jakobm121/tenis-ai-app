@@ -5,18 +5,29 @@ import random
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
+DEBUG = True
+
 ODDS_API_KEY = os.getenv("ODDS_API_KEY_V2")
 FOOTBALL_API_KEY = os.getenv("FOOTBALL_API_KEY")
 
 ODDS_URL = "https://api.the-odds-api.com/v4/sports/soccer/odds"
 FOOTBALL_URL = "https://v3.football.api-sports.io"
 
+team_form_cache = {}
+fixture_prediction_cache = {}
+fixture_odds_cache = {}
+
+
+def dprint(*args):
+    if DEBUG:
+        print(*args)
+
 
 def fetch_odds():
     params = {
         "apiKey": ODDS_API_KEY,
         "regions": "eu",
-        "markets": "h2h,totals",
+        "markets": "h2h",
         "oddsFormat": "decimal"
     }
 
@@ -29,57 +40,6 @@ def fetch_odds():
     return res.json()
 
 
-def generate_reasoning(home, away, bet, expected_goals, edge, pick_type):
-    if pick_type == "over":
-        texts = [
-            f"{home} and {away} profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in.",
-            f"The tempo projection points toward an open game. Both teams should have enough attacking sequences to create multiple scoring windows, making this a strong value angle.",
-            f"This is not a blind Over pick. The model identifies a scoring environment where attacking output, tempo and market pricing all point in the same direction."
-        ]
-    elif pick_type == "under":
-        texts = [
-            f"This matchup projects as more controlled than the market suggests. Limited chance creation and a slower game script make the Under a strong value position.",
-            f"The model expects fewer high-quality chances than the market is pricing. Defensive structure and tempo control make this a disciplined Under spot.",
-            f"This game has a lower-event profile. The value comes from the market slightly overestimating goal volume."
-        ]
-    elif pick_type == "draw":
-        texts = [
-            f"This is a balanced matchup with very little separation between the sides. Draw is selected only because the value edge is unusually strong and risk is kept low.",
-            f"The model sees a tight game profile with no clear side advantage. This is a controlled draw exposure, not a high-stake position.",
-            f"Both teams rate closely enough that the draw price becomes playable. It remains a low-unit value angle due to natural variance."
-        ]
-    elif pick_type == "btts_yes":
-        texts = [
-            f"Both teams show enough attacking activity and defensive vulnerability for a two-sided scoring game. The BTTS signal is supported by recent scoring patterns.",
-            f"This matchup profiles well for both teams to get on the scoresheet. Chance creation and concession trends point toward a live BTTS angle.",
-            f"The model sees a balanced scoring environment where both sides should generate enough threat to score at least once."
-        ]
-    elif pick_type == "btts_no":
-        texts = [
-            f"The game projects with limited two-sided scoring. One or both attacks look weaker than the market implies, making BTTS No a playable angle.",
-            f"This matchup leans toward a one-sided or lower-quality scoring profile. The model does not expect both teams to score as often as the market suggests.",
-            f"Defensive structure and weaker attacking output on one side make BTTS No a disciplined value position."
-        ]
-    else:
-        texts = [
-            f"{bet} holds a measurable edge in this matchup. The model finds stronger structure, stability and pricing value compared to the opponent.",
-            f"The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess.",
-            f"{bet} grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify."
-        ]
-
-    endings = [
-        " This fits the AI77 value-based approach.",
-        " Risk is always present, but the price creates a playable edge.",
-        " The pick is selected because the model detects market mispricing.",
-        " This is a calculated position, not a random prediction."
-    ]
-
-    return random.choice(texts) + random.choice(endings)
-
-
-# ------------------------
-# API-FOOTBALL HELPERS
-# ------------------------
 def football_headers():
     return {"x-apisports-key": FOOTBALL_API_KEY}
 
@@ -91,6 +51,119 @@ def safe_float(value, default=None):
         return default
 
 
+def build_stats_sentence(stats_summary, pick_type):
+    if not stats_summary:
+        return ""
+
+    snippets = []
+
+    exp_goals = stats_summary.get("expected_goals")
+    over_rate = stats_summary.get("combined_over25_rate")
+    btts_rate = stats_summary.get("combined_btts_rate")
+    home_scored = stats_summary.get("home_scored_avg")
+    away_scored = stats_summary.get("away_scored_avg")
+
+    if pick_type in ["over", "under"]:
+        if exp_goals is not None:
+            snippets.append(f"The projected goal output sits around {exp_goals:.2f}.")
+        if over_rate is not None:
+            snippets.append(f"The combined recent Over 2.5 profile is roughly {over_rate * 100:.0f}%.")
+        if home_scored is not None and away_scored is not None:
+            snippets.append(
+                f"Relevant attacking splits point to around {home_scored:.2f} home goals and {away_scored:.2f} away goals."
+            )
+
+    elif pick_type in ["btts_yes", "btts_no"]:
+        if btts_rate is not None:
+            snippets.append(f"The recent BTTS profile comes in around {btts_rate * 100:.0f}%.")
+        if home_scored is not None and away_scored is not None:
+            snippets.append(
+                f"Both attacks project into a game state with about {home_scored:.2f} home goals and {away_scored:.2f} away goals on current splits."
+            )
+
+    return (" " + random.choice(snippets)) if snippets else ""
+
+
+def generate_reasoning(home, away, bet, expected_goals, edge, pick_type, stats_summary=None):
+    if pick_type == "over":
+        texts = [
+            f"{home} and {away} project as a more open matchup than the market line suggests.",
+            f"The tempo setup points toward a game with enough attacking sequences to threaten the total.",
+            f"This Over is backed by a scoring profile that looks slightly stronger than the market number.",
+            f"The matchup shape suggests more transitions and more usable chances than the current line implies.",
+            f"There is enough offensive pressure on both sides for this total to become playable."
+        ]
+    elif pick_type == "under":
+        texts = [
+            f"This matchup projects as more controlled than the market suggests, which keeps the Under in play.",
+            f"The model expects fewer clean chances than the current total line is pricing in.",
+            f"This game carries a lower-event profile than the market is implying.",
+            f"The likely match script looks tighter and more compact than the total number suggests.",
+            f"The projection leans toward a disciplined, lower-volume game rather than a wide-open exchange."
+        ]
+    elif pick_type == "draw":
+        texts = [
+            f"This looks like a fairly balanced matchup with little separation between the sides.",
+            f"The model sees a tight game profile with no strong side advantage, which brings the draw into range.",
+            f"Both teams grade closely enough for the draw price to become interesting.",
+            f"There is not much between these teams on the model, so the draw line deserves attention."
+        ]
+    elif pick_type == "btts_yes":
+        texts = [
+            f"This matchup profiles well for both teams to get on the scoresheet.",
+            f"There is enough two-way attacking threat here to keep BTTS Yes live.",
+            f"The model sees a balanced scoring environment where both sides should create enough danger.",
+            f"The game does not need to become wild to land BTTS; it just needs normal two-sided pressure."
+        ]
+    elif pick_type == "btts_no":
+        texts = [
+            f"This game projects with limited two-sided scoring, which supports BTTS No.",
+            f"One side looks less likely to contribute enough attacking output, making BTTS No more attractive.",
+            f"The model leans toward an uneven or lower-quality scoring script rather than a clean two-team exchange.",
+            f"The underlying profile points more toward one team blanking than both teams trading goals."
+        ]
+    elif pick_type == "home":
+        texts = [
+            f"{home} rates slightly stronger than the market is implying in this matchup.",
+            f"The model gives {home} a better price-adjusted chance than the line suggests.",
+            f"{home} comes out ahead on matchup balance, structure and value.",
+            f"The number looks a bit too generous against {home} here."
+        ]
+    elif pick_type == "away":
+        texts = [
+            f"{away} looks underrated by the market in this spot.",
+            f"The away side holds a better value profile than the current odds suggest.",
+            f"{away} grades well enough on the model to become a live side pick.",
+            f"The market appears to give {away} slightly less respect than the numbers do."
+        ]
+    else:
+        texts = [
+            f"The selection is supported by matchup balance and market inefficiency.",
+            f"This is a value-based position rather than a momentum-based one.",
+            f"The line looks a little off relative to the model’s view of the game."
+        ]
+
+    endings = [
+        " This fits the AI77 value-based approach.",
+        " Risk is always present, but the price creates a playable edge.",
+        " The pick is selected because the model detects market mispricing.",
+        " This is a calculated position, not a random prediction."
+    ]
+
+    edge_sentence = ""
+    if edge is not None:
+        if edge >= 0.18:
+            edge_sentence = " The value edge stands out clearly compared to most of the slate."
+        elif edge >= 0.10:
+            edge_sentence = " The edge is meaningful enough to justify selection."
+        elif edge >= 0.04:
+            edge_sentence = " The edge is moderate, but still strong enough to stay in range."
+
+    stats_sentence = build_stats_sentence(stats_summary, pick_type)
+
+    return random.choice(texts) + stats_sentence + edge_sentence + random.choice(endings)
+
+
 def fetch_api_football_fixtures(start_time, end_time, tz_name):
     if not FOOTBALL_API_KEY:
         print("NO FOOTBALL_API_KEY -> no totals/btts from API-Football")
@@ -98,11 +171,8 @@ def fetch_api_football_fixtures(start_time, end_time, tz_name):
 
     fixtures = []
 
-    start_date = start_time.date()
-    end_date = end_time.date()
-    current_date = start_date
-
-    while current_date <= end_date:
+    current_date = start_time.date()
+    while current_date <= end_time.date():
         try:
             res = requests.get(
                 f"{FOOTBALL_URL}/fixtures",
@@ -115,10 +185,10 @@ def fetch_api_football_fixtures(start_time, end_time, tz_name):
             )
             data = res.json()
             daily = data.get("response", [])
-            print(f"API-FOOTBALL FIXTURES {current_date}: {len(daily)}")
+            dprint(f"API-FOOTBALL FIXTURES {current_date}: {len(daily)}")
             fixtures.extend(daily)
         except Exception as e:
-            print(f"FIXTURES FETCH ERROR for {current_date}: {e}")
+            dprint(f"FIXTURES FETCH ERROR for {current_date}: {e}")
 
         current_date += timedelta(days=1)
 
@@ -130,8 +200,7 @@ def fetch_api_football_fixtures(start_time, end_time, tz_name):
             if not fixture_dt_raw:
                 continue
 
-            fixture_time = datetime.fromisoformat(fixture_dt_raw)
-            fixture_time = fixture_time.astimezone(ZoneInfo(tz_name))
+            fixture_time = datetime.fromisoformat(fixture_dt_raw).astimezone(ZoneInfo(tz_name))
 
             if fixture_time < start_time or fixture_time > end_time:
                 continue
@@ -143,23 +212,29 @@ def fetch_api_football_fixtures(start_time, end_time, tz_name):
             filtered.append(fixture)
 
         except Exception as e:
-            print("FIXTURE FILTER ERROR:", e)
+            dprint("FIXTURE FILTER ERROR:", e)
 
-    print(f"API-FOOTBALL FILTERED FIXTURES: {len(filtered)}")
+    dprint(f"API-FOOTBALL FILTERED FIXTURES: {len(filtered)}")
     return filtered
 
 
 def get_recent_team_form(team_id):
+    if team_id in team_form_cache:
+        dprint(f"TEAM FORM CACHE USED for team_id={team_id}")
+        return team_form_cache[team_id]
+
     fallback = {
         "home_scored_avg": 1.25,
         "home_conceded_avg": 1.15,
         "away_scored_avg": 1.15,
         "away_conceded_avg": 1.25,
         "over25_rate": 0.50,
-        "btts_rate": 0.50
+        "btts_rate": 0.50,
+        "used_fallback": True
     }
 
     if not team_id or not FOOTBALL_API_KEY:
+        team_form_cache[team_id] = fallback
         return fallback
 
     try:
@@ -208,7 +283,8 @@ def get_recent_team_form(team_id):
                 away_conceded.append(gh)
 
         if valid_games == 0:
-            print(f"TEAM FORM FALLBACK for team_id={team_id}")
+            dprint(f"TEAM FORM FALLBACK for team_id={team_id}")
+            team_form_cache[team_id] = fallback
             return fallback
 
         stats = {
@@ -217,18 +293,25 @@ def get_recent_team_form(team_id):
             "away_scored_avg": sum(away_scored) / len(away_scored) if away_scored else fallback["away_scored_avg"],
             "away_conceded_avg": sum(away_conceded) / len(away_conceded) if away_conceded else fallback["away_conceded_avg"],
             "over25_rate": over25_count / valid_games,
-            "btts_rate": btts_count / valid_games
+            "btts_rate": btts_count / valid_games,
+            "used_fallback": False
         }
 
-        print(f"TEAM FORM USED for {team_id}: {stats}")
+        dprint(f"TEAM FORM USED for {team_id}: {stats}")
+        team_form_cache[team_id] = stats
         return stats
 
     except Exception as e:
-        print(f"TEAM FORM ERROR for {team_id}: {e}")
+        dprint(f"TEAM FORM ERROR for {team_id}: {e}")
+        team_form_cache[team_id] = fallback
         return fallback
 
 
 def get_fixture_prediction_data(fixture_id):
+    if fixture_id in fixture_prediction_cache:
+        dprint(f"PREDICTION CACHE USED for fixture={fixture_id}")
+        return fixture_prediction_cache[fixture_id]
+
     result = {
         "advice": "",
         "goals_home": None,
@@ -238,6 +321,7 @@ def get_fixture_prediction_data(fixture_id):
     }
 
     if not FOOTBALL_API_KEY or not fixture_id:
+        fixture_prediction_cache[fixture_id] = result
         return result
 
     try:
@@ -251,36 +335,49 @@ def get_fixture_prediction_data(fixture_id):
         response = data.get("response", [])
 
         if not response:
-            print(f"PREDICTION EMPTY for fixture {fixture_id}")
+            dprint(f"PREDICTION EMPTY for fixture {fixture_id}")
+            fixture_prediction_cache[fixture_id] = result
             return result
 
         pred = response[0].get("predictions", {})
         result["advice"] = pred.get("advice", "")
 
         goals = pred.get("goals", {})
-        result["goals_home"] = safe_float(goals.get("home"))
-        result["goals_away"] = safe_float(goals.get("away"))
+        gh = safe_float(goals.get("home"))
+        ga = safe_float(goals.get("away"))
+
+        result["goals_home"] = gh if gh is not None and gh >= 0 else None
+        result["goals_away"] = ga if ga is not None and ga >= 0 else None
 
         winner = pred.get("winner", {})
         result["winner_name"] = winner.get("name")
         result["winner_comment"] = winner.get("comment")
 
-        print(f"PREDICTION USED for fixture {fixture_id}: {result}")
+        dprint(f"PREDICTION USED for fixture {fixture_id}: {result}")
+        fixture_prediction_cache[fixture_id] = result
         return result
 
     except Exception as e:
-        print(f"PREDICTION ERROR for fixture {fixture_id}: {e}")
+        dprint(f"PREDICTION ERROR for fixture {fixture_id}: {e}")
+        fixture_prediction_cache[fixture_id] = result
         return result
 
 
 def get_fixture_odds_markets(fixture_id):
+    if fixture_id in fixture_odds_cache:
+        dprint(f"ODDS CACHE USED for fixture={fixture_id}")
+        return fixture_odds_cache[fixture_id]
+
     markets = {
         "totals": [],
         "btts": []
     }
 
     if not FOOTBALL_API_KEY or not fixture_id:
+        fixture_odds_cache[fixture_id] = markets
         return markets
+
+    allowed_total_points = {2.0, 2.5, 3.0, 3.5}
 
     try:
         res = requests.get(
@@ -293,11 +390,12 @@ def get_fixture_odds_markets(fixture_id):
         response = data.get("response", [])
 
         if not response:
-            print(f"ODDS EMPTY for fixture {fixture_id}")
+            dprint(f"ODDS EMPTY for fixture {fixture_id}")
+            fixture_odds_cache[fixture_id] = markets
             return markets
 
-        seen_totals = set()
-        seen_btts = set()
+        totals_map = {}
+        btts_map = {}
 
         for item in response:
             bookmakers = item.get("bookmakers", [])
@@ -306,28 +404,30 @@ def get_fixture_odds_markets(fixture_id):
                 bets = bookmaker.get("bets", [])
 
                 for bet in bets:
-                    bet_name = str(bet.get("name", "")).lower()
+                    bet_name = str(bet.get("name", "")).lower().strip()
                     values = bet.get("values", [])
 
-                    # BTTS
-                    if "both teams" in bet_name or "both team" in bet_name or "btts" in bet_name:
+                    if "both teams to score" in bet_name or bet_name == "btts":
                         for v in values:
-                            value = str(v.get("value", "")).strip()
+                            value = str(v.get("value", "")).strip().lower()
                             odd = safe_float(v.get("odd"))
                             if odd is None:
                                 continue
+                            if value not in ["yes", "no"]:
+                                continue
 
-                            if value.lower() in ["yes", "no"]:
-                                key = (value.lower(), odd)
-                                if key not in seen_btts:
-                                    seen_btts.add(key)
-                                    markets["btts"].append({
-                                        "name": value,
-                                        "price": odd
-                                    })
+                            key = value
+                            if key not in btts_map:
+                                btts_map[key] = {
+                                    "name": "Yes" if value == "yes" else "No",
+                                    "best_odds": odd,
+                                    "implied_probs": [1 / odd]
+                                }
+                            else:
+                                btts_map[key]["best_odds"] = max(btts_map[key]["best_odds"], odd)
+                                btts_map[key]["implied_probs"].append(1 / odd)
 
-                    # O/U
-                    elif "over/under" in bet_name or "goals over/under" in bet_name or "over under" in bet_name:
+                    elif bet_name in ["goals over/under", "over/under"]:
                         for v in values:
                             value = str(v.get("value", "")).strip()
                             odd = safe_float(v.get("odd"))
@@ -346,25 +446,52 @@ def get_fixture_odds_markets(fixture_id):
                             if point is None:
                                 continue
 
-                            name = "Over" if lower_val.startswith("over") else "Under"
-                            key = (name, point, odd)
+                            point = round(point, 2)
+                            if point not in allowed_total_points:
+                                continue
 
-                            if key not in seen_totals:
-                                seen_totals.add(key)
-                                markets["totals"].append({
+                            name = "Over" if lower_val.startswith("over") else "Under"
+                            key = (name, point)
+
+                            if key not in totals_map:
+                                totals_map[key] = {
                                     "name": name,
                                     "point": point,
-                                    "price": odd
-                                })
+                                    "best_odds": odd,
+                                    "implied_probs": [1 / odd]
+                                }
+                            else:
+                                totals_map[key]["best_odds"] = max(totals_map[key]["best_odds"], odd)
+                                totals_map[key]["implied_probs"].append(1 / odd)
 
-        print(
+        for _, entry in totals_map.items():
+            avg_implied = sum(entry["implied_probs"]) / len(entry["implied_probs"])
+            markets["totals"].append({
+                "name": entry["name"],
+                "point": entry["point"],
+                "price": entry["best_odds"],
+                "avg_implied": avg_implied
+            })
+
+        for _, entry in btts_map.items():
+            avg_implied = sum(entry["implied_probs"]) / len(entry["implied_probs"])
+            markets["btts"].append({
+                "name": entry["name"],
+                "price": entry["best_odds"],
+                "avg_implied": avg_implied
+            })
+
+        dprint(
             f"ODDS MARKETS for fixture {fixture_id}: "
             f"totals={len(markets['totals'])}, btts={len(markets['btts'])}"
         )
+
+        fixture_odds_cache[fixture_id] = markets
         return markets
 
     except Exception as e:
-        print(f"ODDS ERROR for fixture {fixture_id}: {e}")
+        dprint(f"ODDS ERROR for fixture {fixture_id}: {e}")
+        fixture_odds_cache[fixture_id] = markets
         return markets
 
 
@@ -447,6 +574,10 @@ def build_total_and_btts_candidates(start_time, end_time, tz_name):
             prediction = get_fixture_prediction_data(fixture_id)
             odds_markets = get_fixture_odds_markets(fixture_id)
 
+            if not odds_markets["totals"] and not odds_markets["btts"]:
+                dprint(f"SKIP TOTALS/BTTS for {home} vs {away} -> no odds markets")
+                continue
+
             expected_home = (
                 home_stats["home_scored_avg"] + away_stats["away_conceded_avg"]
             ) / 2
@@ -474,15 +605,14 @@ def build_total_and_btts_candidates(start_time, end_time, tz_name):
 
             expected_goals = max(1.4, min(4.6, expected_goals))
 
-            print(
+            dprint(
                 f"API-FOOTBALL TOTALS MODEL -> {home} vs {away} | "
                 f"fixture={fixture_id} | total={expected_goals:.2f}"
             )
 
-            # TOTALS
             for market in odds_markets["totals"]:
                 odds = market["price"]
-                implied = 1 / odds
+                implied = market.get("avg_implied", 1 / odds)
                 point = market["point"]
 
                 over_prob, under_prob = get_total_probs(expected_goals, point)
@@ -503,8 +633,6 @@ def build_total_and_btts_candidates(start_time, end_time, tz_name):
                     pick_type = "under"
 
                 edge = model_prob - implied
-
-                # small calibrated boost only
                 edge *= 1.05
 
                 if odds < 1.35 or odds > 3.40:
@@ -512,9 +640,9 @@ def build_total_and_btts_candidates(start_time, end_time, tz_name):
                 if edge < -0.10:
                     continue
 
-                print(
+                dprint(
                     f"API-FOOTBALL TOTAL PICK CHECK -> {home} vs {away} | "
-                    f"bet={bet} | model_prob={model_prob:.3f} implied={implied:.3f} edge={edge:.3f}"
+                    f"bet={bet} | model_prob={model_prob:.3f} avg_implied={implied:.3f} best_odds={odds:.3f} edge={edge:.3f}"
                 )
 
                 candidates.append({
@@ -533,10 +661,9 @@ def build_total_and_btts_candidates(start_time, end_time, tz_name):
                     "sort_time": match_time.timestamp()
                 })
 
-            # BTTS
             for market in odds_markets["btts"]:
                 odds = market["price"]
-                implied = 1 / odds
+                implied = market.get("avg_implied", 1 / odds)
 
                 btts_yes_prob = (
                     (home_stats["btts_rate"] + away_stats["btts_rate"]) / 2
@@ -570,9 +697,9 @@ def build_total_and_btts_candidates(start_time, end_time, tz_name):
                 if edge < -0.10:
                     continue
 
-                print(
+                dprint(
                     f"API-FOOTBALL BTTS CHECK -> {home} vs {away} | "
-                    f"bet={bet} | model_prob={model_prob:.3f} implied={implied:.3f} edge={edge:.3f}"
+                    f"bet={bet} | model_prob={model_prob:.3f} avg_implied={implied:.3f} best_odds={odds:.3f} edge={edge:.3f}"
                 )
 
                 candidates.append({
@@ -604,14 +731,13 @@ def build_predictions():
     tz = ZoneInfo("Europe/Ljubljana")
     now = datetime.now(tz)
 
-    start_time = now + timedelta(minutes=30)
-    end_time = now + timedelta(hours=24)
+    start_time = now + timedelta(hours=1)
+    end_time = now + timedelta(hours=6)
 
-    candidates = []
+    h2h_candidates = []
+    goal_candidates = []
 
-    # ------------------------
-    # H2H PART - OSTANE ISTO
-    # ------------------------
+    # H2H part - same logic
     for game in data:
         try:
             commence_time = game.get("commence_time")
@@ -683,7 +809,7 @@ def build_predictions():
                         if edge < -0.10:
                             continue
 
-                        candidates.append({
+                        h2h_candidates.append({
                             "date": match_time.strftime("%Y-%m-%d"),
                             "time": match_time.strftime("%H:%M"),
                             "sport": "football",
@@ -703,18 +829,14 @@ def build_predictions():
             print("GAME ERROR:", e)
             continue
 
-    # ------------------------
-    # TOTALS + BTTS PART - API-FOOTBALL ONLY
-    # ------------------------
-    football_totals_candidates = build_total_and_btts_candidates(
+    goal_candidates = build_total_and_btts_candidates(
         start_time=start_time,
         end_time=end_time,
         tz_name="Europe/Ljubljana"
     )
 
-    candidates.extend(football_totals_candidates)
-
-    candidates = sorted(candidates, key=lambda x: x["confidence"], reverse=True)
+    h2h_candidates = sorted(h2h_candidates, key=lambda x: x["confidence"], reverse=True)
+    goal_candidates = sorted(goal_candidates, key=lambda x: x["confidence"], reverse=True)
 
     final = []
     used_matches = set()
@@ -729,39 +851,75 @@ def build_predictions():
         "btts_no": 0
     }
 
-    limits = {
-        "home": 2,
-        "away": 1,
-        "over": 2,
-        "under": 2,
-        "draw": 1,
-        "btts_yes": 1,
-        "btts_no": 1
-    }
+    h2h_limits = {"home": 2, "away": 1, "draw": 1}
+    goal_limits = {"over": 2, "under": 2, "btts_yes": 1, "btts_no": 1}
 
     btts_total_count = 0
+    goals_total_count = 0
 
-    for pick in candidates:
-        if len(final) >= 5:
+    # exactly 3 H2H if available
+    for pick in h2h_candidates:
+        if len(final) >= 3:
             break
-
         if pick["match"] in used_matches:
             continue
-
-        pick_type = pick["pick_type"]
-
-        if counts[pick_type] >= limits[pick_type]:
-            continue
-
-        if pick_type in ["btts_yes", "btts_no"] and btts_total_count >= 1:
+        if counts[pick["pick_type"]] >= h2h_limits[pick["pick_type"]]:
             continue
 
         final.append(pick)
         used_matches.add(pick["match"])
-        counts[pick_type] += 1
+        counts[pick["pick_type"]] += 1
 
-        if pick_type in ["btts_yes", "btts_no"]:
+    # up to 2 goals, best edges only
+    for pick in goal_candidates:
+        if len(final) >= 5:
+            break
+        if goals_total_count >= 2:
+            break
+        if pick["match"] in used_matches:
+            continue
+        if counts[pick["pick_type"]] >= goal_limits[pick["pick_type"]]:
+            continue
+        if pick["pick_type"] in ["btts_yes", "btts_no"] and btts_total_count >= 1:
+            continue
+
+        final.append(pick)
+        used_matches.add(pick["match"])
+        counts[pick["pick_type"]] += 1
+        goals_total_count += 1
+
+        if pick["pick_type"] in ["btts_yes", "btts_no"]:
             btts_total_count += 1
+
+    # fallback fill to 5 with best remaining H2H first, then goals
+    if len(final) < 5:
+        fallback_pool = sorted(h2h_candidates + goal_candidates, key=lambda x: x["confidence"], reverse=True)
+
+        for pick in fallback_pool:
+            if len(final) >= 5:
+                break
+            if pick["match"] in used_matches:
+                continue
+
+            pt = pick["pick_type"]
+
+            if pt in h2h_limits and counts[pt] >= h2h_limits[pt]:
+                continue
+
+            if pt in goal_limits:
+                if counts[pt] >= goal_limits[pt]:
+                    continue
+                if pt in ["btts_yes", "btts_no"] and btts_total_count >= 1:
+                    continue
+
+            final.append(pick)
+            used_matches.add(pick["match"])
+            counts[pt] += 1
+
+            if pt in ["over", "under", "btts_yes", "btts_no"]:
+                goals_total_count += 1
+            if pt in ["btts_yes", "btts_no"]:
+                btts_total_count += 1
 
     final = sorted(final, key=lambda x: x["confidence"], reverse=True)
 
