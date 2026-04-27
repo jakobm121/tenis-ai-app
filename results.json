@@ -1005,5 +1005,65 @@
         "confidence": 78,
         "reasoning": "The away side holds a better value profile than the current odds suggest. The edge is meaningful enough to justify selection. This fits the AI77 value-based approach.",
         "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "16:00",
+        "sport": "football",
+        "league": "Turkey Super League",
+        "match": "Alanyaspor - Samsunspor",
+        "bet": "Over 2.5",
+        "odds": 2.04,
+        "confidence": 78,
+        "reasoning": "Alanyaspor and Samsunspor profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in. This is a calculated position, not a random prediction.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "18:00",
+        "sport": "football",
+        "league": "Frauen-Bundesliga",
+        "match": "TSG Hoffenheim - 1. FC Köln",
+        "bet": "1. FC Köln",
+        "odds": 3.55,
+        "confidence": 66,
+        "reasoning": "1. FC Köln grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. Risk is always present, but the price creates a playable edge.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "19:00",
+        "sport": "football",
+        "league": "Ekstraklasa - Poland",
+        "match": "Piast Gliwice - Arka Gdynia",
+        "bet": "Over 2.5",
+        "odds": 1.95,
+        "confidence": 66,
+        "reasoning": "Piast Gliwice and Arka Gdynia profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in. The pick is selected because the model detects market mispricing.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "19:00",
+        "sport": "football",
+        "league": "Allsvenskan - Sweden",
+        "match": "Örgryte IS - Degerfors IF",
+        "bet": "Örgryte IS",
+        "odds": 3.2,
+        "confidence": 55,
+        "reasoning": "Örgryte IS grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. This fits the AI77 value-based approach.",
+        "result": "pending"
+    },
+    {
+        "date": "2026-04-27",
+        "time": "19:00",
+        "sport": "football",
+        "league": "Allsvenskan - Sweden",
+        "match": "BK Hacken - IK Sirius",
+        "bet": "BK Hacken",
+        "odds": 2.7,
+        "confidence": 55,
+        "reasoning": "BK Hacken holds a measurable edge in this matchup. The model finds stronger structure, stability and pricing value compared to the opponent. This fits the AI77 value-based approach.",
+        "result": "pending"
     }
 ]
