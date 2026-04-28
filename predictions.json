@@ -1,39 +1,6 @@
 [
     {
-        "date": "2026-04-27",
-        "time": "23:45",
-        "sport": "football",
-        "league": "Primera División - Argentina",
-        "match": "Velez Sarsfield BA - Union Santa Fe",
-        "bet": "Union Santa Fe",
-        "odds": 3.4,
-        "confidence": 66,
-        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. This fits the AI77 value-based approach."
-    },
-    {
         "date": "2026-04-28",
-        "time": "00:00",
-        "sport": "football",
-        "league": "Brazil Série B",
-        "match": "Athletic Club (MG) - Nautico PE",
-        "bet": "Athletic Club (MG)",
-        "odds": 2.62,
-        "confidence": 55,
-        "reasoning": "The selection is supported by matchup control and market inefficiency. This is a value-based side pick, not a momentum guess. This fits the AI77 value-based approach."
-    },
-    {
-        "date": "2026-04-28",
-        "time": "02:00",
-        "sport": "football",
-        "league": "Primera División - Argentina",
-        "match": "Atlético Huracán - Argentinos Juniors",
-        "bet": "Atlético Huracán",
-        "odds": 2.95,
-        "confidence": 55,
-        "reasoning": "Atlético Huracán holds a measurable edge in this matchup. The model finds stronger structure, stability and pricing value compared to the opponent. Risk is always present, but the price creates a playable edge."
-    },
-    {
-        "date": "2026-04-27",
         "time": "18:00",
         "sport": "football",
         "league": "Saudi Pro League",
@@ -41,10 +8,10 @@
         "bet": "Over 3.5",
         "odds": 2.23,
         "confidence": 66,
-        "reasoning": "This is not a blind Over pick. The model identifies a scoring environment where attacking output, tempo and market pricing all point in the same direction. The pick is selected because the model detects market mispricing."
+        "reasoning": "Al-Shabab and Al-Fateh profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in. The pick is selected because the model detects market mispricing."
     },
     {
-        "date": "2026-04-27",
+        "date": "2026-04-28",
         "time": "20:00",
         "sport": "football",
         "league": "Saudi Pro League",
@@ -52,6 +19,39 @@
         "bet": "Over 3.5",
         "odds": 2.25,
         "confidence": 78,
-        "reasoning": "The tempo projection points toward an open game. Both teams should have enough attacking sequences to create multiple scoring windows, making this a strong value angle. The pick is selected because the model detects market mispricing."
+        "reasoning": "This is not a blind Over pick. The model identifies a scoring environment where attacking output, tempo and market pricing all point in the same direction. The pick is selected because the model detects market mispricing."
+    },
+    {
+        "date": "2026-04-28",
+        "time": "20:45",
+        "sport": "football",
+        "league": "Championship",
+        "match": "Southampton - Ipswich Town",
+        "bet": "Ipswich Town",
+        "odds": 3.1,
+        "confidence": 66,
+        "reasoning": "Ipswich Town grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. Risk is always present, but the price creates a playable edge."
+    },
+    {
+        "date": "2026-04-28",
+        "time": "20:45",
+        "sport": "football",
+        "league": "League 1",
+        "match": "Peterborough United - Mansfield Town",
+        "bet": "Peterborough United",
+        "odds": 2.58,
+        "confidence": 55,
+        "reasoning": "Peterborough United grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. This is a calculated position, not a random prediction."
+    },
+    {
+        "date": "2026-04-28",
+        "time": "20:45",
+        "sport": "football",
+        "league": "League 1",
+        "match": "Northampton Town - Barnsley",
+        "bet": "Northampton Town",
+        "odds": 2.47,
+        "confidence": 55,
+        "reasoning": "Northampton Town grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. This is a calculated position, not a random prediction."
     }
 ]
