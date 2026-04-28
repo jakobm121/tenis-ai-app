@@ -488,7 +488,7 @@
         "odds": 2.23,
         "confidence": 66,
         "reasoning": "Al-Shabab and Al-Fateh profile as a high-event matchup, with enough attacking volume to push this game above the market line. The model sees goal potential that is not fully priced in. The pick is selected because the model detects market mispricing.",
-        "result": "pending"
+        "result": "loss"
     },
     {
         "date": "2026-04-28",
@@ -500,7 +500,7 @@
         "odds": 2.25,
         "confidence": 78,
         "reasoning": "This is not a blind Over pick. The model identifies a scoring environment where attacking output, tempo and market pricing all point in the same direction. The pick is selected because the model detects market mispricing.",
-        "result": "pending"
+        "result": "win"
     },
     {
         "date": "2026-04-28",
@@ -512,7 +512,7 @@
         "odds": 3.1,
         "confidence": 66,
         "reasoning": "Ipswich Town grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. Risk is always present, but the price creates a playable edge.",
-        "result": "pending"
+        "result": "loss"
     },
     {
         "date": "2026-04-28",
@@ -524,7 +524,7 @@
         "odds": 2.58,
         "confidence": 55,
         "reasoning": "Peterborough United grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. This is a calculated position, not a random prediction.",
-        "result": "pending"
+        "result": "loss"
     },
     {
         "date": "2026-04-28",
@@ -536,6 +536,6 @@
         "odds": 2.47,
         "confidence": 55,
         "reasoning": "Northampton Town grades better in the model than the implied market probability. The edge is not huge, but it is consistent enough to qualify. This is a calculated position, not a random prediction.",
-        "result": "pending"
+        "result": "loss"
     }
 ]
