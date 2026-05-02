@@ -27,8 +27,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Adelaide City Reserve is selected as a side-value position in FFSA SLR. The expected goals profile is 1.58 - 2.62. The best price is 2.50, while the market median is around 2.34, creating an estimated value gap of +20.0% across 8 bookmakers."
+        "result": "loss",
+        "reasoning": "Adelaide City Reserve is selected as a side-value position in FFSA SLR. The expected goals profile is 1.58 - 2.62. The best price is 2.50, while the market median is around 2.34, creating an estimated value gap of +20.0% across 8 bookmakers.",
+        "settled_at": "2026-05-02T16:49:25.586324+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     },
     {
         "pick_id": "30e65abc73025c2090264cbd1c14b40b",
@@ -58,8 +61,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "Oliveirense - Lusitania FC rates as a higher-goal spot in the AI77 iSports model. The projected total is 2.98, supported by recent team scoring profiles and league baseline. The best available price is 2.15 versus a market median near 1.83, creating an estimated value gap of +10.8% across 8 bookmakers."
+        "result": "loss",
+        "reasoning": "Oliveirense - Lusitania FC rates as a higher-goal spot in the AI77 iSports model. The projected total is 2.98, supported by recent team scoring profiles and league baseline. The best available price is 2.15 versus a market median near 1.83, creating an estimated value gap of +10.8% across 8 bookmakers.",
+        "settled_at": "2026-05-02T16:49:25.586368+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "d6b11873170818dc8384e7b20928f3af",
@@ -122,8 +128,11 @@
         "stake": 0.75,
         "stake_label": "Small Value",
         "stake_score": 2,
-        "result": "pending",
-        "reasoning": "CF Os Belenenses - UD Santarem projects as a more controlled scoring environment. The model total is 2.32, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.90 versus a market median near 1.80, leaving an estimated value gap of +6.3% across 12 bookmakers."
+        "result": "win",
+        "reasoning": "CF Os Belenenses - UD Santarem projects as a more controlled scoring environment. The model total is 2.32, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.90 versus a market median near 1.80, leaving an estimated value gap of +6.3% across 12 bookmakers.",
+        "settled_at": "2026-05-02T16:49:25.586382+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "84017beec651ab85f7548c2d987c3828",
@@ -153,8 +162,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "FC Levante Badalona (W) - Athletic Club Bibao (W) rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.13, supported by recent team scoring profiles and league baseline. The best available price is 2.10 versus a market median near 2.06, creating an estimated value gap of +12.8% across 8 bookmakers."
+        "result": "loss",
+        "reasoning": "FC Levante Badalona (W) - Athletic Club Bibao (W) rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.13, supported by recent team scoring profiles and league baseline. The best available price is 2.10 versus a market median near 2.06, creating an estimated value gap of +12.8% across 8 bookmakers.",
+        "settled_at": "2026-05-02T16:49:25.586393+02:00",
+        "settled_status": -1,
+        "final_score": "0:1"
     },
     {
         "pick_id": "848807fb3594afe8e3e8cc5d4052c6b8",
@@ -184,8 +196,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Lechia Tomaszow Mazowiecki is selected as a side-value position in Poland III Liga. The expected goals profile is 2.46 - 1.05. The best price is 2.45, while the market median is around 2.05, creating an estimated value gap of +26.3% across 9 bookmakers."
+        "result": "loss",
+        "reasoning": "Lechia Tomaszow Mazowiecki is selected as a side-value position in Poland III Liga. The expected goals profile is 2.46 - 1.05. The best price is 2.45, while the market median is around 2.05, creating an estimated value gap of +26.3% across 9 bookmakers.",
+        "settled_at": "2026-05-02T16:49:25.586402+02:00",
+        "settled_status": -1,
+        "final_score": "1:3"
     },
     {
         "pick_id": "739c8cafec8a39774c333d201e62fdb3",
@@ -215,8 +230,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Hedensted is selected as a side-value position in Denmark - 4.Liga. The expected goals profile is 2.05 - 0.90. The best price is 2.40, while the market median is around 2.25, creating an estimated value gap of +21.5% across 10 bookmakers."
+        "result": "loss",
+        "reasoning": "Hedensted is selected as a side-value position in Denmark - 4.Liga. The expected goals profile is 2.05 - 0.90. The best price is 2.40, while the market median is around 2.25, creating an estimated value gap of +21.5% across 10 bookmakers.",
+        "settled_at": "2026-05-02T16:49:25.586411+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     },
     {
         "pick_id": "7663705f8615369ccbf0cd70410e806f",
