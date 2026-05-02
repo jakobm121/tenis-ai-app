@@ -95,10 +95,10 @@
         "stake": 0.75,
         "stake_label": "Small Value",
         "stake_score": 3,
-        "result": "loss",
+        "result": "win",
         "reasoning": "Kolos Kovalyovka is selected as a side-value position in Ukrainian Premier League. The expected goals profile is 0.77 - 1.48. The best price is 2.08, while the market median is around 1.99, creating an estimated value gap of +6.2% across 18 bookmakers.",
         "settled_at": "2026-05-02T13:44:35.228387+02:00",
-        "final_score": "0:0"
+        "final_score": "0:3"
     },
     {
         "pick_id": "eb34003bdaf158c7b33f615df298215a",
