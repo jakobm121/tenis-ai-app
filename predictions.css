@@ -1,13 +1,79 @@
 /* ================================
-   AI77 PREDICTIONS PAGE
-   Clean version matching style.css
+   AI77 PREDICTIONS PAGE CLEAN FIX
 ================================ */
 
-/* Prevent mobile overflow */
-html,
-body {
+.predictions-page,
+.predictions-page * {
+  box-sizing: border-box;
+}
+
+.predictions-page {
+  width: 100%;
   max-width: 100%;
   overflow-x: hidden;
+  background: #fff;
+}
+
+/* Own hero, not global header */
+.pred-hero {
+  width: 100%;
+  min-height: 360px;
+  background: url("banner.png") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.pred-hero-overlay {
+  width: 100%;
+  padding: 60px 20px;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.pred-hero h1 {
+  color: #fff;
+  font-size: clamp(2.6rem, 8vw, 5rem);
+  line-height: 1.15;
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.pred-hero p {
+  color: #ffd700;
+  font-size: clamp(1.25rem, 4.8vw, 2.2rem);
+  line-height: 1.35;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+/* Own nav, not global nav */
+.pred-nav {
+  width: 100%;
+  background: #1e1e1e;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding: 14px;
+}
+
+.pred-nav a {
+  background: #2c2c2c;
+  color: #f8f9fa;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  padding: 14px 10px;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pred-nav a:hover {
+  background: #444;
+  color: #00b4d8;
 }
 
 /* Full-width affiliate banner */
@@ -26,7 +92,7 @@ body {
   border: 0;
 }
 
-/* How model works section */
+/* How model works */
 .how-we-play {
   background: #f6f6f6;
   padding: 55px 20px;
@@ -35,9 +101,11 @@ body {
 }
 
 .how-we-play h2 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
+  font-size: clamp(1.7rem, 5vw, 2.4rem);
+  line-height: 1.25;
+  margin: 0;
   color: #1a1a1a;
+  text-align: center;
 }
 
 #howWePlayTitle {
@@ -52,7 +120,6 @@ body {
 #howWePlayContent {
   max-width: 780px;
   margin: 25px auto 0;
-  transition: all 0.3s ease-in-out;
 }
 
 #howWePlayContent.hidden,
@@ -83,8 +150,8 @@ body {
 #last-updated {
   text-align: center;
   color: #666;
-  font-weight: 600;
-  margin: 24px 0 14px;
+  font-weight: 700;
+  margin: 24px 0 18px;
 }
 
 /* Mini results snapshot */
@@ -143,6 +210,7 @@ body {
 
 /* Predictions container */
 .predictions-container {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 35px 25px 60px;
@@ -207,13 +275,12 @@ body {
   font-size: 1.35rem;
 }
 
-/* Prediction card list */
+/* Prediction cards */
 .clean-prediction-list {
   display: grid;
   gap: 28px;
 }
 
-/* Prediction cards */
 .clean-prediction-card {
   background: linear-gradient(145deg, #ffffff, #f4f4f4);
   border: 1px solid #d6d6d6;
@@ -374,11 +441,6 @@ body {
   line-height: 1.55;
 }
 
-/* Button inside cards */
-.clean-odds-btn {
-  margin-top: 6px;
-}
-
 /* Empty state */
 .clean-board-empty {
   text-align: center;
@@ -388,19 +450,38 @@ body {
   padding: 40px;
 }
 
-/* Trust badge spacing */
+/* Trust badge */
 .trust-badges {
   margin-top: 30px;
 }
 
-/* Mobile fixes */
-@media (max-width: 900px) {
-  .mini-results-card {
-    grid-template-columns: repeat(2, 1fr);
+/* Mobile */
+@media (max-width: 800px) {
+  .pred-hero {
+    min-height: 300px;
   }
 
-  .mini-results-card a {
-    grid-column: 1 / -1;
+  .pred-hero-overlay {
+    padding: 55px 16px;
+  }
+
+  .pred-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .pred-nav a {
+    font-size: 1rem;
+    padding: 14px 8px;
+  }
+
+  .how-we-play {
+    padding: 44px 18px;
+  }
+
+  .mini-results-card {
+    grid-template-columns: 1fr;
   }
 
   .clean-board-stats,
@@ -420,30 +501,9 @@ body {
     gap: 12px;
     text-align: left;
   }
-}
 
-@media (max-width: 700px) {
   .predictions-container {
-    width: 100%;
-    box-sizing: border-box;
     padding: 30px 16px 50px;
-  }
-
-  .how-we-play {
-    padding: 42px 18px;
-  }
-
-  .how-we-play h2 {
-    font-size: 1.65rem;
-    line-height: 1.25;
-  }
-
-  .mini-results-wrap {
-    padding: 0 16px;
-  }
-
-  .mini-results-card {
-    grid-template-columns: 1fr;
   }
 
   .clean-board-header {
@@ -461,133 +521,15 @@ body {
   .clean-card-top h3 {
     font-size: 1.25rem;
   }
-
-  .pick-strip strong {
-    font-size: 1.05rem;
-  }
 }
 
-/* ================================
-   HARD FIX - PREDICTIONS PAGE ONLY
-================================ */
-
-.predictions-page,
-.predictions-page * {
-  box-sizing: border-box;
-}
-
-.predictions-page {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-.predictions-page header {
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-}
-
-.predictions-page .predictions-nav {
-  width: 100%;
-  max-width: 100%;
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 10px !important;
-  padding: 12px !important;
-  margin: 0 !important;
-  overflow: hidden !important;
-  background: #1e1e1e;
-}
-
-.predictions-page .predictions-nav a {
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: 100% !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  text-align: center !important;
-  white-space: normal !important;
-  word-break: normal !important;
-  line-height: 1.25 !important;
-  font-size: 1rem !important;
-  padding: 13px 8px !important;
-  border-radius: 8px !important;
-}
-
-.predictions-page .full-width-banner,
-.predictions-page .how-we-play,
-.predictions-page .mini-results-wrap,
-.predictions-page .predictions-container,
-.predictions-page .affiliate-banners,
-.predictions-page footer {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-.predictions-page .full-width-banner img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-}
-
-.predictions-page .how-we-play {
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
-.predictions-page .how-we-play h2 {
-  font-size: clamp(1.45rem, 7vw, 2rem);
-  line-height: 1.25;
-}
-
-.predictions-page .container,
-.predictions-page .predictions-container {
-  width: 100%;
-  max-width: 1200px;
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
-.predictions-page .mini-results-card {
-  grid-template-columns: 1fr !important;
-}
-
-.predictions-page .clean-board-header,
-.predictions-page .clean-prediction-card {
-  width: 100%;
-  max-width: 100%;
-}
-
-.predictions-page .affiliate-banners {
-  flex-wrap: wrap;
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
-.predictions-page .affiliate-banners img {
-  max-width: 100%;
-  height: auto;
-}
-
-@media (min-width: 800px) {
-  .predictions-page .predictions-nav {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 20px !important;
-    padding: 15px !important;
+@media (max-width: 430px) {
+  .pred-nav a {
+    font-size: 0.92rem;
+    padding: 13px 6px;
   }
 
-  .predictions-page .predictions-nav a {
-    width: auto !important;
-    padding: 10px 20px !important;
-    font-size: 1.2rem !important;
-  }
-
-  .predictions-page .mini-results-card {
-    grid-template-columns: repeat(5, 1fr) auto !important;
+  .pred-hero {
+    min-height: 280px;
   }
 }
