@@ -1,63 +1,94 @@
-import requests
-import json
 import os
+import json
+import math
+import time
 import hashlib
 import statistics
-import time
+from collections import defaultdict
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
-ODDS_API_KEY = os.getenv("ODDS_API_KEY_V2")
-FOOTBALL_API_KEY = os.getenv("FOOTBALL_API_KEY")
+import requests
 
-ODDS_URL = "https://api.the-odds-api.com/v4/sports/soccer/odds"
-FOOTBALL_URL = "https://v3.football.api-sports.io"
+ISPORTS_API_KEY = os.getenv("ISPORTS_API_KEY")
 
+BASE_URL = "http://api.isportsapi.com"
 TZ_NAME = "Europe/Ljubljana"
 
 PREDICTIONS_FILE = "predictions.json"
 RESULTS_FILE = "results.json"
+CACHE_DIR = "isports_cache"
 
 DEBUG = True
 
-MINUTES_BEFORE_MATCH = 45
-TIME_WINDOW_HOURS = 24
+REQUEST_TIMEOUT = 30
+
+TIME_WINDOW_MIN_MINUTES = 45
+TIME_WINDOW_MAX_HOURS = 24
 
 MAX_FINAL_PICKS = 5
-MAX_API_FOOTBALL_PREDICTION_CALLS = 12
+MAX_MATCHES_TO_PROCESS = 80
+MAX_LEAGUE_HISTORY_CALLS = 14
 
-MIN_BOOKMAKERS_GAME = 4
-MIN_TOTAL_BOOKMAKERS = 4
-MIN_H2H_BOOKMAKERS = 5
+LEAGUE_CACHE_HOURS = 24
 
-MIN_VALUE_EDGE = 0.035
-DRAW_MIN_VALUE_EDGE = 0.065
+MIN_LEAGUE_HISTORY_MATCHES = 40
+MIN_TEAM_HISTORY_MATCHES = 5
+TEAM_FORM_MATCHES = 10
 
-ODDS_MIN = 1.55
-ODDS_MAX = 3.20
+MIN_BOOKMAKERS_H2H = 5
+MIN_BOOKMAKERS_TOTALS = 5
 
-DRAW_ODDS_MIN = 2.80
-DRAW_ODDS_MAX = 4.20
+MIN_EDGE = 0.035
+MIN_QUALITY_SCORE = 58
 
-API_FOOTBALL_SLEEP_SECONDS = 6.2
+ODDS_MIN = 1.45
+ODDS_MAX = 3.60
+
+ENABLE_DRAW = False
 
 MARKET_LIMITS = {
     "home": 2,
     "away": 2,
+    "over_2_5": 2,
+    "under_2_5": 2,
     "draw": 1,
-    "over": 2,
-    "under": 2,
 }
 
-VALID_FOOTBALL_STATUSES = {"NS", "TBD", "PST"}
+BLOCKED_LEAGUE_KEYWORDS = [
+    "women",
+    "(w)",
+    "u17",
+    "u18",
+    "u19",
+    "u20",
+    "u21",
+    "u23",
+    "youth",
+    "junior",
+    "junioren",
+    "reserve",
+    "reserves",
+    "amateur",
+    "friendly",
+    "friendlies",
+    "exhibition",
+    "esoccer",
+    "virtual",
+]
 
-prediction_calls_used = 0
-last_football_api_call = 0.0
+ALLOWED_STATUS_UPCOMING = {0}
+FINISHED_STATUSES = {-1}
+STORNO_STATUSES = {-10, -11, -14}
 
 
 def debug(msg):
     if DEBUG:
         print(msg)
+
+
+def ensure_dirs():
+    os.makedirs(CACHE_DIR, exist_ok=True)
 
 
 def safe_float(value, default=None):
@@ -67,62 +98,51 @@ def safe_float(value, default=None):
         return default
 
 
+def safe_int(value, default=None):
+    try:
+        return int(value)
+    except Exception:
+        return default
+
+
+def clamp(value, lo, hi):
+    return max(lo, min(hi, value))
+
+
 def normalize(text):
     return " ".join(str(text or "").strip().lower().split())
 
 
-def clean_team_name(name):
-    text = normalize(name)
-
-    replacements = {
-        " fc": "",
-        " cf": "",
-        " afc": "",
-        " sc": "",
-        " fk": "",
-        " sk": "",
-        " ac": "",
-        " cd": "",
-        " ca": "",
-        " de": "",
-        " the ": " ",
-        ".": "",
-        "-": " ",
-    }
-
-    for old, new in replacements.items():
-        text = text.replace(old, new)
-
-    return " ".join(text.split())
-
-
-def token_similarity(a, b):
-    a_tokens = set(clean_team_name(a).split())
-    b_tokens = set(clean_team_name(b).split())
-
-    if not a_tokens or not b_tokens:
-        return 0.0
-
-    overlap = len(a_tokens & b_tokens)
-    total = len(a_tokens | b_tokens)
-
-    return overlap / total if total else 0.0
-
-
 def median_or_none(values):
     cleaned = [safe_float(v) for v in values]
-    cleaned = [v for v in cleaned if v is not None and v > 1]
+    cleaned = [v for v in cleaned if v is not None and v > 1.0]
     if not cleaned:
         return None
     return float(statistics.median(cleaned))
 
 
-def clamp(value, low, high):
-    return max(low, min(high, value))
+def mean_or_none(values):
+    cleaned = [safe_float(v) for v in values]
+    cleaned = [v for v in cleaned if v is not None]
+    if not cleaned:
+        return None
+    return sum(cleaned) / len(cleaned)
 
 
-def build_pick_id(match, bet, date, time_str, odds):
-    raw = f"{match}|{bet}|{date}|{time_str}|{odds}"
+def poisson_pmf(k, lam):
+    if lam <= 0:
+        return 1.0 if k == 0 else 0.0
+    return math.exp(-lam) * (lam ** k) / math.factorial(k)
+
+
+def timestamp_to_local(ts):
+    if not ts:
+        return None
+    return datetime.fromtimestamp(int(ts), ZoneInfo(TZ_NAME))
+
+
+def build_pick_id(match_id, bucket, bet, line):
+    raw = f"{match_id}|{bucket}|{bet}|{line}"
     return hashlib.md5(raw.encode("utf-8")).hexdigest()
 
 
@@ -133,7 +153,9 @@ def load_json(path, default):
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
-            return data if isinstance(data, type(default)) else default
+            if isinstance(data, type(default)):
+                return data
+            return default
     except Exception:
         return default
 
@@ -144,297 +166,218 @@ def save_json(path, data):
         f.write("\n")
 
 
-def football_headers():
-    return {"x-apisports-key": FOOTBALL_API_KEY}
+def api_get(path, params=None):
+    if not ISPORTS_API_KEY:
+        raise RuntimeError("Missing ISPORTS_API_KEY environment variable.")
 
+    params = params.copy() if params else {}
+    params["api_key"] = ISPORTS_API_KEY
 
-def throttle_football_api():
-    global last_football_api_call
+    url = BASE_URL + path
 
-    now = time.time()
-    elapsed = now - last_football_api_call
-
-    if elapsed < API_FOOTBALL_SLEEP_SECONDS:
-        time.sleep(API_FOOTBALL_SLEEP_SECONDS - elapsed)
-
-    last_football_api_call = time.time()
-
-
-def football_api_get(endpoint, params):
-    if not FOOTBALL_API_KEY:
-        return {"response": []}
-
-    throttle_football_api()
-
-    url = f"{FOOTBALL_URL}/{endpoint}"
-    res = requests.get(url, headers=football_headers(), params=params, timeout=20)
+    res = requests.get(url, params=params, timeout=REQUEST_TIMEOUT)
 
     if res.status_code != 200:
-        debug(f"API-FOOTBALL ERROR {endpoint}: {res.status_code} {res.text[:300]}")
-        return {"response": []}
+        raise RuntimeError(f"HTTP {res.status_code} for {path}: {res.text[:300]}")
 
     data = res.json()
 
-    errors = data.get("errors") or {}
-    if errors:
-        debug(f"API-FOOTBALL WARN {endpoint} {params}: {errors}")
+    code = data.get("code")
+    if code != 0:
+        raise RuntimeError(f"API code={code} for {path}: {data.get('message')}")
+
+    return data.get("data", [])
+
+
+def fetch_schedule_by_date(date_str):
+    debug(f"FETCH schedule date={date_str}")
+    return api_get("/sport/football/schedule", {"date": date_str})
+
+
+def fetch_league_history(league_id):
+    ensure_dirs()
+
+    cache_path = os.path.join(CACHE_DIR, f"league_{league_id}.json")
+
+    if os.path.exists(cache_path):
+        age_seconds = time.time() - os.path.getmtime(cache_path)
+        if age_seconds < LEAGUE_CACHE_HOURS * 3600:
+            data = load_json(cache_path, [])
+            if isinstance(data, list) and data:
+                debug(f"CACHE league={league_id} matches={len(data)}")
+                return data
+
+    debug(f"FETCH league history leagueID={league_id}")
+    data = api_get("/sport/football/schedule", {"leagueID": str(league_id)})
+
+    save_json(cache_path, data)
+    return data
+
+
+def fetch_odds_main():
+    debug("FETCH odds/main")
+    data = api_get("/sport/football/odds/main")
+
+    if not isinstance(data, dict):
+        return {}
 
     return data
 
 
-def fetch_odds():
-    if not ODDS_API_KEY:
-        raise RuntimeError("Missing ODDS_API_KEY_V2 environment variable.")
+def is_blocked_league(league_name):
+    n = normalize(league_name)
 
-    params = {
-        "apiKey": ODDS_API_KEY,
-        "regions": "eu",
-        "markets": "h2h,totals",
-        "oddsFormat": "decimal",
-    }
+    for word in BLOCKED_LEAGUE_KEYWORDS:
+        if word in n:
+            return True
 
-    debug("FETCHING THE ODDS API...")
-    res = requests.get(ODDS_URL, params=params, timeout=20)
-
-    debug(f"ODDS API STATUS: {res.status_code}")
-
-    remaining = res.headers.get("x-requests-remaining")
-    used = res.headers.get("x-requests-used")
-
-    if remaining is not None:
-        debug(f"ODDS API REQUESTS REMAINING: {remaining}")
-    if used is not None:
-        debug(f"ODDS API REQUESTS USED: {used}")
-
-    if res.status_code != 200:
-        print("ODDS API ERROR:", res.status_code, res.text[:500])
-        return []
-
-    data = res.json()
-
-    if not isinstance(data, list):
-        return []
-
-    debug(f"ODDS API GAMES LOADED: {len(data)}")
-    return data
+    return False
 
 
-def fetch_api_football_fixtures(start_time, end_time):
-    fixtures = []
-    current_date = start_time.date()
-    end_date = end_time.date()
-
-    while current_date <= end_date:
-        try:
-            data = football_api_get(
-                "fixtures",
-                {
-                    "date": current_date.strftime("%Y-%m-%d"),
-                    "timezone": TZ_NAME,
-                },
-            )
-
-            daily = data.get("response", [])
-            debug(f"API-FOOTBALL FIXTURES {current_date}: {len(daily)}")
-            fixtures.extend(daily)
-
-        except Exception as e:
-            debug(f"API-FOOTBALL FIXTURES ERROR {current_date}: {e}")
-
-        current_date += timedelta(days=1)
-
-    return fixtures
-
-
-def parse_fixture_time(fixture):
-    raw = fixture.get("fixture", {}).get("date")
-    if not raw:
-        return None
-
-    try:
-        return datetime.fromisoformat(raw).astimezone(ZoneInfo(TZ_NAME))
-    except Exception:
-        return None
-
-
-def match_api_football_fixture(odds_game, fixtures):
-    odds_home = odds_game.get("home_team")
-    odds_away = odds_game.get("away_team")
-    commence_time = odds_game.get("commence_time")
-
-    if not odds_home or not odds_away or not commence_time:
-        return None, 0.0
-
-    try:
-        odds_time = datetime.fromisoformat(
-            commence_time.replace("Z", "+00:00")
-        ).astimezone(ZoneInfo(TZ_NAME))
-    except Exception:
-        return None, 0.0
-
-    best_fixture = None
-    best_score = 0.0
-
-    for fixture in fixtures:
-        fixture_time = parse_fixture_time(fixture)
-        if not fixture_time:
-            continue
-
-        time_diff_min = abs((fixture_time - odds_time).total_seconds()) / 60
-
-        if time_diff_min > 150:
-            continue
-
-        api_home = fixture.get("teams", {}).get("home", {}).get("name", "")
-        api_away = fixture.get("teams", {}).get("away", {}).get("name", "")
-
-        home_score = token_similarity(odds_home, api_home)
-        away_score = token_similarity(odds_away, api_away)
-
-        score = (home_score * 0.45) + (away_score * 0.45)
-
-        if time_diff_min <= 30:
-            score += 0.10
-        elif time_diff_min <= 90:
-            score += 0.05
-
-        if score > best_score:
-            best_score = score
-            best_fixture = fixture
-
-    if best_score >= 0.45:
-        return best_fixture, best_score
-
-    return None, best_score
-
-
-def get_api_football_prediction(fixture_id):
-    global prediction_calls_used
-
-    if not fixture_id:
-        return None
-
-    if prediction_calls_used >= MAX_API_FOOTBALL_PREDICTION_CALLS:
-        return None
-
-    prediction_calls_used += 1
-
-    try:
-        data = football_api_get("predictions", {"fixture": fixture_id})
-        response = data.get("response", [])
-
-        if not response:
-            return None
-
-        pred = response[0].get("predictions", {})
-
-        percent = pred.get("percent", {})
-        goals = pred.get("goals", {})
-
-        result = {
-            "percent_home": safe_float(str(percent.get("home", "")).replace("%", "")),
-            "percent_draw": safe_float(str(percent.get("draw", "")).replace("%", "")),
-            "percent_away": safe_float(str(percent.get("away", "")).replace("%", "")),
-            "goals_home": safe_float(goals.get("home")),
-            "goals_away": safe_float(goals.get("away")),
-            "advice": pred.get("advice", ""),
-        }
-
-        return result
-
-    except Exception as e:
-        debug(f"PREDICTION ERROR fixture={fixture_id}: {e}")
-        return None
-
-
-def get_market(bookmaker, key):
-    for market in bookmaker.get("markets", []):
-        if market.get("key") == key:
-            return market
-    return None
-
-
-def collect_h2h_prices(game):
-    home = game.get("home_team")
-    away = game.get("away_team")
-
-    prices = {
+def parse_europe_odds(rows):
+    """
+    Format:
+    matchId, companyId, currentHome, currentDraw, currentAway,
+    openingHome, openingDraw, openingAway, updateTime, closed, status
+    """
+    by_match = defaultdict(lambda: {
         "home": [],
-        "away": [],
         "draw": [],
-    }
+        "away": [],
+        "open_home": [],
+        "open_draw": [],
+        "open_away": [],
+        "bookmakers": set(),
+    })
 
-    for bookmaker in game.get("bookmakers", []):
-        market = get_market(bookmaker, "h2h")
-        if not market:
+    for row in rows or []:
+        parts = str(row).split(",")
+
+        if len(parts) < 11:
             continue
 
-        bookmaker_name = bookmaker.get("title", "Bookmaker")
+        match_id = parts[0]
+        company_id = parts[1]
 
-        for outcome in market.get("outcomes", []):
-            name = outcome.get("name")
-            odds = safe_float(outcome.get("price"))
+        home = safe_float(parts[2])
+        draw = safe_float(parts[3])
+        away = safe_float(parts[4])
 
-            if odds is None or odds <= 1:
-                continue
+        open_home = safe_float(parts[5])
+        open_draw = safe_float(parts[6])
+        open_away = safe_float(parts[7])
 
-            if name == home:
-                prices["home"].append({"bookmaker": bookmaker_name, "odds": odds})
-            elif name == away:
-                prices["away"].append({"bookmaker": bookmaker_name, "odds": odds})
-            elif normalize(name) == "draw":
-                prices["draw"].append({"bookmaker": bookmaker_name, "odds": odds})
+        closed = str(parts[9]).lower() == "true"
 
-    return prices
-
-
-def collect_total_prices(game):
-    totals = {}
-
-    for bookmaker in game.get("bookmakers", []):
-        market = get_market(bookmaker, "totals")
-        if not market:
+        if closed:
             continue
 
-        bookmaker_name = bookmaker.get("title", "Bookmaker")
+        if home and home > 1:
+            by_match[match_id]["home"].append(home)
+        if draw and draw > 1:
+            by_match[match_id]["draw"].append(draw)
+        if away and away > 1:
+            by_match[match_id]["away"].append(away)
 
-        for outcome in market.get("outcomes", []):
-            side = normalize(outcome.get("name"))
-            point = safe_float(outcome.get("point"))
-            odds = safe_float(outcome.get("price"))
+        if open_home and open_home > 1:
+            by_match[match_id]["open_home"].append(open_home)
+        if open_draw and open_draw > 1:
+            by_match[match_id]["open_draw"].append(open_draw)
+        if open_away and open_away > 1:
+            by_match[match_id]["open_away"].append(open_away)
 
-            if point is None or odds is None or odds <= 1:
-                continue
+        by_match[match_id]["bookmakers"].add(company_id)
 
-            if side not in {"over", "under"}:
-                continue
-
-            if point not in totals:
-                totals[point] = {"over": [], "under": []}
-
-            totals[point][side].append({
-                "bookmaker": bookmaker_name,
-                "odds": odds,
-            })
-
-    return totals
+    return by_match
 
 
-def best_price(price_rows):
-    if not price_rows:
+def hk_to_decimal(value):
+    v = safe_float(value)
+    if v is None:
         return None
-    return max(price_rows, key=lambda x: x["odds"])
+    return round(v + 1.0, 4)
 
 
-def devig_two_way(over_prices, under_prices):
-    over_median = median_or_none([x["odds"] for x in over_prices])
-    under_median = median_or_none([x["odds"] for x in under_prices])
+def parse_over_under(rows):
+    """
+    Format:
+    matchId, companyId, currentLine, currentOverHK, currentUnderHK,
+    openingLine, openingOverHK, openingUnderHK, updateTime, closed, status
+    """
+    by_match = defaultdict(lambda: defaultdict(lambda: {
+        "over": [],
+        "under": [],
+        "open_line": [],
+        "open_over": [],
+        "open_under": [],
+        "bookmakers": set(),
+    }))
 
-    if not over_median or not under_median:
+    for row in rows or []:
+        parts = str(row).split(",")
+
+        if len(parts) < 11:
+            continue
+
+        match_id = parts[0]
+        company_id = parts[1]
+
+        line = safe_float(parts[2])
+        over_dec = hk_to_decimal(parts[3])
+        under_dec = hk_to_decimal(parts[4])
+
+        open_line = safe_float(parts[5])
+        open_over_dec = hk_to_decimal(parts[6])
+        open_under_dec = hk_to_decimal(parts[7])
+
+        closed = str(parts[9]).lower() == "true"
+
+        if closed:
+            continue
+
+        if line is None:
+            continue
+
+        if over_dec and over_dec > 1:
+            by_match[match_id][line]["over"].append(over_dec)
+        if under_dec and under_dec > 1:
+            by_match[match_id][line]["under"].append(under_dec)
+
+        if open_line is not None:
+            by_match[match_id][line]["open_line"].append(open_line)
+        if open_over_dec and open_over_dec > 1:
+            by_match[match_id][line]["open_over"].append(open_over_dec)
+        if open_under_dec and open_under_dec > 1:
+            by_match[match_id][line]["open_under"].append(open_under_dec)
+
+        by_match[match_id][line]["bookmakers"].add(company_id)
+
+    return by_match
+
+
+def best_odds(values):
+    cleaned = [safe_float(v) for v in values]
+    cleaned = [v for v in cleaned if v is not None and v > 1]
+    if not cleaned:
+        return None
+    return max(cleaned)
+
+
+def implied_prob(odds):
+    if odds is None or odds <= 1:
+        return None
+    return 1 / odds
+
+
+def devig_two_way(over_odds, under_odds):
+    over_med = median_or_none(over_odds)
+    under_med = median_or_none(under_odds)
+
+    if not over_med or not under_med:
         return None
 
-    over_raw = 1 / over_median
-    under_raw = 1 / under_median
+    over_raw = 1 / over_med
+    under_raw = 1 / under_med
     total = over_raw + under_raw
 
     if total <= 0:
@@ -443,22 +386,22 @@ def devig_two_way(over_prices, under_prices):
     return {
         "over_prob": over_raw / total,
         "under_prob": under_raw / total,
-        "over_median": over_median,
-        "under_median": under_median,
+        "over_median": over_med,
+        "under_median": under_med,
     }
 
 
-def devig_three_way(home_prices, draw_prices, away_prices):
-    home_median = median_or_none([x["odds"] for x in home_prices])
-    draw_median = median_or_none([x["odds"] for x in draw_prices])
-    away_median = median_or_none([x["odds"] for x in away_prices])
+def devig_three_way(home_odds, draw_odds, away_odds):
+    home_med = median_or_none(home_odds)
+    draw_med = median_or_none(draw_odds)
+    away_med = median_or_none(away_odds)
 
-    if not home_median or not draw_median or not away_median:
+    if not home_med or not draw_med or not away_med:
         return None
 
-    home_raw = 1 / home_median
-    draw_raw = 1 / draw_median
-    away_raw = 1 / away_median
+    home_raw = 1 / home_med
+    draw_raw = 1 / draw_med
+    away_raw = 1 / away_med
     total = home_raw + draw_raw + away_raw
 
     if total <= 0:
@@ -468,480 +411,451 @@ def devig_three_way(home_prices, draw_prices, away_prices):
         "home_prob": home_raw / total,
         "draw_prob": draw_raw / total,
         "away_prob": away_raw / total,
-        "home_median": home_median,
-        "draw_median": draw_median,
-        "away_median": away_median,
+        "home_median": home_med,
+        "draw_median": draw_med,
+        "away_median": away_med,
     }
 
 
-def api_football_support_score(pick_type, line, prediction):
-    if not prediction:
-        return 0, "no_api_football_prediction"
+def finished_matches_only(matches, before_ts=None):
+    out = []
 
-    support = 0
-    reason = []
+    for m in matches:
+        status = safe_int(m.get("status"))
+        if status not in FINISHED_STATUSES:
+            continue
 
-    ph = prediction.get("percent_home")
-    pd = prediction.get("percent_draw")
-    pa = prediction.get("percent_away")
+        mt = safe_int(m.get("matchTime"))
+        if before_ts and mt and mt >= before_ts:
+            continue
 
-    gh = prediction.get("goals_home")
-    ga = prediction.get("goals_away")
+        hs = safe_int(m.get("homeScore"))
+        aw = safe_int(m.get("awayScore"))
 
-    expected_total = None
-    if gh is not None and ga is not None:
-        expected_total = gh + ga
+        if hs is None or aw is None:
+            continue
 
-    if pick_type == "home" and ph is not None:
-        if ph >= 45:
-            support += 10
-            reason.append("api_home_support")
-        elif ph <= 30:
-            support -= 10
-            reason.append("api_home_conflict")
+        out.append(m)
 
-    if pick_type == "away" and pa is not None:
-        if pa >= 42:
-            support += 10
-            reason.append("api_away_support")
-        elif pa <= 28:
-            support -= 10
-            reason.append("api_away_conflict")
-
-    if pick_type == "draw" and pd is not None:
-        if pd >= 28:
-            support += 8
-            reason.append("api_draw_support")
-        elif pd <= 20:
-            support -= 8
-            reason.append("api_draw_conflict")
-
-    if pick_type == "over" and expected_total is not None and line is not None:
-        if expected_total >= line + 0.25:
-            support += 10
-            reason.append("api_goals_over_support")
-        elif expected_total <= line - 0.25:
-            support -= 10
-            reason.append("api_goals_over_conflict")
-
-    if pick_type == "under" and expected_total is not None and line is not None:
-        if expected_total <= line - 0.25:
-            support += 10
-            reason.append("api_goals_under_support")
-        elif expected_total >= line + 0.25:
-            support -= 10
-            reason.append("api_goals_under_conflict")
-
-    return support, ",".join(reason) if reason else "api_neutral"
+    out.sort(key=lambda x: safe_int(x.get("matchTime"), 0), reverse=True)
+    return out
 
 
-def confidence_from_edge(edge, bookmakers_used, odds, market_type, api_support):
-    edge_score = clamp(edge / 0.12, 0, 1) * 42
-    bookmaker_score = clamp(bookmakers_used / 10, 0, 1) * 22
+def build_team_stats(team_id, league_history, match_time_ts):
+    finished = finished_matches_only(league_history, before_ts=match_time_ts)
 
-    if 1.70 <= odds <= 2.20:
-        odds_score = 18
-    elif 1.55 <= odds <= 2.60:
-        odds_score = 12
-    else:
-        odds_score = 7
+    team_matches = []
 
-    market_score = 8
-    if market_type == "draw":
-        market_score = 3
+    home_only = []
+    away_only = []
 
-    score = edge_score + bookmaker_score + odds_score + market_score + api_support
+    for m in finished:
+        home_id = str(m.get("homeId"))
+        away_id = str(m.get("awayId"))
 
-    return round(clamp(score, 40, 88), 1)
+        if str(team_id) not in {home_id, away_id}:
+            continue
+
+        team_matches.append(m)
+
+        if str(team_id) == home_id:
+            home_only.append(m)
+        elif str(team_id) == away_id:
+            away_only.append(m)
+
+    recent = team_matches[:TEAM_FORM_MATCHES]
+    recent_home = home_only[:TEAM_FORM_MATCHES]
+    recent_away = away_only[:TEAM_FORM_MATCHES]
+
+    def summarize(matches, mode):
+        scored = []
+        conceded = []
+        totals = []
+        btts = 0
+        over25 = 0
+        over35 = 0
+        wins = 0
+        draws = 0
+        losses = 0
+        corners_for = []
+        corners_against = []
+
+        for m in matches:
+            hs = safe_int(m.get("homeScore"), 0)
+            aw = safe_int(m.get("awayScore"), 0)
+
+            hc = safe_int(m.get("homeCorner"), 0)
+            ac = safe_int(m.get("awayCorner"), 0)
+
+            is_home = str(m.get("homeId")) == str(team_id)
+
+            gf = hs if is_home else aw
+            ga = aw if is_home else hs
+
+            cf = hc if is_home else ac
+            ca = ac if is_home else hc
+
+            scored.append(gf)
+            conceded.append(ga)
+            totals.append(hs + aw)
+
+            corners_for.append(cf)
+            corners_against.append(ca)
+
+            if hs > 0 and aw > 0:
+                btts += 1
+            if hs + aw >= 3:
+                over25 += 1
+            if hs + aw >= 4:
+                over35 += 1
+
+            if gf > ga:
+                wins += 1
+            elif gf == ga:
+                draws += 1
+            else:
+                losses += 1
+
+        n = len(matches)
+        if n == 0:
+            return {
+                "games": 0,
+                "scored_avg": 1.20,
+                "conceded_avg": 1.20,
+                "total_avg": 2.40,
+                "over25_rate": 0.50,
+                "over35_rate": 0.25,
+                "btts_rate": 0.50,
+                "win_rate": 0.33,
+                "draw_rate": 0.28,
+                "loss_rate": 0.39,
+                "corners_for_avg": 4.5,
+                "corners_against_avg": 4.5,
+            }
+
+        return {
+            "games": n,
+            "scored_avg": mean_or_none(scored) or 1.20,
+            "conceded_avg": mean_or_none(conceded) or 1.20,
+            "total_avg": mean_or_none(totals) or 2.40,
+            "over25_rate": over25 / n,
+            "over35_rate": over35 / n,
+            "btts_rate": btts / n,
+            "win_rate": wins / n,
+            "draw_rate": draws / n,
+            "loss_rate": losses / n,
+            "corners_for_avg": mean_or_none(corners_for) or 4.5,
+            "corners_against_avg": mean_or_none(corners_against) or 4.5,
+        }
+
+    return {
+        "overall": summarize(recent, "overall"),
+        "home": summarize(recent_home, "home"),
+        "away": summarize(recent_away, "away"),
+        "total_team_matches": len(team_matches),
+    }
 
 
-def generate_reasoning(match, bet, odds, median_odds, edge, bookmakers_used, market_type, api_note, fixture_matched):
-    edge_pct = round(edge * 100, 1)
+def build_league_stats(league_history, match_time_ts):
+    finished = finished_matches_only(league_history, before_ts=match_time_ts)
 
-    base = (
-        f"{bet} is selected as a combined market-value pick. The best available price is {odds:.2f}, "
-        f"while the market median is around {median_odds:.2f}. Across {bookmakers_used} bookmakers, "
-        f"the estimated value gap is +{edge_pct}%."
+    recent = finished[:120]
+
+    totals = []
+    btts = 0
+    draws = 0
+    home_wins = 0
+    away_wins = 0
+
+    for m in recent:
+        hs = safe_int(m.get("homeScore"), 0)
+        aw = safe_int(m.get("awayScore"), 0)
+
+        totals.append(hs + aw)
+
+        if hs > 0 and aw > 0:
+            btts += 1
+        if hs == aw:
+            draws += 1
+        elif hs > aw:
+            home_wins += 1
+        else:
+            away_wins += 1
+
+    n = len(recent)
+    if n == 0:
+        return {
+            "matches": 0,
+            "avg_goals": 2.45,
+            "btts_rate": 0.50,
+            "draw_rate": 0.27,
+            "home_win_rate": 0.43,
+            "away_win_rate": 0.30,
+        }
+
+    return {
+        "matches": n,
+        "avg_goals": mean_or_none(totals) or 2.45,
+        "btts_rate": btts / n,
+        "draw_rate": draws / n,
+        "home_win_rate": home_wins / n,
+        "away_win_rate": away_wins / n,
+    }
+
+
+def expected_goals(home_stats, away_stats, league_stats):
+    home_home = home_stats["home"]
+    away_away = away_stats["away"]
+
+    home_overall = home_stats["overall"]
+    away_overall = away_stats["overall"]
+
+    league_avg = league_stats["avg_goals"]
+
+    home_attack = (
+        home_home["scored_avg"] * 0.38
+        + away_away["conceded_avg"] * 0.34
+        + home_overall["scored_avg"] * 0.14
+        + away_overall["conceded_avg"] * 0.14
     )
 
-    if fixture_matched:
-        base += " API-Football validation was matched for this fixture."
+    away_attack = (
+        away_away["scored_avg"] * 0.38
+        + home_home["conceded_avg"] * 0.34
+        + away_overall["scored_avg"] * 0.14
+        + home_overall["conceded_avg"] * 0.14
+    )
+
+    home_form = home_overall["win_rate"] - home_overall["loss_rate"]
+    away_form = away_overall["win_rate"] - away_overall["loss_rate"]
+
+    home_attack += home_form * 0.10
+    away_attack += away_form * 0.10
+
+    current_total = home_attack + away_attack
+    if current_total > 0:
+        blended_total = (current_total * 0.72) + (league_avg * 0.28)
+        scale = blended_total / current_total
+        home_attack *= scale
+        away_attack *= scale
+
+    home_attack = clamp(home_attack, 0.35, 3.20)
+    away_attack = clamp(away_attack, 0.25, 2.90)
+
+    return home_attack, away_attack, home_attack + away_attack
+
+
+def total_probs_from_expected(expected_total):
+    max_goals = 10
+    over25 = 0.0
+    over35 = 0.0
+
+    for g in range(max_goals + 1):
+        p = poisson_pmf(g, expected_total)
+
+        if g >= 3:
+            over25 += p
+        if g >= 4:
+            over35 += p
+
+    return {
+        "over_2_5": clamp(over25, 0.05, 0.90),
+        "under_2_5": clamp(1 - over25, 0.05, 0.90),
+        "over_3_5": clamp(over35, 0.03, 0.82),
+        "under_3_5": clamp(1 - over35, 0.10, 0.95),
+    }
+
+
+def h2h_probs_from_expected(exp_home, exp_away, league_stats):
+    max_goals = 8
+
+    home_win = 0.0
+    draw = 0.0
+    away_win = 0.0
+
+    for h in range(max_goals + 1):
+        for a in range(max_goals + 1):
+            p = poisson_pmf(h, exp_home) * poisson_pmf(a, exp_away)
+
+            if h > a:
+                home_win += p
+            elif h == a:
+                draw += p
+            else:
+                away_win += p
+
+    total = home_win + draw + away_win
+    if total <= 0:
+        return {
+            "home": 0.43,
+            "draw": league_stats["draw_rate"],
+            "away": 0.30,
+        }
+
+    home_win /= total
+    draw /= total
+    away_win /= total
+
+    league_draw = league_stats["draw_rate"]
+    draw = draw * 0.82 + league_draw * 0.18
+
+    total = home_win + draw + away_win
+
+    return {
+        "home": home_win / total,
+        "draw": draw / total,
+        "away": away_win / total,
+    }
+
+
+def movement_score(current_median, opening_median, side):
+    if not current_median or not opening_median:
+        return 0.0
+
+    if side in {"home", "away", "draw"}:
+        diff = opening_median - current_median
+        return clamp(diff / 0.35, -1.0, 1.0) * 0.015
+
+    return 0.0
+
+
+def confidence_score(edge, bookmakers, odds, model_prob, implied, sample_ok):
+    edge_score = clamp(edge / 0.12, 0.0, 1.0) * 42
+    book_score = clamp(bookmakers / 12.0, 0.0, 1.0) * 20
+
+    odds_score = 0
+    if 1.70 <= odds <= 2.20:
+        odds_score = 18
+    elif 1.45 <= odds <= 2.80:
+        odds_score = 12
     else:
-        base += " API-Football validation was not matched, so this remains a market-only signal."
+        odds_score = 6
 
-    if api_note and api_note != "no_api_football_prediction":
-        base += f" Validation note: {api_note.replace('_', ' ')}."
+    separation_score = clamp(abs(model_prob - implied) / 0.20, 0.0, 1.0) * 12
 
-    if market_type == "draw":
-        base += " Draw picks remain high variance and should be treated with lower exposure."
+    sample_score = 8 if sample_ok else 0
 
-    return base
+    return round(clamp(edge_score + book_score + odds_score + separation_score + sample_score, 1, 92), 1)
 
 
-def make_pick(
-    game,
-    match_time,
-    bet,
-    pick_type,
-    odds,
-    median_odds,
-    fair_prob,
-    edge,
-    bookmakers_used,
-    bookmaker_name,
-    line=None,
-    fixture=None,
-    fixture_match_score=0.0,
-    prediction=None,
-):
-    home = game.get("home_team")
-    away = game.get("away_team")
-    league = game.get("sport_title", "Football")
+def quality_score(edge, confidence, bookmakers, expected_total=None, line=None):
+    score = 0
+    score += clamp(edge / 0.12, 0, 1) * 38
+    score += clamp(confidence / 100, 0, 1) * 24
+    score += clamp(bookmakers / 12, 0, 1) * 18
 
-    match = f"{home} - {away}"
-    date_str = match_time.strftime("%Y-%m-%d")
-    time_str = match_time.strftime("%H:%M")
+    if expected_total is not None and line is not None:
+        goal_gap = abs(expected_total - line)
+        score += clamp(goal_gap / 0.85, 0, 1) * 20
+    else:
+        score += 12
 
-    fixture_id = None
-    api_note = "no_api_football_match"
-    api_support = 0
+    return round(clamp(score, 1, 99), 1)
 
-    if fixture:
-        fixture_id = fixture.get("fixture", {}).get("id")
-        api_support, api_note = api_football_support_score(
-            pick_type=pick_type,
-            line=line,
-            prediction=prediction,
+
+def build_reasoning(match, bet, odds, median_odds, edge, bookmakers, exp_home, exp_away, expected_total, league_name):
+    edge_pct = round(edge * 100, 1)
+
+    if "Over" in bet:
+        return (
+            f"{match} rates as a higher-goal spot in the AI77 iSports model. "
+            f"The projected total is {expected_total:.2f}, supported by recent team scoring profiles and league baseline. "
+            f"The best available price is {odds:.2f} versus a market median near {median_odds:.2f}, "
+            f"creating an estimated value gap of +{edge_pct}% across {bookmakers} bookmakers."
         )
 
-    confidence = confidence_from_edge(
+    if "Under" in bet:
+        return (
+            f"{match} projects as a more controlled scoring environment. "
+            f"The model total is {expected_total:.2f}, with recent form and league tempo not fully supporting a high-event game. "
+            f"The best available price is {odds:.2f} versus a market median near {median_odds:.2f}, "
+            f"leaving an estimated value gap of +{edge_pct}% across {bookmakers} bookmakers."
+        )
+
+    return (
+        f"{bet} is selected as a side-value position in {league_name}. "
+        f"The expected goals profile is {exp_home:.2f} - {exp_away:.2f}. "
+        f"The best price is {odds:.2f}, while the market median is around {median_odds:.2f}, "
+        f"creating an estimated value gap of +{edge_pct}% across {bookmakers} bookmakers."
+    )
+
+
+def make_pick(match, bucket, bet, line, odds, median_odds, model_prob, bookmakers, exp_home, exp_away, expected_total, league_stats):
+    local_dt = timestamp_to_local(match.get("matchTime"))
+
+    implied = implied_prob(odds)
+    edge = model_prob - implied
+
+    league_name = match.get("leagueName", "Football")
+    match_name = f"{match.get('homeName')} - {match.get('awayName')}"
+
+    sample_ok = league_stats["matches"] >= MIN_LEAGUE_HISTORY_MATCHES
+
+    confidence = confidence_score(
         edge=edge,
-        bookmakers_used=bookmakers_used,
+        bookmakers=bookmakers,
         odds=odds,
-        market_type=pick_type,
-        api_support=api_support,
+        model_prob=model_prob,
+        implied=implied,
+        sample_ok=sample_ok,
+    )
+
+    quality = quality_score(
+        edge=edge,
+        confidence=confidence,
+        bookmakers=bookmakers,
+        expected_total=expected_total if bucket in {"over_2_5", "under_2_5"} else None,
+        line=line if bucket in {"over_2_5", "under_2_5"} else None,
     )
 
     return {
-        "pick_id": build_pick_id(match, bet, date_str, time_str, odds),
-        "date": date_str,
-        "time": time_str,
+        "pick_id": build_pick_id(match.get("matchId"), bucket, bet, line),
+        "match_id": match.get("matchId"),
+        "fixture_id": match.get("matchId"),
+        "model_version": "isports_ai77_v1_stats_odds",
+        "date": local_dt.strftime("%Y-%m-%d") if local_dt else "",
+        "time": local_dt.strftime("%H:%M") if local_dt else "",
         "sport": "football",
-        "league": league,
-        "match": match,
+        "league": league_name,
+        "league_id": match.get("leagueId"),
+        "match": match_name,
         "bet": bet,
+        "bucket": bucket,
         "line": line,
         "odds": round(odds, 2),
         "market_median_odds": round(median_odds, 2),
-        "model_prob": round(fair_prob, 4),
-        "implied_prob": round(1 / odds, 4),
+        "model_prob": round(model_prob, 4),
+        "implied_prob": round(implied, 4),
         "edge": round(edge, 4),
+        "expected_home_goals": round(exp_home, 2),
+        "expected_away_goals": round(exp_away, 2),
+        "expected_total_goals": round(expected_total, 2),
+        "bookmakers_used": bookmakers,
         "confidence": confidence,
-        "bookmakers_used": bookmakers_used,
-        "best_bookmaker": bookmaker_name,
-        "api_football_fixture_id": fixture_id,
-        "api_football_match_score": round(fixture_match_score, 3),
-        "api_football_note": api_note,
-        "reasoning": generate_reasoning(
-            match=match,
+        "quality_score": quality,
+        "stake": 1,
+        "result": "pending",
+        "reasoning": build_reasoning(
+            match=match_name,
             bet=bet,
             odds=odds,
             median_odds=median_odds,
             edge=edge,
-            bookmakers_used=bookmakers_used,
-            market_type=pick_type,
-            api_note=api_note,
-            fixture_matched=bool(fixture),
+            bookmakers=bookmakers,
+            exp_home=exp_home,
+            exp_away=exp_away,
+            expected_total=expected_total,
+            league_name=league_name,
         ),
-        "_pick_type": pick_type,
-        "_sort_time": match_time.timestamp(),
     }
 
 
-def build_predictions():
-    odds_data = fetch_odds()
-
-    tz = ZoneInfo(TZ_NAME)
-    now = datetime.now(tz)
-
-    start_time = now + timedelta(minutes=MINUTES_BEFORE_MATCH)
-    end_time = now + timedelta(hours=TIME_WINDOW_HOURS)
-
-    debug(f"NOW: {now}")
-    debug(f"WINDOW START: {start_time}")
-    debug(f"WINDOW END: {end_time}")
-
-    football_fixtures = fetch_api_football_fixtures(start_time, end_time)
-
-    candidates = []
-
-    stats = {
-        "odds_games_total": 0,
-        "rejected_time_window": 0,
-        "rejected_low_bookmakers": 0,
-        "games_checked": 0,
-        "api_football_matched": 0,
-        "api_football_not_matched": 0,
-        "candidates_total": 0,
-        "rejected_edge": 0,
-        "rejected_odds": 0,
-        "rejected_api_conflict": 0,
-    }
-
-    prediction_cache = {}
-
-    for game in odds_data:
-        stats["odds_games_total"] += 1
-
-        try:
-            commence_time = game.get("commence_time")
-            if not commence_time:
-                continue
-
-            match_time = datetime.fromisoformat(
-                commence_time.replace("Z", "+00:00")
-            ).astimezone(tz)
-
-            if match_time < start_time or match_time > end_time:
-                stats["rejected_time_window"] += 1
-                continue
-
-            home = game.get("home_team")
-            away = game.get("away_team")
-
-            if not home or not away:
-                continue
-
-            bookmakers = game.get("bookmakers") or []
-
-            if len(bookmakers) < MIN_BOOKMAKERS_GAME:
-                stats["rejected_low_bookmakers"] += 1
-                continue
-
-            stats["games_checked"] += 1
-
-            fixture, fixture_score = match_api_football_fixture(game, football_fixtures)
-
-            if fixture:
-                status = fixture.get("fixture", {}).get("status", {}).get("short")
-                if status and status not in VALID_FOOTBALL_STATUSES:
-                    debug(f"SKIP STATUS NOT VALID: {home} - {away} | status={status}")
-                    continue
-
-                stats["api_football_matched"] += 1
-                fixture_id = fixture.get("fixture", {}).get("id")
-
-                prediction = None
-                if fixture_id:
-                    if fixture_id not in prediction_cache:
-                        prediction_cache[fixture_id] = get_api_football_prediction(fixture_id)
-                    prediction = prediction_cache[fixture_id]
-            else:
-                prediction = None
-                stats["api_football_not_matched"] += 1
-
-            debug(f"\nCHECK GAME: {home} - {away} | bookmakers={len(bookmakers)} | api_match={bool(fixture)} score={fixture_score:.2f}")
-
-            # H2H
-            h2h = collect_h2h_prices(game)
-            h2h_devig = devig_three_way(h2h["home"], h2h["draw"], h2h["away"])
-
-            if h2h_devig:
-                h2h_map = [
-                    ("home", home, h2h["home"], h2h_devig["home_prob"], h2h_devig["home_median"]),
-                    ("draw", "Draw", h2h["draw"], h2h_devig["draw_prob"], h2h_devig["draw_median"]),
-                    ("away", away, h2h["away"], h2h_devig["away_prob"], h2h_devig["away_median"]),
-                ]
-
-                for pick_type, bet, rows, fair_prob, median_odds in h2h_map:
-                    if len(rows) < MIN_H2H_BOOKMAKERS:
-                        continue
-
-                    best = best_price(rows)
-                    if not best:
-                        continue
-
-                    odds = best["odds"]
-                    implied = 1 / odds
-                    edge = fair_prob - implied
-
-                    if pick_type == "draw":
-                        if edge < DRAW_MIN_VALUE_EDGE:
-                            stats["rejected_edge"] += 1
-                            continue
-                        if odds < DRAW_ODDS_MIN or odds > DRAW_ODDS_MAX:
-                            stats["rejected_odds"] += 1
-                            continue
-                    else:
-                        if edge < MIN_VALUE_EDGE:
-                            stats["rejected_edge"] += 1
-                            continue
-                        if odds < ODDS_MIN or odds > ODDS_MAX:
-                            stats["rejected_odds"] += 1
-                            continue
-
-                    api_support, api_note = api_football_support_score(pick_type, None, prediction)
-                    if api_support <= -10:
-                        stats["rejected_api_conflict"] += 1
-                        debug(f"REJECT API CONFLICT: {home} - {away} | {bet} | {api_note}")
-                        continue
-
-                    pick = make_pick(
-                        game=game,
-                        match_time=match_time,
-                        bet=bet,
-                        pick_type=pick_type,
-                        odds=odds,
-                        median_odds=median_odds,
-                        fair_prob=fair_prob,
-                        edge=edge,
-                        bookmakers_used=len(rows),
-                        bookmaker_name=best["bookmaker"],
-                        line=None,
-                        fixture=fixture,
-                        fixture_match_score=fixture_score,
-                        prediction=prediction,
-                    )
-
-                    candidates.append(pick)
-                    stats["candidates_total"] += 1
-                    debug(f"ADD H2H: {pick['match']} | {pick['bet']} | edge={pick['edge']} | conf={pick['confidence']}")
-
-            # Totals
-            totals = collect_total_prices(game)
-
-            for point, sides in totals.items():
-                if point not in {2.5, 3.5}:
-                    continue
-
-                over_rows = sides.get("over", [])
-                under_rows = sides.get("under", [])
-
-                if len(over_rows) < MIN_TOTAL_BOOKMAKERS or len(under_rows) < MIN_TOTAL_BOOKMAKERS:
-                    continue
-
-                total_devig = devig_two_way(over_rows, under_rows)
-                if not total_devig:
-                    continue
-
-                totals_map = [
-                    ("over", f"Over {point}", over_rows, total_devig["over_prob"], total_devig["over_median"]),
-                    ("under", f"Under {point}", under_rows, total_devig["under_prob"], total_devig["under_median"]),
-                ]
-
-                for pick_type, bet, rows, fair_prob, median_odds in totals_map:
-                    best = best_price(rows)
-                    if not best:
-                        continue
-
-                    odds = best["odds"]
-                    implied = 1 / odds
-                    edge = fair_prob - implied
-
-                    if edge < MIN_VALUE_EDGE:
-                        stats["rejected_edge"] += 1
-                        continue
-
-                    if odds < ODDS_MIN or odds > ODDS_MAX:
-                        stats["rejected_odds"] += 1
-                        continue
-
-                    api_support, api_note = api_football_support_score(pick_type, point, prediction)
-                    if api_support <= -10:
-                        stats["rejected_api_conflict"] += 1
-                        debug(f"REJECT API CONFLICT: {home} - {away} | {bet} | {api_note}")
-                        continue
-
-                    pick = make_pick(
-                        game=game,
-                        match_time=match_time,
-                        bet=bet,
-                        pick_type=pick_type,
-                        odds=odds,
-                        median_odds=median_odds,
-                        fair_prob=fair_prob,
-                        edge=edge,
-                        bookmakers_used=len(rows),
-                        bookmaker_name=best["bookmaker"],
-                        line=point,
-                        fixture=fixture,
-                        fixture_match_score=fixture_score,
-                        prediction=prediction,
-                    )
-
-                    candidates.append(pick)
-                    stats["candidates_total"] += 1
-                    debug(f"ADD TOTAL: {pick['match']} | {pick['bet']} | edge={pick['edge']} | conf={pick['confidence']}")
-
-        except Exception as e:
-            print("GAME ERROR:", e)
-            continue
-
-    debug("\n========== BUILD STATS ==========")
-    for key, value in stats.items():
-        debug(f"{key}: {value}")
-
-    candidates = sorted(
-        candidates,
-        key=lambda x: (
-            x["confidence"],
-            x["edge"],
-            x["bookmakers_used"],
-            x["odds"],
-        ),
-        reverse=True,
-    )
-
-    debug("\n========== TOP CANDIDATES ==========")
-    for c in candidates[:15]:
-        debug(
-            f"{c['match']} | {c['bet']} | odds={c['odds']} | edge={c['edge']} | "
-            f"conf={c['confidence']} | books={c['bookmakers_used']} | api={c['api_football_note']}"
-        )
-
-    final = []
-    used_matches = set()
-    counts = {k: 0 for k in MARKET_LIMITS}
-
-    for pick in candidates:
-        if len(final) >= MAX_FINAL_PICKS:
-            break
-
-        match = pick["match"]
-        pick_type = pick["_pick_type"]
-
-        if match in used_matches:
-            continue
-
-        if counts.get(pick_type, 0) >= MARKET_LIMITS.get(pick_type, 1):
-            continue
-
-        final.append(pick)
-        used_matches.add(match)
-        counts[pick_type] = counts.get(pick_type, 0) + 1
-
-    final = sorted(final, key=lambda x: x["_sort_time"])
-
-    cleaned = []
-    for pick in final:
-        item = pick.copy()
-        del item["_sort_time"]
-        del item["_pick_type"]
-        cleaned.append(item)
-
-    debug("\n========== FINAL PICKS ==========")
-    for p in cleaned:
-        debug(f"{p['date']} {p['time']} | {p['match']} | {p['bet']} | odds={p['odds']} | conf={p['confidence']} | api={p['api_football_note']}")
-
-    return cleaned
-
-
-def update_history(predictions):
+def append_unique_history(predictions):
     history = load_json(RESULTS_FILE, [])
     if not isinstance(history, list):
         history = []
 
-    existing_ids = {
+    existing = {
         item.get("pick_id")
         for item in history
         if isinstance(item, dict)
@@ -950,34 +864,279 @@ def update_history(predictions):
     added = 0
 
     for pick in predictions:
-        if pick["pick_id"] in existing_ids:
-            debug(f"SKIP HISTORY DUPLICATE: {pick['match']} | {pick['bet']}")
+        if pick["pick_id"] in existing:
             continue
 
-        new_pick = pick.copy()
-        new_pick["result"] = "pending"
-
-        history.append(new_pick)
-        existing_ids.add(pick["pick_id"])
+        history.append(pick.copy())
+        existing.add(pick["pick_id"])
         added += 1
 
     save_json(RESULTS_FILE, history)
 
-    debug(f"HISTORY ADDED: {added}")
-    debug(f"HISTORY TOTAL: {len(history)}")
+    debug(f"HISTORY added={added} total={len(history)}")
 
-    return added, len(history)
+
+def build_predictions():
+    ensure_dirs()
+
+    tz = ZoneInfo(TZ_NAME)
+    now = datetime.now(tz)
+    start_dt = now + timedelta(minutes=TIME_WINDOW_MIN_MINUTES)
+    end_dt = now + timedelta(hours=TIME_WINDOW_MAX_HOURS)
+
+    date_str = now.strftime("%Y-%m-%d")
+
+    debug(f"NOW: {now}")
+    debug(f"WINDOW: {start_dt} -> {end_dt}")
+
+    schedule = fetch_schedule_by_date(date_str)
+    odds_raw = fetch_odds_main()
+
+    europe_odds = parse_europe_odds(odds_raw.get("europeOdds", []))
+    over_under = parse_over_under(odds_raw.get("overUnder", []))
+
+    debug(f"SCHEDULE matches={len(schedule)}")
+    debug(f"EUROPE ODDS matches={len(europe_odds)}")
+    debug(f"OVER/UNDER matches={len(over_under)}")
+
+    upcoming = []
+
+    for m in schedule:
+        status = safe_int(m.get("status"))
+        if status not in ALLOWED_STATUS_UPCOMING:
+            continue
+
+        local_dt = timestamp_to_local(m.get("matchTime"))
+        if not local_dt:
+            continue
+
+        if local_dt < start_dt or local_dt > end_dt:
+            continue
+
+        league_name = m.get("leagueName", "")
+        if is_blocked_league(league_name):
+            continue
+
+        match_id = str(m.get("matchId"))
+        if match_id not in europe_odds and match_id not in over_under:
+            continue
+
+        upcoming.append(m)
+
+    upcoming.sort(key=lambda x: safe_int(x.get("matchTime"), 0))
+
+    if MAX_MATCHES_TO_PROCESS and len(upcoming) > MAX_MATCHES_TO_PROCESS:
+        upcoming = upcoming[:MAX_MATCHES_TO_PROCESS]
+
+    debug(f"UPCOMING filtered={len(upcoming)}")
+
+    candidates = []
+    league_history_cache = {}
+    league_history_calls = 0
+
+    for m in upcoming:
+        try:
+            match_id = str(m.get("matchId"))
+            league_id = str(m.get("leagueId"))
+            league_name = m.get("leagueName", "Football")
+            home_id = str(m.get("homeId"))
+            away_id = str(m.get("awayId"))
+            match_time_ts = safe_int(m.get("matchTime"))
+
+            if league_id not in league_history_cache:
+                if league_history_calls >= MAX_LEAGUE_HISTORY_CALLS:
+                    debug(f"SKIP league history call limit: {league_id} {league_name}")
+                    continue
+
+                league_history_cache[league_id] = fetch_league_history(league_id)
+                league_history_calls += 1
+
+            history = league_history_cache[league_id]
+
+            league_stats = build_league_stats(history, match_time_ts)
+            if league_stats["matches"] < MIN_LEAGUE_HISTORY_MATCHES:
+                debug(f"SKIP low league sample {league_name}: {league_stats['matches']}")
+                continue
+
+            home_stats = build_team_stats(home_id, history, match_time_ts)
+            away_stats = build_team_stats(away_id, history, match_time_ts)
+
+            if home_stats["total_team_matches"] < MIN_TEAM_HISTORY_MATCHES:
+                debug(f"SKIP low home sample {m.get('homeName')}: {home_stats['total_team_matches']}")
+                continue
+
+            if away_stats["total_team_matches"] < MIN_TEAM_HISTORY_MATCHES:
+                debug(f"SKIP low away sample {m.get('awayName')}: {away_stats['total_team_matches']}")
+                continue
+
+            exp_home, exp_away, exp_total = expected_goals(home_stats, away_stats, league_stats)
+
+            total_probs = total_probs_from_expected(exp_total)
+            h2h_probs = h2h_probs_from_expected(exp_home, exp_away, league_stats)
+
+            # 1X2 candidates
+            h2h_market = europe_odds.get(match_id)
+            if h2h_market:
+                devig = devig_three_way(
+                    h2h_market["home"],
+                    h2h_market["draw"],
+                    h2h_market["away"],
+                )
+
+                if devig:
+                    h2h_candidates = [
+                        ("home", m.get("homeName"), h2h_market["home"], h2h_market["open_home"], h2h_probs["home"], devig["home_median"]),
+                        ("away", m.get("awayName"), h2h_market["away"], h2h_market["open_away"], h2h_probs["away"], devig["away_median"]),
+                    ]
+
+                    if ENABLE_DRAW:
+                        h2h_candidates.append(
+                            ("draw", "Draw", h2h_market["draw"], h2h_market["open_draw"], h2h_probs["draw"], devig["draw_median"])
+                        )
+
+                    for bucket, bet, odds_list, open_list, prob, median_odds in h2h_candidates:
+                        bookmakers = len(odds_list)
+                        if bookmakers < MIN_BOOKMAKERS_H2H:
+                            continue
+
+                        odds = best_odds(odds_list)
+                        if not odds:
+                            continue
+
+                        if odds < ODDS_MIN or odds > ODDS_MAX:
+                            continue
+
+                        open_median = median_or_none(open_list)
+                        prob = clamp(prob + movement_score(median_odds, open_median, bucket), 0.02, 0.95)
+
+                        edge = prob - (1 / odds)
+                        if edge < MIN_EDGE:
+                            continue
+
+                        pick = make_pick(
+                            match=m,
+                            bucket=bucket,
+                            bet=bet,
+                            line=None,
+                            odds=odds,
+                            median_odds=median_odds,
+                            model_prob=prob,
+                            bookmakers=bookmakers,
+                            exp_home=exp_home,
+                            exp_away=exp_away,
+                            expected_total=exp_total,
+                            league_stats=league_stats,
+                        )
+
+                        if pick["quality_score"] >= MIN_QUALITY_SCORE:
+                            candidates.append(pick)
+
+            # Over/Under 2.5 candidates
+            totals_market = over_under.get(match_id)
+            if totals_market:
+                line_data = totals_market.get(2.5)
+
+                if line_data:
+                    bookmakers = min(len(line_data["over"]), len(line_data["under"]))
+
+                    if bookmakers >= MIN_BOOKMAKERS_TOTALS:
+                        devig_total = devig_two_way(line_data["over"], line_data["under"])
+
+                        if devig_total:
+                            total_candidates = [
+                                ("over_2_5", "Over 2.5", line_data["over"], total_probs["over_2_5"], devig_total["over_median"]),
+                                ("under_2_5", "Under 2.5", line_data["under"], total_probs["under_2_5"], devig_total["under_median"]),
+                            ]
+
+                            for bucket, bet, odds_list, prob, median_odds in total_candidates:
+                                odds = best_odds(odds_list)
+                                if not odds:
+                                    continue
+
+                                if odds < ODDS_MIN or odds > ODDS_MAX:
+                                    continue
+
+                                edge = prob - (1 / odds)
+                                if edge < MIN_EDGE:
+                                    continue
+
+                                pick = make_pick(
+                                    match=m,
+                                    bucket=bucket,
+                                    bet=bet,
+                                    line=2.5,
+                                    odds=odds,
+                                    median_odds=median_odds,
+                                    model_prob=prob,
+                                    bookmakers=bookmakers,
+                                    exp_home=exp_home,
+                                    exp_away=exp_away,
+                                    expected_total=exp_total,
+                                    league_stats=league_stats,
+                                )
+
+                                if pick["quality_score"] >= MIN_QUALITY_SCORE:
+                                    candidates.append(pick)
+
+        except Exception as e:
+            debug(f"MATCH BUILD ERROR {m.get('homeName')} - {m.get('awayName')}: {e}")
+
+    candidates.sort(
+        key=lambda x: (
+            x["quality_score"],
+            x["confidence"],
+            x["edge"],
+            x["bookmakers_used"],
+            x["odds"],
+        ),
+        reverse=True,
+    )
+
+    debug("\nTOP CANDIDATES:")
+    for c in candidates[:20]:
+        debug(
+            f"{c['match']} | {c['bet']} | odds={c['odds']} | edge={c['edge']} | "
+            f"conf={c['confidence']} | q={c['quality_score']} | books={c['bookmakers_used']}"
+        )
+
+    final = []
+    used_matches = set()
+    counts = defaultdict(int)
+
+    for c in candidates:
+        if len(final) >= MAX_FINAL_PICKS:
+            break
+
+        if c["match_id"] in used_matches:
+            continue
+
+        bucket = c["bucket"]
+        if counts[bucket] >= MARKET_LIMITS.get(bucket, 1):
+            continue
+
+        final.append(c)
+        used_matches.add(c["match_id"])
+        counts[bucket] += 1
+
+    final.sort(key=lambda x: (x["date"], x["time"]))
+
+    debug("\nFINAL PICKS:")
+    for p in final:
+        debug(
+            f"{p['date']} {p['time']} | {p['match']} | {p['bet']} | "
+            f"odds={p['odds']} | edge={p['edge']} | conf={p['confidence']} | q={p['quality_score']}"
+        )
+
+    return final
 
 
 def main():
     predictions = build_predictions()
+
     save_json(PREDICTIONS_FILE, predictions)
+    append_unique_history(predictions)
 
-    added, history_total = update_history(predictions)
-
-    print(f"Saved {len(predictions)} predictions.")
-    print(f"Added {added} new picks to results.json.")
-    print(f"History total: {history_total}")
+    print(f"Saved {len(predictions)} predictions to {PREDICTIONS_FILE}.")
 
 
 if __name__ == "__main__":
