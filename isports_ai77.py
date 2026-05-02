@@ -753,6 +753,68 @@ def quality_score(edge, confidence, bookmakers, expected_total=None, line=None):
     return round(clamp(score, 1, 99), 1)
 
 
+def assign_stake_and_label(confidence, edge, bookmakers, odds):
+    """
+    AI77 staking logic:
+    Stake is not based only on confidence.
+
+    Factors:
+    - confidence
+    - edge
+    - bookmaker support
+    - odds risk
+
+    Public staking scale:
+    0.5u  = Research
+    0.75u = Small Value
+    1.0u  = Standard
+    1.25u = Strong
+    1.5u  = Top Rated
+    """
+
+    score = 0
+
+    if confidence >= 88:
+        score += 3
+    elif confidence >= 82:
+        score += 2
+    elif confidence >= 74:
+        score += 1
+
+    if edge >= 0.14:
+        score += 3
+    elif edge >= 0.10:
+        score += 2
+    elif edge >= 0.06:
+        score += 1
+
+    if bookmakers >= 15:
+        score += 2
+    elif bookmakers >= 8:
+        score += 1
+    elif 0 < bookmakers < 6:
+        score -= 1
+
+    if odds >= 3.20:
+        score -= 1
+    if odds >= 4.00:
+        score -= 2
+
+    if score >= 8:
+        return {"stake": 1.5, "stake_label": "Top Rated", "stake_score": score}
+
+    if score >= 6:
+        return {"stake": 1.25, "stake_label": "Strong", "stake_score": score}
+
+    if score >= 4:
+        return {"stake": 1.0, "stake_label": "Standard", "stake_score": score}
+
+    if score >= 2:
+        return {"stake": 0.75, "stake_label": "Small Value", "stake_score": score}
+
+    return {"stake": 0.5, "stake_label": "Research", "stake_score": score}
+
+
 def build_reasoning(match, bet, odds, median_odds, edge, bookmakers, exp_home, exp_away, expected_total, league_name):
     edge_pct = round(edge * 100, 1)
 
@@ -808,6 +870,13 @@ def make_pick(match, bucket, bet, line, odds, median_odds, model_prob, bookmaker
         line=line if bucket in {"over_2_5", "under_2_5"} else None,
     )
 
+    stake_info = assign_stake_and_label(
+        confidence=confidence,
+        edge=edge,
+        bookmakers=bookmakers,
+        odds=odds,
+    )
+
     return {
         "pick_id": build_pick_id(match.get("matchId"), bucket, bet, line),
         "match_id": match.get("matchId"),
@@ -833,7 +902,9 @@ def make_pick(match, bucket, bet, line, odds, median_odds, model_prob, bookmaker
         "bookmakers_used": bookmakers,
         "confidence": confidence,
         "quality_score": quality,
-        "stake": 1,
+        "stake": stake_info["stake"],
+        "stake_label": stake_info["stake_label"],
+        "stake_score": stake_info["stake_score"],
         "result": "pending",
         "reasoning": build_reasoning(
             match=match_name,
@@ -855,25 +926,46 @@ def append_unique_history(predictions):
     if not isinstance(history, list):
         history = []
 
-    existing = {
-        item.get("pick_id")
-        for item in history
-        if isinstance(item, dict)
-    }
+    by_id = {}
 
-    added = 0
-
-    for pick in predictions:
-        if pick["pick_id"] in existing:
+    for index, item in enumerate(history):
+        if not isinstance(item, dict):
             continue
 
-        history.append(pick.copy())
-        existing.add(pick["pick_id"])
-        added += 1
+        pick_id = item.get("pick_id")
+        if pick_id:
+            by_id[pick_id] = index
+
+    added = 0
+    updated_pending = 0
+
+    for pick in predictions:
+        pick_id = pick.get("pick_id")
+
+        if not pick_id:
+            continue
+
+        if pick_id not in by_id:
+            history.append(pick.copy())
+            by_id[pick_id] = len(history) - 1
+            added += 1
+            continue
+
+        existing_index = by_id[pick_id]
+        existing_pick = history[existing_index]
+
+        if existing_pick.get("result") == "pending":
+            old_result = existing_pick.get("result", "pending")
+
+            updated_pick = pick.copy()
+            updated_pick["result"] = old_result
+
+            history[existing_index] = updated_pick
+            updated_pending += 1
 
     save_json(RESULTS_FILE, history)
 
-    debug(f"HISTORY added={added} total={len(history)}")
+    debug(f"HISTORY added={added} updated_pending={updated_pending} total={len(history)}")
 
 
 def build_predictions():
@@ -974,7 +1066,6 @@ def build_predictions():
             total_probs = total_probs_from_expected(exp_total)
             h2h_probs = h2h_probs_from_expected(exp_home, exp_away, league_stats)
 
-            # 1X2 candidates
             h2h_market = europe_odds.get(match_id)
             if h2h_market:
                 devig = devig_three_way(
@@ -1031,7 +1122,6 @@ def build_predictions():
                         if pick["quality_score"] >= MIN_QUALITY_SCORE:
                             candidates.append(pick)
 
-            # Over/Under 2.5 candidates
             totals_market = over_under.get(match_id)
             if totals_market:
                 line_data = totals_market.get(2.5)
@@ -1096,7 +1186,8 @@ def build_predictions():
     for c in candidates[:20]:
         debug(
             f"{c['match']} | {c['bet']} | odds={c['odds']} | edge={c['edge']} | "
-            f"conf={c['confidence']} | q={c['quality_score']} | books={c['bookmakers_used']}"
+            f"conf={c['confidence']} | q={c['quality_score']} | books={c['bookmakers_used']} | "
+            f"stake={c['stake']} | label={c['stake_label']} | stake_score={c['stake_score']}"
         )
 
     final = []
@@ -1124,7 +1215,9 @@ def build_predictions():
     for p in final:
         debug(
             f"{p['date']} {p['time']} | {p['match']} | {p['bet']} | "
-            f"odds={p['odds']} | edge={p['edge']} | conf={p['confidence']} | q={p['quality_score']}"
+            f"odds={p['odds']} | edge={p['edge']} | conf={p['confidence']} | "
+            f"q={p['quality_score']} | stake={p['stake']} | label={p['stake_label']} | "
+            f"stake_score={p['stake_score']}"
         )
 
     return final
