@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI77 Sports Lab® | Results</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="results.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KFTVFSQCYQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-KFTVFSQCYQ');
+</script>
+<body>
+  <header>
+    <h1>📊 AI77 Results</h1>
+    <p>Transparent tracking. Real performance. No hidden history.</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="predictions.html">Match Predictions</a>
+    <a href="results.html">Results</a>
+    <a href="reviews.html">Bookmaker Reviews</a>
+    <a href="strategy.html">Betting Strategies</a>
+  </nav>
+
+  <main class="results-container">
+    <section class="results-hero">
+      <span>AI77 Performance Dashboard</span>
+      <h2>Live model record</h2>
+      <p>Only settled picks count toward profit, ROI and hit rate. Pending picks are tracked separately.</p>
+    </section>
+
+    <section id="results-summary" class="results-summary-grid"></section>
+
+    <section class="chart-section">
+      <div class="chart-card">
+        <div class="section-title">
+          <h3>Profit Growth</h3>
+          <p>Running profit in units over time.</p>
+        </div>
+        <canvas id="profitGrowthChart"></canvas>
+      </div>
+
+      <div class="chart-card">
+        <div class="section-title">
+          <h3>Market ROI</h3>
+          <p>ROI grouped by pick market.</p>
+        </div>
+        <canvas id="marketRoiChart"></canvas>
+      </div>
+    </section>
+
+    <section class="results-grid-two">
+      <div class="table-card">
+        <div class="section-title">
+          <h3>Performance by Market</h3>
+          <p>Home, away and totals tracked separately.</p>
+        </div>
+        <div id="market-table"></div>
+      </div>
+
+      <div class="table-card">
+        <div class="section-title">
+          <h3>Performance by Rating Band</h3>
+          <p>How each confidence band performs.</p>
+        </div>
+        <div id="rating-table"></div>
+      </div>
+    </section>
+
+    <section class="table-card">
+      <div class="section-title">
+        <h3>Recent Results</h3>
+        <p>Main result data is visible. Detailed model data opens on click.</p>
+      </div>
+      <div id="recent-results"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="site-footer__bottom">
+      <p>© 2025 AI-77 Betting. All rights reserved.</p>
+      <p>Disclaimer: Betting involves risk. Please gamble responsibly. This website is intended for users aged 18+ only.</p>
+      <p>🔞 18+</p>
+    </div>
+  </footer>
+
+  <script src="results.js" defer></script>
+</body>
+</html>
