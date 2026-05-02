@@ -15,37 +15,95 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-function getConfidenceData(confidence) {
-  const conf = Number(confidence || 0);
+/*
+  AI77 staking logic:
+  Stake is NOT based only on confidence.
+  It uses:
+  - confidence
+  - edge
+  - bookmaker support
+  - odds risk
 
-  if (conf < 51) {
+  Public stake scale:
+  0.5u  = Research
+  0.75u = Small Value
+  1.0u  = Standard
+  1.25u = Strong
+  1.5u  = Top Rated
+*/
+function getConfidenceData(confidence, pick) {
+  const conf = Number(confidence || 0);
+  const edge = Number(pick.edge || 0);
+  const bookmakers = Number(pick.bookmakers_used || 0);
+  const odds = Number(pick.odds || 0);
+
+  let score = 0;
+
+  // Confidence component
+  if (conf >= 88) score += 3;
+  else if (conf >= 82) score += 2;
+  else if (conf >= 74) score += 1;
+
+  // Edge component
+  if (edge >= 0.14) score += 3;
+  else if (edge >= 0.10) score += 2;
+  else if (edge >= 0.06) score += 1;
+
+  // Bookmaker support component
+  if (bookmakers >= 15) score += 2;
+  else if (bookmakers >= 8) score += 1;
+  else if (bookmakers > 0 && bookmakers < 6) score -= 1;
+
+  // Odds risk penalty
+  if (odds >= 3.20) score -= 1;
+  if (odds >= 4.00) score -= 2;
+
+  if (score >= 8) {
     return {
-      label: "🟡 Research",
-      units: "💸 0.5u",
-      color: "#ffc107"
+      label: "🏆 Top Rated",
+      units: "1.5u",
+      color: "#d4af37",
+      stakeUnits: 1.5,
+      stakeScore: score
     };
   }
 
-  if (conf < 76) {
+  if (score >= 6) {
     return {
       label: "🟢 Strong",
-      units: "💸 1u",
-      color: "#28a745"
+      units: "1.25u",
+      color: "#28a745",
+      stakeUnits: 1.25,
+      stakeScore: score
     };
   }
 
-  if (conf < 100) {
+  if (score >= 4) {
     return {
-      label: "🔥 Very Strong",
-      units: "💸 2u",
-      color: "#d4af37"
+      label: "🔵 Standard",
+      units: "1u",
+      color: "#0077b6",
+      stakeUnits: 1,
+      stakeScore: score
+    };
+  }
+
+  if (score >= 2) {
+    return {
+      label: "🟡 Small Value",
+      units: "0.75u",
+      color: "#ffc107",
+      stakeUnits: 0.75,
+      stakeScore: score
     };
   }
 
   return {
-    label: "🏆 Elite",
-    units: "💸 3u",
-    color: "#e74c3c"
+    label: "⚪ Research",
+    units: "0.5u",
+    color: "#999999",
+    stakeUnits: 0.5,
+    stakeScore: score
   };
 }
 
@@ -150,7 +208,7 @@ function renderPredictions(data) {
 
   data.forEach((p, index) => {
     const confidence = Number(p.confidence || p.confidence_score || 0);
-    const conf = getConfidenceData(confidence);
+    const conf = getConfidenceData(confidence, p);
     const kickoff = getKickoffStatus(p.date, p.time);
 
     const sport = p.sport || "football";
@@ -209,7 +267,7 @@ function renderPredictions(data) {
       <canvas id="chart${index}"></canvas>
 
       <p class="confidence-label" style="color:${conf.color}">
-        ${conf.label} • ${conf.units}
+        ${conf.label} • Suggested stake: ${conf.stakeUnits}u
       </p>
 
       <a href="https://stzns.lynmonkel.com/?mid=309891_1838278" class="btn" target="_blank" rel="nofollow sponsored">
@@ -282,16 +340,10 @@ async function loadStats() {
 
     const dailyProfit = {};
 
-    function getStake(p) {
-      if (typeof p.stake === "number" && p.stake > 0) {
-        return p.stake;
-      }
-
-      const conf = Number(p.confidence || p.confidence_score || 0);
-
-      if (conf >= 76) return 2;
-      if (conf >= 51) return 1;
-      return 0.5;
+    function getStakeForResults(p) {
+      const confidence = Number(p.confidence || p.confidence_score || 0);
+      const conf = getConfidenceData(confidence, p);
+      return Number(conf.stakeUnits || 1);
     }
 
     data.forEach(p => {
@@ -302,7 +354,7 @@ async function loadStats() {
       }
 
       const odds = Number(p.odds || 0);
-      const stake = getStake(p);
+      const stake = getStakeForResults(p);
       const dateKey = p.date || "Unknown";
 
       settled++;
