@@ -328,3 +328,311 @@ canvas {
   font-size: 14px;
   color: #aaa;
 }
+
+#last-updated {
+  text-align: center;
+  color: #666;
+  font-weight: 600;
+  margin: 20px 0;
+}
+
+.ai77-board-summary {
+  background: linear-gradient(135deg, #111827, #1f2937);
+  color: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  margin-bottom: 28px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+}
+
+.ai77-board-summary h2 {
+  text-align: left;
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+.ai77-board-summary p {
+  color: #d1d5db;
+  margin-bottom: 22px;
+}
+
+.ai77-eyebrow {
+  display: inline-block;
+  color: #d4af37;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 10px;
+}
+
+.ai77-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.ai77-metric {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.ai77-metric small {
+  display: block;
+  color: #9ca3af;
+  font-size: 0.78rem;
+  margin-bottom: 4px;
+}
+
+.ai77-metric strong {
+  display: block;
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.ai77-metric.positive strong {
+  color: #16a34a;
+}
+
+.ai77-prediction-list {
+  display: grid;
+  gap: 24px;
+}
+
+.ai77-prediction-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.ai77-prediction-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 5px;
+  background: #0077b6;
+}
+
+.ai77-prediction-card.grade-top::before {
+  background: #d4af37;
+}
+
+.ai77-prediction-card.grade-strong::before {
+  background: #28a745;
+}
+
+.ai77-prediction-card.grade-standard::before {
+  background: #0077b6;
+}
+
+.ai77-prediction-card.grade-research::before {
+  background: #ffc107;
+}
+
+.ai77-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.ai77-card-top h3 {
+  text-align: left;
+  font-size: 1.45rem;
+  margin: 8px 0 6px;
+  color: #111827;
+}
+
+.ai77-league-line {
+  color: #6b7280;
+  margin: 0;
+  font-weight: 600;
+}
+
+.ai77-market-tag {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #eef6ff;
+  color: #0077b6;
+  font-weight: 800;
+  font-size: 0.82rem;
+}
+
+.ai77-rating-box {
+  width: 110px;
+  min-width: 110px;
+  text-align: center;
+  position: relative;
+}
+
+.ai77-rating-box canvas {
+  display: block;
+  margin: 0 auto 6px;
+}
+
+.ai77-rating-box strong {
+  display: block;
+  font-size: 1.45rem;
+  color: #111827;
+}
+
+.ai77-rating-box span {
+  color: #6b7280;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.ai77-kickoff {
+  display: inline-block;
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.ai77-main-pick {
+  display: grid;
+  grid-template-columns: 1.5fr 0.7fr 0.8fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ai77-main-pick div {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.ai77-main-pick small,
+.ai77-metrics-grid small {
+  display: block;
+  color: #6b7280;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.ai77-main-pick strong {
+  display: block;
+  color: #111827;
+  font-size: 1.2rem;
+}
+
+.ai77-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.ai77-metrics-grid .ai77-metric {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
+.ai77-metrics-grid .ai77-metric strong {
+  color: #111827;
+}
+
+.ai77-metrics-grid .ai77-metric.positive strong {
+  color: #16a34a;
+}
+
+.ai77-projection {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  color: #075985;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.ai77-projection span {
+  display: block;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.ai77-projection strong {
+  font-size: 1rem;
+}
+
+.ai77-analysis {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 14px;
+  margin-bottom: 18px;
+}
+
+.ai77-analysis summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 10px;
+}
+
+.ai77-analysis p {
+  color: #4b5563;
+  margin: 0;
+}
+
+.ai77-odds-btn {
+  margin-top: 6px;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .ai77-summary-grid,
+  .ai77-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ai77-main-pick {
+    grid-template-columns: 1fr;
+  }
+
+  .ai77-card-top {
+    flex-direction: column;
+  }
+
+  .ai77-rating-box {
+    width: 100%;
+    min-width: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 600px) {
+  .ai77-summary-grid,
+  .ai77-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ai77-board-summary {
+    padding: 22px;
+  }
+
+  .ai77-board-summary h2 {
+    font-size: 1.5rem;
+  }
+
+  .ai77-prediction-card {
+    padding: 20px;
+  }
+}
