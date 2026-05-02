@@ -466,3 +466,128 @@ body {
     font-size: 1.05rem;
   }
 }
+
+/* ================================
+   HARD FIX - PREDICTIONS PAGE ONLY
+================================ */
+
+.predictions-page,
+.predictions-page * {
+  box-sizing: border-box;
+}
+
+.predictions-page {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.predictions-page header {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.predictions-page .predictions-nav {
+  width: 100%;
+  max-width: 100%;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  padding: 12px !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  background: #1e1e1e;
+}
+
+.predictions-page .predictions-nav a {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  line-height: 1.25 !important;
+  font-size: 1rem !important;
+  padding: 13px 8px !important;
+  border-radius: 8px !important;
+}
+
+.predictions-page .full-width-banner,
+.predictions-page .how-we-play,
+.predictions-page .mini-results-wrap,
+.predictions-page .predictions-container,
+.predictions-page .affiliate-banners,
+.predictions-page footer {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.predictions-page .full-width-banner img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.predictions-page .how-we-play {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.predictions-page .how-we-play h2 {
+  font-size: clamp(1.45rem, 7vw, 2rem);
+  line-height: 1.25;
+}
+
+.predictions-page .container,
+.predictions-page .predictions-container {
+  width: 100%;
+  max-width: 1200px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.predictions-page .mini-results-card {
+  grid-template-columns: 1fr !important;
+}
+
+.predictions-page .clean-board-header,
+.predictions-page .clean-prediction-card {
+  width: 100%;
+  max-width: 100%;
+}
+
+.predictions-page .affiliate-banners {
+  flex-wrap: wrap;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.predictions-page .affiliate-banners img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (min-width: 800px) {
+  .predictions-page .predictions-nav {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    padding: 15px !important;
+  }
+
+  .predictions-page .predictions-nav a {
+    width: auto !important;
+    padding: 10px 20px !important;
+    font-size: 1.2rem !important;
+  }
+
+  .predictions-page .mini-results-card {
+    grid-template-columns: repeat(5, 1fr) auto !important;
+  }
+}
