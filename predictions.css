@@ -404,3 +404,131 @@
     font-size: 1.25rem;
   }
 }
+
+/* === MOBILE FIX FOR PREDICTIONS PAGE === */
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Header mobile sizing */
+header {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+header h1 {
+  font-size: clamp(2rem, 11vw, 3.4rem);
+  line-height: 1.15;
+  max-width: 100%;
+  word-break: normal;
+}
+
+header p {
+  font-size: clamp(1.1rem, 6vw, 1.6rem);
+  line-height: 1.35;
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Fix nav overflow on mobile */
+nav {
+  width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px;
+  overflow: hidden;
+}
+
+nav a {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+  padding: 12px 8px;
+  line-height: 1.25;
+  white-space: normal;
+  text-align: center;
+}
+
+/* Banner safety */
+.full-width-banner {
+  width: 100%;
+  overflow: hidden;
+}
+
+.full-width-banner img {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* How model section mobile fix */
+.how-we-play {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 40px 18px;
+  overflow: hidden;
+}
+
+.how-we-play h2 {
+  font-size: clamp(1.55rem, 8vw, 2.1rem);
+  line-height: 1.25;
+  max-width: 100%;
+  word-break: normal;
+}
+
+/* Main container safety */
+.predictions-container,
+.container {
+  width: min(calc(100% - 24px), 1200px);
+  max-width: 1200px;
+  box-sizing: border-box;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Mini stats safety */
+.mini-results-wrap {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 12px;
+}
+
+.mini-results-card {
+  grid-template-columns: 1fr;
+}
+
+/* Cards safety */
+.clean-board-header,
+.clean-prediction-card {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.clean-card-top,
+.rating-ring {
+  width: 100%;
+}
+
+@media (min-width: 760px) {
+  nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    width: auto;
+    font-size: 1.1rem;
+    padding: 10px 18px;
+  }
+
+  .mini-results-card {
+    grid-template-columns: repeat(5, 1fr) auto;
+  }
+}
