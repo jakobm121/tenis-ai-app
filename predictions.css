@@ -1,5 +1,6 @@
 /* ================================
    AI77 PREDICTIONS PAGE CLEAN FIX
+   Matches existing style.css layout
 ================================ */
 
 .predictions-page,
@@ -17,7 +18,7 @@
 /* Own hero, not global header */
 .pred-hero {
   width: 100%;
-  min-height: 360px;
+  min-height: 190px;
   background: url("banner.png") center/cover no-repeat;
   display: flex;
   align-items: center;
@@ -27,21 +28,21 @@
 
 .pred-hero-overlay {
   width: 100%;
-  padding: 60px 20px;
-  background: rgba(0, 0, 0, 0.22);
+  padding: 38px 20px;
+  background: rgba(0, 0, 0, 0.28);
 }
 
 .pred-hero h1 {
   color: #fff;
-  font-size: clamp(2.6rem, 8vw, 5rem);
+  font-size: clamp(1.9rem, 7vw, 3rem);
   line-height: 1.15;
-  margin: 0 0 20px;
+  margin: 0 0 14px;
   text-align: center;
 }
 
 .pred-hero p {
   color: #ffd700;
-  font-size: clamp(1.25rem, 4.8vw, 2.2rem);
+  font-size: clamp(1rem, 4.2vw, 1.45rem);
   line-height: 1.35;
   margin: 0 auto;
   max-width: 900px;
@@ -458,11 +459,11 @@
 /* Mobile */
 @media (max-width: 800px) {
   .pred-hero {
-    min-height: 300px;
+    min-height: 210px;
   }
 
   .pred-hero-overlay {
-    padding: 55px 16px;
+    padding: 42px 16px;
   }
 
   .pred-nav {
@@ -481,7 +482,40 @@
   }
 
   .mini-results-card {
-    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100%;
+    display: block !important;
+    padding: 18px;
+    overflow: visible;
+  }
+
+  .mini-results-card > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .mini-results-card > div:last-of-type {
+    border-bottom: 0;
+  }
+
+  .mini-results-card span {
+    font-size: 0.86rem;
+  }
+
+  .mini-results-card strong {
+    font-size: 1.05rem;
+    text-align: right;
+  }
+
+  .mini-results-card a {
+    display: block;
+    width: 100%;
+    margin-top: 14px;
+    padding: 12px 14px;
   }
 
   .clean-board-stats,
@@ -530,54 +564,10 @@
   }
 
   .pred-hero {
-    min-height: 280px;
-  }
-}
-
-/* FINAL MOBILE FIX - mini stats */
-@media (max-width: 800px) {
-  .mini-results-wrap {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto 28px;
-    padding: 0 16px;
-    overflow: visible;
+    min-height: 200px;
   }
 
-  .mini-results-card {
-    width: 100%;
-    max-width: 100%;
-    display: block !important;
-    padding: 18px;
-    overflow: visible;
-  }
-
-  .mini-results-card > div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid #e5e5e5;
-  }
-
-  .mini-results-card > div:last-of-type {
-    border-bottom: 0;
-  }
-
-  .mini-results-card span {
-    font-size: 0.86rem;
-  }
-
-  .mini-results-card strong {
-    font-size: 1.05rem;
-    text-align: right;
-  }
-
-  .mini-results-card a {
-    display: block;
-    width: 100%;
-    margin-top: 14px;
-    padding: 12px 14px;
+  .pred-hero-overlay {
+    padding: 36px 14px;
   }
 }
