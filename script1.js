@@ -16,22 +16,58 @@ function escapeHtml(value) {
 }
 
 /*
-  AI77 staking logic:
-  Stake is NOT based only on confidence.
-  It uses:
+  AI77 staking logic.
+
+  Primary source:
+  - stake
+  - stake_label
+  - stake_score
+
+  These now come from isports_ai77.py.
+
+  Fallback:
+  If old picks do not have stake data, the frontend calculates it from:
   - confidence
   - edge
   - bookmaker support
   - odds risk
-
-  Public stake scale:
-  0.5u  = Research
-  0.75u = Small Value
-  1.0u  = Standard
-  1.25u = Strong
-  1.5u  = Top Rated
 */
-function getConfidenceData(confidence, pick) {
+function getConfidenceData(confidence, pick = {}) {
+  const jsonStake = Number(pick.stake || 0);
+  const jsonLabel = String(pick.stake_label || "").trim();
+  const jsonScore = Number(pick.stake_score || 0);
+
+  if (jsonStake > 0 && jsonLabel) {
+    let color = "#999999";
+    let label = "⚪ Research";
+
+    if (jsonLabel === "Top Rated") {
+      label = "🏆 Top Rated";
+      color = "#d4af37";
+    } else if (jsonLabel === "Strong") {
+      label = "🟢 Strong";
+      color = "#28a745";
+    } else if (jsonLabel === "Standard") {
+      label = "🔵 Standard";
+      color = "#0077b6";
+    } else if (jsonLabel === "Small Value") {
+      label = "🟡 Small Value";
+      color = "#ffc107";
+    } else if (jsonLabel === "Research") {
+      label = "⚪ Research";
+      color = "#999999";
+    }
+
+    return {
+      label,
+      units: `${jsonStake}u`,
+      color,
+      stakeUnits: jsonStake,
+      stakeScore: jsonScore
+    };
+  }
+
+  // Fallback for older picks without stake/stake_label.
   const conf = Number(confidence || 0);
   const edge = Number(pick.edge || 0);
   const bookmakers = Number(pick.bookmakers_used || 0);
@@ -39,22 +75,18 @@ function getConfidenceData(confidence, pick) {
 
   let score = 0;
 
-  // Confidence component
   if (conf >= 88) score += 3;
   else if (conf >= 82) score += 2;
   else if (conf >= 74) score += 1;
 
-  // Edge component
   if (edge >= 0.14) score += 3;
   else if (edge >= 0.10) score += 2;
   else if (edge >= 0.06) score += 1;
 
-  // Bookmaker support component
   if (bookmakers >= 15) score += 2;
   else if (bookmakers >= 8) score += 1;
   else if (bookmakers > 0 && bookmakers < 6) score -= 1;
 
-  // Odds risk penalty
   if (odds >= 3.20) score -= 1;
   if (odds >= 4.00) score -= 2;
 
@@ -341,6 +373,12 @@ async function loadStats() {
     const dailyProfit = {};
 
     function getStakeForResults(p) {
+      const jsonStake = Number(p.stake || 0);
+
+      if (jsonStake > 0) {
+        return jsonStake;
+      }
+
       const confidence = Number(p.confidence || p.confidence_score || 0);
       const conf = getConfidenceData(confidence, p);
       return Number(conf.stakeUnits || 1);
