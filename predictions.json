@@ -139,9 +139,9 @@
         "line": null,
         "odds": 2.77,
         "market_median_odds": 2.54,
-        "model_prob": 0.4972,
+        "model_prob": 0.498,
         "implied_prob": 0.361,
-        "edge": 0.1362,
+        "edge": 0.137,
         "expected_home_goals": 1.22,
         "expected_away_goals": 1.76,
         "expected_total_goals": 2.98,
@@ -152,6 +152,6 @@
         "stake_label": "Strong",
         "stake_score": 7,
         "result": "pending",
-        "reasoning": "Thun is selected as a side-value position in Switzerland Super League. The expected goals profile is 1.22 - 1.76. The best price is 2.77, while the market median is around 2.54, creating an estimated value gap of +13.6% across 17 bookmakers."
+        "reasoning": "Thun is selected as a side-value position in Switzerland Super League. The expected goals profile is 1.22 - 1.76. The best price is 2.77, while the market median is around 2.54, creating an estimated value gap of +13.7% across 17 bookmakers."
     }
 ]
