@@ -10,12 +10,14 @@ TZ_NAME = "Europe/Ljubljana"
 TODAY = datetime.now(ZoneInfo(TZ_NAME)).strftime("%Y-%m-%d")
 REQUEST_TIMEOUT = 30
 
-BASE_URLS = [
-    "https://v1.basketball.api-sports.io",
-    "https://v1.api-basketball.com",
-]
+BASE_URL = "https://v1.basketball.api-sports.io"
 
 TESTS = [
+    {
+        "name": "status",
+        "endpoint": "/status",
+        "params": {},
+    },
     {
         "name": "leagues",
         "endpoint": "/leagues",
@@ -32,12 +34,12 @@ TESTS = [
         "params": {"date": TODAY},
     },
     {
-        "name": "bets",
+        "name": "odds_bets",
         "endpoint": "/odds/bets",
         "params": {},
     },
     {
-        "name": "bookmakers",
+        "name": "odds_bookmakers",
         "endpoint": "/odds/bookmakers",
         "params": {},
     },
@@ -45,10 +47,12 @@ TESTS = [
 
 
 def headers():
-    return {"x-apisports-key": API_KEY}
+    return {
+        "x-apisports-key": API_KEY
+    }
 
 
-def preview(obj, limit=1200):
+def preview(obj, limit=1500):
     try:
         text = json.dumps(obj, ensure_ascii=False)
     except Exception:
@@ -60,8 +64,8 @@ def preview(obj, limit=1200):
     return text
 
 
-def call_api(base_url, endpoint, params):
-    url = base_url + endpoint
+def call_api(endpoint, params):
+    url = BASE_URL + endpoint
 
     response = requests.get(
         url,
@@ -72,7 +76,7 @@ def call_api(base_url, endpoint, params):
 
     print()
     print("=" * 100)
-    print("BASE:", base_url)
+    print("BASE:", BASE_URL)
     print("ENDPOINT:", endpoint)
     print("PARAMS:", params)
     print("STATUS:", response.status_code)
@@ -93,6 +97,7 @@ def call_api(base_url, endpoint, params):
 
 def inspect_response(name, data):
     if not isinstance(data, dict):
+        print("Response is not dict.")
         return
 
     print()
@@ -104,7 +109,19 @@ def inspect_response(name, data):
 
     errors = data.get("errors")
     if errors:
-        print("ERRORS:", errors)
+        print("ERRORS:", preview(errors, 1200))
+
+    parameters = data.get("parameters")
+    if parameters is not None:
+        print("PARAMETERS:", preview(parameters, 800))
+
+    results = data.get("results")
+    if results is not None:
+        print("RESULTS:", results)
+
+    paging = data.get("paging")
+    if paging is not None:
+        print("PAGING:", preview(paging, 800))
 
     response = data.get("response")
 
@@ -118,18 +135,65 @@ def inspect_response(name, data):
             print("FIRST ITEM:")
             print(preview(first, 2500))
 
+            if name == "games_today":
+                inspect_game_item(first)
+
             if name == "odds_today":
                 inspect_odds_item(first)
+
+            if name == "odds_bets":
+                inspect_bets(response)
 
     elif isinstance(response, dict):
         print("RESPONSE TYPE: dict")
         print("RESPONSE KEYS:", list(response.keys()))
         print("RESPONSE:")
-        print(preview(response, 2000))
+        print(preview(response, 2500))
 
     else:
         print("RESPONSE TYPE:", type(response).__name__)
         print("RESPONSE:", response)
+
+
+def inspect_game_item(item):
+    print()
+    print("-" * 100)
+    print("GAME ITEM DEEP INSPECTION")
+    print("-" * 100)
+
+    if not isinstance(item, dict):
+        return
+
+    print("TOP KEYS:", list(item.keys()))
+
+    for key in ["id", "date", "time", "timestamp", "timezone"]:
+        if key in item:
+            print(f"{key}:", item.get(key))
+
+    for key in ["league", "country", "teams", "scores", "status"]:
+        if key in item:
+            print(f"{key.upper()}:")
+            print(preview(item.get(key), 1500))
+
+
+def inspect_bets(response):
+    print()
+    print("-" * 100)
+    print("ODDS BETS INSPECTION")
+    print("-" * 100)
+
+    if not isinstance(response, list):
+        return
+
+    print("BET TYPES COUNT:", len(response))
+
+    for bet in response[:80]:
+        if isinstance(bet, dict):
+            bet_id = bet.get("id")
+            name = bet.get("name")
+            print(f"{bet_id} | {name}")
+        else:
+            print(bet)
 
 
 def inspect_odds_item(item):
@@ -147,21 +211,25 @@ def inspect_odds_item(item):
     game = item.get("game")
     bookmakers = item.get("bookmakers")
 
-    print("LEAGUE:", preview(league, 600))
-    print("GAME:", preview(game, 900))
+    print("LEAGUE:")
+    print(preview(league, 800))
+
+    print("GAME:")
+    print(preview(game, 1200))
 
     if isinstance(bookmakers, list):
         print("BOOKMAKERS LEN:", len(bookmakers))
 
-        for bm in bookmakers[:3]:
+        for bm in bookmakers[:5]:
             print()
+            print("-" * 70)
             print("BOOKMAKER:", bm.get("name") or bm.get("id"))
             bets = bm.get("bets", [])
             print("BETS LEN:", len(bets))
 
-            for bet in bets[:10]:
+            for bet in bets[:20]:
                 print("BET:")
-                print(preview(bet, 1200))
+                print(preview(bet, 1500))
 
 
 def save_output(all_results):
@@ -186,30 +254,26 @@ def main():
 
     all_results = {}
 
-    for base_url in BASE_URLS:
-        all_results[base_url] = {}
+    for test in TESTS:
+        name = test["name"]
+        endpoint = test["endpoint"]
+        params = test["params"]
 
-        for test in TESTS:
-            name = test["name"]
-            endpoint = test["endpoint"]
-            params = test["params"]
+        try:
+            data = call_api(endpoint, params)
+            all_results[name] = data
+            inspect_response(name, data)
 
-            try:
-                data = call_api(base_url, endpoint, params)
-                all_results[base_url][name] = data
-                inspect_response(name, data)
+        except Exception as e:
+            print()
+            print("=" * 100)
+            print("ERROR")
+            print("ENDPOINT:", endpoint)
+            print("ERROR:", e)
 
-            except Exception as e:
-                print()
-                print("=" * 100)
-                print("ERROR")
-                print("BASE:", base_url)
-                print("ENDPOINT:", endpoint)
-                print("ERROR:", e)
-
-                all_results[base_url][name] = {
-                    "error": str(e),
-                }
+            all_results[name] = {
+                "error": str(e),
+            }
 
     save_output(all_results)
 
