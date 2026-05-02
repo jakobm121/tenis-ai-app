@@ -6,11 +6,517 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="predictions.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    html,
+    body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden !important;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .page-hero {
+      width: 100%;
+      min-height: 190px;
+      background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)), url("banner.png") center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 34px 16px;
+    }
+
+    .page-hero h1 {
+      color: #fff;
+      font-size: clamp(2rem, 7vw, 3.2rem);
+      line-height: 1.15;
+      margin: 0 0 12px;
+      text-align: center;
+    }
+
+    .page-hero p {
+      color: #ffd700;
+      font-size: clamp(1rem, 4vw, 1.45rem);
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    .page-nav {
+      width: 100%;
+      background: #1e1e1e;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      padding: 14px;
+    }
+
+    .page-nav a {
+      background: #2c2c2c;
+      color: #f8f9fa;
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1.2;
+      padding: 13px 10px;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .page-nav a:hover {
+      background: #444;
+      color: #00b4d8;
+    }
+
+    .top-banner {
+      width: 100%;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-banner img {
+      width: 100%;
+      height: auto;
+      max-height: 110px;
+      object-fit: cover;
+      display: block;
+      border: 0;
+    }
+
+    #last-updated {
+      text-align: center;
+      color: #666;
+      font-weight: 700;
+      margin: 24px 0 18px;
+    }
+
+    .mini-results-wrap {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto 28px;
+      padding: 0 18px;
+      overflow: hidden;
+    }
+
+    .mini-results-card {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-left: 5px solid #0077b6;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr)) auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .mini-results-card span {
+      display: block;
+      color: #666;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .mini-results-card strong {
+      color: #222;
+      font-size: 1.12rem;
+    }
+
+    .mini-results-card a {
+      background: #0077b6;
+      color: #fff;
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 10px 14px;
+      text-align: center;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .positive-text {
+      color: #28a745 !important;
+    }
+
+    .negative-text {
+      color: #dc3545 !important;
+    }
+
+    .predictions-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 34px 18px 55px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .clean-board-header {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-left: 5px solid #0077b6;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      max-width: 100%;
+    }
+
+    .clean-board-header span {
+      display: inline-block;
+      color: #0077b6;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+
+    .clean-board-header h2 {
+      text-align: left;
+      color: #222;
+      font-size: 1.8rem;
+      margin: 10px 0;
+    }
+
+    .clean-board-header p {
+      color: #555;
+      margin-bottom: 18px;
+    }
+
+    .clean-board-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+    }
+
+    .clean-board-stats div {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .clean-board-stats small {
+      display: block;
+      color: #666;
+      font-weight: 700;
+    }
+
+    .clean-board-stats strong {
+      color: #0077b6;
+      font-size: 1.25rem;
+    }
+
+    .clean-prediction-list {
+      display: grid;
+      gap: 26px;
+    }
+
+    .clean-prediction-card {
+      background: linear-gradient(145deg, #ffffff, #f4f4f4);
+      border: 1px solid #d6d6d6;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+      max-width: 100%;
+    }
+
+    .clean-prediction-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 5px;
+      background: #0077b6;
+    }
+
+    .clean-prediction-card.grade-top::before {
+      background: #d4af37;
+    }
+
+    .clean-prediction-card.grade-strong::before {
+      background: #28a745;
+    }
+
+    .clean-prediction-card.grade-standard::before {
+      background: #0077b6;
+    }
+
+    .clean-prediction-card.grade-research::before {
+      background: #ffc107;
+    }
+
+    .clean-card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .clean-card-top h3 {
+      text-align: left;
+      font-size: 1.45rem;
+      margin: 10px 0 8px;
+      color: #1a1a1a;
+    }
+
+    .clean-card-top p {
+      color: #555;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .market-pill {
+      display: inline-flex;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: #e8f4fb;
+      color: #0077b6;
+      border: 1px solid #cce8f7;
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    .rating-ring {
+      width: 100px;
+      min-width: 100px;
+      text-align: center;
+    }
+
+    .rating-ring canvas {
+      display: block;
+      margin: 0 auto 5px;
+    }
+
+    .rating-ring strong {
+      display: block;
+      font-size: 1.3rem;
+      color: #222;
+    }
+
+    .rating-ring span {
+      color: #666;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .kickoff-pill {
+      display: inline-block;
+      background: #fff7e6;
+      color: #b86b00;
+      border: 1px solid #ffd58a;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .pick-strip {
+      display: grid;
+      grid-template-columns: 1.4fr 0.6fr 0.8fr 0.8fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .pick-strip div {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .pick-strip small {
+      display: block;
+      color: #666;
+      font-weight: 700;
+    }
+
+    .pick-strip strong {
+      color: #222;
+      font-size: 1.1rem;
+    }
+
+    .short-note {
+      background: #fff;
+      border-left: 4px solid #0077b6;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .short-note strong {
+      color: #0077b6;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+    }
+
+    .short-note p {
+      margin: 7px 0 0;
+      color: #444;
+      line-height: 1.55;
+    }
+
+    .model-info {
+      width: 100%;
+      background: #f6f6f6;
+      padding: 42px 20px;
+      text-align: center;
+      border-top: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+      overflow: hidden;
+    }
+
+    .model-info h2 {
+      font-size: 1.65rem;
+      line-height: 1.3;
+      color: #1a1a1a;
+      margin: 0 0 20px;
+    }
+
+    #howWePlayTitle {
+      cursor: pointer;
+    }
+
+    #howWePlayTitle:hover {
+      color: #0077b6;
+    }
+
+    #howWePlayContent.hidden,
+    .hidden {
+      display: none;
+    }
+
+    #howWePlayContent {
+      max-width: 760px;
+      margin: 22px auto 0;
+    }
+
+    .model-info ul {
+      text-align: left;
+      margin: 0 auto;
+      padding-left: 22px;
+      max-width: 720px;
+    }
+
+    .model-info li {
+      margin: 10px 0;
+      font-size: 1rem;
+      color: #222;
+    }
+
+    .model-info .note {
+      color: #666;
+      font-style: italic;
+    }
+
+    @media (max-width: 800px) {
+      .page-hero {
+        min-height: 165px;
+        padding: 30px 14px;
+      }
+
+      .page-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 12px;
+        gap: 10px;
+      }
+
+      .page-nav a {
+        font-size: 0.95rem;
+        padding: 12px 8px;
+      }
+
+      .top-banner img {
+        max-height: 90px;
+      }
+
+      .mini-results-card {
+        display: block;
+      }
+
+      .mini-results-card > div {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 9px 0;
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      .mini-results-card > div:last-of-type {
+        border-bottom: 0;
+      }
+
+      .mini-results-card a {
+        display: block;
+        width: 100%;
+        margin-top: 12px;
+      }
+
+      .clean-board-stats,
+      .pick-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .clean-card-top {
+        flex-direction: column;
+      }
+
+      .rating-ring {
+        width: 100%;
+        min-width: auto;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-align: left;
+      }
+
+      .clean-board-header,
+      .clean-prediction-card {
+        padding: 20px;
+      }
+
+      .clean-board-header h2 {
+        font-size: 1.45rem;
+      }
+
+      .clean-card-top h3 {
+        font-size: 1.25rem;
+      }
+
+      .model-info {
+        padding: 34px 16px;
+      }
+
+      .model-info h2 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KFTVFSQCYQ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -21,19 +527,21 @@
 </head>
 
 <body>
-  <header>
-    <h1>🎯 Match Predictions</h1>
-    <p>Stop guessing. Start playing with edge.</p>
-  </header>
+  <section class="page-hero">
+    <div>
+      <h1>🎯 Match Predictions</h1>
+      <p>Stop guessing. Start playing with edge.</p>
+    </div>
+  </section>
 
-  <nav>
+  <div class="page-nav">
     <a href="index.html">Home</a>
-    <a href="predictions.html">Match Predictions</a>
-    <a href="reviews.html">Bookmaker Reviews</a>
-    <a href="strategy.html">Betting Strategies</a>
-  </nav>
+    <a href="predictions.html">Predictions</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="strategy.html">Strategies</a>
+  </div>
 
-  <div class="full-width-banner">
+  <div class="top-banner">
     <a href="https://moy.auraodin.com/redirect.aspx?pid=148721&bid=1616" target="_blank" rel="nofollow sponsored">
       <img src="https://moy.auraodin.com/renderimage.aspx?pid=148721&bid=1616" alt="Affiliate Banner" loading="lazy">
     </a>
@@ -43,11 +551,11 @@
 
   <section id="mini-results-snapshot" class="mini-results-wrap"></section>
 
-  <main class="container predictions-container" id="predictions-container">
+  <main class="predictions-container" id="predictions-container">
     <!-- Prediction cards will be inserted here by script1.js -->
   </main>
 
-  <section class="how-we-play">
+  <section class="model-info">
     <h2 id="howWePlayTitle">👉🏻 HOW THE AI77 MODEL WORKS ✔️</h2>
 
     <div id="howWePlayContent" class="hidden">
