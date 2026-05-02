@@ -1,10 +1,10 @@
-name: Test iSports Basketball API
+name: Test API-SPORTS Basketball Odds
 
 on:
   workflow_dispatch:
 
 jobs:
-  test-basketball:
+  test-apisports-basketball:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,13 +19,24 @@ jobs:
       - name: Install requests
         run: pip install requests
 
-      - name: Run basketball API test
+      - name: Check secret exists
         env:
-          ISPORTS_API_KEY: ${{ secrets.ISPORTS_API_KEY }}
+          FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
+        run: |
+          if [ -z "$FOOTBALL_API_KEY" ]; then
+            echo "FOOTBALL_API_KEY is missing"
+            exit 1
+          else
+            echo "FOOTBALL_API_KEY is available"
+          fi
+
+      - name: Run API-SPORTS basketball odds test
+        env:
+          FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
         run: python test_isports_basketball.py
 
       - name: Upload test output
         uses: actions/upload-artifact@v4
         with:
-          name: basketball-api-test-output
-          path: basketball_api_test_output.json
+          name: apisports-basketball-odds-test-output
+          path: apisports_basketball_odds_test_output.json
