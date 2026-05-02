@@ -10,7 +10,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KFTVFSQCYQ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -21,16 +20,19 @@
 </head>
 
 <body class="predictions-page">
-  <header>
-    <h1>🎯 Match Predictions</h1>
-    <p>Stop guessing. Start playing with edge.</p>
-  </header>
 
-  <nav class="predictions-nav">
+  <section class="pred-hero">
+    <div class="pred-hero-overlay">
+      <h1>🎯 Match Predictions</h1>
+      <p>Stop guessing. Start playing with edge.</p>
+    </div>
+  </section>
+
+  <nav class="pred-nav">
     <a href="index.html">Home</a>
-    <a href="predictions.html">Match Predictions</a>
-    <a href="reviews.html">Bookmaker Reviews</a>
-    <a href="strategy.html">Betting Strategies</a>
+    <a href="predictions.html">Predictions</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="strategy.html">Strategies</a>
   </nav>
 
   <div class="full-width-banner">
@@ -61,7 +63,7 @@
 
   <section id="mini-results-snapshot" class="mini-results-wrap"></section>
 
-  <main class="container predictions-container" id="predictions-container">
+  <main class="predictions-container" id="predictions-container">
     <!-- Prediction cards will be inserted here by script1.js -->
   </main>
 
@@ -104,13 +106,6 @@
       <div class="footer-contact">
         <p>Contact:</p>
         <p><a href="mailto:magic.betting@gmail.com">info@ai77.bettinglab.com</a></p>
-
-        <p>Follow us on social media:</p>
-        <a href="https://instagram.com/ai77.bettinglab" target="_blank" aria-label="Instagram">
-          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm4.5 3.25a5.25 5.25 0 1 1 0 10.5a5.25 5.25 0 0 1 0-10.5Zm0 2a3.25 3.25 0 1 0 0 6.5a3.25 3.25 0 0 0 0-6.5ZM18 6.25a.75.75 0 1 1 0 1.5a.75.75 0 0 1 0-1.5Z"/>
-          </svg>
-        </a>
       </div>
     </div>
 
