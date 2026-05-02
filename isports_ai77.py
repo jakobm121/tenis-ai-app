@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import math
 import time
@@ -27,8 +28,12 @@ TIME_WINDOW_MIN_MINUTES = 45
 TIME_WINDOW_MAX_HOURS = 24
 
 MAX_FINAL_PICKS = 5
-MAX_MATCHES_TO_PROCESS = 80
-MAX_LEAGUE_HISTORY_CALLS = 14
+
+# Important:
+# Do not process only the first early matches of the day.
+# We scan a wider board and then choose the best candidates.
+MAX_MATCHES_TO_PROCESS = 250
+MAX_LEAGUE_HISTORY_CALLS = 35
 
 LEAGUE_CACHE_HOURS = 24
 
@@ -36,11 +41,12 @@ MIN_LEAGUE_HISTORY_MATCHES = 40
 MIN_TEAM_HISTORY_MATCHES = 5
 TEAM_FORM_MATCHES = 10
 
-MIN_BOOKMAKERS_H2H = 5
-MIN_BOOKMAKERS_TOTALS = 5
+# Cleaner public picks: require stronger market coverage.
+MIN_BOOKMAKERS_H2H = 8
+MIN_BOOKMAKERS_TOTALS = 8
 
-MIN_EDGE = 0.035
-MIN_QUALITY_SCORE = 58
+MIN_EDGE = 0.04
+MIN_QUALITY_SCORE = 68
 
 ODDS_MIN = 1.45
 ODDS_MAX = 3.60
@@ -57,7 +63,11 @@ MARKET_LIMITS = {
 
 BLOCKED_LEAGUE_KEYWORDS = [
     "women",
+    "woman",
+    "ladies",
+    "female",
     "(w)",
+    " w ",
     "u17",
     "u18",
     "u19",
@@ -75,6 +85,36 @@ BLOCKED_LEAGUE_KEYWORDS = [
     "exhibition",
     "esoccer",
     "virtual",
+
+    # Lower-tier / unstable public markets
+    "4.liga",
+    "4 liga",
+    "division 4",
+    "fourth",
+    "county",
+    "regional",
+    "state league",
+    "iii liga",
+]
+
+BLOCKED_REGEX_PATTERNS = [
+    r"\(w\)",
+    r"\bu17\b",
+    r"\bu18\b",
+    r"\bu19\b",
+    r"\bu20\b",
+    r"\bu21\b",
+    r"\bu23\b",
+    r"\breserve\b",
+    r"\breserves\b",
+    r"\bladies\b",
+    r"\bwomen\b",
+    r"\bfemale\b",
+
+    # Team suffixes like "Team B", "Club II", "Club III"
+    r"\bb\b$",
+    r"\bii\b$",
+    r"\biii\b$",
 ]
 
 ALLOWED_STATUS_UPCOMING = {0}
@@ -224,14 +264,34 @@ def fetch_odds_main():
     return data
 
 
-def is_blocked_league(league_name):
-    n = normalize(league_name)
+def is_blocked_text(text):
+    raw = str(text or "").strip()
+    n = normalize(raw)
+
+    if not n:
+        return False
 
     for word in BLOCKED_LEAGUE_KEYWORDS:
         if word in n:
             return True
 
+    for pattern in BLOCKED_REGEX_PATTERNS:
+        if re.search(pattern, n, flags=re.IGNORECASE):
+            return True
+
     return False
+
+
+def is_blocked_league(league_name):
+    return is_blocked_text(league_name)
+
+
+def is_blocked_match(league_name, home_name, away_name):
+    return (
+        is_blocked_text(league_name)
+        or is_blocked_text(home_name)
+        or is_blocked_text(away_name)
+    )
 
 
 def parse_europe_odds(rows):
@@ -1006,7 +1066,11 @@ def build_predictions():
             continue
 
         league_name = m.get("leagueName", "")
-        if is_blocked_league(league_name):
+        home_name = m.get("homeName", "")
+        away_name = m.get("awayName", "")
+
+        if is_blocked_match(league_name, home_name, away_name):
+            debug(f"SKIP blocked match: {league_name} | {home_name} - {away_name}")
             continue
 
         match_id = str(m.get("matchId"))
@@ -1015,10 +1079,50 @@ def build_predictions():
 
         upcoming.append(m)
 
-    upcoming.sort(key=lambda x: safe_int(x.get("matchTime"), 0))
+    def quick_market_support(match):
+        match_id = str(match.get("matchId"))
+
+        support = 0
+
+        h2h = europe_odds.get(match_id)
+        if h2h:
+            support = max(
+                support,
+                len(h2h.get("home", [])),
+                len(h2h.get("away", [])),
+                len(h2h.get("draw", [])),
+            )
+
+        totals = over_under.get(match_id)
+        if totals:
+            line_data = totals.get(2.5)
+            if line_data:
+                support = max(
+                    support,
+                    min(
+                        len(line_data.get("over", [])),
+                        len(line_data.get("under", [])),
+                    )
+                )
+
+        return support
+
+    # Important:
+    # We no longer take only the first matches by kickoff time.
+    # We prioritize matches with stronger bookmaker coverage first.
+    upcoming.sort(
+        key=lambda x: (
+            quick_market_support(x),
+            -safe_int(x.get("matchTime"), 0),
+        ),
+        reverse=True,
+    )
 
     if MAX_MATCHES_TO_PROCESS and len(upcoming) > MAX_MATCHES_TO_PROCESS:
         upcoming = upcoming[:MAX_MATCHES_TO_PROCESS]
+
+    # Then process selected matches chronologically for cleaner logs.
+    upcoming.sort(key=lambda x: safe_int(x.get("matchTime"), 0))
 
     debug(f"UPCOMING filtered={len(upcoming)}")
 
@@ -1031,9 +1135,15 @@ def build_predictions():
             match_id = str(m.get("matchId"))
             league_id = str(m.get("leagueId"))
             league_name = m.get("leagueName", "Football")
+            home_name = m.get("homeName", "")
+            away_name = m.get("awayName", "")
             home_id = str(m.get("homeId"))
             away_id = str(m.get("awayId"))
             match_time_ts = safe_int(m.get("matchTime"))
+
+            if is_blocked_match(league_name, home_name, away_name):
+                debug(f"SKIP blocked candidate: {league_name} | {home_name} - {away_name}")
+                continue
 
             if league_id not in league_history_cache:
                 if league_history_calls >= MAX_LEAGUE_HISTORY_CALLS:
