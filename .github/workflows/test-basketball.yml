@@ -1,0 +1,31 @@
+name: Test iSports Basketball API
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-basketball:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Run basketball API test
+        env:
+          ISPORTS_API_KEY: ${{ secrets.ISPORTS_API_KEY }}
+        run: python test_isports_basketball.py
+
+      - name: Upload test output
+        uses: actions/upload-artifact@v4
+        with:
+          name: basketball-api-test-output
+          path: basketball_api_test_output.json
