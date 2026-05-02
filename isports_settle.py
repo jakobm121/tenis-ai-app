@@ -14,6 +14,9 @@ TZ_NAME = "Europe/Ljubljana"
 RESULTS_FILE = "results.json"
 REQUEST_TIMEOUT = 30
 
+# iSports football:
+# -1 = finished
+# -10 / -11 / -14 = cancelled / interrupted / void-like statuses
 FINISHED_STATUSES = {-1}
 STORNO_STATUSES = {-10, -11, -14}
 
@@ -147,7 +150,6 @@ def settle_total(pick, match):
 
 def settle_pick(pick, match):
     status = safe_int(match.get("status"))
-
     home_score = safe_int(match.get("homeScore"))
     away_score = safe_int(match.get("awayScore"))
 
@@ -156,12 +158,14 @@ def settle_pick(pick, match):
         f"status={status} | score={home_score}:{away_score}"
     )
 
-    # Če je API označil tekmo kot odpovedano/prekinjeno/void, zaupamo statusu.
-    # iSports lahko pri takih tekmah vseeno vrne 0:0, kar ni pravi rezultat.
+    # Cancelled / abandoned / void-like statuses.
+    # iSports can still show 0:0 on these, so trust the status.
     if status in STORNO_STATUSES:
         return "storno"
 
-    # Normalno zaključena tekma.
+    # IMPORTANT:
+    # Do not settle football on live statuses like 1, 2, 3.
+    # Only status -1 is safe to settle by score.
     if status not in FINISHED_STATUSES:
         return "pending"
 
@@ -182,7 +186,7 @@ def unique_dates_for_pending(history):
         item.get("date")
         for item in history
         if isinstance(item, dict)
-        and item.get("result") == "pending"
+        and str(item.get("result", "")).lower() == "pending"
         and item.get("date")
     })
 
@@ -208,16 +212,56 @@ def build_match_map_for_dates(dates):
     return match_map
 
 
+def reset_bad_early_settles(history):
+    """
+    Safety repair:
+    If a previous version settled a pick while the API status was live/non-final,
+    this can restore it to pending when settled_status is not final/storno.
+
+    It does NOT touch properly finished (-1) or storno statuses.
+    """
+    repaired = 0
+
+    for item in history:
+        if not isinstance(item, dict):
+            continue
+
+        result = str(item.get("result", "")).lower()
+        settled_status = safe_int(item.get("settled_status"))
+
+        if result not in {"win", "loss"}:
+            continue
+
+        if settled_status is None:
+            continue
+
+        if settled_status in FINISHED_STATUSES or settled_status in STORNO_STATUSES:
+            continue
+
+        item["result"] = "pending"
+        item.pop("settled_at", None)
+        item.pop("settled_status", None)
+        item.pop("final_score", None)
+
+        repaired += 1
+
+    return repaired
+
+
 def main():
     history = load_json(RESULTS_FILE, [])
 
     if not isinstance(history, list):
         history = []
 
+    repaired = reset_bad_early_settles(history)
+    if repaired:
+        debug(f"REPAIRED EARLY SETTLES: {repaired}")
+
     pending = [
         item for item in history
         if isinstance(item, dict)
-        and item.get("result") == "pending"
+        and str(item.get("result", "")).lower() == "pending"
     ]
 
     debug(f"PENDING PICKS: {len(pending)}")
@@ -240,7 +284,7 @@ def main():
         if not isinstance(item, dict):
             continue
 
-        if item.get("result") != "pending":
+        if str(item.get("result", "")).lower() != "pending":
             continue
 
         match_id = str(item.get("match_id") or item.get("fixture_id") or "")
