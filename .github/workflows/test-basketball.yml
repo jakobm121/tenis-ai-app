@@ -1,10 +1,10 @@
-name: Test API-SPORTS Basketball Odds
+name: Test API-SPORTS Basketball Find Odds
 
 on:
   workflow_dispatch:
 
 jobs:
-  test-apisports-basketball:
+  find-basketball-odds:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,24 +19,24 @@ jobs:
       - name: Install requests
         run: pip install requests
 
-      - name: Check secret exists
+      - name: Check secret
         env:
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
         run: |
           if [ -z "$FOOTBALL_API_KEY" ]; then
             echo "FOOTBALL_API_KEY is missing"
             exit 1
-          else
-            echo "FOOTBALL_API_KEY is available"
           fi
+          echo "FOOTBALL_API_KEY is available"
 
-      - name: Run API-SPORTS basketball odds test
+      - name: Run basketball odds finder
         env:
           FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
-        run: python test_isports_basketball.py
+        run: python test_apisports_basketball_find_odds.py
 
-      - name: Upload test output
+      - name: Upload found odds
         uses: actions/upload-artifact@v4
         with:
-          name: apisports-basketball-odds-test-output
-          path: apisports_basketball_odds_test_output.json
+          name: apisports-basketball-found-odds
+          path: apisports_basketball_found_odds.json
+          if-no-files-found: error
