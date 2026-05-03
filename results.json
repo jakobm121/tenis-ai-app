@@ -237,40 +237,6 @@
         "final_score": "0:0"
     },
     {
-        "pick_id": "6826ae6b9501889a7c086a48abb625f6",
-        "match_id": "233325826",
-        "fixture_id": "233325826",
-        "model_version": "isports_ai77_v1_stats_odds",
-        "date": "2026-05-02",
-        "time": "18:10",
-        "sport": "football",
-        "league": "Saudi Professional League",
-        "league_id": "12923",
-        "match": "Damac FC - Al-Khaleej",
-        "bet": "Damac FC",
-        "bucket": "home",
-        "line": null,
-        "odds": 3.13,
-        "market_median_odds": 2.59,
-        "model_prob": 0.4656,
-        "implied_prob": 0.3195,
-        "edge": 0.1461,
-        "expected_home_goals": 1.53,
-        "expected_away_goals": 1.16,
-        "expected_total_goals": 2.7,
-        "bookmakers_used": 19,
-        "confidence": 84.8,
-        "quality_score": 88.4,
-        "stake": 1.25,
-        "stake_label": "Strong",
-        "stake_score": 7,
-        "result": "loss",
-        "reasoning": "Damac FC is selected as a side-value position in Saudi Professional League. The expected goals profile is 1.53 - 1.16. The best price is 3.13, while the market median is around 2.59, creating an estimated value gap of +14.6% across 19 bookmakers.",
-        "settled_at": "2026-05-03T02:07:07.631882+02:00",
-        "settled_status": -1,
-        "final_score": "0:2"
-    },
-    {
         "pick_id": "dd1c1bba15dc23fb8705abce34710b7d",
         "match_id": "339417925",
         "fixture_id": "339417925",
@@ -434,7 +400,7 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
+        "result": "loss",
         "reasoning": "Cienciano - Comerciantes Unidos rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.51, supported by recent team scoring profiles and league baseline. The best available price is 1.80 versus a market median near 1.75, creating an estimated value gap of +12.5% across 9 bookmakers."
     },
     {
@@ -499,7 +465,7 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
+        "result": "loss",
         "reasoning": "New England Revolution - Charlotte FC rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.55, supported by recent team scoring profiles and league baseline. The best available price is 1.99 versus a market median near 1.92, creating an estimated value gap of +18.4% across 10 bookmakers."
     },
     {
@@ -530,7 +496,7 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
+        "result": "loss",
         "reasoning": "Nashville SC is selected as a side-value position in USA Major League Soccer. The expected goals profile is 0.59 - 1.73. The best price is 3.41, while the market median is around 2.80, creating an estimated value gap of +37.7% across 19 bookmakers."
     },
     {
@@ -561,7 +527,7 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
+        "result": "win",
         "reasoning": "FC Dallas is selected as a side-value position in USA Major League Soccer. The expected goals profile is 1.58 - 1.96. The best price is 3.52, while the market median is around 3.20, creating an estimated value gap of +16.8% across 19 bookmakers."
     },
     {
