@@ -642,9 +642,9 @@
         "line": null,
         "odds": 2.79,
         "market_median_odds": 2.6,
-        "model_prob": 0.5403,
+        "model_prob": 0.5414,
         "implied_prob": 0.3584,
-        "edge": 0.1819,
+        "edge": 0.183,
         "expected_home_goals": 1.36,
         "expected_away_goals": 0.68,
         "expected_total_goals": 2.04,
@@ -655,7 +655,7 @@
         "stake_label": "Top Rated",
         "stake_score": 8,
         "result": "pending",
-        "reasoning": "Zaglebie Lubin is selected as a side-value position in Poland Ekstraklasa. The expected goals profile is 1.36 - 0.68. The best price is 2.79, while the market median is around 2.60, creating an estimated value gap of +18.2% across 18 bookmakers."
+        "reasoning": "Zaglebie Lubin is selected as a side-value position in Poland Ekstraklasa. The expected goals profile is 1.36 - 0.68. The best price is 2.79, while the market median is around 2.60, creating an estimated value gap of +18.3% across 18 bookmakers."
     },
     {
         "pick_id": "5ff2438b0e114d0c6f074d3e7f6e30b9",
