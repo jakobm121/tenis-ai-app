@@ -162,8 +162,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 4,
-        "result": "pending",
-        "reasoning": "Vaduz is selected as a side-value position in Switzerland Challenge League. The expected goals profile is 1.89 - 0.90. The best price is 1.92, while the market median is around 1.84, creating an estimated value gap of +8.2% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "Vaduz is selected as a side-value position in Switzerland Challenge League. The expected goals profile is 1.89 - 0.90. The best price is 1.92, while the market median is around 1.84, creating an estimated value gap of +8.2% across 17 bookmakers.",
+        "settled_at": "2026-05-03T02:07:07.631786+02:00",
+        "settled_status": -1,
+        "final_score": "2:2"
     },
     {
         "pick_id": "de16639257d22dc729204eebc9439ac4",
@@ -193,8 +196,11 @@
         "stake": 0.75,
         "stake_label": "Small Value",
         "stake_score": 3,
-        "result": "pending",
-        "reasoning": "Luzern is selected as a side-value position in Switzerland Super League. The expected goals profile is 1.43 - 1.72. The best price is 2.85, while the market median is around 2.60, creating an estimated value gap of +8.7% across 18 bookmakers."
+        "result": "win",
+        "reasoning": "Luzern is selected as a side-value position in Switzerland Super League. The expected goals profile is 1.43 - 1.72. The best price is 2.85, while the market median is around 2.60, creating an estimated value gap of +8.7% across 18 bookmakers.",
+        "settled_at": "2026-05-03T02:07:07.631833+02:00",
+        "settled_status": -1,
+        "final_score": "1:3"
     },
     {
         "pick_id": "0da1a8658b48c66ecf18f661ef1b8ae5",
@@ -224,8 +230,11 @@
         "stake": 0.5,
         "stake_label": "Research",
         "stake_score": 0,
-        "result": "pending",
-        "reasoning": "Como - Napoli rates as a higher-goal spot in the AI77 iSports model. The projected total is 2.93, supported by recent team scoring profiles and league baseline. The best available price is 2.10 versus a market median near 2.05, creating an estimated value gap of +8.4% across 5 bookmakers."
+        "result": "loss",
+        "reasoning": "Como - Napoli rates as a higher-goal spot in the AI77 iSports model. The projected total is 2.93, supported by recent team scoring profiles and league baseline. The best available price is 2.10 versus a market median near 2.05, creating an estimated value gap of +8.4% across 5 bookmakers.",
+        "settled_at": "2026-05-03T02:07:07.631853+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "6826ae6b9501889a7c086a48abb625f6",
@@ -255,8 +264,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Damac FC is selected as a side-value position in Saudi Professional League. The expected goals profile is 1.53 - 1.16. The best price is 3.13, while the market median is around 2.59, creating an estimated value gap of +14.6% across 19 bookmakers."
+        "result": "loss",
+        "reasoning": "Damac FC is selected as a side-value position in Saudi Professional League. The expected goals profile is 1.53 - 1.16. The best price is 3.13, while the market median is around 2.59, creating an estimated value gap of +14.6% across 19 bookmakers.",
+        "settled_at": "2026-05-03T02:07:07.631882+02:00",
+        "settled_status": -1,
+        "final_score": "0:2"
     },
     {
         "pick_id": "dd1c1bba15dc23fb8705abce34710b7d",
@@ -286,8 +298,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Thun is selected as a side-value position in Switzerland Super League. The expected goals profile is 1.22 - 1.76. The best price is 2.77, while the market median is around 2.54, creating an estimated value gap of +13.6% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "Thun is selected as a side-value position in Switzerland Super League. The expected goals profile is 1.22 - 1.76. The best price is 2.77, while the market median is around 2.54, creating an estimated value gap of +13.6% across 17 bookmakers.",
+        "settled_at": "2026-05-03T02:07:07.631900+02:00",
+        "settled_status": -1,
+        "final_score": "3:1"
     },
     {
         "pick_id": "55f2d4e70936b17f2560dda1f6400b96",
@@ -317,8 +332,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Lanus is selected as a side-value position in Argentine Division 1. The expected goals profile is 1.26 - 0.46. The best price is 2.20, while the market median is around 1.88, creating an estimated value gap of +12.1% across 19 bookmakers."
+        "result": "loss",
+        "reasoning": "Lanus is selected as a side-value position in Argentine Division 1. The expected goals profile is 1.26 - 0.46. The best price is 2.20, while the market median is around 1.88, creating an estimated value gap of +12.1% across 19 bookmakers.",
+        "settled_at": "2026-05-03T02:07:07.631917+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "f58a121f7e0f6dda31c443f19b8746b3",
@@ -348,8 +366,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 4,
-        "result": "pending",
-        "reasoning": "Le Mans - Reims projects as a more controlled scoring environment. The model total is 2.26, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.91 versus a market median near 1.85, leaving an estimated value gap of +8.3% across 18 bookmakers."
+        "result": "win",
+        "reasoning": "Le Mans - Reims projects as a more controlled scoring environment. The model total is 2.26, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.91 versus a market median near 1.85, leaving an estimated value gap of +8.3% across 18 bookmakers.",
+        "settled_at": "2026-05-03T02:07:07.631932+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "7337f035aae6159a1c0dcf5183c22097",
@@ -379,8 +400,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "San Lorenzo is selected as a side-value position in Argentine Division 1. The expected goals profile is 1.30 - 1.11. The best price is 3.47, while the market median is around 3.00, creating an estimated value gap of +12.6% across 19 bookmakers."
+        "result": "loss",
+        "reasoning": "San Lorenzo is selected as a side-value position in Argentine Division 1. The expected goals profile is 1.30 - 1.11. The best price is 3.47, while the market median is around 3.00, creating an estimated value gap of +12.6% across 19 bookmakers.",
+        "settled_at": "2026-05-03T02:07:07.631950+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     },
     {
         "pick_id": "06b28e3428eda89a1e23d172c84d4557",
@@ -441,8 +465,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Liga Dep. Universitaria Quito - Guayaquil City projects as a more controlled scoring environment. The model total is 1.88, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.96 versus a market median near 1.85, leaving an estimated value gap of +19.9% across 15 bookmakers."
+        "result": "win",
+        "reasoning": "Liga Dep. Universitaria Quito - Guayaquil City projects as a more controlled scoring environment. The model total is 1.88, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.96 versus a market median near 1.85, leaving an estimated value gap of +19.9% across 15 bookmakers.",
+        "settled_at": "2026-05-03T02:07:07.631971+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     },
     {
         "pick_id": "4935e36c9b9c86df6fc17a27700fdad4",
