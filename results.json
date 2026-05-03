@@ -592,8 +592,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Changchun Yatai is selected as a side-value position in Chinese Football Association Jia League. The expected goals profile is 1.00 - 1.80. The best price is 2.82, while the market median is around 2.25, creating an estimated value gap of +22.3% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "Changchun Yatai is selected as a side-value position in Chinese Football Association Jia League. The expected goals profile is 1.00 - 1.80. The best price is 2.82, while the market median is around 2.25, creating an estimated value gap of +22.3% across 17 bookmakers.",
+        "settled_at": "2026-05-03T17:21:28.548381+02:00",
+        "settled_status": -1,
+        "final_score": "3:1"
     },
     {
         "pick_id": "28e11dda2151b9cdecc3af7c8a4db682",
@@ -623,8 +626,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Malmo FF - Mjallby AIF rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.17, supported by recent team scoring profiles and league baseline. The best available price is 2.05 versus a market median near 2.00, creating an estimated value gap of +12.7% across 13 bookmakers."
+        "result": "win",
+        "reasoning": "Malmo FF - Mjallby AIF rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.17, supported by recent team scoring profiles and league baseline. The best available price is 2.05 versus a market median near 2.00, creating an estimated value gap of +12.7% across 13 bookmakers.",
+        "settled_at": "2026-05-03T17:21:28.548427+02:00",
+        "settled_status": -1,
+        "final_score": "2:3"
     },
     {
         "pick_id": "b8b369ba0386fdd83d6d40dd253dff77",
@@ -654,8 +660,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Zaglebie Lubin is selected as a side-value position in Poland Ekstraklasa. The expected goals profile is 1.36 - 0.68. The best price is 2.79, while the market median is around 2.60, creating an estimated value gap of +18.5% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "Zaglebie Lubin is selected as a side-value position in Poland Ekstraklasa. The expected goals profile is 1.36 - 0.68. The best price is 2.79, while the market median is around 2.60, creating an estimated value gap of +18.5% across 18 bookmakers.",
+        "settled_at": "2026-05-03T17:21:28.548442+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "5ff2438b0e114d0c6f074d3e7f6e30b9",
@@ -747,8 +756,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Kuruvchi Bunyodkor is selected as a side-value position in Uzbek League. The expected goals profile is 0.88 - 1.38. The best price is 3.25, while the market median is around 2.94, creating an estimated value gap of +19.3% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Kuruvchi Bunyodkor is selected as a side-value position in Uzbek League. The expected goals profile is 0.88 - 1.38. The best price is 3.25, while the market median is around 2.94, creating an estimated value gap of +19.3% across 16 bookmakers.",
+        "settled_at": "2026-05-03T17:21:28.548464+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     },
     {
         "pick_id": "26672671293a7e01f1df1b3e7e9ed3df",
