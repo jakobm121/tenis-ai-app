@@ -1093,8 +1093,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Mardin BB - Kahramanmaras Bld rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.33, supported by recent team scoring profiles and league baseline. The best available price is 2.00 versus a market median near 1.94, creating an estimated value gap of +14.5% across 10 bookmakers."
+        "result": "loss",
+        "reasoning": "Mardin BB - Kahramanmaras Bld rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.33, supported by recent team scoring profiles and league baseline. The best available price is 2.00 versus a market median near 1.94, creating an estimated value gap of +14.5% across 10 bookmakers.",
+        "settled_at": "2026-05-04T19:19:14.521968+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "f0ba58ea4aacd7cea7c1960e13c5823e",
@@ -1124,8 +1127,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Real Bedford is selected as a side-value position in England Southern League Central Division. The expected goals profile is 1.48 - 1.84. The best price is 3.41, while the market median is around 2.80, creating an estimated value gap of +16.4% across 15 bookmakers."
+        "result": "loss",
+        "reasoning": "Real Bedford is selected as a side-value position in England Southern League Central Division. The expected goals profile is 1.48 - 1.84. The best price is 3.41, while the market median is around 2.80, creating an estimated value gap of +16.4% across 15 bookmakers.",
+        "settled_at": "2026-05-04T19:19:14.522016+02:00",
+        "settled_status": -1,
+        "final_score": "2:2"
     },
     {
         "pick_id": "b381fe72b8bfa9ce617568c7cb562403",
@@ -1155,8 +1161,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Hitchin Town is selected as a side-value position in England Southern League Division One. The expected goals profile is 2.00 - 1.02. The best price is 2.08, while the market median is around 2.01, creating an estimated value gap of +12.2% across 9 bookmakers."
+        "result": "win",
+        "reasoning": "Hitchin Town is selected as a side-value position in England Southern League Division One. The expected goals profile is 2.00 - 1.02. The best price is 2.08, while the market median is around 2.01, creating an estimated value gap of +12.2% across 9 bookmakers.",
+        "settled_at": "2026-05-04T19:19:14.522032+02:00",
+        "settled_status": -1,
+        "final_score": "2:1"
     },
     {
         "pick_id": "0a7bd00b1b866113ad64980b96c2c622",
@@ -1186,8 +1195,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Vihren Sandanski is selected as a side-value position in Bulgaria Second League. The expected goals profile is 1.64 - 1.04. The best price is 3.44, while the market median is around 2.47, creating an estimated value gap of +22.1% across 13 bookmakers."
+        "result": "win",
+        "reasoning": "Vihren Sandanski is selected as a side-value position in Bulgaria Second League. The expected goals profile is 1.64 - 1.04. The best price is 3.44, while the market median is around 2.47, creating an estimated value gap of +22.1% across 13 bookmakers.",
+        "settled_at": "2026-05-04T19:19:14.522043+02:00",
+        "settled_status": -1,
+        "final_score": "2:1"
     },
     {
         "pick_id": "9d88ba45ad7890bfaba5b2ffcf5aa956",
@@ -1217,8 +1229,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Navbahor Namangan is selected as a side-value position in Uzbek League. The expected goals profile is 0.99 - 1.35. The best price is 3.16, while the market median is around 2.65, creating an estimated value gap of +14.1% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "Navbahor Namangan is selected as a side-value position in Uzbek League. The expected goals profile is 0.99 - 1.35. The best price is 3.16, while the market median is around 2.65, creating an estimated value gap of +14.1% across 17 bookmakers.",
+        "settled_at": "2026-05-04T19:19:14.522051+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "45204d2fdba354bf11a8a580130c7ad3",
@@ -1248,8 +1263,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "Al-Nasr(OMA) is selected as a side-value position in Oman Professional League. The expected goals profile is 1.24 - 0.96. The best price is 3.46, while the market median is around 3.30, creating an estimated value gap of +14.2% across 12 bookmakers."
+        "result": "loss",
+        "reasoning": "Al-Nasr(OMA) is selected as a side-value position in Oman Professional League. The expected goals profile is 1.24 - 0.96. The best price is 3.46, while the market median is around 3.30, creating an estimated value gap of +14.2% across 12 bookmakers.",
+        "settled_at": "2026-05-04T19:19:14.522060+02:00",
+        "settled_status": -1,
+        "final_score": "0:1"
     },
     {
         "pick_id": "cbe3406d063a6cadd6a2bddf08772520",
