@@ -932,8 +932,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Austin FC is selected as a side-value position in USA Major League Soccer. The expected goals profile is 1.73 - 0.95. The best price is 2.60, while the market median is around 2.42, creating an estimated value gap of +18.4% across 19 bookmakers."
+        "result": "win",
+        "reasoning": "Austin FC is selected as a side-value position in USA Major League Soccer. The expected goals profile is 1.73 - 0.95. The best price is 2.60, while the market median is around 2.42, creating an estimated value gap of +18.4% across 19 bookmakers.",
+        "settled_at": "2026-05-04T02:10:18.175237+02:00",
+        "settled_status": -1,
+        "final_score": "2:0"
     },
     {
         "pick_id": "f4e507f31a90844c3284e1452650be28",
@@ -963,8 +966,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Fluminense RJ is selected as a side-value position in Brazil Serie A. The expected goals profile is 1.12 - 1.45. The best price is 3.30, while the market median is around 2.97, creating an estimated value gap of +15.7% across 19 bookmakers."
+        "result": "loss",
+        "reasoning": "Fluminense RJ is selected as a side-value position in Brazil Serie A. The expected goals profile is 1.12 - 1.45. The best price is 3.30, while the market median is around 2.97, creating an estimated value gap of +15.7% across 19 bookmakers.",
+        "settled_at": "2026-05-04T02:10:18.175323+02:00",
+        "settled_status": -1,
+        "final_score": "2:0"
     },
     {
         "pick_id": "b0c0360123242ebaab400ae948d64e20",
