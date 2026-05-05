@@ -1297,8 +1297,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "ACS Ksar is selected as a side-value position in Mauritania Division 1. The expected goals profile is 1.34 - 0.79. The best price is 2.75, while the market median is around 2.60, creating an estimated value gap of +12.6% across 9 bookmakers."
+        "result": "loss",
+        "reasoning": "ACS Ksar is selected as a side-value position in Mauritania Division 1. The expected goals profile is 1.34 - 0.79. The best price is 2.75, while the market median is around 2.60, creating an estimated value gap of +12.6% across 9 bookmakers.",
+        "settled_at": "2026-05-05T02:14:00.555468+02:00",
+        "settled_status": -1,
+        "final_score": "0:1"
     },
     {
         "pick_id": "0411965fc7c8814371d2621150c91932",
@@ -1328,8 +1331,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Los Chankas is selected as a side-value position in Peru Liga 1. The expected goals profile is 1.88 - 0.78. The best price is 1.95, while the market median is around 1.90, creating an estimated value gap of +12.0% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Los Chankas is selected as a side-value position in Peru Liga 1. The expected goals profile is 1.88 - 0.78. The best price is 1.95, while the market median is around 1.90, creating an estimated value gap of +12.0% across 16 bookmakers.",
+        "settled_at": "2026-05-05T02:14:00.555509+02:00",
+        "settled_status": -1,
+        "final_score": "0:1"
     },
     {
         "pick_id": "c06967033bd0ee6fff9258833f299fee",
@@ -1359,8 +1365,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "Sacachispas is selected as a side-value position in Argentina Primera C Metropolitana. The expected goals profile is 0.80 - 1.39. The best price is 2.89, while the market median is around 2.70, creating an estimated value gap of +13.0% across 12 bookmakers."
+        "result": "loss",
+        "reasoning": "Sacachispas is selected as a side-value position in Argentina Primera C Metropolitana. The expected goals profile is 0.80 - 1.39. The best price is 2.89, while the market median is around 2.70, creating an estimated value gap of +13.0% across 12 bookmakers.",
+        "settled_at": "2026-05-05T02:14:00.555521+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "7b3b4e139ee1a93018cae15dc7ca835d",
@@ -1390,7 +1399,10 @@
         "stake": 0.75,
         "stake_label": "Small Value",
         "stake_score": 2,
-        "result": "pending",
-        "reasoning": "Defensa Y Justicia is selected as a side-value position in Argentine Division 1. The expected goals profile is 1.12 - 1.20. The best price is 3.40, while the market median is around 2.93, creating an estimated value gap of +9.7% across 19 bookmakers."
+        "result": "loss",
+        "reasoning": "Defensa Y Justicia is selected as a side-value position in Argentine Division 1. The expected goals profile is 1.12 - 1.20. The best price is 3.40, while the market median is around 2.93, creating an estimated value gap of +9.7% across 19 bookmakers.",
+        "settled_at": "2026-05-05T02:14:00.555529+02:00",
+        "settled_status": -1,
+        "final_score": "2:1"
     }
 ]
