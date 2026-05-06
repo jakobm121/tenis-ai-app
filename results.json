@@ -1433,8 +1433,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Chongqing Tonglianglong is selected as a side-value position in Chinese Super League. The expected goals profile is 1.51 - 0.94. The best price is 3.00, while the market median is around 2.49, creating an estimated value gap of +19.2% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "Chongqing Tonglianglong is selected as a side-value position in Chinese Super League. The expected goals profile is 1.51 - 0.94. The best price is 3.00, while the market median is around 2.49, creating an estimated value gap of +19.2% across 18 bookmakers.",
+        "settled_at": "2026-05-06T02:11:25.834179+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "8ba7f526a938236ca33cf253a7da5f7b",
@@ -1464,8 +1467,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "FC Lochin is selected as a side-value position in Uzbekistan Second League. The expected goals profile is 0.85 - 1.44. The best price is 3.14, while the market median is around 3.00, creating an estimated value gap of +18.3% across 9 bookmakers."
+        "result": "loss",
+        "reasoning": "FC Lochin is selected as a side-value position in Uzbekistan Second League. The expected goals profile is 0.85 - 1.44. The best price is 3.14, while the market median is around 3.00, creating an estimated value gap of +18.3% across 9 bookmakers.",
+        "settled_at": "2026-05-06T02:11:25.834219+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "ddd1b2c8eb8408a7fcdbd5346aceb940",
@@ -1495,8 +1501,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "East Bengal is selected as a side-value position in Indian Super League. The expected goals profile is 1.06 - 1.82. The best price is 2.45, while the market median is around 2.35, creating an estimated value gap of +12.7% across 18 bookmakers."
+        "result": "win",
+        "reasoning": "East Bengal is selected as a side-value position in Indian Super League. The expected goals profile is 1.06 - 1.82. The best price is 2.45, while the market median is around 2.35, creating an estimated value gap of +12.7% across 18 bookmakers.",
+        "settled_at": "2026-05-06T02:11:25.834233+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     },
     {
         "pick_id": "89fb334b9a3ba3f478997fb64acb5f72",
@@ -1526,8 +1535,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Al-Riffa - Al-Shabbab projects as a more controlled scoring environment. The model total is 2.21, with recent form and league tempo not fully supporting a high-event game. The best available price is 2.00 versus a market median near 1.90, leaving an estimated value gap of +12.0% across 10 bookmakers."
+        "result": "loss",
+        "reasoning": "Al-Riffa - Al-Shabbab projects as a more controlled scoring environment. The model total is 2.21, with recent form and league tempo not fully supporting a high-event game. The best available price is 2.00 versus a market median near 1.90, leaving an estimated value gap of +12.0% across 10 bookmakers.",
+        "settled_at": "2026-05-06T02:11:25.834247+02:00",
+        "settled_status": -1,
+        "final_score": "4:0"
     },
     {
         "pick_id": "1ae6ed13f9432cb66b35b081ef31189b",
@@ -1557,8 +1569,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "FK Riteriai - FK Banga Gargzdai projects as a more controlled scoring environment. The model total is 2.06, with recent form and league tempo not fully supporting a high-event game. The best available price is 2.00 versus a market median near 1.83, leaving an estimated value gap of +16.1% across 15 bookmakers."
+        "result": "loss",
+        "reasoning": "FK Riteriai - FK Banga Gargzdai projects as a more controlled scoring environment. The model total is 2.06, with recent form and league tempo not fully supporting a high-event game. The best available price is 2.00 versus a market median near 1.83, leaving an estimated value gap of +16.1% across 15 bookmakers.",
+        "settled_at": "2026-05-06T02:11:25.834257+02:00",
+        "settled_status": -1,
+        "final_score": "0:4"
     },
     {
         "pick_id": "01ad49931436180691c0276b7a24978b",
@@ -1588,8 +1603,11 @@
         "stake": 0.75,
         "stake_label": "Small Value",
         "stake_score": 3,
-        "result": "pending",
-        "reasoning": "Khor Fakkan is selected as a side-value position in UAE Pro-League. The expected goals profile is 1.41 - 1.70. The best price is 2.71, while the market median is around 2.58, creating an estimated value gap of +7.0% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "Khor Fakkan is selected as a side-value position in UAE Pro-League. The expected goals profile is 1.41 - 1.70. The best price is 2.71, while the market median is around 2.58, creating an estimated value gap of +7.0% across 18 bookmakers.",
+        "settled_at": "2026-05-06T02:11:25.834268+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "acaa0ff96545589e6acd0fdaeb6e6153",
@@ -1619,8 +1637,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "SK Furstenfeld is selected as a side-value position in Austria Landesliga. The expected goals profile is 0.92 - 2.59. The best price is 2.34, while the market median is around 2.25, creating an estimated value gap of +30.1% across 9 bookmakers."
+        "result": "loss",
+        "reasoning": "SK Furstenfeld is selected as a side-value position in Austria Landesliga. The expected goals profile is 0.92 - 2.59. The best price is 2.34, while the market median is around 2.25, creating an estimated value gap of +30.1% across 9 bookmakers.",
+        "settled_at": "2026-05-06T02:11:25.834282+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "fe45ef1c20f97eac90b033776a37ac39",
@@ -1650,8 +1671,11 @@
         "stake": 0.75,
         "stake_label": "Small Value",
         "stake_score": 3,
-        "result": "pending",
-        "reasoning": "Siwelele is selected as a side-value position in South Africa Premier Soccer League. The expected goals profile is 1.11 - 0.55. The best price is 2.39, while the market median is around 2.20, creating an estimated value gap of +7.5% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "Siwelele is selected as a side-value position in South Africa Premier Soccer League. The expected goals profile is 1.11 - 0.55. The best price is 2.39, while the market median is around 2.20, creating an estimated value gap of +7.5% across 17 bookmakers.",
+        "settled_at": "2026-05-06T02:11:25.834295+02:00",
+        "settled_status": -1,
+        "final_score": "2:2"
     },
     {
         "pick_id": "3ef4623cd34b899561a22be64bbad536",
@@ -1681,7 +1705,10 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Arsenal - Atletico Madrid rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.53, supported by recent team scoring profiles and league baseline. The best available price is 2.07 versus a market median near 1.93, creating an estimated value gap of +20.0% across 15 bookmakers."
+        "result": "loss",
+        "reasoning": "Arsenal - Atletico Madrid rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.53, supported by recent team scoring profiles and league baseline. The best available price is 2.07 versus a market median near 1.93, creating an estimated value gap of +20.0% across 15 bookmakers.",
+        "settled_at": "2026-05-06T02:11:25.834305+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     }
 ]
