@@ -1739,8 +1739,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Yunnan Yukun is selected as a side-value position in Chinese Super League. The expected goals profile is 2.15 - 1.12. The best price is 2.66, while the market median is around 2.13, creating an estimated value gap of +22.8% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "Yunnan Yukun is selected as a side-value position in Chinese Super League. The expected goals profile is 2.15 - 1.12. The best price is 2.66, while the market median is around 2.13, creating an estimated value gap of +22.8% across 18 bookmakers.",
+        "settled_at": "2026-05-07T02:11:12.008776+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     },
     {
         "pick_id": "9e12c1dd07287fc7e31bbbbff74c286b",
@@ -1770,8 +1773,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "KS Dinamo Tirana - FK Vora projects as a more controlled scoring environment. The model total is 2.16, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.95 versus a market median near 1.87, leaving an estimated value gap of +11.9% across 11 bookmakers."
+        "result": "loss",
+        "reasoning": "KS Dinamo Tirana - FK Vora projects as a more controlled scoring environment. The model total is 2.16, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.95 versus a market median near 1.87, leaving an estimated value gap of +11.9% across 11 bookmakers.",
+        "settled_at": "2026-05-07T02:11:12.008823+02:00",
+        "settled_status": -1,
+        "final_score": "2:2"
     },
     {
         "pick_id": "30a433bf564bf5b3561ebe592bd5a64a",
@@ -1801,8 +1807,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Slavia Sofia is selected as a side-value position in Bulgaria First League. The expected goals profile is 1.58 - 0.81. The best price is 2.44, while the market median is around 2.21, creating an estimated value gap of +16.0% across 16 bookmakers."
+        "result": "win",
+        "reasoning": "Slavia Sofia is selected as a side-value position in Bulgaria First League. The expected goals profile is 1.58 - 0.81. The best price is 2.44, while the market median is around 2.21, creating an estimated value gap of +16.0% across 16 bookmakers.",
+        "settled_at": "2026-05-07T02:11:12.008837+02:00",
+        "settled_status": -1,
+        "final_score": "2:1"
     },
     {
         "pick_id": "75713a19041bf67c0029989f58b91e4c",
@@ -1832,8 +1841,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Super Nova is selected as a side-value position in Latvian Higher League. The expected goals profile is 0.92 - 1.87. The best price is 3.09, while the market median is around 2.90, creating an estimated value gap of +27.9% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Super Nova is selected as a side-value position in Latvian Higher League. The expected goals profile is 0.92 - 1.87. The best price is 3.09, while the market median is around 2.90, creating an estimated value gap of +27.9% across 16 bookmakers.",
+        "settled_at": "2026-05-07T02:11:12.008849+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     },
     {
         "pick_id": "49024459abacbc8f068c0806e65a1cf9",
@@ -1863,8 +1875,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "FC Iberia 1999 Tbilisi is selected as a side-value position in Georgia Primera Division. The expected goals profile is 0.82 - 1.41. The best price is 2.84, while the market median is around 2.63, creating an estimated value gap of +14.5% across 15 bookmakers."
+        "result": "win",
+        "reasoning": "FC Iberia 1999 Tbilisi is selected as a side-value position in Georgia Primera Division. The expected goals profile is 0.82 - 1.41. The best price is 2.84, while the market median is around 2.63, creating an estimated value gap of +14.5% across 15 bookmakers.",
+        "settled_at": "2026-05-07T02:11:12.008858+02:00",
+        "settled_status": -1,
+        "final_score": "0:1"
     },
     {
         "pick_id": "0d1a3ef0f3ff3f20e077f0b6e479ee9e",
@@ -1894,8 +1909,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Wydad Casablanca - CODM Meknes projects as a more controlled scoring environment. The model total is 1.89, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.80 versus a market median near 1.80, leaving an estimated value gap of +15.0% across 13 bookmakers."
+        "result": "win",
+        "reasoning": "Wydad Casablanca - CODM Meknes projects as a more controlled scoring environment. The model total is 1.89, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.80 versus a market median near 1.80, leaving an estimated value gap of +15.0% across 13 bookmakers.",
+        "settled_at": "2026-05-07T02:11:12.008867+02:00",
+        "settled_status": -1,
+        "final_score": "2:0"
     },
     {
         "pick_id": "716fb10cd5ed0cf71d2efd050240f510",
@@ -1925,8 +1943,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Carrick Rangers is selected as a side-value position in Northern Ireland Premier League. The expected goals profile is 1.19 - 2.06. The best price is 2.20, while the market median is around 2.09, creating an estimated value gap of +12.3% across 15 bookmakers."
+        "result": "loss",
+        "reasoning": "Carrick Rangers is selected as a side-value position in Northern Ireland Premier League. The expected goals profile is 1.19 - 2.06. The best price is 2.20, while the market median is around 2.09, creating an estimated value gap of +12.3% across 15 bookmakers.",
+        "settled_at": "2026-05-07T02:11:12.008875+02:00",
+        "settled_status": -1,
+        "final_score": "3:1"
     },
     {
         "pick_id": "0fdad859811142456cc061d4dcd58258",
@@ -1956,8 +1977,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Maghreb Fez is selected as a side-value position in Botola Pro 1. The expected goals profile is 1.40 - 0.83. The best price is 3.46, while the market median is around 3.25, creating an estimated value gap of +19.5% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Maghreb Fez is selected as a side-value position in Botola Pro 1. The expected goals profile is 1.40 - 0.83. The best price is 3.46, while the market median is around 3.25, creating an estimated value gap of +19.5% across 16 bookmakers.",
+        "settled_at": "2026-05-07T02:11:12.008886+02:00",
+        "settled_status": -1,
+        "final_score": "0:2"
     },
     {
         "pick_id": "82626f858f7aeefde3c1f36cca110daa",
@@ -1987,8 +2011,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Mount Pleasant FA - Montego Bay Utd rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.24, supported by recent team scoring profiles and league baseline. The best available price is 1.91 versus a market median near 1.80, creating an estimated value gap of +10.5% across 12 bookmakers."
+        "result": "win",
+        "reasoning": "Mount Pleasant FA - Montego Bay Utd rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.24, supported by recent team scoring profiles and league baseline. The best available price is 1.91 versus a market median near 1.80, creating an estimated value gap of +10.5% across 12 bookmakers.",
+        "settled_at": "2026-05-07T02:11:12.008895+02:00",
+        "settled_status": -1,
+        "final_score": "2:1"
     },
     {
         "pick_id": "6267841dec2fdd1614d11e61865ba33d",
@@ -2018,8 +2045,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 4,
-        "result": "pending",
-        "reasoning": "Treasure Beach is selected as a side-value position in Jamaica Premier League. The expected goals profile is 1.41 - 1.12. The best price is 3.50, while the market median is around 2.75, creating an estimated value gap of +16.7% across 9 bookmakers."
+        "result": "loss",
+        "reasoning": "Treasure Beach is selected as a side-value position in Jamaica Premier League. The expected goals profile is 1.41 - 1.12. The best price is 3.50, while the market median is around 2.75, creating an estimated value gap of +16.7% across 9 bookmakers.",
+        "settled_at": "2026-05-07T02:11:12.008907+02:00",
+        "settled_status": -1,
+        "final_score": "0:2"
     },
     {
         "pick_id": "8df95ce0238b28e3ef3088c89bcba3d4",
@@ -2049,8 +2079,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "ABC RN - Juazeirense rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.13, supported by recent team scoring profiles and league baseline. The best available price is 2.05 versus a market median near 1.95, creating an estimated value gap of +11.8% across 12 bookmakers."
+        "result": "win",
+        "reasoning": "ABC RN - Juazeirense rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.13, supported by recent team scoring profiles and league baseline. The best available price is 2.05 versus a market median near 1.95, creating an estimated value gap of +11.8% across 12 bookmakers.",
+        "settled_at": "2026-05-07T02:11:12.008915+02:00",
+        "settled_status": -1,
+        "final_score": "4:0"
     },
     {
         "pick_id": "f940429a395e53c274f5bc1d3ad6de73",
