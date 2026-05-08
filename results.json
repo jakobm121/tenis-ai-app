@@ -2144,8 +2144,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 4,
-        "result": "pending",
-        "reasoning": "Halaba City is selected as a side-value position in Ethiopia Higher League. The expected goals profile is 0.81 - 1.48. The best price is 3.45, while the market median is around 2.96, creating an estimated value gap of +25.0% across 8 bookmakers."
+        "result": "loss",
+        "reasoning": "Halaba City is selected as a side-value position in Ethiopia Higher League. The expected goals profile is 0.81 - 1.48. The best price is 3.45, while the market median is around 2.96, creating an estimated value gap of +25.0% across 8 bookmakers.",
+        "settled_at": "2026-05-08T02:13:42.074217+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "7093a98fa7e8525f7a1687862027d3af",
@@ -2175,8 +2178,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "AL Salt is selected as a side-value position in Jordan Premier League. The expected goals profile is 1.20 - 1.56. The best price is 3.00, while the market median is around 2.75, creating an estimated value gap of +11.4% across 15 bookmakers."
+        "result": "loss",
+        "reasoning": "AL Salt is selected as a side-value position in Jordan Premier League. The expected goals profile is 1.20 - 1.56. The best price is 3.00, while the market median is around 2.75, creating an estimated value gap of +11.4% across 15 bookmakers.",
+        "settled_at": "2026-05-08T02:13:42.074261+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "23b663f7c09f520eaefc5d96cfb6daaa",
@@ -2206,8 +2212,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Tukums-2000 is selected as a side-value position in Latvian Higher League. The expected goals profile is 2.06 - 0.84. The best price is 1.94, while the market median is around 1.81, creating an estimated value gap of +13.3% across 16 bookmakers."
+        "result": "win",
+        "reasoning": "Tukums-2000 is selected as a side-value position in Latvian Higher League. The expected goals profile is 2.06 - 0.84. The best price is 1.94, while the market median is around 1.81, creating an estimated value gap of +13.3% across 16 bookmakers.",
+        "settled_at": "2026-05-08T02:13:42.074275+02:00",
+        "settled_status": -1,
+        "final_score": "6:1"
     },
     {
         "pick_id": "0721adb8326d3319f2898eaec33b44fb",
@@ -2237,8 +2246,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "DHJ Difaa Hassani Jadidi is selected as a side-value position in Botola Pro 1. The expected goals profile is 1.27 - 0.83. The best price is 3.20, while the market median is around 2.85, creating an estimated value gap of +14.6% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "DHJ Difaa Hassani Jadidi is selected as a side-value position in Botola Pro 1. The expected goals profile is 1.27 - 0.83. The best price is 3.20, while the market median is around 2.85, creating an estimated value gap of +14.6% across 16 bookmakers.",
+        "settled_at": "2026-05-08T02:13:42.074287+02:00",
+        "settled_status": -1,
+        "final_score": "2:2"
     },
     {
         "pick_id": "e983d7df58a94bb9701b0d85d745c2fb",
@@ -2268,7 +2280,10 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "Um Alhassam - Buri rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.06, supported by recent team scoring profiles and league baseline. The best available price is 2.10 versus a market median near 1.96, creating an estimated value gap of +11.4% across 8 bookmakers."
+        "result": "win",
+        "reasoning": "Um Alhassam - Buri rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.06, supported by recent team scoring profiles and league baseline. The best available price is 2.10 versus a market median near 1.96, creating an estimated value gap of +11.4% across 8 bookmakers.",
+        "settled_at": "2026-05-08T02:13:42.074304+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     }
 ]
