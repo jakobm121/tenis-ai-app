@@ -2314,8 +2314,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Sturt Lions is selected as a side-value position in FFSA Premier League. The expected goals profile is 0.72 - 2.54. The best price is 2.13, while the market median is around 1.81, creating an estimated value gap of +28.8% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "Sturt Lions is selected as a side-value position in FFSA Premier League. The expected goals profile is 0.72 - 2.54. The best price is 2.13, while the market median is around 1.81, creating an estimated value gap of +28.8% across 17 bookmakers.",
+        "settled_at": "2026-05-08T21:48:26.087426+02:00",
+        "settled_status": -1,
+        "final_score": "2:1"
     },
     {
         "pick_id": "edb128cb7e038e18d5f67c8b7458f535",
@@ -2345,8 +2348,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "FC Van is selected as a side-value position in Armenia Premier League. The expected goals profile is 1.74 - 0.99. The best price is 2.51, while the market median is around 1.90, creating an estimated value gap of +14.9% across 15 bookmakers."
+        "result": "win",
+        "reasoning": "FC Van is selected as a side-value position in Armenia Premier League. The expected goals profile is 1.74 - 0.99. The best price is 2.51, while the market median is around 1.90, creating an estimated value gap of +14.9% across 15 bookmakers.",
+        "settled_at": "2026-05-08T21:48:26.087462+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     },
     {
         "pick_id": "38e6f42b1a4ee57c95649cd91f63c569",
@@ -2376,8 +2382,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Bayswater City is selected as a side-value position in National Premier Leagues Western Australia. The expected goals profile is 1.85 - 1.30. The best price is 2.80, while the market median is around 2.41, creating an estimated value gap of +14.4% across 17 bookmakers."
+        "result": "win",
+        "reasoning": "Bayswater City is selected as a side-value position in National Premier Leagues Western Australia. The expected goals profile is 1.85 - 1.30. The best price is 2.80, while the market median is around 2.41, creating an estimated value gap of +14.4% across 17 bookmakers.",
+        "settled_at": "2026-05-08T21:48:26.087472+02:00",
+        "settled_status": -1,
+        "final_score": "3:2"
     },
     {
         "pick_id": "712e1c7f52ce7e5a72cd374246aa11f7",
@@ -2407,8 +2416,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Maccabi Kabilio Jaffa is selected as a side-value position in Israel Leumit League. The expected goals profile is 0.86 - 1.60. The best price is 2.75, while the market median is around 2.10, creating an estimated value gap of +17.5% across 15 bookmakers."
+        "result": "loss",
+        "reasoning": "Maccabi Kabilio Jaffa is selected as a side-value position in Israel Leumit League. The expected goals profile is 0.86 - 1.60. The best price is 2.75, while the market median is around 2.10, creating an estimated value gap of +17.5% across 15 bookmakers.",
+        "settled_at": "2026-05-08T21:48:26.087480+02:00",
+        "settled_status": -1,
+        "final_score": "4:1"
     },
     {
         "pick_id": "2a8c6c2a62ee54aab076f527a4617dbd",
@@ -2438,8 +2450,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Al Hussein Irbid - Al Faisaly Amman rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.32, supported by recent team scoring profiles and league baseline. The best available price is 2.09 versus a market median near 1.99, creating an estimated value gap of +16.4% across 8 bookmakers."
+        "result": "loss",
+        "reasoning": "Al Hussein Irbid - Al Faisaly Amman rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.32, supported by recent team scoring profiles and league baseline. The best available price is 2.09 versus a market median near 1.99, creating an estimated value gap of +16.4% across 8 bookmakers.",
+        "settled_at": "2026-05-08T21:48:26.087491+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     },
     {
         "pick_id": "0db64fd96d513777b8555d12b3024975",
@@ -2469,8 +2484,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "FC Gomel is selected as a side-value position in Belarusian Premier League. The expected goals profile is 1.83 - 1.06. The best price is 2.70, while the market median is around 2.44, creating an estimated value gap of +18.1% across 13 bookmakers."
+        "result": "win",
+        "reasoning": "FC Gomel is selected as a side-value position in Belarusian Premier League. The expected goals profile is 1.83 - 1.06. The best price is 2.70, while the market median is around 2.44, creating an estimated value gap of +18.1% across 13 bookmakers.",
+        "settled_at": "2026-05-08T21:48:26.087499+02:00",
+        "settled_status": -1,
+        "final_score": "2:0"
     },
     {
         "pick_id": "18d38a06355323e5c8b798441af36225",
@@ -2500,8 +2518,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Jonsereds IF is selected as a side-value position in Sweden Div 3 Mellersta. The expected goals profile is 1.15 - 2.02. The best price is 2.60, while the market median is around 2.37, creating an estimated value gap of +18.0% across 11 bookmakers."
+        "result": "loss",
+        "reasoning": "Jonsereds IF is selected as a side-value position in Sweden Div 3 Mellersta. The expected goals profile is 1.15 - 2.02. The best price is 2.60, while the market median is around 2.37, creating an estimated value gap of +18.0% across 11 bookmakers.",
+        "settled_at": "2026-05-08T21:48:26.087506+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     },
     {
         "pick_id": "ac79c0781e98ecaae0c8254c59030320",
@@ -2531,8 +2552,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "Hestrafors IF is selected as a side-value position in Sweden Div 3 Mellersta. The expected goals profile is 0.99 - 2.06. The best price is 3.60, while the market median is around 3.15, creating an estimated value gap of +35.8% across 11 bookmakers."
+        "result": "win",
+        "reasoning": "Hestrafors IF is selected as a side-value position in Sweden Div 3 Mellersta. The expected goals profile is 0.99 - 2.06. The best price is 3.60, while the market median is around 3.15, creating an estimated value gap of +35.8% across 11 bookmakers.",
+        "settled_at": "2026-05-08T21:48:26.087516+02:00",
+        "settled_status": -1,
+        "final_score": "2:3"
     },
     {
         "pick_id": "e955bee1e17e853b8e8c547b83ea3a69",
