@@ -2586,8 +2586,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Arenas Club de Getxo is selected as a side-value position in Spain Primera Division RFEF. The expected goals profile is 1.56 - 1.03. The best price is 2.60, while the market median is around 2.47, creating an estimated value gap of +12.0% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Arenas Club de Getxo is selected as a side-value position in Spain Primera Division RFEF. The expected goals profile is 1.56 - 1.03. The best price is 2.60, while the market median is around 2.47, creating an estimated value gap of +12.0% across 16 bookmakers.",
+        "settled_at": "2026-05-09T03:15:22.323798+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "15a76c13700b2d7cb8e907e74ac4e319",
@@ -2617,7 +2620,10 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Uruguay Montevideo is selected as a side-value position in Uruguay Segunda. The expected goals profile is 0.68 - 1.55. The best price is 3.25, while the market median is around 3.10, creating an estimated value gap of +25.1% across 15 bookmakers."
+        "result": "loss",
+        "reasoning": "Uruguay Montevideo is selected as a side-value position in Uruguay Segunda. The expected goals profile is 0.68 - 1.55. The best price is 3.25, while the market median is around 3.10, creating an estimated value gap of +25.1% across 15 bookmakers.",
+        "settled_at": "2026-05-09T03:15:22.323833+02:00",
+        "settled_status": -1,
+        "final_score": "2:1"
     }
 ]
