@@ -2654,8 +2654,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "FC Zhetysu Taldykorgan - Zhenis projects as a more controlled scoring environment. The model total is 1.64, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.83 versus a market median near 1.73, leaving an estimated value gap of +22.7% across 8 bookmakers."
+        "result": "loss",
+        "reasoning": "FC Zhetysu Taldykorgan - Zhenis projects as a more controlled scoring environment. The model total is 1.64, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.83 versus a market median near 1.73, leaving an estimated value gap of +22.7% across 8 bookmakers.",
+        "settled_at": "2026-05-10T00:32:06.029516+02:00",
+        "settled_status": -1,
+        "final_score": "2:3"
     },
     {
         "pick_id": "7262ad73901efacab9830d5cf5f2c57c",
@@ -2685,8 +2688,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "South Shields - Kidderminster Harriers rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.33, supported by recent team scoring profiles and league baseline. The best available price is 1.98 versus a market median near 1.91, creating an estimated value gap of +14.1% across 15 bookmakers."
+        "result": "loss",
+        "reasoning": "South Shields - Kidderminster Harriers rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.33, supported by recent team scoring profiles and league baseline. The best available price is 1.98 versus a market median near 1.91, creating an estimated value gap of +14.1% across 15 bookmakers.",
+        "settled_at": "2026-05-10T00:32:06.029558+02:00",
+        "settled_status": -1,
+        "final_score": "0:2"
     },
     {
         "pick_id": "2552969c8b6c9255d48dbc720211c2f7",
@@ -2716,8 +2722,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Elche - Alaves rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.25, supported by recent team scoring profiles and league baseline. The best available price is 1.96 versus a market median near 1.85, creating an estimated value gap of +12.0% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "Elche - Alaves rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.25, supported by recent team scoring profiles and league baseline. The best available price is 1.96 versus a market median near 1.85, creating an estimated value gap of +12.0% across 18 bookmakers.",
+        "settled_at": "2026-05-10T00:32:06.029574+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "efff6f207efe6981939121a6714fc156",
@@ -2747,8 +2756,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Parnu JK Vaprus is selected as a side-value position in Estonia Champions League. The expected goals profile is 2.38 - 1.08. The best price is 2.61, while the market median is around 2.20, creating an estimated value gap of +28.3% across 15 bookmakers."
+        "result": "win",
+        "reasoning": "Parnu JK Vaprus is selected as a side-value position in Estonia Champions League. The expected goals profile is 2.38 - 1.08. The best price is 2.61, while the market median is around 2.20, creating an estimated value gap of +28.3% across 15 bookmakers.",
+        "settled_at": "2026-05-10T00:32:06.029589+02:00",
+        "settled_status": -1,
+        "final_score": "2:0"
     },
     {
         "pick_id": "53ef1b22139fff73f21dc2bc379db860",
@@ -2778,8 +2790,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Burgos is selected as a side-value position in Spanish La Liga 2. The expected goals profile is 1.72 - 1.14. The best price is 2.68, while the market median is around 2.50, creating an estimated value gap of +13.9% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "Burgos is selected as a side-value position in Spanish La Liga 2. The expected goals profile is 1.72 - 1.14. The best price is 2.68, while the market median is around 2.50, creating an estimated value gap of +13.9% across 18 bookmakers.",
+        "settled_at": "2026-05-10T00:32:06.029600+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "3a604ed678f4a1d8b9ea9ac682380514",
@@ -2809,8 +2824,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "HSK Zrinjski Mostar is selected as a side-value position in Bosnia and Herzegovina Premier League. The expected goals profile is 0.76 - 1.25. The best price is 2.70, while the market median is around 1.93, creating an estimated value gap of +12.8% across 12 bookmakers."
+        "result": "win",
+        "reasoning": "HSK Zrinjski Mostar is selected as a side-value position in Bosnia and Herzegovina Premier League. The expected goals profile is 0.76 - 1.25. The best price is 2.70, while the market median is around 1.93, creating an estimated value gap of +12.8% across 12 bookmakers.",
+        "settled_at": "2026-05-10T00:32:06.029611+02:00",
+        "settled_status": -1,
+        "final_score": "0:1"
     },
     {
         "pick_id": "498b8c5f8dcb6a2ad2d33f1624bc1fcf",
@@ -2840,8 +2858,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Universitaea Cluj is selected as a side-value position in Romania Liga I. The expected goals profile is 2.01 - 0.74. The best price is 2.30, while the market median is around 1.92, creating an estimated value gap of +23.3% across 17 bookmakers."
+        "result": "win",
+        "reasoning": "Universitaea Cluj is selected as a side-value position in Romania Liga I. The expected goals profile is 2.01 - 0.74. The best price is 2.30, while the market median is around 1.92, creating an estimated value gap of +23.3% across 17 bookmakers.",
+        "settled_at": "2026-05-10T00:32:06.029622+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     },
     {
         "pick_id": "8faf017227ea67e77a886bc725e16acf",
@@ -2871,8 +2892,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "USL Dunkerque is selected as a side-value position in France Ligue 2. The expected goals profile is 1.15 - 1.81. The best price is 2.75, while the market median is around 2.50, creating an estimated value gap of +15.6% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "USL Dunkerque is selected as a side-value position in France Ligue 2. The expected goals profile is 1.15 - 1.81. The best price is 2.75, while the market median is around 2.50, creating an estimated value gap of +15.6% across 17 bookmakers.",
+        "settled_at": "2026-05-10T00:32:06.029639+02:00",
+        "settled_status": -1,
+        "final_score": "3:2"
     },
     {
         "pick_id": "4bb4411c0de5a1cbe1b98520405598f3",
