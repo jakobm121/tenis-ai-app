@@ -3124,8 +3124,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Altay FK - Ordabasy projects as a more controlled scoring environment. The model total is 1.88, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.88 versus a market median near 1.75, leaving an estimated value gap of +17.7% across 12 bookmakers."
+        "result": "win",
+        "reasoning": "Altay FK - Ordabasy projects as a more controlled scoring environment. The model total is 1.88, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.88 versus a market median near 1.75, leaving an estimated value gap of +17.7% across 12 bookmakers.",
+        "settled_at": "2026-05-10T18:09:11.322903+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "03c0c2679eaf1c1976616f16b112e6a5",
@@ -3155,8 +3158,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Trelleborgs FF is selected as a side-value position in Sweden Division 1. The expected goals profile is 1.18 - 2.30. The best price is 2.16, while the market median is around 2.01, creating an estimated value gap of +15.9% across 15 bookmakers."
+        "result": "win",
+        "reasoning": "Trelleborgs FF is selected as a side-value position in Sweden Division 1. The expected goals profile is 1.18 - 2.30. The best price is 2.16, while the market median is around 2.01, creating an estimated value gap of +15.9% across 15 bookmakers.",
+        "settled_at": "2026-05-10T18:09:11.322938+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     },
     {
         "pick_id": "b751e11fe69fbab40ba4f0f95a7b88a5",
@@ -3186,8 +3192,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Nomme JK Kalju is selected as a side-value position in Estonia Champions League. The expected goals profile is 2.46 - 1.00. The best price is 2.35, while the market median is around 2.17, creating an estimated value gap of +27.5% across 14 bookmakers."
+        "result": "loss",
+        "reasoning": "Nomme JK Kalju is selected as a side-value position in Estonia Champions League. The expected goals profile is 2.46 - 1.00. The best price is 2.35, while the market median is around 2.17, creating an estimated value gap of +27.5% across 14 bookmakers.",
+        "settled_at": "2026-05-10T18:09:11.322948+02:00",
+        "settled_status": -1,
+        "final_score": "0:1"
     },
     {
         "pick_id": "413fbf46248e55bdc86e36955e055541",
