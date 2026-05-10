@@ -3226,8 +3226,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Terek Grozny is selected as a side-value position in Russia Premier League. The expected goals profile is 1.42 - 0.83. The best price is 2.60, while the market median is around 2.23, creating an estimated value gap of +13.7% across 13 bookmakers."
+        "result": "loss",
+        "reasoning": "Terek Grozny is selected as a side-value position in Russia Premier League. The expected goals profile is 1.42 - 0.83. The best price is 2.60, while the market median is around 2.23, creating an estimated value gap of +13.7% across 13 bookmakers.",
+        "settled_at": "2026-05-11T01:53:55.766680+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "7f84ba12a62e98d0aa47465204b88dce",
@@ -3257,8 +3260,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Alemannia Aachen is selected as a side-value position in German 3.Liga. The expected goals profile is 1.14 - 1.88. The best price is 2.50, while the market median is around 2.37, creating an estimated value gap of +13.6% across 16 bookmakers."
+        "result": "win",
+        "reasoning": "Alemannia Aachen is selected as a side-value position in German 3.Liga. The expected goals profile is 1.14 - 1.88. The best price is 2.50, while the market median is around 2.37, creating an estimated value gap of +13.6% across 16 bookmakers.",
+        "settled_at": "2026-05-11T01:53:55.766722+02:00",
+        "settled_status": -1,
+        "final_score": "0:3"
     },
     {
         "pick_id": "c8cb8a5e8f4a447a5eb336091d609730",
@@ -3288,8 +3294,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "Hradec Kralove is selected as a side-value position in Czech Republic Gambrinus Liga. The expected goals profile is 1.22 - 1.34. The best price is 3.41, while the market median is around 3.20, creating an estimated value gap of +12.0% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "Hradec Kralove is selected as a side-value position in Czech Republic Gambrinus Liga. The expected goals profile is 1.22 - 1.34. The best price is 3.41, while the market median is around 3.20, creating an estimated value gap of +12.0% across 17 bookmakers.",
+        "settled_at": "2026-05-11T01:53:55.766740+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "8a1ef634d79847b2f2e8c8dfa295e99d",
@@ -3319,8 +3328,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Dinamo Batumi is selected as a side-value position in Georgia Primera Division. The expected goals profile is 1.57 - 1.24. The best price is 3.50, while the market median is around 2.62, creating an estimated value gap of +16.9% across 16 bookmakers."
+        "result": "win",
+        "reasoning": "Dinamo Batumi is selected as a side-value position in Georgia Primera Division. The expected goals profile is 1.57 - 1.24. The best price is 3.50, while the market median is around 2.62, creating an estimated value gap of +16.9% across 16 bookmakers.",
+        "settled_at": "2026-05-11T01:53:55.766752+02:00",
+        "settled_status": -1,
+        "final_score": "3:1"
     },
     {
         "pick_id": "1d0fe1376de1f8183cc9030ccc6811b3",
@@ -3350,8 +3362,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Atletico Mineiro - Botafogo RJ rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.15, supported by recent team scoring profiles and league baseline. The best available price is 2.08 versus a market median near 1.99, creating an estimated value gap of +12.8% across 15 bookmakers."
+        "result": "loss",
+        "reasoning": "Atletico Mineiro - Botafogo RJ rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.15, supported by recent team scoring profiles and league baseline. The best available price is 2.08 versus a market median near 1.99, creating an estimated value gap of +12.8% across 15 bookmakers.",
+        "settled_at": "2026-05-11T01:53:55.766767+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "157d79b63255323f25f21b0afc9f4195",
@@ -3381,8 +3396,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Quilmes is selected as a side-value position in Argentine Division 2. The expected goals profile is 0.90 - 1.17. The best price is 3.60, while the market median is around 2.98, creating an estimated value gap of +15.2% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "Quilmes is selected as a side-value position in Argentine Division 2. The expected goals profile is 0.90 - 1.17. The best price is 3.60, while the market median is around 2.98, creating an estimated value gap of +15.2% across 17 bookmakers.",
+        "settled_at": "2026-05-11T01:53:55.766778+02:00",
+        "settled_status": -1,
+        "final_score": "2:1"
     },
     {
         "pick_id": "41a018594c99fe7c43abd1ad58e1ebf6",
@@ -3412,8 +3430,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Comerciantes Unidos is selected as a side-value position in Peru Liga 1. The expected goals profile is 1.47 - 1.08. The best price is 3.27, while the market median is around 2.92, creating an estimated value gap of +15.0% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Comerciantes Unidos is selected as a side-value position in Peru Liga 1. The expected goals profile is 1.47 - 1.08. The best price is 3.27, while the market median is around 2.92, creating an estimated value gap of +15.0% across 16 bookmakers.",
+        "settled_at": "2026-05-11T01:53:55.766790+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "8665c9b8c5cf3a612b24d7be505b4eff",
@@ -3443,8 +3464,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 4,
-        "result": "pending",
-        "reasoning": "Atletico Atlanta is selected as a side-value position in Argentine Division 2. The expected goals profile is 0.95 - 1.15. The best price is 3.29, while the market median is around 3.06, creating an estimated value gap of +11.2% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Atletico Atlanta is selected as a side-value position in Argentine Division 2. The expected goals profile is 0.95 - 1.15. The best price is 3.29, while the market median is around 3.06, creating an estimated value gap of +11.2% across 16 bookmakers.",
+        "settled_at": "2026-05-11T01:53:55.766803+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "e15fcad3a0ef6561e6ce476af312a2c5",
@@ -3474,8 +3498,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Colon de Santa Fe is selected as a side-value position in Argentine Division 2. The expected goals profile is 1.26 - 0.32. The best price is 2.00, while the market median is around 1.77, creating an estimated value gap of +10.8% across 17 bookmakers."
+        "result": "win",
+        "reasoning": "Colon de Santa Fe is selected as a side-value position in Argentine Division 2. The expected goals profile is 1.26 - 0.32. The best price is 2.00, while the market median is around 1.77, creating an estimated value gap of +10.8% across 17 bookmakers.",
+        "settled_at": "2026-05-11T01:53:55.766817+02:00",
+        "settled_status": -1,
+        "final_score": "3:2"
     },
     {
         "pick_id": "96eb4bef569bc9b383224b7d01c8e7c1",
