@@ -2926,8 +2926,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "CF Montreal is selected as a side-value position in USA Major League Soccer. The expected goals profile is 2.62 - 0.97. The best price is 1.94, while the market median is around 1.82, creating an estimated value gap of +21.2% across 19 bookmakers."
+        "result": "win",
+        "reasoning": "CF Montreal is selected as a side-value position in USA Major League Soccer. The expected goals profile is 2.62 - 0.97. The best price is 1.94, while the market median is around 1.82, creating an estimated value gap of +21.2% across 19 bookmakers.",
+        "settled_at": "2026-05-10T02:10:29.094581+02:00",
+        "settled_status": -1,
+        "final_score": "2:0"
     },
     {
         "pick_id": "e65b14fe384fa40621c10a2ee5be3182",
@@ -2988,8 +2991,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Villa Dalmine is selected as a side-value position in Argentina Primera B Metropolitana. The expected goals profile is 0.35 - 1.57. The best price is 2.14, while the market median is around 1.80, creating an estimated value gap of +21.5% across 15 bookmakers."
+        "result": "win",
+        "reasoning": "Villa Dalmine is selected as a side-value position in Argentina Primera B Metropolitana. The expected goals profile is 0.35 - 1.57. The best price is 2.14, while the market median is around 1.80, creating an estimated value gap of +21.5% across 15 bookmakers.",
+        "settled_at": "2026-05-10T02:10:29.094627+02:00",
+        "settled_status": -1,
+        "final_score": "0:2"
     },
     {
         "pick_id": "d1883d42f627e227a2337c73594579b3",
@@ -3019,8 +3025,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Atletico Rafaela is selected as a side-value position in Argentine Division 2. The expected goals profile is 1.37 - 0.72. The best price is 2.50, while the market median is around 2.28, creating an estimated value gap of +11.3% across 17 bookmakers."
+        "result": "win",
+        "reasoning": "Atletico Rafaela is selected as a side-value position in Argentine Division 2. The expected goals profile is 1.37 - 0.72. The best price is 2.50, while the market median is around 2.28, creating an estimated value gap of +11.3% across 17 bookmakers.",
+        "settled_at": "2026-05-10T02:10:29.094641+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     },
     {
         "pick_id": "c12b58cca8ec63128808c8cc92233c07",
@@ -3050,8 +3059,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Sociedad Deportiva Aucas - Universidad Catolica projects as a more controlled scoring environment. The model total is 1.97, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.92 versus a market median near 1.85, leaving an estimated value gap of +16.3% across 10 bookmakers."
+        "result": "loss",
+        "reasoning": "Sociedad Deportiva Aucas - Universidad Catolica projects as a more controlled scoring environment. The model total is 1.97, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.92 versus a market median near 1.85, leaving an estimated value gap of +16.3% across 10 bookmakers.",
+        "settled_at": "2026-05-10T02:10:29.094656+02:00",
+        "settled_status": -1,
+        "final_score": "2:1"
     },
     {
         "pick_id": "ecc9fc7e3cb91bd93f8654ab6b0df5a5",
