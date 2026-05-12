@@ -3532,8 +3532,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "Pachuca is selected as a side-value position in Primera Division Liga MX. The expected goals profile is 1.54 - 1.27. The best price is 3.23, while the market median is around 2.96, creating an estimated value gap of +12.2% across 19 bookmakers."
+        "result": "win",
+        "reasoning": "Pachuca is selected as a side-value position in Primera Division Liga MX. The expected goals profile is 1.54 - 1.27. The best price is 3.23, while the market median is around 2.96, creating an estimated value gap of +12.2% across 19 bookmakers.",
+        "settled_at": "2026-05-12T03:16:19.412950+02:00",
+        "settled_status": -1,
+        "final_score": "2:0"
     },
     {
         "pick_id": "3c6613784ff500a3a23cccf9ca82091f",
@@ -3563,8 +3566,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 4,
-        "result": "pending",
-        "reasoning": "Macara is selected as a side-value position in Liga Pro Ecuador Serie A. The expected goals profile is 0.72 - 1.11. The best price is 2.75, while the market median is around 2.40, creating an estimated value gap of +9.5% across 16 bookmakers."
+        "result": "win",
+        "reasoning": "Macara is selected as a side-value position in Liga Pro Ecuador Serie A. The expected goals profile is 0.72 - 1.11. The best price is 2.75, while the market median is around 2.40, creating an estimated value gap of +9.5% across 16 bookmakers.",
+        "settled_at": "2026-05-12T03:16:19.413000+02:00",
+        "settled_status": -1,
+        "final_score": "0:1"
     },
     {
         "pick_id": "402f9ab0b21fe3acbaf7d06030d54b38",
@@ -3594,8 +3600,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Bhayangkara Solo FC is selected as a side-value position in Indonesia Super League. The expected goals profile is 1.99 - 1.14. The best price is 2.40, while the market median is around 2.20, creating an estimated value gap of +16.0% across 17 bookmakers."
+        "result": "win",
+        "reasoning": "Bhayangkara Solo FC is selected as a side-value position in Indonesia Super League. The expected goals profile is 1.99 - 1.14. The best price is 2.40, while the market median is around 2.20, creating an estimated value gap of +16.0% across 17 bookmakers.",
+        "settled_at": "2026-05-12T03:16:19.413015+02:00",
+        "settled_status": -1,
+        "final_score": "3:1"
     },
     {
         "pick_id": "07567a976c23c4d462809e0aac3c8d36",
@@ -3625,8 +3634,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "FK Nizhny Novgorod - CSKA Moscow projects as a more controlled scoring environment. The model total is 2.16, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.96 versus a market median near 1.92, leaving an estimated value gap of +12.3% across 12 bookmakers."
+        "result": "loss",
+        "reasoning": "FK Nizhny Novgorod - CSKA Moscow projects as a more controlled scoring environment. The model total is 2.16, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.96 versus a market median near 1.92, leaving an estimated value gap of +12.3% across 12 bookmakers.",
+        "settled_at": "2026-05-12T03:16:19.413028+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     },
     {
         "pick_id": "84698d197398f79b934e1bded12bebe6",
@@ -3656,8 +3668,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "Aizawl FC is selected as a side-value position in India League Division 1. The expected goals profile is 1.70 - 1.53. The best price is 3.40, while the market median is around 2.92, creating an estimated value gap of +14.1% across 12 bookmakers."
+        "result": "loss",
+        "reasoning": "Aizawl FC is selected as a side-value position in India League Division 1. The expected goals profile is 1.70 - 1.53. The best price is 3.40, while the market median is around 2.92, creating an estimated value gap of +14.1% across 12 bookmakers.",
+        "settled_at": "2026-05-12T03:16:19.413039+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     },
     {
         "pick_id": "4e5b19e259b9f776c79bfeca97d91e37",
@@ -3687,8 +3702,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 4,
-        "result": "pending",
-        "reasoning": "Hapoel Nof HaGalil is selected as a side-value position in Israel Leumit League. The expected goals profile is 1.15 - 1.52. The best price is 3.25, while the market median is around 3.00, creating an estimated value gap of +13.9% across 13 bookmakers."
+        "result": "loss",
+        "reasoning": "Hapoel Nof HaGalil is selected as a side-value position in Israel Leumit League. The expected goals profile is 1.15 - 1.52. The best price is 3.25, while the market median is around 3.00, creating an estimated value gap of +13.9% across 13 bookmakers.",
+        "settled_at": "2026-05-12T03:16:19.413048+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "76857754bdf37f54fc7d823527eeca7d",
@@ -3718,8 +3736,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "Hapoel Kfar Saba is selected as a side-value position in Israel Leumit League. The expected goals profile is 1.14 - 1.61. The best price is 3.00, while the market median is around 2.75, creating an estimated value gap of +12.7% across 13 bookmakers."
+        "result": "loss",
+        "reasoning": "Hapoel Kfar Saba is selected as a side-value position in Israel Leumit League. The expected goals profile is 1.14 - 1.61. The best price is 3.00, while the market median is around 2.75, creating an estimated value gap of +12.7% across 13 bookmakers.",
+        "settled_at": "2026-05-12T03:16:19.413057+02:00",
+        "settled_status": -1,
+        "final_score": "2:0"
     },
     {
         "pick_id": "bac42dc17a55acb51dd8a3fed42b47eb",
@@ -3749,8 +3770,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "Kawkab de Marrakech is selected as a side-value position in Botola Pro 1. The expected goals profile is 0.89 - 1.18. The best price is 3.20, while the market median is around 2.98, creating an estimated value gap of +11.7% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Kawkab de Marrakech is selected as a side-value position in Botola Pro 1. The expected goals profile is 0.89 - 1.18. The best price is 3.20, while the market median is around 2.98, creating an estimated value gap of +11.7% across 16 bookmakers.",
+        "settled_at": "2026-05-12T03:16:19.413069+02:00",
+        "settled_status": -1,
+        "final_score": "2:1"
     },
     {
         "pick_id": "42a42d9940433ad34b27d51ff90a3096",
@@ -3780,8 +3804,11 @@
         "stake": 0.75,
         "stake_label": "Small Value",
         "stake_score": 3,
-        "result": "pending",
-        "reasoning": "Etoile Carouge is selected as a side-value position in Switzerland Challenge League. The expected goals profile is 1.42 - 1.61. The best price is 2.90, while the market median is around 2.77, creating an estimated value gap of +8.8% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Etoile Carouge is selected as a side-value position in Switzerland Challenge League. The expected goals profile is 1.42 - 1.61. The best price is 2.90, while the market median is around 2.77, creating an estimated value gap of +8.8% across 16 bookmakers.",
+        "settled_at": "2026-05-12T03:16:19.413079+02:00",
+        "settled_status": -1,
+        "final_score": "3:0"
     },
     {
         "pick_id": "939b39621f7fbe8a04ad206602c190e4",
@@ -3811,7 +3838,10 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 4,
-        "result": "pending",
-        "reasoning": "Nueva Chicago is selected as a side-value position in Argentine Division 2. The expected goals profile is 1.35 - 0.44. The best price is 1.95, while the market median is around 1.81, creating an estimated value gap of +8.3% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "Nueva Chicago is selected as a side-value position in Argentine Division 2. The expected goals profile is 1.35 - 0.44. The best price is 1.95, while the market median is around 1.81, creating an estimated value gap of +8.3% across 18 bookmakers.",
+        "settled_at": "2026-05-12T03:16:19.413087+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     }
 ]
