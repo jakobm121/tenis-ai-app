@@ -3872,8 +3872,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Synot Slovacko is selected as a side-value position in Czech Republic Gambrinus Liga. The expected goals profile is 1.58 - 1.06. The best price is 2.90, while the market median is around 2.63, creating an estimated value gap of +15.0% across 16 bookmakers."
+        "result": "win",
+        "reasoning": "Synot Slovacko is selected as a side-value position in Czech Republic Gambrinus Liga. The expected goals profile is 1.58 - 1.06. The best price is 2.90, while the market median is around 2.63, creating an estimated value gap of +15.0% across 16 bookmakers.",
+        "settled_at": "2026-05-13T03:23:19.667807+02:00",
+        "settled_status": -1,
+        "final_score": "2:1"
     },
     {
         "pick_id": "5880fff352c369e004908d8afbd47109",
@@ -3903,8 +3906,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Atromitos Athens is selected as a side-value position in Greece Super League A. The expected goals profile is 0.93 - 1.30. The best price is 3.40, while the market median is around 3.15, creating an estimated value gap of +14.7% across 17 bookmakers."
+        "result": "win",
+        "reasoning": "Atromitos Athens is selected as a side-value position in Greece Super League A. The expected goals profile is 0.93 - 1.30. The best price is 3.40, while the market median is around 3.15, creating an estimated value gap of +14.7% across 17 bookmakers.",
+        "settled_at": "2026-05-13T03:23:19.667850+02:00",
+        "settled_status": -1,
+        "final_score": "0:3"
     },
     {
         "pick_id": "4d2d104cba1fd2837186a601fe7772a1",
@@ -3934,8 +3940,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "ibri is selected as a side-value position in Oman Professional League. The expected goals profile is 1.09 - 1.33. The best price is 3.18, while the market median is around 2.22, creating an estimated value gap of +11.1% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "ibri is selected as a side-value position in Oman Professional League. The expected goals profile is 1.09 - 1.33. The best price is 3.18, while the market median is around 2.22, creating an estimated value gap of +11.1% across 16 bookmakers.",
+        "settled_at": "2026-05-13T03:23:19.667863+02:00",
+        "settled_status": -1,
+        "final_score": "2:0"
     },
     {
         "pick_id": "19a870d41f06ff306c3080ff4823b133",
@@ -3965,8 +3974,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "TS Galaxy - Mamelodi Sundowns projects as a more controlled scoring environment. The model total is 1.97, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.96 versus a market median near 1.88, leaving an estimated value gap of +17.5% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "TS Galaxy - Mamelodi Sundowns projects as a more controlled scoring environment. The model total is 1.97, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.96 versus a market median near 1.88, leaving an estimated value gap of +17.5% across 17 bookmakers.",
+        "settled_at": "2026-05-13T03:23:19.667876+02:00",
+        "settled_status": -1,
+        "final_score": "3:2"
     },
     {
         "pick_id": "e466991351192c267e6acb53d2cf5a6b",
@@ -3996,8 +4008,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "USM Alger is selected as a side-value position in Algerian Ligue Professionnelle 1. The expected goals profile is 1.63 - 0.54. The best price is 2.23, while the market median is around 1.11, creating an estimated value gap of +19.3% across 14 bookmakers."
+        "result": "loss",
+        "reasoning": "USM Alger is selected as a side-value position in Algerian Ligue Professionnelle 1. The expected goals profile is 1.63 - 0.54. The best price is 2.23, while the market median is around 1.11, creating an estimated value gap of +19.3% across 14 bookmakers.",
+        "settled_at": "2026-05-13T03:23:19.667886+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "d081e4586411fdd5b429ccd1e8b8ae60",
@@ -4027,7 +4042,10 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Aberdeen is selected as a side-value position in Scottish Premiership. The expected goals profile is 1.66 - 1.07. The best price is 2.45, while the market median is around 2.25, creating an estimated value gap of +10.3% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "Aberdeen is selected as a side-value position in Scottish Premiership. The expected goals profile is 1.66 - 1.07. The best price is 2.45, while the market median is around 2.25, creating an estimated value gap of +10.3% across 18 bookmakers.",
+        "settled_at": "2026-05-13T03:23:19.667895+02:00",
+        "settled_status": -1,
+        "final_score": "0:2"
     }
 ]
