@@ -4076,8 +4076,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Slavia Sofia is selected as a side-value position in Bulgaria First League. The expected goals profile is 1.52 - 0.65. The best price is 3.55, while the market median is around 2.80, creating an estimated value gap of +29.6% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "Slavia Sofia is selected as a side-value position in Bulgaria First League. The expected goals profile is 1.52 - 0.65. The best price is 3.55, while the market median is around 2.80, creating an estimated value gap of +29.6% across 17 bookmakers.",
+        "settled_at": "2026-05-13T23:02:16.711366+02:00",
+        "settled_status": -1,
+        "final_score": "0:2"
     },
     {
         "pick_id": "359495b6c464fd2a09f1779eeb003c99",
@@ -4107,8 +4110,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Dodoma Jiji FC - Young Africans projects as a more controlled scoring environment. The model total is 1.90, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.85 versus a market median near 1.76, leaving an estimated value gap of +16.4% across 11 bookmakers."
+        "result": "loss",
+        "reasoning": "Dodoma Jiji FC - Young Africans projects as a more controlled scoring environment. The model total is 1.90, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.85 versus a market median near 1.76, leaving an estimated value gap of +16.4% across 11 bookmakers.",
+        "settled_at": "2026-05-13T23:02:16.711418+02:00",
+        "settled_status": -1,
+        "final_score": "3:2"
     },
     {
         "pick_id": "c0173f357306f44b446963bf1dbc54e4",
@@ -4138,8 +4144,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Al-Jndal is selected as a side-value position in Saudi Arabia Division 1. The expected goals profile is 1.32 - 1.75. The best price is 2.80, while the market median is around 2.60, creating an estimated value gap of +13.8% across 15 bookmakers."
+        "result": "win",
+        "reasoning": "Al-Jndal is selected as a side-value position in Saudi Arabia Division 1. The expected goals profile is 1.32 - 1.75. The best price is 2.80, while the market median is around 2.60, creating an estimated value gap of +13.8% across 15 bookmakers.",
+        "settled_at": "2026-05-13T23:02:16.711465+02:00",
+        "settled_status": -1,
+        "final_score": "2:3"
     },
     {
         "pick_id": "73f6b713c5b6fa3579ff79cf7277f32c",
@@ -4169,8 +4178,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "US Folgore Caratese is selected as a side-value position in Italy Serie D. The expected goals profile is 1.73 - 1.00. The best price is 2.75, while the market median is around 2.38, creating an estimated value gap of +16.3% across 10 bookmakers."
+        "result": "win",
+        "reasoning": "US Folgore Caratese is selected as a side-value position in Italy Serie D. The expected goals profile is 1.73 - 1.00. The best price is 2.75, while the market median is around 2.38, creating an estimated value gap of +16.3% across 10 bookmakers.",
+        "settled_at": "2026-05-13T23:02:16.711474+02:00",
+        "settled_status": -1,
+        "final_score": "2:0"
     },
     {
         "pick_id": "1b7194b8d32d4d428251301436e607ad",
@@ -4200,8 +4212,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 4,
-        "result": "pending",
-        "reasoning": "Olympiakos Piraeus - Panathinaikos projects as a more controlled scoring environment. The model total is 2.16, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.87 versus a market median near 1.82, leaving an estimated value gap of +9.9% across 14 bookmakers."
+        "result": "win",
+        "reasoning": "Olympiakos Piraeus - Panathinaikos projects as a more controlled scoring environment. The model total is 2.16, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.87 versus a market median near 1.82, leaving an estimated value gap of +9.9% across 14 bookmakers.",
+        "settled_at": "2026-05-13T23:02:16.711483+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     },
     {
         "pick_id": "79cd69bf065e80ea0221d251605332cf",
@@ -4231,8 +4246,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Genclerbirligi - Trabzonspor rates as a higher-goal spot in the AI77 iSports model. The projected total is 4.02, supported by recent team scoring profiles and league baseline. The best available price is 1.88 versus a market median near 1.82, creating an estimated value gap of +23.0% across 15 bookmakers."
+        "result": "win",
+        "reasoning": "Genclerbirligi - Trabzonspor rates as a higher-goal spot in the AI77 iSports model. The projected total is 4.02, supported by recent team scoring profiles and league baseline. The best available price is 1.88 versus a market median near 1.82, creating an estimated value gap of +23.0% across 15 bookmakers.",
+        "settled_at": "2026-05-13T23:02:16.711491+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     },
     {
         "pick_id": "f5a27e0cc50a9f849e3d87cd4e789327",
@@ -4262,8 +4280,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "NK Brinje Grosuplje - NK Aluminij rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.87, supported by recent team scoring profiles and league baseline. The best available price is 2.03 versus a market median near 2.00, creating an estimated value gap of +24.7% across 11 bookmakers."
+        "result": "loss",
+        "reasoning": "NK Brinje Grosuplje - NK Aluminij rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.87, supported by recent team scoring profiles and league baseline. The best available price is 2.03 versus a market median near 2.00, creating an estimated value gap of +24.7% across 11 bookmakers.",
+        "settled_at": "2026-05-13T23:02:16.711499+02:00",
+        "settled_status": -1,
+        "final_score": "0:1"
     },
     {
         "pick_id": "a2943a92d5307150668d5eb581a2605f",
@@ -4293,8 +4314,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "FC Kosova Zurich is selected as a side-value position in Switzerland 1.League Classic. The expected goals profile is 2.03 - 1.37. The best price is 2.43, while the market median is around 2.28, creating an estimated value gap of +11.4% across 14 bookmakers."
+        "result": "loss",
+        "reasoning": "FC Kosova Zurich is selected as a side-value position in Switzerland 1.League Classic. The expected goals profile is 2.03 - 1.37. The best price is 2.43, while the market median is around 2.28, creating an estimated value gap of +11.4% across 14 bookmakers.",
+        "settled_at": "2026-05-13T23:02:16.711509+02:00",
+        "settled_status": -1,
+        "final_score": "3:3"
     },
     {
         "pick_id": "034210ddb0a6b6806f4ec7233494dde0",
