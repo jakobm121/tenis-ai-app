@@ -4348,8 +4348,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "FC Barcelona is selected as a side-value position in Spanish La Liga. The expected goals profile is 1.16 - 2.03. The best price is 2.11, while the market median is around 1.76, creating an estimated value gap of +11.4% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "FC Barcelona is selected as a side-value position in Spanish La Liga. The expected goals profile is 1.16 - 2.03. The best price is 2.11, while the market median is around 1.76, creating an estimated value gap of +11.4% across 18 bookmakers.",
+        "settled_at": "2026-05-14T03:25:10.779520+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     },
     {
         "pick_id": "0d4dddb26aec5271a92daef5df89c93e",
@@ -4379,8 +4382,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "Luis Angel Firpo is selected as a side-value position in Primera Division de El Salvador. The expected goals profile is 1.13 - 1.30. The best price is 3.17, while the market median is around 2.70, creating an estimated value gap of +10.2% across 15 bookmakers."
+        "result": "win",
+        "reasoning": "Luis Angel Firpo is selected as a side-value position in Primera Division de El Salvador. The expected goals profile is 1.13 - 1.30. The best price is 3.17, while the market median is around 2.70, creating an estimated value gap of +10.2% across 15 bookmakers.",
+        "settled_at": "2026-05-14T03:25:10.779577+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     },
     {
         "pick_id": "b73a13452ef76ffb735cfa19a7872844",
@@ -4410,8 +4416,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 4,
-        "result": "pending",
-        "reasoning": "Charlotte FC is selected as a side-value position in USA Major League Soccer. The expected goals profile is 1.88 - 1.17. The best price is 2.21, while the market median is around 2.15, creating an estimated value gap of +9.5% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "Charlotte FC is selected as a side-value position in USA Major League Soccer. The expected goals profile is 1.88 - 1.17. The best price is 2.21, while the market median is around 2.15, creating an estimated value gap of +9.5% across 18 bookmakers.",
+        "settled_at": "2026-05-14T03:25:10.779592+02:00",
+        "settled_status": -1,
+        "final_score": "0:1"
     },
     {
         "pick_id": "7f98a735f1e2c9d244ad845070e8f07f",
