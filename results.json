@@ -4512,8 +4512,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Nykopings BIS is selected as a side-value position in Sweden Div 3 Mellersta. The expected goals profile is 2.35 - 1.03. The best price is 2.00, while the market median is around 1.82, creating an estimated value gap of +16.0% across 14 bookmakers."
+        "result": "win",
+        "reasoning": "Nykopings BIS is selected as a side-value position in Sweden Div 3 Mellersta. The expected goals profile is 2.35 - 1.03. The best price is 2.00, while the market median is around 1.82, creating an estimated value gap of +16.0% across 14 bookmakers.",
+        "settled_at": "2026-05-15T03:20:38.816221+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     },
     {
         "pick_id": "cb8ccf90e3cfe060557fe26a21fe3147",
@@ -4543,8 +4546,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Mjallby AIF - Hammarby rates as a higher-goal spot in the AI77 iSports model. The projected total is 4.05, supported by recent team scoring profiles and league baseline. The best available price is 1.92 versus a market median near 1.81, creating an estimated value gap of +24.5% across 18 bookmakers."
+        "result": "win",
+        "reasoning": "Mjallby AIF - Hammarby rates as a higher-goal spot in the AI77 iSports model. The projected total is 4.05, supported by recent team scoring profiles and league baseline. The best available price is 1.92 versus a market median near 1.81, creating an estimated value gap of +24.5% across 18 bookmakers.",
+        "settled_at": "2026-05-15T03:20:38.816262+02:00",
+        "settled_status": -1,
+        "final_score": "2:1"
     },
     {
         "pick_id": "d8c4444184c5681d556d4e8a25ac403d",
@@ -4574,8 +4580,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Trelleborgs FF - Jonkopings Sodra IF rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.21, supported by recent team scoring profiles and league baseline. The best available price is 1.95 versus a market median near 1.83, creating an estimated value gap of +11.0% across 14 bookmakers."
+        "result": "loss",
+        "reasoning": "Trelleborgs FF - Jonkopings Sodra IF rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.21, supported by recent team scoring profiles and league baseline. The best available price is 1.95 versus a market median near 1.83, creating an estimated value gap of +11.0% across 14 bookmakers.",
+        "settled_at": "2026-05-15T03:20:38.816276+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "3d183deb6a0f66a00a9082f2de213489",
@@ -4605,8 +4614,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Atvidabergs is selected as a side-value position in Sweden Division 1. The expected goals profile is 0.98 - 1.63. The best price is 2.71, while the market median is around 2.50, creating an estimated value gap of +16.2% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Atvidabergs is selected as a side-value position in Sweden Division 1. The expected goals profile is 0.98 - 1.63. The best price is 2.71, while the market median is around 2.50, creating an estimated value gap of +16.2% across 16 bookmakers.",
+        "settled_at": "2026-05-15T03:20:38.816287+02:00",
+        "settled_status": -1,
+        "final_score": "2:2"
     },
     {
         "pick_id": "4022079d5bb75c405657b78054024506",
@@ -4636,8 +4648,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Botev Vratsa - PFK Montana projects as a more controlled scoring environment. The model total is 1.70, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.85 versus a market median near 1.82, leaving an estimated value gap of +21.6% across 13 bookmakers."
+        "result": "win",
+        "reasoning": "Botev Vratsa - PFK Montana projects as a more controlled scoring environment. The model total is 1.70, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.85 versus a market median near 1.82, leaving an estimated value gap of +21.6% across 13 bookmakers.",
+        "settled_at": "2026-05-15T03:20:38.816299+02:00",
+        "settled_status": -1,
+        "final_score": "1:0"
     },
     {
         "pick_id": "1dc780de06f99432234750c394a9dfe5",
@@ -4667,8 +4682,11 @@
         "stake": 0.75,
         "stake_label": "Small Value",
         "stake_score": 3,
-        "result": "pending",
-        "reasoning": "Valencia is selected as a side-value position in Spanish La Liga. The expected goals profile is 1.58 - 1.02. The best price is 2.30, while the market median is around 2.17, creating an estimated value gap of +7.3% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "Valencia is selected as a side-value position in Spanish La Liga. The expected goals profile is 1.58 - 1.02. The best price is 2.30, while the market median is around 2.17, creating an estimated value gap of +7.3% across 18 bookmakers.",
+        "settled_at": "2026-05-15T03:20:38.816310+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "83c5eaa71ff19589920d84fcf1f40244",
@@ -4698,8 +4716,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Lokomotiv Sofia - Beroe Stara Zagora projects as a more controlled scoring environment. The model total is 2.37, with recent form and league tempo not fully supporting a high-event game. The best available price is 2.11 versus a market median near 1.88, leaving an estimated value gap of +10.2% across 16 bookmakers."
+        "result": "win",
+        "reasoning": "Lokomotiv Sofia - Beroe Stara Zagora projects as a more controlled scoring environment. The model total is 2.37, with recent form and league tempo not fully supporting a high-event game. The best available price is 2.11 versus a market median near 1.88, leaving an estimated value gap of +10.2% across 16 bookmakers.",
+        "settled_at": "2026-05-15T03:20:38.816319+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "57c30556c540818caed8956559c204f6",
@@ -4729,8 +4750,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 4,
-        "result": "pending",
-        "reasoning": "Al-Ettifaq is selected as a side-value position in Saudi Professional League. The expected goals profile is 1.56 - 1.44. The best price is 3.60, while the market median is around 3.45, creating an estimated value gap of +11.3% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "Al-Ettifaq is selected as a side-value position in Saudi Professional League. The expected goals profile is 1.56 - 1.44. The best price is 3.60, while the market median is around 3.45, creating an estimated value gap of +11.3% across 18 bookmakers.",
+        "settled_at": "2026-05-15T03:20:38.816333+02:00",
+        "settled_status": -1,
+        "final_score": "1:3"
     },
     {
         "pick_id": "f506f069b1ce803cad8f3b12d5821c80",
@@ -4760,7 +4784,10 @@
         "stake": 0.75,
         "stake_label": "Small Value",
         "stake_score": 2,
-        "result": "pending",
-        "reasoning": "Real Sociedad is selected as a side-value position in Spanish La Liga. The expected goals profile is 1.49 - 1.41. The best price is 3.35, while the market median is around 2.97, creating an estimated value gap of +7.4% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "Real Sociedad is selected as a side-value position in Spanish La Liga. The expected goals profile is 1.49 - 1.41. The best price is 3.35, while the market median is around 2.97, creating an estimated value gap of +7.4% across 18 bookmakers.",
+        "settled_at": "2026-05-15T03:20:38.816343+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     }
 ]
