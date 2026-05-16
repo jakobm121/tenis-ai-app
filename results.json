@@ -4818,8 +4818,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Balestier Khalsa FC is selected as a side-value position in Singapore League. The expected goals profile is 1.41 - 2.18. The best price is 3.50, while the market median is around 2.75, creating an estimated value gap of +27.1% across 13 bookmakers."
+        "result": "win",
+        "reasoning": "Balestier Khalsa FC is selected as a side-value position in Singapore League. The expected goals profile is 1.41 - 2.18. The best price is 3.50, while the market median is around 2.75, creating an estimated value gap of +27.1% across 13 bookmakers.",
+        "settled_at": "2026-05-16T02:14:12.357048+02:00",
+        "settled_status": -1,
+        "final_score": "3:4"
     },
     {
         "pick_id": "ce1936c31aaa3602ebf56a0ebee23d0c",
@@ -4849,8 +4852,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Shanghai Port is selected as a side-value position in Chinese Super League. The expected goals profile is 2.12 - 1.01. The best price is 2.02, while the market median is around 1.86, creating an estimated value gap of +13.7% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "Shanghai Port is selected as a side-value position in Chinese Super League. The expected goals profile is 2.12 - 1.01. The best price is 2.02, while the market median is around 1.86, creating an estimated value gap of +13.7% across 17 bookmakers.",
+        "settled_at": "2026-05-16T02:14:12.357092+02:00",
+        "settled_status": -1,
+        "final_score": "2:2"
     },
     {
         "pick_id": "12ae8c4f02eb46bddf54cc84e4fff6ac",
@@ -4880,8 +4886,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Shillong Lajong FC is selected as a side-value position in India League Division 1. The expected goals profile is 1.95 - 1.06. The best price is 2.80, while the market median is around 2.04, creating an estimated value gap of +22.2% across 15 bookmakers."
+        "result": "win",
+        "reasoning": "Shillong Lajong FC is selected as a side-value position in India League Division 1. The expected goals profile is 1.95 - 1.06. The best price is 2.80, while the market median is around 2.04, creating an estimated value gap of +22.2% across 15 bookmakers.",
+        "settled_at": "2026-05-16T02:14:12.357106+02:00",
+        "settled_status": -1,
+        "final_score": "4:2"
     },
     {
         "pick_id": "a8dcf420f0b109f84750caf08b79be36",
@@ -4911,8 +4920,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Maccabi Kabilio Jaffa is selected as a side-value position in Israel Leumit League. The expected goals profile is 0.78 - 1.89. The best price is 3.32, while the market median is around 3.01, creating an estimated value gap of +32.4% across 13 bookmakers."
+        "result": "loss",
+        "reasoning": "Maccabi Kabilio Jaffa is selected as a side-value position in Israel Leumit League. The expected goals profile is 0.78 - 1.89. The best price is 3.32, while the market median is around 3.01, creating an estimated value gap of +32.4% across 13 bookmakers.",
+        "settled_at": "2026-05-16T02:14:12.357117+02:00",
+        "settled_status": -1,
+        "final_score": "2:2"
     },
     {
         "pick_id": "7f34d632dda258d7e76b0b1c3d8ad0e5",
@@ -4942,8 +4954,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Mohammedan SC - Mumbai City projects as a more controlled scoring environment. The model total is 2.15, with recent form and league tempo not fully supporting a high-event game. The best available price is 2.10 versus a market median near 1.91, leaving an estimated value gap of +16.0% across 11 bookmakers."
+        "result": "loss",
+        "reasoning": "Mohammedan SC - Mumbai City projects as a more controlled scoring environment. The model total is 2.15, with recent form and league tempo not fully supporting a high-event game. The best available price is 2.10 versus a market median near 1.91, leaving an estimated value gap of +16.0% across 11 bookmakers.",
+        "settled_at": "2026-05-16T02:14:12.357131+02:00",
+        "settled_status": -1,
+        "final_score": "0:4"
     },
     {
         "pick_id": "0c1bb30d47a4562ee1ca51d65d35da84",
@@ -4973,8 +4988,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Fleury Merogis U.S. is selected as a side-value position in Championnat National. The expected goals profile is 1.62 - 1.00. The best price is 2.85, while the market median is around 2.40, creating an estimated value gap of +16.0% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Fleury Merogis U.S. is selected as a side-value position in Championnat National. The expected goals profile is 1.62 - 1.00. The best price is 2.85, while the market median is around 2.40, creating an estimated value gap of +16.0% across 16 bookmakers.",
+        "settled_at": "2026-05-16T02:14:12.357142+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     },
     {
         "pick_id": "a57877a71a8472f67756686f75bd52b2",
@@ -5004,8 +5022,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Caen is selected as a side-value position in Championnat National. The expected goals profile is 0.97 - 1.67. The best price is 2.32, while the market median is around 2.11, creating an estimated value gap of +10.9% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Caen is selected as a side-value position in Championnat National. The expected goals profile is 0.97 - 1.67. The best price is 2.32, while the market median is around 2.11, creating an estimated value gap of +10.9% across 16 bookmakers.",
+        "settled_at": "2026-05-16T02:14:12.357152+02:00",
+        "settled_status": -1,
+        "final_score": "3:1"
     },
     {
         "pick_id": "69506ca70ccf4c561f2e8dacaa123ffa",
@@ -5035,8 +5056,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "UC Dublin is selected as a side-value position in Ireland First Division. The expected goals profile is 1.58 - 0.72. The best price is 2.30, while the market median is around 2.18, creating an estimated value gap of +13.5% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "UC Dublin is selected as a side-value position in Ireland First Division. The expected goals profile is 1.58 - 0.72. The best price is 2.30, while the market median is around 2.18, creating an estimated value gap of +13.5% across 16 bookmakers.",
+        "settled_at": "2026-05-16T02:14:12.357164+02:00",
+        "settled_status": -1,
+        "final_score": "3:4"
     },
     {
         "pick_id": "5313de32756c2b10706789cc01b78a2f",
@@ -5066,8 +5090,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Royal Antwerp is selected as a side-value position in Belgian Pro League. The expected goals profile is 0.92 - 1.55. The best price is 2.84, while the market median is around 2.54, creating an estimated value gap of +16.7% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "Royal Antwerp is selected as a side-value position in Belgian Pro League. The expected goals profile is 0.92 - 1.55. The best price is 2.84, while the market median is around 2.54, creating an estimated value gap of +16.7% across 18 bookmakers.",
+        "settled_at": "2026-05-16T02:14:12.357176+02:00",
+        "settled_status": -1,
+        "final_score": "3:0"
     },
     {
         "pick_id": "5bb01ae3b28f3aedb143f14ceb767f7b",
@@ -5097,8 +5124,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Waterford United - Derry City projects as a more controlled scoring environment. The model total is 2.25, with recent form and league tempo not fully supporting a high-event game. The best available price is 2.04 versus a market median near 1.90, leaving an estimated value gap of +11.8% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Waterford United - Derry City projects as a more controlled scoring environment. The model total is 2.25, with recent form and league tempo not fully supporting a high-event game. The best available price is 2.04 versus a market median near 1.90, leaving an estimated value gap of +11.8% across 16 bookmakers.",
+        "settled_at": "2026-05-16T02:14:12.357187+02:00",
+        "settled_status": -1,
+        "final_score": "2:2"
     },
     {
         "pick_id": "d317928a1d80691bd41b7cdd85c30499",
@@ -5128,8 +5158,11 @@
         "stake": 1.0,
         "stake_label": "Standard",
         "stake_score": 5,
-        "result": "pending",
-        "reasoning": "Olancho FC is selected as a side-value position in Liga Nacional de Honduras. The expected goals profile is 0.83 - 1.41. The best price is 2.51, while the market median is around 2.30, creating an estimated value gap of +12.1% across 11 bookmakers."
+        "result": "loss",
+        "reasoning": "Olancho FC is selected as a side-value position in Liga Nacional de Honduras. The expected goals profile is 0.83 - 1.41. The best price is 2.51, while the market median is around 2.30, creating an estimated value gap of +12.1% across 11 bookmakers.",
+        "settled_at": "2026-05-16T02:14:12.357196+02:00",
+        "settled_status": -1,
+        "final_score": "1:1"
     },
     {
         "pick_id": "2ab6c5c68fde4528c02dd050caa34ef2",
