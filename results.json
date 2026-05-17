@@ -5223,8 +5223,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Wuhan Three Towns is selected as a side-value position in Chinese Super League. The expected goals profile is 1.77 - 0.85. The best price is 2.30, while the market median is around 2.15, creating an estimated value gap of +16.3% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "Wuhan Three Towns is selected as a side-value position in Chinese Super League. The expected goals profile is 1.77 - 0.85. The best price is 2.30, while the market median is around 2.15, creating an estimated value gap of +16.3% across 17 bookmakers.",
+        "settled_at": "2026-05-17T02:13:55.715360+02:00",
+        "settled_status": -1,
+        "final_score": "2:2"
     },
     {
         "pick_id": "b56fd531ed8a06377a0eff77d45b1cd5",
@@ -5254,8 +5257,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Bengaluru is selected as a side-value position in Indian Super League. The expected goals profile is 0.91 - 1.73. The best price is 2.40, while the market median is around 2.23, creating an estimated value gap of +12.6% across 17 bookmakers."
+        "result": "win",
+        "reasoning": "Bengaluru is selected as a side-value position in Indian Super League. The expected goals profile is 0.91 - 1.73. The best price is 2.40, while the market median is around 2.23, creating an estimated value gap of +12.6% across 17 bookmakers.",
+        "settled_at": "2026-05-17T02:13:55.715401+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     },
     {
         "pick_id": "dad9c8c5b594b2449bc196b6c5029b83",
@@ -5285,8 +5291,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Radnik Sesvete is selected as a side-value position in Croatia 2.HNL. The expected goals profile is 1.60 - 0.72. The best price is 2.25, while the market median is around 2.16, creating an estimated value gap of +13.8% across 12 bookmakers."
+        "result": "loss",
+        "reasoning": "Radnik Sesvete is selected as a side-value position in Croatia 2.HNL. The expected goals profile is 1.60 - 0.72. The best price is 2.25, while the market median is around 2.16, creating an estimated value gap of +13.8% across 12 bookmakers.",
+        "settled_at": "2026-05-17T02:13:55.715414+02:00",
+        "settled_status": -1,
+        "final_score": "1:2"
     },
     {
         "pick_id": "3d1f99921b26b066b73a33e803ed1208",
@@ -5316,8 +5325,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Motor Lublin - Cracovia Krakow projects as a more controlled scoring environment. The model total is 2.12, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.97 versus a market median near 1.94, leaving an estimated value gap of +13.6% across 16 bookmakers."
+        "result": "loss",
+        "reasoning": "Motor Lublin - Cracovia Krakow projects as a more controlled scoring environment. The model total is 2.12, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.97 versus a market median near 1.94, leaving an estimated value gap of +13.6% across 16 bookmakers.",
+        "settled_at": "2026-05-17T02:13:55.715427+02:00",
+        "settled_status": -1,
+        "final_score": "3:3"
     },
     {
         "pick_id": "1da1c26741973ce89b9e723827cfcb42",
@@ -5347,8 +5359,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Westerlo is selected as a side-value position in Belgian Pro League. The expected goals profile is 1.05 - 1.51. The best price is 3.60, while the market median is around 3.25, creating an estimated value gap of +21.9% across 18 bookmakers."
+        "result": "win",
+        "reasoning": "Westerlo is selected as a side-value position in Belgian Pro League. The expected goals profile is 1.05 - 1.51. The best price is 3.60, while the market median is around 3.25, creating an estimated value gap of +21.9% across 18 bookmakers.",
+        "settled_at": "2026-05-17T02:13:55.715436+02:00",
+        "settled_status": -1,
+        "final_score": "0:1"
     },
     {
         "pick_id": "b3fff0b97185bdd06eda33d2b0a04d22",
@@ -5378,8 +5393,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "FC Arouca is selected as a side-value position in Liga Portugal 1. The expected goals profile is 1.70 - 1.17. The best price is 3.25, while the market median is around 2.85, creating an estimated value gap of +20.1% across 18 bookmakers."
+        "result": "win",
+        "reasoning": "FC Arouca is selected as a side-value position in Liga Portugal 1. The expected goals profile is 1.70 - 1.17. The best price is 3.25, while the market median is around 2.85, creating an estimated value gap of +20.1% across 18 bookmakers.",
+        "settled_at": "2026-05-17T02:13:55.715445+02:00",
+        "settled_status": -1,
+        "final_score": "3:1"
     },
     {
         "pick_id": "d6aa6b7d3533e312ab6ded055ef165dc",
@@ -5409,8 +5427,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "Habitpharm Javor is selected as a side-value position in Serbian Superliga. The expected goals profile is 1.51 - 0.73. The best price is 2.55, while the market median is around 1.82, creating an estimated value gap of +16.6% across 17 bookmakers."
+        "result": "loss",
+        "reasoning": "Habitpharm Javor is selected as a side-value position in Serbian Superliga. The expected goals profile is 1.51 - 0.73. The best price is 2.55, while the market median is around 1.82, creating an estimated value gap of +16.6% across 17 bookmakers.",
+        "settled_at": "2026-05-17T02:13:55.715455+02:00",
+        "settled_status": -1,
+        "final_score": "2:4"
     },
     {
         "pick_id": "841e5d81ae93f7b455534e2742b762a8",
@@ -5440,8 +5461,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "FK Spartak Zlatibor Voda - IMT Novi Beograd rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.05, supported by recent team scoring profiles and league baseline. The best available price is 2.10 versus a market median near 1.85, creating an estimated value gap of +11.2% across 13 bookmakers."
+        "result": "loss",
+        "reasoning": "FK Spartak Zlatibor Voda - IMT Novi Beograd rates as a higher-goal spot in the AI77 iSports model. The projected total is 3.05, supported by recent team scoring profiles and league baseline. The best available price is 2.10 versus a market median near 1.85, creating an estimated value gap of +11.2% across 13 bookmakers.",
+        "settled_at": "2026-05-17T02:13:55.715468+02:00",
+        "settled_status": -1,
+        "final_score": "0:1"
     },
     {
         "pick_id": "600ea033cc262d2485b81225efeca870",
@@ -5471,8 +5495,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Villa Dalmine is selected as a side-value position in Argentina Primera B Metropolitana. The expected goals profile is 0.55 - 1.38. The best price is 2.42, while the market median is around 2.30, creating an estimated value gap of +15.3% across 13 bookmakers."
+        "result": "loss",
+        "reasoning": "Villa Dalmine is selected as a side-value position in Argentina Primera B Metropolitana. The expected goals profile is 0.55 - 1.38. The best price is 2.42, while the market median is around 2.30, creating an estimated value gap of +15.3% across 13 bookmakers.",
+        "settled_at": "2026-05-17T02:13:55.715479+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "840745ca0b12c4d8e81d02a42c40efe7",
@@ -5502,8 +5529,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 6,
-        "result": "pending",
-        "reasoning": "Arsenal de Sarandi is selected as a side-value position in Argentina Primera B Metropolitana. The expected goals profile is 0.59 - 1.32. The best price is 2.45, while the market median is around 2.15, creating an estimated value gap of +13.8% across 12 bookmakers."
+        "result": "loss",
+        "reasoning": "Arsenal de Sarandi is selected as a side-value position in Argentina Primera B Metropolitana. The expected goals profile is 0.59 - 1.32. The best price is 2.45, while the market median is around 2.15, creating an estimated value gap of +13.8% across 12 bookmakers.",
+        "settled_at": "2026-05-17T02:13:55.715490+02:00",
+        "settled_status": -1,
+        "final_score": "0:0"
     },
     {
         "pick_id": "f069fdc19599bac1923c5c25248d1620",
@@ -5533,8 +5563,11 @@
         "stake": 1.5,
         "stake_label": "Top Rated",
         "stake_score": 8,
-        "result": "pending",
-        "reasoning": "O.Higgins is selected as a side-value position in Chile Primera Division. The expected goals profile is 1.76 - 0.82. The best price is 2.34, while the market median is around 1.83, creating an estimated value gap of +16.8% across 18 bookmakers."
+        "result": "loss",
+        "reasoning": "O.Higgins is selected as a side-value position in Chile Primera Division. The expected goals profile is 1.76 - 0.82. The best price is 2.34, while the market median is around 1.83, creating an estimated value gap of +16.8% across 18 bookmakers.",
+        "settled_at": "2026-05-17T02:13:55.715499+02:00",
+        "settled_status": -1,
+        "final_score": "0:1"
     },
     {
         "pick_id": "d1f5c554f877d9d84fb5482384c7e61d",
@@ -5564,8 +5597,11 @@
         "stake": 1.25,
         "stake_label": "Strong",
         "stake_score": 7,
-        "result": "pending",
-        "reasoning": "Universidad Catolica - Delfin SC projects as a more controlled scoring environment. The model total is 2.02, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.95 versus a market median near 1.84, leaving an estimated value gap of +15.9% across 11 bookmakers."
+        "result": "loss",
+        "reasoning": "Universidad Catolica - Delfin SC projects as a more controlled scoring environment. The model total is 2.02, with recent form and league tempo not fully supporting a high-event game. The best available price is 1.95 versus a market median near 1.84, leaving an estimated value gap of +15.9% across 11 bookmakers.",
+        "settled_at": "2026-05-17T02:13:55.715507+02:00",
+        "settled_status": -1,
+        "final_score": "2:2"
     },
     {
         "pick_id": "593c546fc44e07fccf178b8bcade6f7a",
